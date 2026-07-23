@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AssetProgram {
+  id          String        @id @default(cuid())
+  code        String        @unique // e.g. CP (Copper Powder)
+  name        String
+  metal       String
+  purity      String
+  description String?
+  status      String        @default("active")
+  records     AssetRecord[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model AssetRecord {
+  id        String       @id @default(cuid())
+  assetId   String       @unique // e.g. RC-CP-2024-0001
+  program   AssetProgram @relation(fields: [programId], references: [id])
+  programId String
+  batch     String?
+  weightKg  Float?
+  status    String       @default("registered")
+  passports Passport[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Passport {
+  id            String      @id @default(cuid())
+  passportId    String      @unique // e.g. RC-CP-2024-0001
+  assetRecord   AssetRecord @relation(fields: [assetRecordId], references: [id])
+  assetRecordId String
+  template      String      @default("Illustrative")
+  purity        String?
+  status        String      @default("draft")
+  issuedAt      DateTime?
+  createdAt     DateTime    @default(now())
+}
+
+model WaitlistEntry {
+  id           String   @id @default(cuid())
+  fullName     String
+  email        String   @unique
+  investorType String
+  consent      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model ChainEvent {
+  id          String   @id @default(cuid())
+  txHash      String
+  logIndex    Int
+  eventName   String
+  blockNumber Int
+  payload     Json
+  createdAt   DateTime @default(now())
+
+  @@unique([txHash, logIndex])
+}
+
+model TokenomicsConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique @default("default")
+  data      Json
+  updatedAt DateTime @updatedAt
+}

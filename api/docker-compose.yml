@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: reservechain
+      POSTGRES_PASSWORD: reservechain
+      POSTGRES_DB: reservechain
+    ports:
+      - "5432:5432"
+    volumes:
+      - reservechain_pg:/var/lib/postgresql/data
+
+volumes:
+  reservechain_pg:
