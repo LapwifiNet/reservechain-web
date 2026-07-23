@@ -1,0 +1,162 @@
+{
+  "nav": {
+    "home": "Home",
+    "copper": "Copper Powder",
+    "nickel": "Nickel Wire",
+    "passport": "Asset Passport",
+    "waitlist": "Waitlist",
+    "cta": "Join Waitlist"
+  },
+  "disclosure": {
+    "label": "Important notice",
+    "full": "ReserveChain is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
+    "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website."
+  },
+  "home": {
+    "kicker": "Swiss Industrial Metals · RWA Tokenization · In Development",
+    "title": "Building the Infrastructure for Tokenized Industrial Metals",
+    "subtitle": "ReserveChain is developing an institutional platform intended to connect documented industrial-metal assets with digital tokenization, verification, custody and physical-redemption infrastructure. The corporate, legal, custody, asset-verification and technical arrangements are currently being finalized.",
+    "note": "Swiss corporate and issuance structure in development.",
+    "cta": {
+      "primary": "Join the Project Waitlist",
+      "model": "Explore the Proposed Model",
+      "programs": "View Industrial Metal Programs",
+      "enterprise": "Request Enterprise Information"
+    },
+    "trust": [
+      "Industrial Asset Verification Framework",
+      "Custody Structure in Development",
+      "Reserve Reconciliation Architecture",
+      "Planned ERC-20 Infrastructure"
+    ],
+    "hiw": {
+      "kicker": "Proposed Model",
+      "title": "How ReserveChain Proposes to Work",
+      "subtitle": "Subject to final legal, custody, asset-verification and technical confirmation.",
+      "register": {
+        "title": "1. Document & Register",
+        "body": "Industrial-metal lots are documented in the registry with certificates, custody and valuation records."
+      },
+      "verify": {
+        "title": "2. Verify & Attest",
+        "body": "Independent verification, custody confirmation and reserve reconciliation are prepared before any activation."
+      },
+      "tokenize": {
+        "title": "3. Tokenize (Planned)",
+        "body": "A configurable ERC-20 infrastructure is built and tested on testnet; mainnet only after written authorization."
+      }
+    }
+  },
+  "program": {
+    "specs": "Technical Specifications (Illustrative)",
+    "status": "Current Status",
+    "copper": {
+      "kicker": "Copper Powder",
+      "title": "99.9999% Purity Copper Powder Program"
+    },
+    "nickel": {
+      "kicker": "Nickel Wire",
+      "title": "99.9807% Purity Nickel Wire Program"
+    },
+    "f": {
+      "material": "Material",
+      "purity": "Purity",
+      "coa": "IGAS Certificate",
+      "weight": "Net Weight",
+      "packaging": "Packaging",
+      "storage": "Storage",
+      "diameter": "Diameter"
+    },
+    "s": {
+      "lab": "Lab Verification",
+      "ownership": "Ownership Docs",
+      "custody": "Custody",
+      "valuation": "Valuation",
+      "reserve": "Reserve Status",
+      "tokenization": "Tokenization",
+      "availability": "Availability"
+    },
+    "v": {
+      "pending": "Pending",
+      "pendingVerification": "Pending verification",
+      "pendingCustody": "Pending custody arrangements",
+      "notIssued": "Not issued",
+      "notForSale": "Not for sale"
+    },
+    "tag": {
+      "illustrative": "ILLUSTRATIVE"
+    }
+  },
+  "passport": {
+    "kicker": "Digital Asset Passport",
+    "details": "Asset Details",
+    "reserve": "Reserve & Token Status",
+    "docsNote": "No documents available — pending verification and upload.",
+    "f": {
+      "material": "Material",
+      "program": "Asset Program",
+      "purity": "Purity",
+      "lot": "Lot",
+      "weight": "Net Weight",
+      "lab": "Lab Verification",
+      "ownership": "Ownership",
+      "valuation": "Valuation",
+      "insurance": "Insurance",
+      "availability": "Availability"
+    },
+    "s": {
+      "custody": "Custody",
+      "reserve": "Reserve Status",
+      "tokenization": "Tokenization",
+      "contract": "Contract Address",
+      "image": "Image"
+    },
+    "v": {
+      "pending": "Pending",
+      "notIssued": "Not issued",
+      "notForSale": "Not offered for sale",
+      "notDeployed": "Not deployed",
+      "pendingPhoto": "Verified photography pending"
+    },
+    "tag": {
+      "illustrative": "Illustrative",
+      "reservePending": "Reserve: Pending",
+      "tokenNotIssued": "Token: Not issued",
+      "custodyPending": "Custody: Pending"
+    }
+  },
+  "waitlist": {
+    "title": "Join the Project Waitlist",
+    "subtitle": "Registration of interest only. No investment, allocation or reservation is implied.",
+    "steps": {
+      "1": "Your Details",
+      "2": "Eligibility & Consent",
+      "3": "Confirmation"
+    },
+    "f": {
+      "name": "Full name",
+      "email": "Email",
+      "org": "Organization",
+      "interest": "Area of interest"
+    },
+    "eligibilityNotice": "Eligibility Notice: Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. No wallet connection or payment is required or permitted at this stage.",
+    "c": {
+      "notInvestment": "I understand that registration does not constitute an investment or reservation.",
+      "notRestricted": "I am not located in a restricted jurisdiction.",
+      "privacy": "I have read and accept the Privacy Policy."
+    },
+    "next": "Continue",
+    "back": "Back",
+    "submit": "Continue to Confirmation",
+    "saving": "Saving…",
+    "error": "Something went wrong. Please try again.",
+    "done": {
+      "title": "You're on the waitlist",
+      "body": "Thank you for registering your interest. We will contact you with project updates. No investment or reservation has been made."
+    }
+  },
+  "footer": {
+    "tagline": "Institutional infrastructure for tokenized industrial metals (in development).",
+    "rights": "© 2026 ReserveChain. Swiss corporate structure in development."
+  }
+}
