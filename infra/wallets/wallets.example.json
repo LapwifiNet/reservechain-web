@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "owner": "Replace me",
+    "network": "sepolia",
+    "notes": "Template only. Do not commit real addresses or private keys."
+  },
+  "safes": {
+    "admin": {
+      "name": "Admin Safe",
+      "address": "0x0000000000000000000000000000000000000000",
+      "threshold": 1,
+      "owners": []
+    },
+    "treasury": {
+      "name": "Treasury Safe",
+      "address": "0x0000000000000000000000000000000000000000",
+      "threshold": 1,
+      "owners": []
+    }
+  },
+  "operators": [
+    {
+      "name": "Operator placeholder",
+      "role": "ops",
+      "address": "0x0000000000000000000000000000000000000000"
+    }
+  ],
+  "signers": []
+}

@@ -5,4 +5,5 @@
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
+infra/wallets/wallets.json
 data/waitlist.json
