@@ -1,0 +1,33 @@
+{
+  "_note": "ILLUSTRATIVE ONLY — placeholder values for build/testnet. Final supply, allocations, treasury and reserve parameters require written authorization from the issuer before any mainnet deployment (Build Plan P20). Do not hard-code these values; they are configured at deploy time.",
+  "token": {
+    "name": "ReserveChain Metals Token",
+    "symbol": "RCM",
+    "decimals": 18,
+    "cap": "100000000",
+    "initialMint": "0",
+    "network": "sepolia",
+    "mainnetAllowed": false
+  },
+  "allocations": [
+    { "bucket": "Reserve-backed circulating", "percent": 60 },
+    { "bucket": "Treasury", "percent": 20 },
+    { "bucket": "Ecosystem & operations", "percent": 12 },
+    { "bucket": "Team (vested)", "percent": 8 }
+  ],
+  "reserve": {
+    "targetReserveRatio": 1.0,
+    "unit": "metal-kg-equivalent",
+    "_note": "Target 1:1 reserve backing — illustrative; actual ratio set by issuer + attestor."
+  },
+  "fees": {
+    "transferFeeBps": 0,
+    "_note": "No transfer fee by default; the token contract intentionally has no transfer tax."
+  },
+  "roles": {
+    "defaultAdmin": "Gnosis Safe multisig",
+    "minter": "multisig or controlled minting service",
+    "pauser": "multisig",
+    "redeemer": "redemption service (inactive until authorized)"
+  }
+}
