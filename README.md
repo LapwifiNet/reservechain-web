@@ -1,4 +1,4 @@
-# ReserveChain.io — Public Website (Contest Working Draft)
+# ReserveChain
 
 Hosted working draft covering contest deliverables **P1–P2**: public website + verbatim
 prelaunch disclosure + Copper Powder / Nickel Wire program pages + a sample Digital Asset
