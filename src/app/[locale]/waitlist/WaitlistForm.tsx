@@ -79,7 +79,7 @@ export function WaitlistForm() {
   );
 }
 
-function Field({ label, value, onChange, type = 'text', required }) {
+function Field({ label, value, onChange, type = 'text', required = false }: { label: string; value: string; onChange: (v: string) => void; type?: string; required?: boolean }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs text-text2">{label}{required && ' *'}</span>
@@ -88,7 +88,7 @@ function Field({ label, value, onChange, type = 'text', required }) {
   );
 }
 
-function Check({ label, checked, onChange }) {
+function Check({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <label className="flex items-start gap-3 text-sm">
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="mt-1" />
