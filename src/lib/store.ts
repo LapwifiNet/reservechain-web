@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import os from 'os';
 import path from 'path';
 
 // Waitlist store with two backends, selected at runtime:
@@ -46,7 +47,11 @@ async function getPool() {
 }
 
 // ----- JSON file backend (local dev) -----
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.WAITLIST_DIR
+  ? process.env.WAITLIST_DIR
+  : process.env.VERCEL
+    ? path.join(os.tmpdir(), 'reservechain-waitlist')
+    : path.join(process.cwd(), 'data');
 const FILE = path.join(DATA_DIR, 'waitlist.json');
 
 async function readFileAll(): Promise<WaitlistEntry[]> {
