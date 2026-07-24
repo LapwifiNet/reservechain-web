@@ -1,7 +1,16 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 
 const prisma = new PrismaClient();
+
+function generateRandomPassword(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+  let password = '';
+  for (let i = 0; i < 32; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+}
 
 async function main() {
   // Asset programs
@@ -95,40 +104,64 @@ async function main() {
     },
   });
 
-  // Admin users (WARNING: change these passwords before any non-local deploy)
-  const adminPassword = await bcrypt.hash('admin123', 10);
-  const compliancePassword = await bcrypt.hash('compliance123', 10);
-  const viewerPassword = await bcrypt.hash('viewer123', 10);
+  // Admin users
+  // Refuse to seed admin users in production
+  if (process.env.NODE_ENV === 'production') {
+    // eslint-disable-next-line no-console
+    console.log('Skipping admin user seed in production environment');
+  } else {
+    const adminPassword = process.env.SEED_ADMIN_PASSWORD || generateRandomPassword();
+    const compliancePassword = process.env.SEED_COMPLIANCE_PASSWORD || generateRandomPassword();
+    const viewerPassword = process.env.SEED_VIEWER_PASSWORD || generateRandomPassword();
 
-  await prisma.adminUser.upsert({
-    where: { email: 'admin@reservechain.local' },
-    update: {},
-    create: {
-      email: 'admin@reservechain.local',
-      passwordHash: adminPassword,
-      role: 'admin',
-    },
-  });
+    // Print generated passwords if they were not provided via environment
+    if (!process.env.SEED_ADMIN_PASSWORD) {
+      // eslint-disable-next-line no-console
+      console.log(`Generated admin password: ${adminPassword}`);
+    }
+    if (!process.env.SEED_COMPLIANCE_PASSWORD) {
+      // eslint-disable-next-line no-console
+      console.log(`Generated compliance password: ${compliancePassword}`);
+    }
+    if (!process.env.SEED_VIEWER_PASSWORD) {
+      // eslint-disable-next-line no-console
+      console.log(`Generated viewer password: ${viewerPassword}`);
+    }
 
-  await prisma.adminUser.upsert({
-    where: { email: 'compliance@reservechain.local' },
-    update: {},
-    create: {
-      email: 'compliance@reservechain.local',
-      passwordHash: compliancePassword,
-      role: 'compliance',
-    },
-  });
+    const adminPasswordHash = await bcryptjs.hash(adminPassword, 10);
+    const compliancePasswordHash = await bcryptjs.hash(compliancePassword, 10);
+    const viewerPasswordHash = await bcryptjs.hash(viewerPassword, 10);
 
-  await prisma.adminUser.upsert({
-    where: { email: 'viewer@reservechain.local' },
-    update: {},
-    create: {
-      email: 'viewer@reservechain.local',
-      passwordHash: viewerPassword,
-      role: 'viewer',
-    },
-  });
+    await prisma.adminUser.upsert({
+      where: { email: 'admin@reservechain.local' },
+      update: {},
+      create: {
+        email: 'admin@reservechain.local',
+        passwordHash: adminPasswordHash,
+        role: 'ADMIN',
+      },
+    });
+
+    await prisma.adminUser.upsert({
+      where: { email: 'compliance@reservechain.local' },
+      update: {},
+      create: {
+        email: 'compliance@reservechain.local',
+        passwordHash: compliancePasswordHash,
+        role: 'COMPLIANCE',
+      },
+    });
+
+    await prisma.adminUser.upsert({
+      where: { email: 'viewer@reservechain.local' },
+      update: {},
+      create: {
+        email: 'viewer@reservechain.local',
+        passwordHash: viewerPasswordHash,
+        role: 'VIEWER',
+      },
+    });
+  }
 
   // KYC cases (illustrative)
   const kycCases = [

@@ -37,10 +37,18 @@ curl http://localhost:4000/api/dashboard/stats \
 ### 2. Service Token (for server-to-server calls)
 The admin console uses a service token for authentication. Set `SERVICE_API_TOKEN` in both the API `.env` and admin console `.env`.
 
-**Default seeded users (WARNING: change passwords before any non-local deploy):**
-- Admin: `admin@reservechain.local` / `admin123`
-- Compliance: `compliance@reservechain.local` / `compliance123`
-- Viewer: `viewer@reservechain.local` / `viewer123`
+**Seeded admin users:**
+The seed script creates three admin users with emails:
+- `admin@reservechain.local` (role: admin)
+- `compliance@reservechain.local` (role: compliance)
+- `viewer@reservechain.local` (role: viewer)
+
+Passwords are read from environment variables or generated randomly:
+- `SEED_ADMIN_PASSWORD`: Password for admin user (optional, will generate if unset)
+- `SEED_COMPLIANCE_PASSWORD`: Password for compliance user (optional, will generate if unset)
+- `SEED_VIEWER_PASSWORD`: Password for viewer user (optional, will generate if unset)
+
+If any password is not set, a random 32-character password will be generated and printed to stdout once. Admin user seeding is skipped entirely in production (`NODE_ENV=production`).
 
 ## Endpoints
 

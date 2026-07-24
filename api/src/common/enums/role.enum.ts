@@ -1,7 +1,7 @@
 export enum Role {
-  ADMIN = "admin",
-  COMPLIANCE = "compliance",
-  VIEWER = "viewer",
+  ADMIN = 'ADMIN',
+  COMPLIANCE = 'COMPLIANCE',
+  VIEWER = 'VIEWER',
 }
 
 export type AuthenticatedUser = {

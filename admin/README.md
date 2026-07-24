@@ -50,7 +50,7 @@ banner and an empty state instead of crashing.
 - Testnet demo only. All asset purities, tokenomics and passport figures are **illustrative**.
 - Sensitive surfaces (Proof-of-Reserves, KYC/KYB, Redemption, Audit) are intentionally **inactive**
   and gated behind future phases (P6/P11/P12/P18) plus written authorization.
-- Admin endpoints are **not** authenticated in this scaffold \u2014 add auth + RBAC (P6/P9) before exposing.
+- Admin endpoints require authentication via JWT or service token (P6 auth + RBAC).
 
 ## CI
 
