@@ -95,3 +95,25 @@ model KycCase {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
+
+model AuditEvent {
+  id          String    @id @default(cuid())
+  sequence    Int       @default(autoincrement())
+  actorId     String?
+  actorEmail  String?
+  actorRole   String?
+  action      String
+  resourceType String?
+  resourceId  String?
+  metadata    Json?
+  ipAddress   String?
+  userAgent   String?
+  prevHash    String?
+  hash        String?
+  createdAt   DateTime  @default(now())
+
+  @@index([sequence])
+  @@index([actorId])
+  @@index([resourceType, resourceId])
+  @@index([createdAt])
+}

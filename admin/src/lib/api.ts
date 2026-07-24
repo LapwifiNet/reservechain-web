@@ -5,6 +5,8 @@ import type {
   Passport,
   Tokenomics,
   WaitlistEntry,
+  AuditListResponse,
+  ChainVerificationResult,
 } from "./types";
 
 const BASE = process.env.API_BASE_URL || "http://127.0.0.1:4000/api";
@@ -43,4 +45,24 @@ export const api = {
   passports: () => get<Passport[]>("/passports"),
   waitlist: () => get<WaitlistEntry[]>("/waitlist"),
   tokenomics: () => get<Tokenomics>("/tokenomics"),
+  audit: (params: {
+    skip?: number;
+    take?: number;
+    actorId?: string;
+    action?: string;
+    resourceType?: string;
+    fromDate?: string;
+    toDate?: string;
+  }) => {
+    const searchParams = new URLSearchParams();
+    if (params.skip !== undefined) searchParams.append("skip", params.skip.toString());
+    if (params.take !== undefined) searchParams.append("take", params.take.toString());
+    if (params.actorId) searchParams.append("actorId", params.actorId);
+    if (params.action) searchParams.append("action", params.action);
+    if (params.resourceType) searchParams.append("resourceType", params.resourceType);
+    if (params.fromDate) searchParams.append("fromDate", params.fromDate);
+    if (params.toDate) searchParams.append("toDate", params.toDate);
+    return get<AuditListResponse>(`/audit?${searchParams.toString()}`);
+  },
+  auditVerify: () => get<ChainVerificationResult>("/audit/verify"),
 };

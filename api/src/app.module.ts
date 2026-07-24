@@ -12,6 +12,9 @@ import { SensitiveModule } from './sensitive/sensitive.module';
 import { ChainSyncModule } from './chain-sync/chain-sync.module';
 import { AuthModule } from './auth/auth.module';
 import { KycModule } from './kyc/kyc.module';
+import { AuditModule } from './audit/audit.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AuditInterceptor } from './audit/audit.interceptor';
 
 @Module({
   imports: [
@@ -28,6 +31,13 @@ import { KycModule } from './kyc/kyc.module';
     ChainSyncModule,
     AuthModule,
     KycModule,
+    AuditModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AuditInterceptor,
+    },
   ],
 })
 export class AppModule {}
