@@ -1,6 +1,6 @@
-# ReserveChain API (P6 — Auth + RBAC + KYC)
+# ReserveChain API (P9 — Auth + RBAC + KYC + Audit Log)
 
-NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Sensitive modules (Proof-of-Reserves, redemption) are present but **inactive**.
+NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, tamper-evident audit logging, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Sensitive modules (Proof-of-Reserves, redemption) are present but **inactive**.
 
 ## Requirements
 - Node 20+, Docker (for Postgres), and network access for `npm install`.
@@ -65,6 +65,8 @@ The admin console uses a service token for authentication. Set `SERVICE_API_TOKE
 | POST | `/api/kyc/cases` | Create new KYC case | admin, compliance |
 | POST | `/api/kyc/cases/:id/review` | Review KYC case (status transition) | admin, compliance |
 | POST | `/api/kyc/cases/:id/screen` | **Stub** sanctions screening | admin, compliance |
+| GET | `/api/audit` | List audit events (paginated, filterable) | admin, compliance |
+| GET | `/api/audit/verify` | Verify audit chain integrity | admin, compliance |
 | GET | `/api/proof-of-reserves` | **Inactive** → 501 | gated |
 | POST | `/api/redemption` | **Inactive** → 501 | gated |
 
@@ -81,6 +83,19 @@ The admin console uses a service token for authentication. Set `SERVICE_API_TOKE
 The KYC module provides internal compliance surface for managing KYC/KYB cases. All endpoints require authentication and admin/compliance roles.
 
 **Screening stub:** `POST /api/kyc/cases/:id/screen` returns a deterministic stub response marked as "Illustrative". Live sanctions/PEP/adverse-media screening is **inactive** pending written authorization and provider contracts.
+
+## Audit Log (P9)
+
+The audit module provides tamper-evident logging of all mutating requests on role-guarded routes. All audit events are append-only with chain-based integrity verification.
+
+**Features:**
+- Automatic recording of POST, PATCH, PUT, DELETE requests on role-guarded routes
+- Tamper-evident chain using SHA-256 hashing over canonical serialization
+- PII protection: passwords, tokens, document contents, and email addresses are redacted
+- Paginated listing with filters (actor, action, resourceType, date range)
+- Chain verification endpoint to detect tampering
+
+**Append-only enforcement:** No update or delete routes exist for audit records. This is a hard requirement for compliance.
 
 ## Chain sync (testnet only)
 Disabled by default. To enable on Sepolia, set in `.env`:
@@ -99,6 +114,7 @@ The worker refuses to run against Ethereum mainnet (chainId 1) — both the decl
 - All tokenomics/asset figures are illustrative and clearly labeled.
 - KYC screening is a stub; live provider integration is inactive pending authorization.
 - Personal data (waitlist, KYC) is PII and requires role-based access control.
+- Audit log is append-only with tamper-evident chain verification; no update/delete routes exist.
 
 ## Environment Variables
 

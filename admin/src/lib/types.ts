@@ -70,3 +70,31 @@ export type DashboardStats = {
     updatedAt: string;
   }[];
 };
+
+export type AuditEvent = {
+  id: string;
+  sequence: number;
+  actorId?: string | null;
+  actorEmail?: string | null;
+  actorRole?: string | null;
+  action: string;
+  resourceType?: string | null;
+  resourceId?: string | null;
+  metadata?: Record<string, unknown> | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  prevHash?: string | null;
+  hash?: string | null;
+  createdAt: string;
+};
+
+export type AuditListResponse = {
+  events: AuditEvent[];
+  total: number;
+};
+
+export type ChainVerificationResult = {
+  valid: boolean;
+  firstBrokenSequence?: number;
+  totalEvents: number;
+};
