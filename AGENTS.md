@@ -31,18 +31,21 @@ at the path in the table above.
 ## 3. Current API modules (`api/src/app.module.ts`)
 
 `PrismaModule`, `HealthModule`, `WaitlistModule`, `AssetsModule`, `PassportsModule`,
-`TokenomicsModule`, `DashboardModule`, `SensitiveModule`, `ChainSyncModule`.
+`TokenomicsModule`, `DashboardModule`, `SensitiveModule`, `ChainSyncModule`, `AuthModule`,
+`KycModule`, `AuditModule`.
 `ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' })` and `ScheduleModule.forRoot()` 
 must be preserved when editing `app.module.ts`.
 
 ## 4. Prisma models (`api/prisma/schema.prisma`)
 
-`AssetProgram`, `AssetRecord`, `Passport`, `WaitlistEntry`, `ChainEvent`, `TokenomicsConfig`.
+`AssetProgram`, `AssetRecord`, `Passport`, `WaitlistEntry`, `ChainEvent`, `TokenomicsConfig`,
+`AdminUser`, `KycCase`, `AuditEvent`.
 
 - Never edit an applied migration. Add a new migration with a descriptive name:
-  `npx prisma migrate dev --name p6_auth_kyc`.
+  `npx prisma migrate dev --name p6_auth_kyc` or `npx prisma migrate dev --name p9_audit_log`.
 - `WaitlistEntry` holds personal data. Any endpoint returning it must be role-guarded.
 - `TokenomicsConfig.data` is the source of tokenomics values. Read from it; do not inline numbers.
+- `AuditEvent` is append-only. Never provide update or delete routes for audit records.
 
 ## 5. Compliance guardrails (non-negotiable)
 
