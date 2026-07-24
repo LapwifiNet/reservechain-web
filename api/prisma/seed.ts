@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -94,8 +95,81 @@ async function main() {
     },
   });
 
+  // Admin users (WARNING: change these passwords before any non-local deploy)
+  const adminPassword = await bcrypt.hash('admin123', 10);
+  const compliancePassword = await bcrypt.hash('compliance123', 10);
+  const viewerPassword = await bcrypt.hash('viewer123', 10);
+
+  await prisma.adminUser.upsert({
+    where: { email: 'admin@reservechain.local' },
+    update: {},
+    create: {
+      email: 'admin@reservechain.local',
+      passwordHash: adminPassword,
+      role: 'admin',
+    },
+  });
+
+  await prisma.adminUser.upsert({
+    where: { email: 'compliance@reservechain.local' },
+    update: {},
+    create: {
+      email: 'compliance@reservechain.local',
+      passwordHash: compliancePassword,
+      role: 'compliance',
+    },
+  });
+
+  await prisma.adminUser.upsert({
+    where: { email: 'viewer@reservechain.local' },
+    update: {},
+    create: {
+      email: 'viewer@reservechain.local',
+      passwordHash: viewerPassword,
+      role: 'viewer',
+    },
+  });
+
+  // KYC cases (illustrative)
+  const kycCases = [
+    {
+      subjectType: 'person',
+      legalName: 'Illustrative Person A',
+      country: 'US',
+      status: 'pending',
+      riskLevel: 'low',
+      notes: 'Illustrative — not a real case',
+    },
+    {
+      subjectType: 'entity',
+      legalName: 'Illustrative Corp B',
+      country: 'SG',
+      status: 'in_review',
+      riskLevel: 'medium',
+      notes: 'Illustrative — not a real case',
+    },
+    {
+      subjectType: 'person',
+      legalName: 'Illustrative Person C',
+      country: 'GB',
+      status: 'approved',
+      riskLevel: 'low',
+      notes: 'Illustrative — not a real case',
+    },
+  ];
+  for (const kyc of kycCases) {
+    await prisma.kycCase.upsert({
+      where: { id: 'kyc-' + kyc.legalName.toLowerCase().replace(/\s+/g, '-') },
+      update: {},
+      create: {
+        id: 'kyc-' + kyc.legalName.toLowerCase().replace(/\s+/g, '-'),
+        ...kyc,
+      },
+    });
+  }
+
   // eslint-disable-next-line no-console
-  console.log('Seed complete: programs, records, passport, waitlist, tokenomics.');
+  console.log('Seed complete: programs, records, passport, waitlist, tokenomics, admin users, KYC cases.');
 }
 
 main()

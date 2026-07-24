@@ -1,6 +1,10 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { WaitlistService } from './waitlist.service';
 import { CreateWaitlistDto } from './dto/create-waitlist.dto';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { Role } from '../common/enums/role.enum';
 
 @Controller('waitlist')
 export class WaitlistController {
@@ -16,7 +20,8 @@ export class WaitlistController {
     return { count: await this.service.count() };
   }
 
-  // TODO(P6/P9): guard with authentication + RBAC before exposing publicly.
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.COMPLIANCE)
   @Get()
   list(@Query('take') take?: string) {
     return this.service.list(take ? Number(take) : 50);

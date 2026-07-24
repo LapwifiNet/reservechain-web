@@ -10,6 +10,8 @@ import { TokenomicsModule } from './tokenomics/tokenomics.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SensitiveModule } from './sensitive/sensitive.module';
 import { ChainSyncModule } from './chain-sync/chain-sync.module';
+import { AuthModule } from './auth/auth.module';
+import { KycModule } from './kyc/kyc.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { ChainSyncModule } from './chain-sync/chain-sync.module';
     DashboardModule,
     SensitiveModule,
     ChainSyncModule,
+    AuthModule,
+    KycModule,
   ],
 })
 export class AppModule {}
