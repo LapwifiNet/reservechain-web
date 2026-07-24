@@ -1,5 +1,7 @@
 # ReserveChain
 
+![CI](https://github.com/LapwifiNet/reservechain-web/actions/workflows/ci.yml/badge.svg)
+
 Hosted working draft covering contest deliverables **P1–P2**: public website + verbatim
 prelaunch disclosure + Copper Powder / Nickel Wire program pages + a sample Digital Asset
 Passport + a working multi-step waitlist saved to a data store. Built dark-first,
