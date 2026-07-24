@@ -54,5 +54,4 @@ banner and an empty state instead of crashing.
 
 ## CI
 
-`ci/admin.yml` type-checks and builds the app. **Move it to the repository root** at
-`.github/workflows/admin.yml` \u2014 GitHub Actions does not run workflows nested inside subfolders.
+The admin console is built and type-checked by the unified CI pipeline at `.github/workflows/ci.yml`.
