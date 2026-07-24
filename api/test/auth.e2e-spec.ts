@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 
 describe('Auth and RBAC (P6)', () => {
   let app: INestApplication;
@@ -31,15 +31,15 @@ describe('Auth and RBAC (P6)', () => {
     configService = app.get<ConfigService>(ConfigService);
 
     // Seed test data
-    const adminPassword = await bcrypt.hash('test-admin-pass', 10);
-    const compliancePassword = await bcrypt.hash('test-compliance-pass', 10);
-    const viewerPassword = await bcrypt.hash('test-viewer-pass', 10);
+    const adminPassword = await bcryptjs.hash('test-admin-pass', 10);
+    const compliancePassword = await bcryptjs.hash('test-compliance-pass', 10);
+    const viewerPassword = await bcryptjs.hash('test-viewer-pass', 10);
 
     await prisma.adminUser.createMany({
       data: [
-        { email: 'test-admin@local', passwordHash: adminPassword, role: 'admin' },
-        { email: 'test-compliance@local', passwordHash: compliancePassword, role: 'compliance' },
-        { email: 'test-viewer@local', passwordHash: viewerPassword, role: 'viewer' },
+        { email: 'test-admin@local', passwordHash: adminPassword, role: 'ADMIN' },
+        { email: 'test-compliance@local', passwordHash: compliancePassword, role: 'COMPLIANCE' },
+        { email: 'test-viewer@local', passwordHash: viewerPassword, role: 'VIEWER' },
       ],
       skipDuplicates: true,
     });
@@ -48,19 +48,19 @@ describe('Auth and RBAC (P6)', () => {
     adminToken = await jwtService.signAsync({
       sub: 'test-admin-id',
       email: 'test-admin@local',
-      role: 'admin',
+      role: 'ADMIN',
     });
 
     complianceToken = await jwtService.signAsync({
       sub: 'test-compliance-id',
       email: 'test-compliance@local',
-      role: 'compliance',
+      role: 'COMPLIANCE',
     });
 
     viewerToken = await jwtService.signAsync({
       sub: 'test-viewer-id',
       email: 'test-viewer@local',
-      role: 'viewer',
+      role: 'VIEWER',
     });
 
     serviceToken = configService.get<string>('SERVICE_API_TOKEN') || 'test-service-token';
@@ -240,12 +240,52 @@ describe('Auth and RBAC (P6)', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body).toHaveProperty('email', 'test-admin@local');
-          expect(res.body).toHaveProperty('role', 'admin');
+          expect(res.body).toHaveProperty('role', 'ADMIN');
         });
     });
 
     it('GET /api/auth/me should return 401 without token', () => {
       return request(app.getHttpServer()).get('/api/auth/me').expect(401);
+    });
+  });
+
+  describe('JWT_SECRET validation', () => {
+    it('should refuse to start with missing JWT_SECRET', async () => {
+      const originalJwtSecret = process.env.JWT_SECRET;
+      delete process.env.JWT_SECRET;
+
+      try {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+          imports: [AppModule],
+        }).compile();
+
+        const testApp = moduleFixture.createNestApplication();
+        await expect(testApp.init()).rejects.toThrow('JWT_SECRET must be set and at least 32 characters long');
+        await testApp.close();
+      } finally {
+        if (originalJwtSecret) {
+          process.env.JWT_SECRET = originalJwtSecret;
+        }
+      }
+    });
+
+    it('should refuse to start with weak JWT_SECRET (< 32 chars)', async () => {
+      const originalJwtSecret = process.env.JWT_SECRET;
+      process.env.JWT_SECRET = 'short-secret';
+
+      try {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+          imports: [AppModule],
+        }).compile();
+
+        const testApp = moduleFixture.createNestApplication();
+        await expect(testApp.init()).rejects.toThrow('JWT_SECRET must be set and at least 32 characters long');
+        await testApp.close();
+      } finally {
+        if (originalJwtSecret) {
+          process.env.JWT_SECRET = originalJwtSecret;
+        }
+      }
     });
   });
 

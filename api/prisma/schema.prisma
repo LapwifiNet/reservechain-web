@@ -73,11 +73,17 @@ model TokenomicsConfig {
   updatedAt DateTime @updatedAt
 }
 
+enum Role {
+  ADMIN
+  COMPLIANCE
+  VIEWER
+}
+
 model AdminUser {
   id           String    @id @default(cuid())
   email        String    @unique
   passwordHash String
-  role         String    @default("viewer")
+  role         Role      @default(VIEWER)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
@@ -94,4 +100,7 @@ model KycCase {
   reviewedAt   DateTime?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
 }

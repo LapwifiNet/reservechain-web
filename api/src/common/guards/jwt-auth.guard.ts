@@ -3,10 +3,11 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
-} from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { ConfigService } from "@nestjs/config";
-import { Role } from "../enums/role.enum";
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { Role } from '../enums/role.enum';
+import * as crypto from 'crypto';
 
 /**
  * Verifies a Bearer token on the request.
@@ -23,20 +24,33 @@ export class JwtAuthGuard implements CanActivate {
 
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const req = ctx.switchToHttp().getRequest();
-    const header: string = req.headers["authorization"] ?? "";
-    const [type, token] = header.split(" ");
-    if (type !== "Bearer" || !token) {
-      throw new UnauthorizedException("missing_bearer_token");
+    const header: string = req.headers['authorization'] ?? '';
+    const [type, token] = header.split(' ');
+    if (type !== 'Bearer' || !token) {
+      throw new UnauthorizedException('missing_bearer_token');
     }
 
-    const serviceToken = this.config.get<string>("SERVICE_API_TOKEN");
-    if (serviceToken && token === serviceToken) {
-      req.user = {
-        email: "service@reservechain",
-        role: Role.ADMIN,
-        service: true,
-      };
-      return true;
+    const serviceToken = this.config.get<string>('SERVICE_API_TOKEN');
+    if (serviceToken) {
+      // Use constant-time comparison to prevent timing attacks
+      const tokenBuffer = Buffer.from(token, 'utf8');
+      const serviceTokenBuffer = Buffer.from(serviceToken, 'utf8');
+      
+      if (tokenBuffer.length === serviceTokenBuffer.length) {
+        try {
+          const match = crypto.timingSafeEqual(tokenBuffer, serviceTokenBuffer);
+          if (match) {
+            req.user = {
+              email: 'service@reservechain',
+              role: Role.ADMIN,
+              service: true,
+            };
+            return true;
+          }
+        } catch {
+          // Buffer length mismatch or other error, fall through to JWT verification
+        }
+      }
     }
 
     try {
@@ -48,7 +62,7 @@ export class JwtAuthGuard implements CanActivate {
       };
       return true;
     } catch {
-      throw new UnauthorizedException("invalid_token");
+      throw new UnauthorizedException('invalid_token');
     }
   }
 }

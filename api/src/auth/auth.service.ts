@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from "bcrypt";
-import { PrismaService } from "../prisma/prisma.service";
-import { Role } from "../common/enums/role.enum";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcryptjs from 'bcryptjs';
+import { PrismaService } from '../prisma/prisma.service';
+import { Role } from '../common/enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -13,9 +13,9 @@ export class AuthService {
 
   private async validate(email: string, password: string) {
     const user = await this.prisma.adminUser.findUnique({ where: { email } });
-    if (!user) throw new UnauthorizedException("invalid_credentials");
-    const ok = await bcrypt.compare(password, user.passwordHash);
-    if (!ok) throw new UnauthorizedException("invalid_credentials");
+    if (!user) throw new UnauthorizedException('invalid_credentials');
+    const ok = await bcryptjs.compare(password, user.passwordHash);
+    if (!ok) throw new UnauthorizedException('invalid_credentials');
     return user;
   }
 
