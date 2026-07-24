@@ -7,3 +7,4 @@
 next-env.d.ts
 infra/wallets/wallets.json
 data/waitlist.json
+*.zip
