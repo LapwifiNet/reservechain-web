@@ -71,6 +71,7 @@ jobs:
           else
             npm install
           fi
+      - run: npm run lint
       - run: npm run build
 
   contracts:
