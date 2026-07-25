@@ -7,6 +7,8 @@ import type {
   WaitlistEntry,
   AuditListResponse,
   ChainVerificationResult,
+  KycCase,
+  KycStats,
 } from "./types";
 
 const BASE = process.env.API_BASE_URL || "http://127.0.0.1:4000/api";
@@ -65,4 +67,13 @@ export const api = {
     return get<AuditListResponse>(`/audit?${searchParams.toString()}`);
   },
   auditVerify: () => get<ChainVerificationResult>("/audit/verify"),
+  // KYC reads only. The write routes (POST /kyc/cases, /cases/:id/review,
+  // /cases/:id/screen) are intentionally not exposed here — see the note in
+  // src/app/kyc/page.tsx.
+  kycStats: () => get<KycStats>("/kyc/stats"),
+  kycCases: (take?: number) =>
+    get<KycCase[]>(
+      take === undefined ? "/kyc/cases" : `/kyc/cases?take=${take}`,
+    ),
+  kycCase: (id: string) => get<KycCase>(`/kyc/cases/${encodeURIComponent(id)}`),
 };

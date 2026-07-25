@@ -26,7 +26,7 @@ const nav: { group: string; items: Item[] }[] = [
         icon: "\u25a6",
         gated: true,
       },
-      { href: "/kyc", label: "KYC / KYB", icon: "\u2611", gated: true },
+      { href: "/kyc", label: "KYC / KYB", icon: "\u2611" },
       { href: "/redemption", label: "Redemption", icon: "\u21c4", gated: true },
       { href: "/audit", label: "Audit Log", icon: "\u2263", gated: true },
     ],

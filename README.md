@@ -2,15 +2,23 @@
 
 ![CI](https://github.com/LapwifiNet/reservechain-web/actions/workflows/ci.yml/badge.svg)
 
-Hosted working draft covering contest deliverables **P1–P2**: public website + verbatim
-prelaunch disclosure + Copper Powder / Nickel Wire program pages + a sample Digital Asset
-Passport + a working multi-step waitlist saved to a data store. Built dark-first,
-institutional, responsive, and internationalized (EN / ES / IT).
+Working draft of the ReserveChain platform, an institutional RWA tokenization project for
+industrial metals (Copper Powder, Nickel Wire). It is **pre-launch** — nothing is offered or
+sold. The repository is a four-workspace monorepo: the public website, a REST API, an
+internal admin console, and the ERC-20 contract suite. The website carries the verbatim
+prelaunch disclosure, the Copper Powder / Nickel Wire program pages, a sample Digital Asset
+Passport and a multi-step waitlist; it is dark-first, institutional, responsive and
+internationalized (EN / ES / IT). Development follows a 22-phase plan (P1–P22).
 
 ## Stack
-- **Next.js 14** (App Router) + TypeScript + Tailwind CSS
-- **next-intl** for EN/ES/IT routing and messages
-- Waitlist API route with a JSON file store (swap for PostgreSQL in production)
+- **Website** (`/`, `src/`) — Next.js 14 (App Router) + TypeScript + Tailwind CSS, with
+  **next-intl** for EN/ES/IT routing and messages, and a waitlist API route backed by a JSON
+  file store in development or PostgreSQL when `DATABASE_URL` is set
+- **API** (`api/`) — NestJS 10 + Prisma + PostgreSQL; shared backend for the website, the
+  admin console and a future mobile client
+- **Admin console** (`admin/`) — Next.js 14, internal-only, reads the API server-side
+- **Contracts** (`contracts/`) — Solidity + Foundry + OpenZeppelin v5; **testnet only**
+  (Sepolia)
 
 ## Run locally
 ```bash
@@ -60,14 +68,34 @@ docker compose run --rm contracts "forge test -vvv"
 
 ## Structure
 ```
-src/
+src/                       # public website (Next.js App Router)
   app/[locale]/            # localized pages: home, copper-powder, nickel-wire, passport/[id], waitlist
   app/api/waitlist/        # POST endpoint that stores registrations
   components/              # Nav, Footer, Disclosure, Button, StatusTag, SpecTable
   i18n/                    # next-intl routing + request config
   messages/               # en.json, es.json, it.json
   styles/globals.css       # design tokens
+
+api/                       # NestJS + Prisma REST API for web, admin and future mobile
+  src/                     # one folder per module (health, assets, passports, waitlist,
+                           #   tokenomics, dashboard, auth, kyc, audit, chain-sync, sensitive)
+  prisma/                  # schema.prisma, migrations and seed script
+
+admin/                     # internal admin console (Next.js), reads the API server-side
+  src/app/                 # overview, registry, programs, passports, waitlist, tokenomics,
+                           #   kyc, audit, plus gated reserves and redemption pages
+  src/components/          # PageHeader, DataTable, Badge, StatCard, EmptyState, Sidebar
+
+contracts/                 # Solidity + Foundry ERC-20 suite (testnet only)
+  src/                     # token contract
+  script/                  # deploy and role-assignment scripts
+  test/                    # Foundry tests
+
+infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet inventory templates
 ```
+
+Payload CMS (`cms/`, P10), the React Native app (`mobile/`, P13) and the Terraform
+infrastructure (`infra/` Terraform, P19) are **not created yet**.
 
 ## Compliance (kept throughout)
 - Only clearly labeled **illustrative** data — never fabricated.
