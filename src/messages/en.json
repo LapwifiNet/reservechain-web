@@ -1,11 +1,54 @@
 {
   "nav": {
+    "primary": "Primary",
+    "menu": "Menu",
+    "language": "Language",
     "home": "Home",
+    "cta": "Join Waitlist",
+    "group": {
+      "platform": "Platform",
+      "assets": "Assets",
+      "token": "Token",
+      "engage": "Engage"
+    },
+    "howItWorks": "How It Works",
+    "verification": "Verification",
+    "custody": "Custody",
+    "por": "Proof of Reserves",
+    "assets": "Industrial Metal Assets",
     "copper": "Copper Powder",
     "nickel": "Nickel Wire",
-    "passport": "Asset Passport",
+    "registry": "Asset Registry",
+    "passport": "Digital Asset Passport",
+    "tokenization": "Tokenization",
+    "redemption": "Redemption",
+    "legalStructure": "Legal & Asset-Holding Structure",
+    "enterprise": "Enterprise Services",
+    "documents": "Documents & Resources",
+    "contact": "Contact",
+    "about": "About",
+    "corporateStatus": "Corporate Development Status",
+    "roadmap": "Roadmap",
+    "governance": "Governance",
+    "faq": "FAQ",
     "waitlist": "Waitlist",
-    "cta": "Join Waitlist"
+    "assetOwner": "Asset-Owner Enquiries",
+    "industrialBuyer": "Industrial Buyer Enquiries",
+    "privacy": "Privacy Policy",
+    "cookie": "Cookie Policy",
+    "terms": "Terms of Use",
+    "risk": "Risk Disclosure",
+    "restricted": "Restricted Jurisdictions",
+    "antiFraud": "Anti-Fraud & Anti-Impersonation",
+    "officialChannels": "Official Channels"
+  },
+  "notice": {
+    "provisionalLabel": "Provisional information",
+    "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website.",
+    "draftLabel": "Draft document",
+    "draft": "This document is a working draft prepared during development. It has not yet been reviewed or approved by legal counsel and does not constitute legal advice. It will be replaced by a definitive version once the corporate and legal structure is finalized.",
+    "proposedLabel": "Proposed framework",
+    "proposed": "The framework described on this page is proposed and in development. It is subject to final legal, corporate, custody, asset-verification and technical confirmation, and nothing on this page is presented as operational."
   },
   "disclosure": {
     "label": "Important notice",
@@ -29,21 +72,236 @@
       "Reserve Reconciliation Architecture",
       "Planned ERC-20 Infrastructure"
     ],
-    "hiw": {
-      "kicker": "Proposed Model",
-      "title": "How ReserveChain Proposes to Work",
-      "subtitle": "Subject to final legal, custody, asset-verification and technical confirmation.",
-      "register": {
-        "title": "1. Document & Register",
-        "body": "Industrial-metal lots are documented in the registry with certificates, custody and valuation records."
+    "more": "Learn more",
+    "s": {
+      "inactiveTag": "Module built · inactive",
+      "model": {
+        "kicker": "The Proposed Model",
+        "title": "Institutional infrastructure, not a token launch",
+        "body": "ReserveChain is building the documentation, verification and reconciliation layer that would need to exist before an industrial-metal reserve could credibly be represented on-chain. Evidence first; tokens only if and when the structure supports them.",
+        "items": [
+          {
+            "h": "What it is",
+            "p": "An asset registry, per-unit Digital Asset Passports, reserve reconciliation and a configurable ERC-20 infrastructure."
+          },
+          {
+            "h": "What it is not",
+            "p": "Not a presale, an allocation, a price, or an offer to buy or sell any token or asset."
+          },
+          {
+            "h": "Who it serves",
+            "p": "Asset owners and originators, institutional counterparties, and industrial buyers of copper powder and nickel wire."
+          }
+        ]
       },
-      "verify": {
-        "title": "2. Verify & Attest",
-        "body": "Independent verification, custody confirmation and reserve reconciliation are prepared before any activation."
+      "workflow": {
+        "kicker": "Proposed Workflow",
+        "title": "From documented lot to intended redemption",
+        "body": "Six stages, each gated on evidence being supplied and approved before the next begins.",
+        "items": [
+          {
+            "h": "Document & register",
+            "p": "Lots recorded at container and coil level with certificates, ownership, custody and valuation records."
+          },
+          {
+            "h": "Verify independently",
+            "p": "Laboratory analysis, inspection and documentary review by parties independent of ReserveChain."
+          },
+          {
+            "h": "Custody & insure",
+            "p": "Verified lots held under a documented custody agreement with warehouse receipts and insurance."
+          },
+          {
+            "h": "Reconcile reserves",
+            "p": "Physical inventory reconciled against any issued supply, traceable to approved source documents."
+          },
+          {
+            "h": "Tokenize (planned)",
+            "p": "Configurable ERC-20 built and tested on testnet; mainnet only after audit and written authorization."
+          },
+          {
+            "h": "Redeem (intended)",
+            "p": "Eligible holders could request delivery of identified units, subject to screening and logistics."
+          }
+        ]
       },
-      "tokenize": {
-        "title": "3. Tokenize (Planned)",
-        "body": "A configurable ERC-20 infrastructure is built and tested on testnet; mainnet only after written authorization."
+      "copper": {
+        "kicker": "Copper Powder",
+        "title": "High-purity copper powder",
+        "body": "Documented at container level: composition, particle size distribution, morphology, density, oxygen and moisture content, packaging and seal condition. All values illustrative pending verification."
+      },
+      "nickel": {
+        "kicker": "Nickel Wire",
+        "title": "High-purity nickel wire",
+        "body": "Documented at coil level: composition, wire diameter and tolerance, coil length and weight, surface finish, temper and tensile properties. All values illustrative pending verification."
+      },
+      "passport": {
+        "kicker": "Digital Asset Passport",
+        "title": "One record per physical unit",
+        "body": "Each container and coil is modelled with its own identifier, document set and status — the basis for unit-level reconciliation and, if ever activated, unit-level redemption.",
+        "tagIllustrative": "Illustrative",
+        "tagReserve": "Reserve: Pending",
+        "tagToken": "Token: Not issued",
+        "note": "This is a sample record. Every evidence-backed field is shown as pending rather than populated with a provisional figure.",
+        "cta": "View sample passport",
+        "ctaRegistry": "Open asset registry"
+      },
+      "verification": {
+        "kicker": "Verification",
+        "title": "Evidence before publication",
+        "body": "Purity, weight, ownership, custody and reserve claims stay unpublished until supporting evidence has been received, reviewed and approved.",
+        "items": [
+          "Chemical composition and purity determined by an accredited laboratory",
+          "Physical characteristics measured per program: particle size for powder, diameter and temper for wire",
+          "Batch, container and coil identifiers reconciled against supporting documentation",
+          "Verification performed by parties independent of ReserveChain"
+        ]
+      },
+      "custody": {
+        "kicker": "Custody",
+        "title": "Documented storage and insurance",
+        "body": "Verified lots are intended to be held in third-party facilities under a documented custody agreement, with receipts issued per unit.",
+        "items": [
+          "Warehouse receipt for each container or coil",
+          "Storage location, conditions, seal numbers and integrity checks",
+          "Insurance cover, insurer and policy period",
+          "No custodian, warehouse operator or insurer has been appointed"
+        ]
+      },
+      "por": {
+        "kicker": "Proof of Reserves",
+        "title": "Reconciliation, not assertion",
+        "body": "A reserve-reporting module is built so that physical inventory and any issued supply can be reconciled from approved source records.",
+        "items": [
+          "Supply breakdown: issued, circulating, treasury, locked, burned, redeemed",
+          "Coverage ratio derived from approved reserve value, never entered manually",
+          "Discrepancies are reported as exceptions; balances are never adjusted automatically",
+          "No figures are published, and no attestor has been appointed"
+        ]
+      },
+      "legal": {
+        "kicker": "Legal Structure",
+        "title": "Swiss structure in development",
+        "body": "The issuing entity, its governance and its regulatory position are not finalized, and no entity is presented here as the confirmed issuer.",
+        "items": [
+          "Token legal classification not yet determined",
+          "No regulatory authorization is held or claimed",
+          "Not directed at EU or EEA residents; not MiCA marketing"
+        ]
+      },
+      "erc20": {
+        "kicker": "ERC-20 Architecture",
+        "title": "Configurable, and deliberately unset",
+        "body": "An ERC-20 suite on Ethereum, built with OpenZeppelin components and administered through role-based access control, with multi-signature approval for privileged actions.",
+        "tag": "Testnet only",
+        "items": [
+          "Token name and symbol pending authorization",
+          "No total or circulating supply; no tokens issued",
+          "No ratio between tokens and physical units determined",
+          "No contract address published; mainnet only after audit and written authorization"
+        ]
+      },
+      "redemption": {
+        "kicker": "Redemption",
+        "title": "Built end to end, kept switched off",
+        "body": "If ever activated, eligible holders could request physical delivery of identified containers or coils, subject to eligibility re-screening, maker-checker approval, token burn, custodian release and delivery tracking. No redemption right exists today."
+      },
+      "enterprise": {
+        "kicker": "Enterprise Services",
+        "title": "For institutional counterparties",
+        "body": "Services in development for asset owners, institutional counterparties and industrial buyers. None are currently contracted, priced or available.",
+        "items": [
+          "Asset documentation and registry onboarding",
+          "Coordination of independent verification and inspection",
+          "White-label tokenization infrastructure for other asset classes"
+        ]
+      },
+      "assetOwner": {
+        "kicker": "Asset Owners & Buyers",
+        "title": "Two enquiry routes",
+        "body": "Holders of documented industrial-metal inventory can discuss registry onboarding. Industrial buyers can register a physical offtake requirement. Neither route offers commercial terms at this stage.",
+        "cta": "Asset-owner enquiries",
+        "ctaBuyer": "Industrial buyer enquiries"
+      },
+      "risks": {
+        "kicker": "Risks",
+        "title": "What could go wrong",
+        "body": "The project is in development and may be delayed, materially changed, suspended or abandoned.",
+        "items": [
+          "Asset information is illustrative and unverified; independent analysis may not confirm it",
+          "No custodian or insurer appointed; physical assets carry loss, damage and insolvency risk",
+          "Smart contracts may contain defects; no independent audit has been completed",
+          "No market, liquidity, price or ability to sell or redeem is offered or implied"
+        ]
+      },
+      "documents": {
+        "kicker": "Documents & Resources",
+        "title": "What is published, and what is not",
+        "body": "An index of project documentation showing what is published, what is in preparation and what depends on evidence not yet supplied. Documents that do not exist carry no download control."
+      },
+      "faq": {
+        "kicker": "FAQ",
+        "title": "Common questions",
+        "items": [
+          {
+            "h": "Can I buy a token now?",
+            "p": "No. No token has been issued and none is offered or sold through this website. Any offer of a ReserveChain token is fraudulent."
+          },
+          {
+            "h": "What does joining the waitlist give me?",
+            "p": "It registers your interest. It is not an investment, purchase, reservation, allocation or entitlement to any future offering."
+          },
+          {
+            "h": "Are the figures on this site real?",
+            "p": "They are illustrative, drawn from preliminary documentation, and remain subject to verification, independent assessment and approval."
+          },
+          {
+            "h": "Is there a contract address?",
+            "p": "None is published here. The contract suite runs on a public testnet only. Any address presented elsewhere should not be trusted."
+          }
+        ]
+      },
+      "waitlist": {
+        "title": "Register your interest",
+        "body": "Join the project waitlist to receive updates as the structure, verification and custody arrangements develop.",
+        "cta": "Join the Project Waitlist",
+        "note": "Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering."
+      },
+      "status": {
+        "kicker": "Corporate Development Status",
+        "title": "Where the project actually stands",
+        "body": "Stated plainly, so the stage of the project is not left to inference.",
+        "inDevTitle": "In development",
+        "inDev": [
+          "Swiss corporate and issuance structure",
+          "Asset verification and laboratory documentation",
+          "Custody, warehouse and insurance arrangements",
+          "Independent smart-contract audit and penetration test"
+        ],
+        "notYetTitle": "Not yet done",
+        "notYet": [
+          "No token issued; nothing deployed to mainnet",
+          "No offering documentation exists",
+          "No custodian, insurer, attestor or auditor appointed",
+          "No regulatory authorization obtained or applied for"
+        ]
+      },
+      "contact": {
+        "kicker": "Contact",
+        "title": "How to reach the project",
+        "body": "General, asset-owner and industrial-buyer enquiries all run through the project's own forms. Verify any communication against the Official Channels Directory before acting on it."
+      },
+      "fraud": {
+        "kicker": "Anti-Fraud",
+        "title": "There is no token sale",
+        "body": "Projects at this stage are targeted by impersonation. ReserveChain will never ask you to do any of the following.",
+        "items": [
+          "Send cryptocurrency or any payment",
+          "Connect a wallet or approve a transaction",
+          "Share a seed phrase, private key or wallet password",
+          "Act on a contract address, guaranteed return or countdown"
+        ],
+        "ctaChannels": "Official channels"
       }
     }
   },
@@ -153,10 +411,829 @@
     "done": {
       "title": "You're on the waitlist",
       "body": "Thank you for registering your interest. We will contact you with project updates. No investment or reservation has been made."
+    },
+    "types": {
+      "institution": "Institution",
+      "investor": "Individual investor",
+      "partner": "Partner",
+      "other": "Other"
     }
   },
   "footer": {
     "tagline": "Institutional infrastructure for tokenized industrial metals (in development).",
-    "rights": "© 2026 ReserveChain. Swiss corporate structure in development."
+    "rights": "© 2026 ReserveChain. Swiss corporate structure in development.",
+    "company": "Company",
+    "engage": "Engage",
+    "legal": "Legal & Disclosure"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist, or has been withdrawn while the project is in development.",
+    "home": "Go to home",
+    "documents": "View documents"
+  },
+  "page": {
+    "how-it-works": {
+      "kicker": "Proposed Model",
+      "title": "How ReserveChain Is Intended to Work",
+      "intro": "An outline of the proposed end-to-end model, from documenting an industrial-metal lot through to a planned tokenized representation and physical redemption.",
+      "s": [
+        {
+          "h": "1. Asset documentation and registration",
+          "p": "Industrial-metal lots are intended to be recorded in the asset registry at container and coil level, together with their certificates, ownership records, custody arrangements and valuation history. Registration is a documentation step only and does not create an offering of any kind."
+        },
+        {
+          "h": "2. Independent verification",
+          "p": "Laboratory analysis, physical inspection and documentary review are intended to be carried out by parties independent of ReserveChain before any asset record is published as verified. Until that evidence has been supplied and approved, records remain marked as pending verification."
+        },
+        {
+          "h": "3. Custody and insurance",
+          "p": "Verified lots are intended to be held under a documented custody arrangement, evidenced by warehouse receipts and covered by insurance. The custody structure is currently in development and no custody relationship is presented as operational."
+        },
+        {
+          "h": "4. Reserve reconciliation",
+          "p": "A reconciliation process is planned between the physical inventory recorded in the registry and any tokens that may be issued in future, so that any reported coverage can be traced back to approved source documents rather than asserted."
+        },
+        {
+          "h": "5. Planned tokenization",
+          "p": "A configurable ERC-20 infrastructure is being built and tested on a public testnet. No token has been issued, no contract address is published, and deployment to Ethereum mainnet would take place only after written authorization and completion of an independent audit."
+        },
+        {
+          "h": "6. Intended redemption",
+          "p": "A redemption workflow is being built so that, if activated in future, eligible holders could request physical delivery of identified containers or coils, subject to eligibility screening, logistics, customs requirements and applicable law. The module is currently inactive."
+        }
+      ]
+    },
+    "verification": {
+      "kicker": "Proposed Framework",
+      "title": "Asset Verification",
+      "intro": "The verification framework ReserveChain intends to apply to industrial-metal lots before any asset record is published as verified.",
+      "s": [
+        {
+          "h": "What verification is intended to cover",
+          "p": "The intended scope of verification differs by program, but is expected to address composition, physical characteristics and identification in each case.",
+          "li": [
+            "Chemical composition and purity determined by an accredited laboratory",
+            "Particle size distribution, morphology and density for copper powder",
+            "Wire diameter, tolerance, temper and tensile properties for nickel wire",
+            "Net weight, packaging integrity and seal condition",
+            "Batch, container and coil identifiers reconciled against supporting documentation"
+          ]
+        },
+        {
+          "h": "Independent parties",
+          "p": "Verification is intended to be performed by laboratories and inspection bodies independent of ReserveChain. ReserveChain does not perform laboratory analysis, does not issue certificates of analysis, and does not express an opinion on the results of any third-party assessment."
+        },
+        {
+          "h": "Publication control",
+          "p": "Purity, weight, ownership, custody and reserve claims remain unpublished until supporting evidence has been received, reviewed and approved. Records without approved evidence are displayed as pending verification rather than populated with provisional figures."
+        },
+        {
+          "h": "Current status",
+          "p": "No verification programme is presented as complete. Certificate data referenced elsewhere on this website is illustrative and remains subject to documentary verification, independent assessment and final approval."
+        }
+      ]
+    },
+    "custody": {
+      "kicker": "Proposed Framework",
+      "title": "Custody Structure",
+      "intro": "The custody, storage and insurance arrangements ReserveChain intends to put in place for documented industrial-metal lots.",
+      "s": [
+        {
+          "h": "Intended custody model",
+          "p": "Verified lots are intended to be stored in third-party warehouse facilities under a documented custody agreement, with warehouse receipts issued at container and coil level so that each unit remains individually identifiable."
+        },
+        {
+          "h": "Records intended to be maintained",
+          "p": "The registry is being built to hold the following custody evidence for each unit, each of which stays in a pending state until the underlying document is approved.",
+          "li": [
+            "Custody agreement and counterparty identification",
+            "Warehouse receipt per container or coil",
+            "Storage location, conditions and handling requirements",
+            "Seal numbers and integrity check records",
+            "Insurance cover, insurer and policy period",
+            "Chain-of-custody events recorded over time"
+          ]
+        },
+        {
+          "h": "Segregation",
+          "p": "Custodied lots are intended to be held separately from the operating assets of any ReserveChain entity, so that inventory recorded in the registry can be reconciled independently of the issuer's own balance sheet."
+        },
+        {
+          "h": "Current status",
+          "p": "No custodian, warehouse operator or insurer is currently confirmed, appointed or presented as engaged. Custody fields shown on asset pages remain marked pending until agreements are executed and supporting evidence is approved."
+        }
+      ]
+    },
+    "proof-of-reserves": {
+      "kicker": "Planned Module — Inactive",
+      "title": "Proof of Reserves",
+      "intro": "A reserve-reporting module is being built so that, once real data and an attestation are available, physical inventory and any issued tokens can be reconciled transparently.",
+      "s": [
+        {
+          "h": "What the dashboard is intended to show",
+          "p": "The module has been built against the following intended reporting scope. None of these figures are currently published.",
+          "li": [
+            "Token supply: issued, circulating, treasury-held, locked, burned and redeemed",
+            "Approved reserve value and the resulting coverage ratio",
+            "Valuation date and attestation date",
+            "Custody and insurance summary",
+            "Breakdown by program, metal, lot, batch, container and coil",
+            "Custodian reconciliation and exception reporting"
+          ]
+        },
+        {
+          "h": "Reconciliation approach",
+          "p": "Reserve reporting is intended to be derived from approved source records rather than entered manually. Where a discrepancy is detected between inventory, custodian records and on-chain supply, the system is designed to report the exception rather than adjust balances automatically."
+        },
+        {
+          "h": "Attestation",
+          "p": "ReserveChain does not describe reserve data as independently verified in the absence of an attestation from a qualified third party. No attestor has been appointed and no attestation has been obtained."
+        },
+        {
+          "h": "Current status",
+          "p": "The Proof-of-Reserves module is built but inactive. No reserve figures, coverage ratios or attestations are published, and none will be published until source data, an appointed attestor and written authorization are in place."
+        }
+      ]
+    },
+    "industrial-metal-assets": {
+      "kicker": "Asset Programs",
+      "title": "Industrial Metal Assets",
+      "intro": "ReserveChain's initial asset programs cover high-purity copper powder and nickel wire, documented and identified at individual unit level.",
+      "s": [
+        {
+          "h": "Copper Powder program",
+          "p": "A high-purity copper powder program documented at container level, covering chemical composition, particle size distribution, morphology, apparent and tap density, oxygen and moisture content, packaging and seal condition. All specification values shown on this website are illustrative pending verification."
+        },
+        {
+          "h": "Nickel Wire program",
+          "p": "A high-purity nickel wire program documented at coil level, covering chemical composition, wire diameter and tolerance, coil length and weight, surface finish, temper and tensile properties. All specification values shown on this website are illustrative pending verification."
+        },
+        {
+          "h": "Unit-level identification",
+          "p": "Both programs are modelled so that every physical unit — each container of powder, each coil of wire — carries its own identifier, documentation set and status. This is what makes unit-level reconciliation and, if ever activated, unit-level redemption possible."
+        },
+        {
+          "h": "Extensibility to other assets",
+          "p": "The underlying data model is designed to be reusable for further industrial-metal programs and other real-world asset classes. No additional programs are announced or planned for a specific date."
+        },
+        {
+          "h": "Current status",
+          "p": "No asset program is verified, tokenized or offered. Ownership, laboratory, custody, insurance and valuation records remain pending until documentary evidence is supplied and approved."
+        }
+      ]
+    },
+    "tokenization": {
+      "kicker": "Planned Infrastructure",
+      "title": "Tokenization",
+      "intro": "The planned ERC-20 architecture, what is deliberately left unconfigured, and the conditions that would have to be met before anything is deployed to mainnet.",
+      "s": [
+        {
+          "h": "Intended architecture",
+          "p": "The planned primary token is an ERC-20 contract on Ethereum, built with OpenZeppelin components and administered through role-based access control with a multi-signature arrangement for privileged actions. The suite is currently developed and tested on a public testnet only."
+        },
+        {
+          "h": "Configurable parameters",
+          "p": "The contract and supporting services are built so that the following remain configuration, not hard-coded assumptions. Each is unset pending approval.",
+          "li": [
+            "Token name and symbol — pending authorization",
+            "Total and circulating supply — no tokens issued",
+            "Any ratio between tokens and physical units — not determined",
+            "Transfer restrictions and eligibility controls",
+            "Pause, mint and burn roles held under multi-signature control"
+          ]
+        },
+        {
+          "h": "Testnet only",
+          "p": "Contracts are deployed and exercised on a public testnet for development and testing purposes. No contract address is published on this website, and any address circulating elsewhere should not be treated as authentic."
+        },
+        {
+          "h": "What is deliberately not defined",
+          "p": "Token price, a supply figure derived from asset valuation, redemption thresholds, ownership or title rights attaching to a token, and any expectation of appreciation, liquidity or return are not defined, not implied and not to be inferred from anything on this website."
+        },
+        {
+          "h": "Current status",
+          "p": "No token has been issued or offered. Deployment to Ethereum mainnet and any token generation event would take place only after an independent smart-contract audit, the finalization of the legal and corporate structure, and written authorization."
+        }
+      ]
+    },
+    "redemption": {
+      "kicker": "Planned Module — Inactive",
+      "title": "Redemption",
+      "intro": "A physical-redemption workflow is being built so that, if it is ever activated, identified containers or coils could be released against tokens under controlled conditions.",
+      "s": [
+        {
+          "h": "Intended process",
+          "p": "The workflow has been implemented end to end and kept behind a feature flag. If activated, it is intended to run in the following order.",
+          "li": [
+            "Wallet verification and eligibility re-check, including KYC, AML and sanctions screening",
+            "Jurisdiction check and confirmation of any applicable threshold",
+            "Selection of the specific lot, container or coil to be redeemed",
+            "Disclosure of fees, taxes, shipping, insurance, custody and packaging costs",
+            "Acceptance of redemption terms and electronic signature",
+            "Internal review with maker-checker approval",
+            "Token lock and burn, followed by custodian release and delivery tracking",
+            "Update of the registry, reserve reporting and supply records, with a full audit trail"
+          ]
+        },
+        {
+          "h": "Eligibility",
+          "p": "Redemption would be available only to holders who pass eligibility screening at the time of the request, in jurisdictions where the transaction is permitted. Passing screening once would not create a continuing entitlement."
+        },
+        {
+          "h": "Costs and logistics",
+          "p": "Industrial metals in commercial quantities carry handling, transport, customs and insurance requirements. Any redemption would be subject to those costs and to applicable dangerous-goods and export rules, which have not yet been determined."
+        },
+        {
+          "h": "Current status",
+          "p": "The redemption module is inactive. No redemption right exists, none is offered, and activation would require the underlying legal, custody and token arrangements to be finalized and authorized in writing."
+        }
+      ]
+    },
+    "legal-structure": {
+      "kicker": "In Development",
+      "title": "Legal & Asset-Holding Structure",
+      "intro": "The corporate, asset-holding and regulatory arrangements intended to sit behind the platform, and their current status.",
+      "s": [
+        {
+          "h": "Corporate structure",
+          "p": "A Swiss corporate and issuance structure is in development. The issuing entity, its governance arrangements, its share capital and its regulatory position are not finalized, and no entity is presented on this website as the confirmed issuer."
+        },
+        {
+          "h": "Asset-holding arrangements",
+          "p": "The intended structure separates the entity holding or controlling the physical assets from the entity responsible for any future token issuance, so that inventory can be reconciled independently. The specific arrangements are subject to legal and tax review."
+        },
+        {
+          "h": "Token classification",
+          "p": "The legal classification of any future token has not been determined. Whether an instrument would be treated as a payment, utility or asset token, and the consequences of that classification, are matters for the final legal structure and applicable regulatory guidance."
+        },
+        {
+          "h": "No regulatory authorization",
+          "p": "ReserveChain does not hold, and does not claim to hold, any regulatory authorization, licence or registration. This website is not directed at residents of the European Union or European Economic Area and does not constitute marketing of a crypto-asset under MiCA."
+        },
+        {
+          "h": "Current status",
+          "p": "Until the structure is finalized and definitive offering documentation exists, no offer, invitation or solicitation is made through this website in any jurisdiction."
+        }
+      ]
+    },
+    "enterprise": {
+      "kicker": "Enterprise Services",
+      "title": "Enterprise Services",
+      "intro": "Intended services for institutional counterparties, asset owners and industrial buyers. No commercial terms are offered at this stage.",
+      "s": [
+        {
+          "h": "Who this is intended for",
+          "p": "Producers, traders and holders of industrial-metal inventory; institutional counterparties evaluating tokenized real-world assets; and industrial buyers with physical offtake requirements."
+        },
+        {
+          "h": "Services under development",
+          "p": "The following services are in development. None are currently contracted, priced or available.",
+          "li": [
+            "Asset documentation and registry onboarding",
+            "Coordination of independent verification and inspection",
+            "Custody and insurance structuring support",
+            "Digital Asset Passport issuance for documented units",
+            "Reserve reconciliation and reporting infrastructure",
+            "White-label tokenization infrastructure for other asset classes"
+          ]
+        },
+        {
+          "h": "How to enquire",
+          "p": "Enquiries can be submitted through the project waitlist form, indicating an institutional or enterprise interest. No commercial terms, pricing, capacity or timeline commitments are offered or implied at this stage."
+        }
+      ]
+    },
+    "contact": {
+      "kicker": "Contact",
+      "title": "Contact",
+      "intro": "How to reach the project during development, and how to confirm that a communication genuinely comes from ReserveChain.",
+      "s": [
+        {
+          "h": "General and project enquiries",
+          "p": "General enquiries can be submitted through the project waitlist form. Registering an enquiry does not constitute an investment, reservation or allocation of any kind."
+        },
+        {
+          "h": "Asset owners and originators",
+          "p": "Holders of documented industrial-metal inventory who wish to discuss registry onboarding can submit an enquiry through the asset-owner enquiry route."
+        },
+        {
+          "h": "Industrial buyers",
+          "p": "Buyers with physical offtake requirements can submit an enquiry through the industrial-buyer enquiry route. No inventory is offered for sale through this website."
+        },
+        {
+          "h": "Verify official channels first",
+          "p": "Before acting on any communication that appears to come from ReserveChain, check the Official Channels Directory. ReserveChain does not operate token sales, presales, payment channels or wallet-connection requests of any kind, and will never ask for a seed phrase or private key."
+        }
+      ]
+    },
+    "about": {
+      "kicker": "About",
+      "title": "About ReserveChain",
+      "intro": "ReserveChain is developing institutional infrastructure intended to represent documented industrial-metal reserves as on-chain tokens, paired with transparent asset documentation.",
+      "s": [
+        {
+          "h": "What the project is building",
+          "p": "A platform combining an industrial-metal asset registry, per-unit Digital Asset Passports, a configurable ERC-20 infrastructure, reserve reconciliation and a physical-redemption workflow, together with the portals and controls needed to operate them."
+        },
+        {
+          "h": "Positioning",
+          "p": "The project is positioned as institutional infrastructure for real-world assets. It is not a speculative crypto offering, a presale or a token launch, and it is not marketed as one."
+        },
+        {
+          "h": "Approach to claims",
+          "p": "Nothing on this website is presented as operational until it is supported by documentation and approved. Where data is not yet available, the platform shows a pending state rather than an illustrative figure that could be mistaken for verified information."
+        },
+        {
+          "h": "Current stage",
+          "p": "The project is in the development and pre-launch stage. The corporate structure, asset verification, custody arrangements, token classification and independent audit are all outstanding."
+        }
+      ]
+    },
+    "corporate-status": {
+      "kicker": "Corporate Development Status",
+      "title": "Corporate Development Status",
+      "intro": "A plain statement of what has and has not been completed, so that the stage of the project is not left to inference.",
+      "s": [
+        {
+          "h": "In development",
+          "p": "The following are in progress and not finalized.",
+          "li": [
+            "Swiss corporate and issuance structure",
+            "Token legal classification and regulatory position",
+            "Asset verification and laboratory documentation",
+            "Custody, warehouse and insurance arrangements",
+            "Proof-of-reserves methodology and appointment of an attestor",
+            "Independent smart-contract audit and penetration test"
+          ]
+        },
+        {
+          "h": "Not yet done",
+          "p": "No token has been issued. No contract has been deployed to Ethereum mainnet. No offering documentation exists. No custodian, insurer, attestor or auditor has been appointed. No regulatory authorization has been obtained or applied for on the basis of a final structure."
+        },
+        {
+          "h": "What exists today",
+          "p": "A public website in three languages, an asset registry and Digital Asset Passport structure, an administrative console, a backend API, and a smart-contract suite exercised on a public testnet. Sensitive modules are built but remain inactive."
+        },
+        {
+          "h": "How this page is maintained",
+          "p": "This page is intended to be updated as items move from in-development to completed, with supporting documentation published alongside each change."
+        }
+      ]
+    },
+    "roadmap": {
+      "kicker": "Roadmap",
+      "title": "Roadmap",
+      "intro": "The intended sequence of work. Dates are deliberately omitted because delivery depends on legal, verification and authorization steps that are outside the project's unilateral control.",
+      "s": [
+        {
+          "h": "Stage 1 — Foundation",
+          "p": "Requirements, architecture, design system, public website in English, Spanish and Italian, waitlist and the underlying asset data model. Substantially in place."
+        },
+        {
+          "h": "Stage 2 — Registry and infrastructure",
+          "p": "Asset registry, Digital Asset Passports, backend API, administrative console, KYC and compliance case management, and a configurable ERC-20 suite tested on a public testnet. In progress."
+        },
+        {
+          "h": "Stage 3 — Verification and structure",
+          "p": "Independent laboratory verification, custody and insurance arrangements, finalization of the Swiss corporate structure, token classification, and appointment of an attestor for reserve reporting. Dependent on owner decisions and third-party engagement."
+        },
+        {
+          "h": "Stage 4 — Independent assurance",
+          "p": "Independent smart-contract audit and penetration test, remediation, and acceptance testing. This stage is a gate: nothing beyond it proceeds until it is complete."
+        },
+        {
+          "h": "Stage 5 — Authorized activation",
+          "p": "Any mainnet deployment, token generation event, activation of purchase, proof-of-reserves publication or redemption would occur only after stage 4 is complete and written authorization has been given. No date is committed to for this stage."
+        }
+      ]
+    },
+    "governance": {
+      "kicker": "Governance",
+      "title": "Governance",
+      "intro": "The controls intended to govern privileged actions across the platform, the treasury and the asset registry.",
+      "s": [
+        {
+          "h": "Separation of duties",
+          "p": "Operational, compliance, finance, treasury, content and audit responsibilities are separated by role. The platform is built so that no single account can both initiate and approve a sensitive action."
+        },
+        {
+          "h": "Maker-checker approval",
+          "p": "Sensitive actions — publication of asset claims, changes to token configuration, compliance decisions and treasury operations — are designed to require a second, independent approval before taking effect."
+        },
+        {
+          "h": "Multi-signature control",
+          "p": "Privileged smart-contract roles are intended to be held by a multi-signature arrangement rather than an individual key. The signer set and threshold have not been established."
+        },
+        {
+          "h": "Audit trail",
+          "p": "Administrative actions are recorded in an append-only, tamper-evident audit log capturing the actor, time, action, record, previous and new values, and the reason. The log cannot be edited or deleted through the interface."
+        },
+        {
+          "h": "Current status",
+          "p": "These controls are implemented in the platform. The people, entities and signer arrangements that would operate them are not yet appointed."
+        }
+      ]
+    },
+    "faq": {
+      "kicker": "FAQ",
+      "title": "Frequently Asked Questions",
+      "intro": "Direct answers to the questions the project's development stage most often raises.",
+      "s": [
+        {
+          "h": "Can I buy a token now?",
+          "p": "No. No token has been issued and none is offered or sold through this website. There is no presale, no allocation and no price. Any communication offering you a ReserveChain token should be treated as fraudulent."
+        },
+        {
+          "h": "What does joining the waitlist give me?",
+          "p": "It registers your interest so the project can contact you with updates. It does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering."
+        },
+        {
+          "h": "Are the purity and reserve figures on this site real?",
+          "p": "The figures shown are illustrative and drawn from preliminary documentation. They remain subject to documentary verification, independent assessment and final approval, and are labelled accordingly wherever they appear."
+        },
+        {
+          "h": "Is there a smart contract address?",
+          "p": "No contract address is published on this website. The contract suite is exercised on a public testnet only. Any address presented elsewhere as an official ReserveChain contract should not be trusted."
+        },
+        {
+          "h": "Is the metal actually in custody?",
+          "p": "No custodian, warehouse operator or insurer has been appointed. Custody records in the registry are shown as pending until agreements are executed and evidence is approved."
+        },
+        {
+          "h": "Can residents of the EU or EEA participate?",
+          "p": "This website is not directed at residents of the European Union or European Economic Area, and nothing on it constitutes marketing of a crypto-asset under MiCA. Jurisdictional eligibility would be determined by the final legal structure."
+        },
+        {
+          "h": "When will the project launch?",
+          "p": "No launch date is committed to. Activation depends on the finalization of the legal structure, asset verification, custody arrangements, an independent audit and written authorization."
+        }
+      ]
+    },
+    "asset-owner-enquiries": {
+      "kicker": "Asset Owners & Originators",
+      "title": "Asset-Owner Enquiries",
+      "intro": "For producers, traders and holders of documented industrial-metal inventory who want to understand the intended onboarding process.",
+      "s": [
+        {
+          "h": "Intended onboarding process",
+          "p": "Onboarding is designed as a documentation exercise first. Nothing is published about an asset until the supporting evidence has been reviewed and approved.",
+          "li": [
+            "Initial enquiry and description of the inventory",
+            "Counterparty due diligence, including KYB and sanctions screening",
+            "Submission of ownership, title and provenance documentation",
+            "Independent laboratory analysis and physical inspection",
+            "Custody, warehousing and insurance arrangements",
+            "Registration in the asset registry with unit-level identifiers",
+            "Digital Asset Passport issuance for each documented unit"
+          ]
+        },
+        {
+          "h": "What is required from an asset owner",
+          "p": "Clear evidence of ownership and title, access for independent inspection and sampling, complete batch and unit identification, and a willingness to place inventory under a documented custody arrangement."
+        },
+        {
+          "h": "What is not offered",
+          "p": "No purchase, financing, valuation guarantee, tokenization commitment or listing is offered. Registry onboarding does not create any obligation on either side to proceed to tokenization."
+        },
+        {
+          "h": "How to enquire",
+          "p": "Submit an enquiry through the project waitlist form, indicating an asset-owner or originator interest. No commercial terms are offered at this stage."
+        }
+      ]
+    },
+    "industrial-buyer-enquiries": {
+      "kicker": "Industrial Buyers",
+      "title": "Industrial Buyer Enquiries",
+      "intro": "For industrial buyers with physical offtake requirements for high-purity copper powder or nickel wire.",
+      "s": [
+        {
+          "h": "What this route is for",
+          "p": "Registering a physical offtake requirement so that it can be considered as the asset programs and custody arrangements develop. It is an enquiry route, not an order channel."
+        },
+        {
+          "h": "Information that helps",
+          "p": "Material and specification required, indicative volumes and delivery frequency, destination and applicable import requirements, and any certification or traceability obligations your process imposes."
+        },
+        {
+          "h": "What is not offered",
+          "p": "No inventory is offered for sale through this website, no price is quoted, and no availability, delivery window or capacity is committed. Any future supply would be subject to contract, verification and applicable law."
+        },
+        {
+          "h": "How to enquire",
+          "p": "Submit an enquiry through the project waitlist form, indicating an industrial-buyer interest and the material concerned."
+        }
+      ]
+    },
+    "privacy": {
+      "kicker": "Legal",
+      "title": "Privacy Policy",
+      "intro": "How personal data submitted through this website is handled during the development stage of the project.",
+      "s": [
+        {
+          "h": "Who is responsible",
+          "p": "The controller will be the ReserveChain issuing entity once the corporate structure is finalized. Until then, personal data submitted through this website is processed by the project team responsible for the development of the platform. This section will be updated with the definitive entity details."
+        },
+        {
+          "h": "What data is collected",
+          "p": "Only the data you submit through the waitlist or an enquiry form: your name, email address, country, organization where given, the type of interest you indicate, and the consents you record. Technical data such as IP address and browser information may be processed for security and to operate the site."
+        },
+        {
+          "h": "Why it is processed",
+          "p": "To respond to your enquiry, to send project updates you have asked for, to maintain a record of the consents you gave, and to meet legal and record-keeping obligations. Your data is not used to make an offer of any financial instrument, because no such offer is made through this website."
+        },
+        {
+          "h": "Payment and wallet data",
+          "p": "No payment information, wallet address, private key or seed phrase is requested, collected or accepted through this website at this stage. Any request for such information purporting to come from ReserveChain should be treated as fraudulent."
+        },
+        {
+          "h": "Sharing",
+          "p": "Data is shared only with service providers that operate the website, its database and its email delivery, acting on instructions. Data may be disclosed where required by law. Data is not sold and is not shared for third-party marketing."
+        },
+        {
+          "h": "Retention",
+          "p": "Enquiry and waitlist records are retained for as long as needed to respond to the enquiry and to evidence the consents given, and are then deleted or anonymised. Definitive retention periods will be set with the final legal structure."
+        },
+        {
+          "h": "Your rights",
+          "p": "Subject to applicable law, you may request access to your data, correction of inaccurate data, deletion, restriction of processing, portability, and withdrawal of consent at any time. Withdrawing consent does not affect processing carried out before withdrawal."
+        },
+        {
+          "h": "Contact and complaints",
+          "p": "Requests can be submitted through the contact route on this website. You may also lodge a complaint with the competent supervisory authority in your jurisdiction."
+        }
+      ]
+    },
+    "cookie": {
+      "kicker": "Legal",
+      "title": "Cookie Policy",
+      "intro": "What is stored on your device when you use this website, and what is deliberately not stored.",
+      "s": [
+        {
+          "h": "Essential storage only",
+          "p": "This website is built to operate with essential storage only. Essential items are those needed to serve the site in your chosen language, to keep the multi-step waitlist form working, and to protect against abuse of the forms."
+        },
+        {
+          "h": "Language preference",
+          "p": "Your language selection between English, Spanish and Italian is reflected in the page address and may be stored so that navigation stays in the language you chose."
+        },
+        {
+          "h": "Analytics and marketing",
+          "p": "No analytics or marketing cookies are set without your consent, and no tracking takes place before consent is given. Where analytics is enabled in future, it will be presented through a consent control that distinguishes essential, analytics and marketing categories."
+        },
+        {
+          "h": "No personal data in analytics",
+          "p": "The platform is designed so that personal data is not placed in analytics events or in page addresses."
+        },
+        {
+          "h": "Managing storage",
+          "p": "You can clear or block browser storage through your browser settings. Blocking essential storage may prevent forms on this website from working correctly."
+        }
+      ]
+    },
+    "terms": {
+      "kicker": "Legal",
+      "title": "Terms of Use",
+      "intro": "The terms on which this website is made available during the development stage of the project.",
+      "s": [
+        {
+          "h": "Scope",
+          "p": "These terms govern your use of this website. They do not create any contractual relationship concerning any asset, token or future offering, because none is offered here."
+        },
+        {
+          "h": "No offer and no advice",
+          "p": "Nothing on this website constitutes an offer, invitation or solicitation to buy or subscribe for any security, token or financial instrument, nor investment, legal, tax or accounting advice. No reliance should be placed on this website in making any financial decision."
+        },
+        {
+          "h": "Information is provisional",
+          "p": "Asset, specification, valuation, custody and reserve information shown on this website is illustrative and subject to documentary verification, independent assessment and final approval. It may change or be withdrawn without notice."
+        },
+        {
+          "h": "Eligibility",
+          "p": "You must not use this website where doing so would breach the law applicable to you. This website is not directed at residents of the European Union or European Economic Area, or at any person in a restricted jurisdiction."
+        },
+        {
+          "h": "Acceptable use",
+          "p": "You agree not to misuse this website, including by attempting unauthorised access, submitting false information through its forms, interfering with its operation, or impersonating ReserveChain or any of its representatives."
+        },
+        {
+          "h": "Intellectual property",
+          "p": "The content, design and code of this website are protected. Third-party names and marks referenced remain the property of their owners and are not used to imply any endorsement or relationship."
+        },
+        {
+          "h": "Liability",
+          "p": "To the extent permitted by law, this website is provided as is and without warranty of accuracy, completeness or availability. Nothing in these terms excludes liability that cannot lawfully be excluded."
+        },
+        {
+          "h": "Changes and governing law",
+          "p": "These terms may be updated as the project develops, and the definitive version will be issued with the final corporate structure together with the governing law and jurisdiction that apply to it."
+        }
+      ]
+    },
+    "risk-disclosure": {
+      "kicker": "Legal",
+      "title": "Risk Disclosure",
+      "intro": "The principal risks associated with the project as described on this website. This is not an exhaustive list, and it is not a substitute for independent advice.",
+      "s": [
+        {
+          "h": "Development risk",
+          "p": "The project is in development. It may be delayed, materially changed, suspended or abandoned. There is no assurance that any token will be issued, that any platform module will be activated, or that the project will proceed at all."
+        },
+        {
+          "h": "Legal and regulatory risk",
+          "p": "The corporate structure, the legal classification of any future token and the applicable regulatory treatment are not determined. Regulatory developments may restrict, delay or prevent the project, or exclude participation from particular jurisdictions."
+        },
+        {
+          "h": "Asset and verification risk",
+          "p": "Asset information is illustrative and unverified. Independent analysis may not confirm the composition, quantity, quality, ownership or provenance of any lot, and documentation may prove incomplete or defective."
+        },
+        {
+          "h": "Custody and insurance risk",
+          "p": "No custodian or insurer has been appointed. Physical assets are exposed to loss, damage, theft, deterioration, warehouse insolvency and gaps in insurance cover."
+        },
+        {
+          "h": "Technology and smart-contract risk",
+          "p": "Smart contracts may contain defects. An independent audit has not been completed. Blockchain transactions are generally irreversible, and loss of a private key would result in permanent loss of access to any associated assets."
+        },
+        {
+          "h": "Valuation, liquidity and market risk",
+          "p": "Industrial-metal prices fluctuate. No market, exchange listing, liquidity, price or ability to sell or redeem is offered, promised or implied. Any future instrument could be illiquid or lose value."
+        },
+        {
+          "h": "Counterparty and operational risk",
+          "p": "The project depends on third parties including laboratories, inspectors, custodians, insurers, auditors and service providers. Failure, insolvency or misconduct by any of them could materially affect the project."
+        },
+        {
+          "h": "Fraud and impersonation risk",
+          "p": "Projects at this stage are targeted by impersonation and fraud. No token sale exists. Verify every communication against the Official Channels Directory before acting on it."
+        },
+        {
+          "h": "Total loss",
+          "p": "Any future participation, if it were ever offered, should be regarded as carrying the risk of total loss of the amount involved."
+        }
+      ]
+    },
+    "restricted-jurisdictions": {
+      "kicker": "Legal",
+      "title": "Restricted Jurisdictions",
+      "intro": "Where this website is not directed, and how jurisdictional eligibility is intended to be handled.",
+      "s": [
+        {
+          "h": "European Union and European Economic Area",
+          "p": "This website is not directed at residents of the European Union or the European Economic Area. Nothing on it constitutes marketing, advertising or solicitation in respect of a crypto-asset under MiCA, and the project does not hold any authorization under that regime."
+        },
+        {
+          "h": "Sanctioned jurisdictions and persons",
+          "p": "The project does not intend to make any future offering available to persons or entities in jurisdictions subject to comprehensive sanctions, or to persons subject to applicable sanctions or asset-freezing measures."
+        },
+        {
+          "h": "Other restricted jurisdictions",
+          "p": "A definitive list of permitted and restricted jurisdictions has not been established. It will be determined by the final legal structure and applicable regulatory advice, and published before any offering could take place."
+        },
+        {
+          "h": "Intended eligibility controls",
+          "p": "The platform is built to support jurisdiction screening, country of residence, nationality and current-location checks, sanctions and politically-exposed-person screening, transfer restrictions and recordkeeping of eligibility decisions. These controls are implemented but inactive."
+        },
+        {
+          "h": "No circumvention",
+          "p": "Any future eligibility rules must not be circumvented, including through the use of a nominee, an intermediary, a false declaration or technical means of concealing location. Attempts to do so would invalidate eligibility."
+        },
+        {
+          "h": "Your responsibility",
+          "p": "You are responsible for ensuring that accessing this website and any future participation would be lawful for you. If it would not be, you should not proceed."
+        }
+      ]
+    },
+    "anti-fraud": {
+      "kicker": "Legal",
+      "title": "Anti-Fraud & Anti-Impersonation",
+      "intro": "How to recognise fraudulent communications that claim to represent ReserveChain, and what the project will never ask you to do.",
+      "s": [
+        {
+          "h": "There is no token sale",
+          "p": "No token has been issued and no token, presale, allocation, whitelist place or discount is offered or sold by ReserveChain. Any offer of these things is fraudulent, regardless of how convincing it appears."
+        },
+        {
+          "h": "What ReserveChain will never do",
+          "p": "Treat any of the following as conclusive evidence of fraud.",
+          "li": [
+            "Ask for your seed phrase, private key or wallet password",
+            "Ask you to connect a wallet or approve a transaction",
+            "Ask you to send cryptocurrency or a payment of any kind",
+            "Publish or send you a contract address to buy a token",
+            "Offer guaranteed returns, allocations, bonuses or a countdown to a deadline",
+            "Contact you through an unofficial channel to request funds or personal documents"
+          ]
+        },
+        {
+          "h": "Common impersonation patterns",
+          "p": "Fraudulent actors clone websites at similar domain names, create social accounts using the project name and branding, impersonate team members in direct messages, and circulate fabricated contract addresses, audit reports or partnership announcements."
+        },
+        {
+          "h": "How to verify",
+          "p": "Check the Official Channels Directory on this website before acting on any communication. Confirm the exact domain name. Treat any channel not listed there as unverified, including channels that use the project's name, logo or wording."
+        },
+        {
+          "h": "If you are targeted",
+          "p": "Do not send funds, do not connect a wallet, and do not share documents. Report the communication through the contact route on this website, and report it to the relevant authority in your jurisdiction. ReserveChain cannot recover funds sent to a fraudulent party."
+        }
+      ]
+    },
+    "official-channels": {
+      "kicker": "Legal",
+      "title": "Official Channels Directory",
+      "intro": "The definitive list of channels operated by the project. Anything not listed here is not operated by ReserveChain.",
+      "s": [
+        {
+          "h": "Website",
+          "p": "This website is the project's primary channel. Confirm the domain name in your browser's address bar before submitting any information. Look-alike domains using different spellings or extensions are not operated by the project."
+        },
+        {
+          "h": "Channels not yet established",
+          "p": "Official social media, messaging and community channels have not been established at this stage. Because none exist, any account, group or channel presenting itself as an official ReserveChain community is not genuine."
+        },
+        {
+          "h": "Email",
+          "p": "Project correspondence is sent only in response to an enquiry submitted through this website, and only from an address at the project's own domain. Messages from free email providers or look-alike domains are not from the project."
+        },
+        {
+          "h": "No financial channels",
+          "p": "The project operates no payment channel, no wallet address for receiving funds, no exchange listing and no token sale channel of any kind. No such channel will be introduced through an unannounced message."
+        },
+        {
+          "h": "Keeping this list current",
+          "p": "This directory is intended to be updated whenever a channel is established or retired. Treat this page, and not any third-party listing, as the reference."
+        }
+      ]
+    },
+    "registry": {
+      "kicker": "Asset Registry",
+      "title": "Asset Registry",
+      "intro": "Unit-level index of documented industrial-metal lots. Each row corresponds to an individual container or coil and links to its Digital Asset Passport.",
+      "col": {
+        "id": "Unit ID",
+        "program": "Program",
+        "unit": "Unit type",
+        "lab": "Lab / CoA",
+        "ownership": "Ownership",
+        "custody": "Custody",
+        "valuation": "Valuation",
+        "insurance": "Insurance",
+        "reserve": "Reserve report",
+        "token": "Token program",
+        "redemption": "Redemption"
+      },
+      "unit": {
+        "container": "Container",
+        "coil": "Coil"
+      },
+      "v": {
+        "inactive": "Inactive"
+      },
+      "tableNote": "Every evidence-backed field remains in a pending state until the supporting document has been received, reviewed and approved. Pending is shown deliberately in place of a provisional figure, so that no value on this page can be mistaken for verified data."
+    },
+    "documents": {
+      "kicker": "Documents & Resources",
+      "title": "Documents & Resources",
+      "intro": "Index of project documentation, showing what is published, what is in preparation and what depends on evidence that has not yet been supplied.",
+      "note": "Documents marked in preparation or pending are not available for download. No download control is shown for them, because presenting an inactive control would imply a document exists when it does not.",
+      "group": {
+        "corporate": "Corporate & project",
+        "token": "Token & technology",
+        "asset": "Asset & reserve documentation",
+        "legal": "Legal & disclosure"
+      },
+      "state": {
+        "published": "Published",
+        "preparation": "In preparation",
+        "pending": "Pending evidence"
+      },
+      "doc": {
+        "overview": "Project overview",
+        "corporateStatus": "Corporate development status",
+        "governance": "Governance framework",
+        "roadmap": "Roadmap",
+        "whitepaper": "Whitepaper",
+        "tokenTerms": "Token terms",
+        "smartContract": "Smart-contract documentation",
+        "audit": "Independent audit report",
+        "copperReport": "Copper powder analysis report",
+        "nickelReport": "Nickel wire analysis report",
+        "coa": "Certificates of analysis",
+        "ownership": "Ownership and title documentation",
+        "valuation": "Valuation documentation",
+        "custody": "Custody agreements and warehouse receipts",
+        "insurance": "Insurance documentation",
+        "por": "Proof-of-reserves report",
+        "redemption": "Redemption terms",
+        "risk": "Risk disclosure",
+        "jurisdiction": "Restricted jurisdictions",
+        "privacy": "Privacy policy",
+        "cookie": "Cookie policy",
+        "terms": "Terms of use",
+        "antiFraud": "Anti-fraud and anti-impersonation",
+        "materialEvents": "Material events notices"
+      }
+    }
   }
 }

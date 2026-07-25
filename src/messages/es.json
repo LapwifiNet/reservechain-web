@@ -1,11 +1,54 @@
 {
   "nav": {
+    "primary": "Principal",
+    "menu": "Menú",
+    "language": "Idioma",
     "home": "Inicio",
+    "cta": "Unirse a la lista",
+    "group": {
+      "platform": "Plataforma",
+      "assets": "Activos",
+      "token": "Token",
+      "engage": "Contacto"
+    },
+    "howItWorks": "Cómo funciona",
+    "verification": "Verificación",
+    "custody": "Custodia",
+    "por": "Prueba de Reservas",
+    "assets": "Activos de metales industriales",
     "copper": "Polvo de Cobre",
     "nickel": "Alambre de Níquel",
-    "passport": "Pasaporte de Activo",
+    "registry": "Registro de activos",
+    "passport": "Pasaporte Digital de Activo",
+    "tokenization": "Tokenización",
+    "redemption": "Redención",
+    "legalStructure": "Estructura legal y de tenencia",
+    "enterprise": "Servicios empresariales",
+    "documents": "Documentos y recursos",
+    "contact": "Contacto",
+    "about": "Acerca de",
+    "corporateStatus": "Estado de desarrollo corporativo",
+    "roadmap": "Hoja de ruta",
+    "governance": "Gobernanza",
+    "faq": "Preguntas frecuentes",
     "waitlist": "Lista de espera",
-    "cta": "Unirse a la lista"
+    "assetOwner": "Consultas de propietarios de activos",
+    "industrialBuyer": "Consultas de compradores industriales",
+    "privacy": "Política de privacidad",
+    "cookie": "Política de cookies",
+    "terms": "Términos de uso",
+    "risk": "Divulgación de riesgos",
+    "restricted": "Jurisdicciones restringidas",
+    "antiFraud": "Antifraude y antisuplantación",
+    "officialChannels": "Canales oficiales"
+  },
+  "notice": {
+    "provisionalLabel": "Información provisional",
+    "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website.",
+    "draftLabel": "Documento preliminar",
+    "draft": "Este documento es un borrador de trabajo elaborado durante la fase de desarrollo. Todavía no ha sido revisado ni aprobado por asesoría legal y no constituye asesoramiento jurídico. Será sustituido por una versión definitiva una vez finalizada la estructura corporativa y legal.",
+    "proposedLabel": "Marco propuesto",
+    "proposed": "El marco descrito en esta página es propuesto y se encuentra en desarrollo. Está sujeto a la confirmación final legal, corporativa, de custodia, de verificación de activos y técnica, y nada de lo aquí expuesto se presenta como operativo."
   },
   "disclosure": {
     "label": "Aviso importante",
@@ -24,139 +67,1173 @@
       "enterprise": "Solicitar información empresarial"
     },
     "trust": [
-      "Industrial Asset Verification Framework",
-      "Custody Structure in Development",
-      "Reserve Reconciliation Architecture",
-      "Planned ERC-20 Infrastructure"
+      "Marco de verificación de activos industriales",
+      "Estructura de custodia en desarrollo",
+      "Arquitectura de conciliación de reservas",
+      "Infraestructura ERC-20 planificada"
     ],
-    "hiw": {
-      "kicker": "Modelo Propuesto",
-      "title": "Cómo Propone Funcionar ReserveChain",
-      "subtitle": "Sujeto a confirmación legal, de custodia, de verificación de activos y técnica final.",
-      "register": {
-        "title": "1. Document & Register",
-        "body": "Industrial-metal lots are documented in the registry with certificates, custody and valuation records."
+    "more": "Saber más",
+    "s": {
+      "inactiveTag": "Módulo construido · inactivo",
+      "model": {
+        "kicker": "El Modelo Propuesto",
+        "title": "Infraestructura institucional, no un lanzamiento de token",
+        "body": "ReserveChain está construyendo la capa de documentación, verificación y conciliación que debería existir antes de que una reserva de metal industrial pudiera representarse de forma creíble en cadena. Primero la evidencia; los tokens solo si la estructura los sostiene y cuando lo haga.",
+        "items": [
+          {
+            "h": "Qué es",
+            "p": "Un registro de activos, Pasaportes Digitales de Activo por unidad, conciliación de reservas y una infraestructura ERC-20 configurable."
+          },
+          {
+            "h": "Qué no es",
+            "p": "No es una preventa, una asignación, un precio ni una oferta de compra o venta de token o activo alguno."
+          },
+          {
+            "h": "A quién sirve",
+            "p": "Propietarios y originadores de activos, contrapartes institucionales y compradores industriales de polvo de cobre y alambre de níquel."
+          }
+        ]
       },
-      "verify": {
-        "title": "2. Verify & Attest",
-        "body": "Independent verification, custody confirmation and reserve reconciliation are prepared before any activation."
+      "workflow": {
+        "kicker": "Flujo Propuesto",
+        "title": "Del lote documentado al riscate previsto",
+        "body": "Seis etapas; cada una exige que la evidencia se aporte y se apruebe antes de iniciar la siguiente.",
+        "items": [
+          {
+            "h": "Documentar y registrar",
+            "p": "Lotes registrados a nivel de contenedor y bobina con certificados y registros de propiedad, custodia y valoración."
+          },
+          {
+            "h": "Verificar de forma independiente",
+            "p": "Análisis de laboratorio, inspección y revisión documental por partes independientes de ReserveChain."
+          },
+          {
+            "h": "Custodiar y asegurar",
+            "p": "Lotes verificados bajo un acuerdo de custodia documentado, con recibos de almacén y seguro."
+          },
+          {
+            "h": "Conciliar reservas",
+            "p": "Inventario físico conciliado con el suministro emitido, rastreable hasta documentos fuente aprobados."
+          },
+          {
+            "h": "Tokenizar (previsto)",
+            "p": "ERC-20 configurable construido y probado en testnet; red principal solo tras auditoría y autorización escrita."
+          },
+          {
+            "h": "Redimir (previsto)",
+            "p": "Los titulares elegibles podrían solicitar la entrega de unidades identificadas, sujeto a cribado y logística."
+          }
+        ]
       },
-      "tokenize": {
-        "title": "3. Tokenize (Planned)",
-        "body": "A configurable ERC-20 infrastructure is built and tested on testnet; mainnet only after written authorization."
+      "copper": {
+        "kicker": "Polvo de Cobre",
+        "title": "Polvo de cobre de alta pureza",
+        "body": "Documentado a nivel de contenedor: composición, distribución del tamaño de partícula, morfología, densidad, contenido de oxígeno y humedad, embalaje y estado del precinto. Todos los valores son ilustrativos y están pendientes de verificación."
+      },
+      "nickel": {
+        "kicker": "Alambre de Níquel",
+        "title": "Alambre de níquel de alta pureza",
+        "body": "Documentado a nivel de bobina: composición, diámetro y tolerancia del alambre, longitud y peso de bobina, acabado superficial, temple y propiedades de tracción. Todos los valores son ilustrativos y están pendientes de verificación."
+      },
+      "passport": {
+        "kicker": "Pasaporte Digital de Activo",
+        "title": "Un registro por unidad física",
+        "body": "Cada contenedor y cada bobina se modela con su propio identificador, conjunto documental y estado: la base de la conciliación por unidad y, si algún día se activa, de la redención por unidad.",
+        "tagIllustrative": "Ilustrativo",
+        "tagReserve": "Reserva: Pendiente",
+        "tagToken": "Token: No emitido",
+        "note": "Este es un registro de muestra. Todo campo respaldado por evidencia se muestra como pendiente en lugar de rellenarse con una cifra provisional.",
+        "cta": "Ver pasaporte de muestra",
+        "ctaRegistry": "Abrir el registro de activos"
+      },
+      "verification": {
+        "kicker": "Verificación",
+        "title": "Evidencia antes de la publicación",
+        "body": "Las afirmaciones sobre pureza, peso, propiedad, custodia y reservas permanecen sin publicar hasta que la evidencia de respaldo haya sido recibida, revisada y aprobada.",
+        "items": [
+          "Composición química y pureza determinadas por un laboratorio acreditado",
+          "Características físicas medidas por programa: tamaño de partícula para el polvo, diámetro y temple para el alambre",
+          "Identificadores de lote, contenedor y bobina conciliados con la documentación de respaldo",
+          "Verificación realizada por partes independientes de ReserveChain"
+        ]
+      },
+      "custody": {
+        "kicker": "Custodia",
+        "title": "Almacenamiento y seguro documentados",
+        "body": "Está previsto que los lotes verificados se mantengan en instalaciones de terceros bajo un acuerdo de custodia documentado, con recibos emitidos por unidad.",
+        "items": [
+          "Recibo de almacén por cada contenedor o bobina",
+          "Ubicación de almacenamiento, condiciones, números de precinto y verificaciones de integridad",
+          "Cobertura de seguro, aseguradora y periodo de póliza",
+          "No se ha designado ningún custodio, operador de almacén ni aseguradora"
+        ]
+      },
+      "por": {
+        "kicker": "Prueba de Reservas",
+        "title": "Conciliación, no afirmación",
+        "body": "Se ha construido un módulo de reporte de reservas para que el inventario físico y cualquier suministro emitido puedan conciliarse a partir de registros fuente aprobados.",
+        "items": [
+          "Desglose del suministro: emitido, en circulación, tesorería, bloqueado, quemado, redimido",
+          "Ratio de cobertura derivado del valor de reserva aprobado, nunca introducido manualmente",
+          "Las discrepancias se reportan como excepciones; los saldos nunca se ajustan automáticamente",
+          "No se publica ninguna cifra y no se ha designado ningún certificador"
+        ]
+      },
+      "legal": {
+        "kicker": "Estructura Legal",
+        "title": "Estructura suiza en desarrollo",
+        "body": "La entidad emisora, su gobierno y su posición regulatoria no están finalizados, y ninguna entidad se presenta aquí como emisor confirmado.",
+        "items": [
+          "Clasificación jurídica del token aún no determinada",
+          "No se posee ni se reclama autorización regulatoria alguna",
+          "No dirigido a residentes de la UE o del EEE; no es comercialización bajo MiCA"
+        ]
+      },
+      "erc20": {
+        "kicker": "Arquitectura ERC-20",
+        "title": "Configurable y deliberadamente sin fijar",
+        "body": "Una suite ERC-20 sobre Ethereum, construida con componentes de OpenZeppelin y administrada mediante control de acceso basado en roles, con aprobación multifirma para las acciones privilegiadas.",
+        "tag": "Solo testnet",
+        "items": [
+          "Nombre y símbolo del token pendientes de autorización",
+          "Sin suministro total ni en circulación; no se ha emitido ningún token",
+          "No se ha determinado ningún ratio entre tokens y unidades físicas",
+          "No se publica dirección de contrato; red principal solo tras auditoría y autorización escrita"
+        ]
+      },
+      "redemption": {
+        "kicker": "Redención",
+        "title": "Construida de extremo a extremo, mantenida desactivada",
+        "body": "Si alguna vez se activa, los titulares elegibles podrían solicitar la entrega física de contenedores o bobinas identificados, sujeto a un nuevo cribado de elegibilidad, aprobación por doble intervención, quema de tokens, liberación por el custodio y seguimiento de la entrega. Hoy no existe ningún derecho de redención."
+      },
+      "enterprise": {
+        "kicker": "Servicios Empresariales",
+        "title": "Para contrapartes institucionales",
+        "body": "Servicios en desarrollo para propietarios de activos, contrapartes institucionales y compradores industriales. Ninguno está actualmente contratado, tarifado ni disponible.",
+        "items": [
+          "Documentación de activos e incorporación al registro",
+          "Coordinación de verificación e inspección independientes",
+          "Infraestructura de tokenización de marca blanca para otras clases de activos"
+        ]
+      },
+      "assetOwner": {
+        "kicker": "Propietarios y Compradores",
+        "title": "Dos vías de consulta",
+        "body": "Los tenedores de inventario documentado de metales industriales pueden tratar su incorporación al registro. Los compradores industriales pueden registrar una necesidad de suministro físico. Ninguna vía ofrece condiciones comerciales en esta fase.",
+        "cta": "Consultas de propietarios",
+        "ctaBuyer": "Consultas de compradores industriales"
+      },
+      "risks": {
+        "kicker": "Riesgos",
+        "title": "Qué podría salir mal",
+        "body": "El proyecto está en desarrollo y puede retrasarse, modificarse sustancialmente, suspenderse o abandonarse.",
+        "items": [
+          "La información sobre activos es ilustrativa y no verificada; el análisis independiente podría no confirmarla",
+          "Sin custodio ni aseguradora designados; los activos físicos conllevan riesgo de pérdida, daño e insolvencia",
+          "Los contratos inteligentes pueden contener defectos; no se ha completado ninguna auditoría independiente",
+          "No se ofrece ni implica mercado, liquidez, precio ni capacidad de venta o redención"
+        ]
+      },
+      "documents": {
+        "kicker": "Documentos y Recursos",
+        "title": "Qué está publicado y qué no",
+        "body": "Un índice de la documentación del proyecto que indica qué está publicado, qué está en preparación y qué depende de evidencia aún no aportada. Los documentos que no existen no llevan control de descarga."
+      },
+      "faq": {
+        "kicker": "Preguntas Frecuentes",
+        "title": "Preguntas habituales",
+        "items": [
+          {
+            "h": "¿Puedo comprar un token ahora?",
+            "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. Cualquier oferta de un token de ReserveChain es fraudulenta."
+          },
+          {
+            "h": "¿Qué me aporta unirme a la lista de espera?",
+            "p": "Registra su interés. No es una inversión, compra, reserva, asignación ni derecho a ninguna oferta futura."
+          },
+          {
+            "h": "¿Son reales las cifras de este sitio?",
+            "p": "Son ilustrativas, proceden de documentación preliminar y siguen sujetas a verificación, evaluación independiente y aprobación."
+          },
+          {
+            "h": "¿Existe una dirección de contrato?",
+            "p": "Aquí no se publica ninguna. La suite de contratos se ejecuta únicamente en una testnet pública. No debe confiarse en ninguna dirección presentada en otro lugar."
+          }
+        ]
+      },
+      "waitlist": {
+        "title": "Registra tu interés",
+        "body": "Únete a la lista de espera del proyecto para recibir novedades a medida que avancen la estructura, la verificación y los acuerdos de custodia.",
+        "cta": "Unirse a la lista del proyecto",
+        "note": "El registro de interés no constituye una inversión, compra de tokens, reserva de activos, reserva de precio, asignación de tokens ni derecho a participar en ninguna oferta futura."
+      },
+      "status": {
+        "kicker": "Estado de Desarrollo Corporativo",
+        "title": "Dónde está realmente el proyecto",
+        "body": "Expuesto con claridad, para que la fase del proyecto no quede sujeta a interpretación.",
+        "inDevTitle": "En desarrollo",
+        "inDev": [
+          "Estructura corporativa y de emisión suiza",
+          "Verificación de activos y documentación de laboratorio",
+          "Acuerdos de custodia, almacenamiento y seguro",
+          "Auditoría independiente del contrato inteligente y test de intrusión"
+        ],
+        "notYetTitle": "Aún no realizado",
+        "notYet": [
+          "Ningún token emitido; nada desplegado en la red principal",
+          "No existe documentación de oferta",
+          "Ningún custodio, aseguradora, certificador ni auditor designado",
+          "Ninguna autorización regulatoria obtenida ni solicitada"
+        ]
+      },
+      "contact": {
+        "kicker": "Contacto",
+        "title": "Cómo contactar con el proyecto",
+        "body": "Las consultas generales, de propietarios de activos y de compradores industriales se tramitan mediante los formularios propios del proyecto. Verifique cualquier comunicación con el Directorio de Canales Oficiales antes de actuar."
+      },
+      "fraud": {
+        "kicker": "Antifraude",
+        "title": "No existe ninguna venta de tokens",
+        "body": "Los proyectos en esta fase son objetivo de suplantación. ReserveChain nunca le pedirá nada de lo siguiente.",
+        "items": [
+          "Enviar criptomonedas o cualquier pago",
+          "Conectar un monedero o aprobar una transacción",
+          "Compartir una frase semilla, clave privada o contraseña de monedero",
+          "Actuar ante una dirección de contrato, rentabilidad garantizada o cuenta atrás"
+        ],
+        "ctaChannels": "Canales oficiales"
       }
     }
   },
   "program": {
-    "specs": "Technical Specifications (Illustrative)",
-    "status": "Current Status",
+    "specs": "Especificaciones técnicas (ilustrativas)",
+    "status": "Estado actual",
     "copper": {
-      "kicker": "Copper Powder",
-      "title": "99.9999% Purity Copper Powder Program"
+      "kicker": "Polvo de Cobre",
+      "title": "Programa de Polvo de Cobre con pureza 99,9999%"
     },
     "nickel": {
-      "kicker": "Nickel Wire",
-      "title": "99.9807% Purity Nickel Wire Program"
+      "kicker": "Alambre de Níquel",
+      "title": "Programa de Alambre de Níquel con pureza 99,9807%"
     },
     "f": {
       "material": "Material",
-      "purity": "Purity",
-      "coa": "IGAS Certificate",
-      "weight": "Net Weight",
-      "packaging": "Packaging",
-      "storage": "Storage",
-      "diameter": "Diameter"
+      "purity": "Pureza",
+      "coa": "Certificado IGAS",
+      "weight": "Peso neto",
+      "packaging": "Embalaje",
+      "storage": "Almacenamiento",
+      "diameter": "Diámetro"
     },
     "s": {
-      "lab": "Lab Verification",
-      "ownership": "Ownership Docs",
-      "custody": "Custody",
-      "valuation": "Valuation",
-      "reserve": "Reserve Status",
-      "tokenization": "Tokenization",
-      "availability": "Availability"
+      "lab": "Verificación de laboratorio",
+      "ownership": "Documentos de propiedad",
+      "custody": "Custodia",
+      "valuation": "Valoración",
+      "reserve": "Estado de reserva",
+      "tokenization": "Tokenización",
+      "availability": "Disponibilidad"
     },
     "v": {
-      "pending": "Pending",
-      "pendingVerification": "Pending verification",
-      "pendingCustody": "Pending custody arrangements",
-      "notIssued": "Not issued",
-      "notForSale": "Not for sale"
+      "pending": "Pendiente",
+      "pendingVerification": "Pendiente de verificación",
+      "pendingCustody": "Pendiente de acuerdos de custodia",
+      "notIssued": "No emitido",
+      "notForSale": "No a la venta"
     },
     "tag": {
-      "illustrative": "ILLUSTRATIVE"
+      "illustrative": "ILUSTRATIVO"
     }
   },
   "passport": {
-    "kicker": "Digital Asset Passport",
-    "details": "Asset Details",
-    "reserve": "Reserve & Token Status",
-    "docsNote": "No documents available — pending verification and upload.",
+    "kicker": "Pasaporte Digital de Activo",
+    "details": "Detalles del activo",
+    "reserve": "Estado de reserva y token",
+    "docsNote": "No hay documentos disponibles: pendientes de verificación y carga.",
     "f": {
       "material": "Material",
-      "program": "Asset Program",
-      "purity": "Purity",
-      "lot": "Lot",
-      "weight": "Net Weight",
-      "lab": "Lab Verification",
-      "ownership": "Ownership",
-      "valuation": "Valuation",
-      "insurance": "Insurance",
-      "availability": "Availability"
+      "program": "Programa de activo",
+      "purity": "Pureza",
+      "lot": "Lote",
+      "weight": "Peso neto",
+      "lab": "Verificación de laboratorio",
+      "ownership": "Propiedad",
+      "valuation": "Valoración",
+      "insurance": "Seguro",
+      "availability": "Disponibilidad"
     },
     "s": {
-      "custody": "Custody",
-      "reserve": "Reserve Status",
-      "tokenization": "Tokenization",
-      "contract": "Contract Address",
-      "image": "Image"
+      "custody": "Custodia",
+      "reserve": "Estado de reserva",
+      "tokenization": "Tokenización",
+      "contract": "Dirección del contrato",
+      "image": "Imagen"
     },
     "v": {
-      "pending": "Pending",
-      "notIssued": "Not issued",
-      "notForSale": "Not offered for sale",
-      "notDeployed": "Not deployed",
-      "pendingPhoto": "Verified photography pending"
+      "pending": "Pendiente",
+      "notIssued": "No emitido",
+      "notForSale": "No ofrecido a la venta",
+      "notDeployed": "No desplegado",
+      "pendingPhoto": "Fotografía verificada pendiente"
     },
     "tag": {
-      "illustrative": "Illustrative",
-      "reservePending": "Reserve: Pending",
-      "tokenNotIssued": "Token: Not issued",
-      "custodyPending": "Custody: Pending"
+      "illustrative": "Ilustrativo",
+      "reservePending": "Reserva: Pendiente",
+      "tokenNotIssued": "Token: No emitido",
+      "custodyPending": "Custodia: Pendiente"
     }
   },
   "waitlist": {
-    "title": "Unirse a la lista de espera del proyecto",
+    "title": "Unirse a la lista del proyecto",
     "subtitle": "Solo registro de interés. No implica inversión, asignación ni reserva.",
     "steps": {
-      "1": "Your Details",
-      "2": "Eligibility & Consent",
-      "3": "Confirmation"
+      "1": "Tus datos",
+      "2": "Elegibilidad y consentimiento",
+      "3": "Confirmación"
     },
     "f": {
-      "name": "Full name",
-      "email": "Email",
-      "org": "Organization",
-      "interest": "Area of interest"
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "org": "Organización",
+      "interest": "Área de interés"
     },
-    "eligibilityNotice": "Eligibility Notice: Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. No wallet connection or payment is required or permitted at this stage.",
+    "eligibilityNotice": "Aviso de elegibilidad: el registro de interés no constituye una inversión, compra de tokens, reserva de activos, reserva de precio, asignación de tokens ni derecho a participar en ninguna oferta futura. En esta fase no se requiere ni se permite conexión de monedero ni pago alguno.",
     "c": {
-      "notInvestment": "I understand that registration does not constitute an investment or reservation.",
-      "notRestricted": "I am not located in a restricted jurisdiction.",
-      "privacy": "I have read and accept the Privacy Policy."
+      "notInvestment": "Entiendo que el registro no constituye una inversión ni una reserva.",
+      "notRestricted": "No me encuentro en una jurisdicción restringida.",
+      "privacy": "He leído y acepto la Política de Privacidad."
     },
-    "next": "Continue",
-    "back": "Back",
-    "submit": "Continue to Confirmation",
-    "saving": "Saving…",
-    "error": "Something went wrong. Please try again.",
+    "next": "Continuar",
+    "back": "Atrás",
+    "submit": "Continuar a la confirmación",
+    "saving": "Guardando…",
+    "error": "Se ha producido un error. Inténtalo de nuevo.",
     "done": {
-      "title": "You're on the waitlist",
-      "body": "Thank you for registering your interest. We will contact you with project updates. No investment or reservation has been made."
+      "title": "Estás en la lista",
+      "body": "Gracias por registrar tu interés. Te contactaremos con novedades del proyecto. No se ha realizado ninguna inversión ni reserva."
+    },
+    "types": {
+      "institution": "Institución",
+      "investor": "Inversor particular",
+      "partner": "Socio",
+      "other": "Otro"
     }
   },
   "footer": {
     "tagline": "Infraestructura institucional para metales industriales tokenizados (en desarrollo).",
-    "rights": "© 2026 ReserveChain. Swiss corporate structure in development."
+    "rights": "© 2026 ReserveChain. Estructura corporativa suiza en desarrollo.",
+    "company": "Compañía",
+    "engage": "Contacto",
+    "legal": "Legal y divulgación"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "body": "La página que buscas no existe o ha sido retirada mientras el proyecto está en desarrollo.",
+    "home": "Ir al inicio",
+    "documents": "Ver documentos"
+  },
+  "page": {
+    "how-it-works": {
+      "kicker": "Modelo propuesto",
+      "title": "Cómo está previsto que funcione ReserveChain",
+      "intro": "Esquema del modelo integral propuesto, desde la documentación de un lote de metal industrial hasta una representación tokenizada prevista y la redención física.",
+      "s": [
+        {
+          "h": "1. Documentación y registro del activo",
+          "p": "Está previsto que los lotes de metales industriales se registren a nivel de contenedor y bobina, junto con sus certificados, registros de propiedad, acuerdos de custodia e historial de valoración. El registro es únicamente un acto documental y no constituye oferta de ningún tipo."
+        },
+        {
+          "h": "2. Verificación independiente",
+          "p": "Está previsto que el análisis de laboratorio, la inspección física y la revisión documental sean realizados por partes independientes de ReserveChain antes de que cualquier registro se publique como verificado. Hasta que esa evidencia se aporte y apruebe, los registros permanecen marcados como pendientes de verificación."
+        },
+        {
+          "h": "3. Custodia y seguro",
+          "p": "Está previsto que los lotes verificados se mantengan bajo un acuerdo de custodia documentado, acreditado mediante recibos de almacén y cubierto por un seguro. La estructura de custodia se encuentra en desarrollo y ninguna relación de custodia se presenta como operativa."
+        },
+        {
+          "h": "4. Conciliación de reservas",
+          "p": "Se prevé un proceso de conciliación entre el inventario físico registrado y los tokens que pudieran emitirse en el futuro, de modo que cualquier cobertura reportada pueda rastrearse hasta documentos fuente aprobados y no simplemente afirmarse."
+        },
+        {
+          "h": "5. Tokenización prevista",
+          "p": "Se está construyendo y probando una infraestructura ERC-20 configurable en una testnet pública. No se ha emitido ningún token, no se publica ninguna dirección de contrato, y el despliegue en la red principal de Ethereum solo tendría lugar tras autorización por escrito y la finalización de una auditoría independiente."
+        },
+        {
+          "h": "6. Redención prevista",
+          "p": "Se está construyendo un flujo de redención para que, si algún día se activa, los titulares elegibles pudieran solicitar la entrega física de contenedores o bobinas identificados, sujeto a verificación de elegibilidad, logística, requisitos aduaneros y legislación aplicable. El módulo está actualmente inactivo."
+        }
+      ]
+    },
+    "verification": {
+      "kicker": "Marco propuesto",
+      "title": "Verificación de activos",
+      "intro": "El marco de verificación que ReserveChain pretende aplicar a los lotes de metales industriales antes de que cualquier registro se publique como verificado.",
+      "s": [
+        {
+          "h": "Qué está previsto que cubra la verificación",
+          "p": "El alcance previsto difiere según el programa, pero se espera que aborde la composición, las características físicas y la identificación en cada caso.",
+          "li": [
+            "Composición química y pureza determinadas por un laboratorio acreditado",
+            "Distribución del tamaño de partícula, morfología y densidad para el polvo de cobre",
+            "Diámetro del alambre, tolerancia, temple y propiedades de tracción para el alambre de níquel",
+            "Peso neto, integridad del embalaje y estado del precinto",
+            "Identificadores de lote, contenedor y bobina conciliados con la documentación de respaldo"
+          ]
+        },
+        {
+          "h": "Partes independientes",
+          "p": "Está previsto que la verificación la realicen laboratorios y organismos de inspección independientes de ReserveChain. ReserveChain no realiza análisis de laboratorio, no emite certificados de análisis y no expresa opinión sobre los resultados de ninguna evaluación de terceros."
+        },
+        {
+          "h": "Control de publicación",
+          "p": "Las afirmaciones sobre pureza, peso, propiedad, custodia y reservas permanecen sin publicar hasta que la evidencia de respaldo haya sido recibida, revisada y aprobada. Los registros sin evidencia aprobada se muestran como pendientes de verificación en lugar de rellenarse con cifras provisionales."
+        },
+        {
+          "h": "Estado actual",
+          "p": "Ningún programa de verificación se presenta como completo. Los datos de certificados referidos en este sitio web son ilustrativos y siguen sujetos a verificación documental, evaluación independiente y aprobación final."
+        }
+      ]
+    },
+    "custody": {
+      "kicker": "Marco propuesto",
+      "title": "Estructura de custodia",
+      "intro": "Los acuerdos de custodia, almacenamiento y seguro que ReserveChain pretende establecer para los lotes de metales industriales documentados.",
+      "s": [
+        {
+          "h": "Modelo de custodia previsto",
+          "p": "Está previsto que los lotes verificados se almacenen en instalaciones de terceros bajo un acuerdo de custodia documentado, con recibos de almacén emitidos a nivel de contenedor y bobina, de modo que cada unidad siga siendo identificable individualmente."
+        },
+        {
+          "h": "Registros que está previsto mantener",
+          "p": "El registro se está construyendo para conservar la siguiente evidencia de custodia por cada unidad; cada campo permanece pendiente hasta que el documento subyacente sea aprobado.",
+          "li": [
+            "Acuerdo de custodia e identificación de la contraparte",
+            "Recibo de almacén por contenedor o bobina",
+            "Ubicación de almacenamiento, condiciones y requisitos de manipulación",
+            "Números de precinto y registros de verificación de integridad",
+            "Cobertura de seguro, aseguradora y periodo de póliza",
+            "Eventos de cadena de custodia registrados en el tiempo"
+          ]
+        },
+        {
+          "h": "Segregación",
+          "p": "Está previsto que los lotes custodiados se mantengan separados de los activos operativos de cualquier entidad de ReserveChain, de modo que el inventario registrado pueda conciliarse con independencia del balance del emisor."
+        },
+        {
+          "h": "Estado actual",
+          "p": "No hay ningún custodio, operador de almacén ni aseguradora confirmados, designados o presentados como contratados. Los campos de custodia mostrados en las páginas de activos permanecen pendientes hasta que se firmen los acuerdos y se apruebe la evidencia de respaldo."
+        }
+      ]
+    },
+    "proof-of-reserves": {
+      "kicker": "Módulo previsto — inactivo",
+      "title": "Prueba de Reservas",
+      "intro": "Se está construyendo un módulo de reporte de reservas para que, cuando existan datos reales y una certificación, el inventario físico y los tokens emitidos puedan conciliarse de forma transparente.",
+      "s": [
+        {
+          "h": "Qué está previsto que muestre el panel",
+          "p": "El módulo se ha construido conforme al siguiente alcance de reporte previsto. Ninguna de estas cifras se publica actualmente.",
+          "li": [
+            "Suministro de tokens: emitido, en circulación, en tesorería, bloqueado, quemado y redimido",
+            "Valor de reserva aprobado y ratio de cobertura resultante",
+            "Fecha de valoración y fecha de certificación",
+            "Resumen de custodia y seguro",
+            "Desglose por programa, metal, lote, partida, contenedor y bobina",
+            "Conciliación con el custodio y reporte de excepciones"
+          ]
+        },
+        {
+          "h": "Enfoque de conciliación",
+          "p": "Está previsto que el reporte de reservas se derive de registros fuente aprobados y no de una introducción manual. Cuando se detecte una discrepancia entre inventario, registros del custodio y suministro en cadena, el sistema está diseñado para reportar la excepción, nunca para ajustar saldos automáticamente."
+        },
+        {
+          "h": "Certificación",
+          "p": "ReserveChain no describe los datos de reserva como verificados de forma independiente en ausencia de una certificación emitida por un tercero cualificado. No se ha designado ningún certificador ni se ha obtenido certificación alguna."
+        },
+        {
+          "h": "Estado actual",
+          "p": "El módulo de Prueba de Reservas está construido pero inactivo. No se publica ninguna cifra de reservas, ratio de cobertura ni certificación, y no se publicará ninguna hasta que existan datos fuente, un certificador designado y autorización por escrito."
+        }
+      ]
+    },
+    "industrial-metal-assets": {
+      "kicker": "Programas de activos",
+      "title": "Activos de metales industriales",
+      "intro": "Los programas iniciales de ReserveChain cubren polvo de cobre y alambre de níquel de alta pureza, documentados e identificados a nivel de unidad individual.",
+      "s": [
+        {
+          "h": "Programa de Polvo de Cobre",
+          "p": "Programa de polvo de cobre de alta pureza documentado a nivel de contenedor, que abarca composición química, distribución del tamaño de partícula, morfología, densidad aparente y compactada, contenido de oxígeno y humedad, embalaje y estado del precinto. Todos los valores mostrados en este sitio web son ilustrativos y están pendientes de verificación."
+        },
+        {
+          "h": "Programa de Alambre de Níquel",
+          "p": "Programa de alambre de níquel de alta pureza documentado a nivel de bobina, que abarca composición química, diámetro y tolerancia del alambre, longitud y peso de bobina, acabado superficial, temple y propiedades de tracción. Todos los valores mostrados en este sitio web son ilustrativos y están pendientes de verificación."
+        },
+        {
+          "h": "Identificación a nivel de unidad",
+          "p": "Ambos programas están modelados de forma que cada unidad física —cada contenedor de polvo, cada bobina de alambre— tenga su propio identificador, conjunto documental y estado. Esto es lo que hace posible la conciliación por unidad y, si algún día se activa, la redención por unidad."
+        },
+        {
+          "h": "Extensibilidad a otros activos",
+          "p": "El modelo de datos subyacente está diseñado para ser reutilizable en otros programas de metales industriales y otras clases de activos del mundo real. No se anuncian ni se planifican programas adicionales para ninguna fecha concreta."
+        },
+        {
+          "h": "Estado actual",
+          "p": "Ningún programa de activos está verificado, tokenizado ni ofertado. Los registros de propiedad, laboratorio, custodia, seguro y valoración permanecen pendientes hasta que se aporte y apruebe la evidencia documental."
+        }
+      ]
+    },
+    "tokenization": {
+      "kicker": "Infraestructura prevista",
+      "title": "Tokenización",
+      "intro": "La arquitectura ERC-20 prevista, lo que deliberadamente se deja sin configurar y las condiciones que deberían cumplirse antes de desplegar nada en la red principal.",
+      "s": [
+        {
+          "h": "Arquitectura prevista",
+          "p": "El token principal previsto es un contrato ERC-20 sobre Ethereum, construido con componentes de OpenZeppelin y administrado mediante control de acceso basado en roles, con un esquema multifirma para las acciones privilegiadas. La suite se desarrolla y prueba actualmente solo en una testnet pública."
+        },
+        {
+          "h": "Parámetros configurables",
+          "p": "El contrato y los servicios de soporte están construidos de forma que lo siguiente sea configuración y no una asunción fijada en código. Cada elemento permanece sin definir a la espera de aprobación.",
+          "li": [
+            "Nombre y símbolo del token: pendientes de autorización",
+            "Suministro total y en circulación: no se ha emitido ningún token",
+            "Cualquier ratio entre tokens y unidades físicas: no determinado",
+            "Restricciones de transferencia y controles de elegibilidad",
+            "Roles de pausa, emisión y quema bajo control multifirma"
+          ]
+        },
+        {
+          "h": "Solo testnet",
+          "p": "Los contratos se despliegan y ejercitan en una testnet pública con fines de desarrollo y prueba. No se publica ninguna dirección de contrato en este sitio web, y ninguna dirección que circule en otro lugar debe considerarse auténtica."
+        },
+        {
+          "h": "Lo que deliberadamente no se define",
+          "p": "El precio del token, una cifra de suministro derivada de la valoración de activos, umbrales de redención, derechos de propiedad o título asociados a un token, y cualquier expectativa de revalorización, liquidez o rentabilidad no están definidos, no se implican y no deben inferirse de nada de lo contenido en este sitio web."
+        },
+        {
+          "h": "Estado actual",
+          "p": "No se ha emitido ni ofertado ningún token. El despliegue en la red principal de Ethereum y cualquier evento de generación de token solo tendrían lugar tras una auditoría independiente del contrato inteligente, la finalización de la estructura legal y corporativa, y una autorización por escrito."
+        }
+      ]
+    },
+    "redemption": {
+      "kicker": "Módulo previsto — inactivo",
+      "title": "Redención",
+      "intro": "Se está construyendo un flujo de redención física para que, si alguna vez se activa, contenedores o bobinas identificados pudieran liberarse contra tokens en condiciones controladas.",
+      "s": [
+        {
+          "h": "Proceso previsto",
+          "p": "El flujo está implementado de extremo a extremo y mantenido tras un interruptor de funcionalidad. Si se activara, está previsto que se ejecute en el siguiente orden.",
+          "li": [
+            "Verificación del monedero y nueva comprobación de elegibilidad, incluidos KYC, AML y cribado de sanciones",
+            "Comprobación de jurisdicción y confirmación de cualquier umbral aplicable",
+            "Selección del lote, contenedor o bobina concretos a redimir",
+            "Divulgación de comisiones, impuestos, transporte, seguro, custodia y embalaje",
+            "Aceptación de los términos de redención y firma electrónica",
+            "Revisión interna con aprobación por doble intervención",
+            "Bloqueo y quema de tokens, seguidos de liberación por el custodio y seguimiento de la entrega",
+            "Actualización del registro, del reporte de reservas y del suministro, con traza de auditoría completa"
+          ]
+        },
+        {
+          "h": "Elegibilidad",
+          "p": "La redención solo estaría disponible para titulares que superen el cribado de elegibilidad en el momento de la solicitud, en jurisdicciones donde la operación esté permitida. Superar el cribado una vez no generaría un derecho continuado."
+        },
+        {
+          "h": "Costes y logística",
+          "p": "Los metales industriales en cantidades comerciales conllevan requisitos de manipulación, transporte, aduanas y seguro. Cualquier redención estaría sujeta a esos costes y a la normativa aplicable de mercancías peligrosas y exportación, que aún no se ha determinado."
+        },
+        {
+          "h": "Estado actual",
+          "p": "El módulo de redención está inactivo. No existe ningún derecho de redención, no se ofrece ninguno, y su activación requeriría que los acuerdos legales, de custodia y de token subyacentes estuvieran finalizados y autorizados por escrito."
+        }
+      ]
+    },
+    "legal-structure": {
+      "kicker": "En desarrollo",
+      "title": "Estructura legal y de tenencia de activos",
+      "intro": "Los acuerdos corporativos, de tenencia de activos y regulatorios previstos para sustentar la plataforma, y su estado actual.",
+      "s": [
+        {
+          "h": "Estructura corporativa",
+          "p": "Una estructura corporativa y de emisión suiza se encuentra en desarrollo. La entidad emisora, sus mecanismos de gobierno, su capital social y su posición regulatoria no están finalizados, y ninguna entidad se presenta en este sitio web como emisor confirmado."
+        },
+        {
+          "h": "Acuerdos de tenencia de activos",
+          "p": "La estructura prevista separa la entidad que posee o controla los activos físicos de la entidad responsable de cualquier emisión futura de tokens, de modo que el inventario pueda conciliarse de forma independiente. Los acuerdos concretos están sujetos a revisión legal y fiscal."
+        },
+        {
+          "h": "Clasificación del token",
+          "p": "La clasificación jurídica de cualquier token futuro no ha sido determinada. Si un instrumento se trataría como token de pago, de utilidad o de activo, y las consecuencias de esa clasificación, son cuestiones que dependen de la estructura legal final y de la orientación regulatoria aplicable."
+        },
+        {
+          "h": "Sin autorización regulatoria",
+          "p": "ReserveChain no posee, ni afirma poseer, autorización, licencia o registro regulatorio alguno. Este sitio web no está dirigido a residentes de la Unión Europea o del Espacio Económico Europeo y no constituye comercialización de un criptoactivo conforme a MiCA."
+        },
+        {
+          "h": "Estado actual",
+          "p": "Hasta que la estructura esté finalizada y exista documentación definitiva de oferta, no se realiza a través de este sitio web ninguna oferta, invitación o solicitud en ninguna jurisdicción."
+        }
+      ]
+    },
+    "enterprise": {
+      "kicker": "Servicios empresariales",
+      "title": "Servicios empresariales",
+      "intro": "Servicios previstos para contrapartes institucionales, propietarios de activos y compradores industriales. En esta fase no se ofrecen condiciones comerciales.",
+      "s": [
+        {
+          "h": "A quién va dirigido",
+          "p": "Productores, comercializadores y tenedores de inventario de metales industriales; contrapartes institucionales que evalúan activos del mundo real tokenizados; y compradores industriales con necesidades de suministro físico."
+        },
+        {
+          "h": "Servicios en desarrollo",
+          "p": "Los siguientes servicios están en desarrollo. Ninguno está actualmente contratado, tarifado ni disponible.",
+          "li": [
+            "Documentación de activos e incorporación al registro",
+            "Coordinación de verificación e inspección independientes",
+            "Apoyo en la estructuración de custodia y seguro",
+            "Emisión de Pasaportes Digitales de Activo para unidades documentadas",
+            "Infraestructura de conciliación y reporte de reservas",
+            "Infraestructura de tokenización de marca blanca para otras clases de activos"
+          ]
+        },
+        {
+          "h": "Cómo consultar",
+          "p": "Las consultas pueden enviarse mediante el formulario de lista de espera del proyecto, indicando un interés institucional o empresarial. En esta fase no se ofrecen ni implican condiciones comerciales, precios, capacidad ni compromisos de plazos."
+        }
+      ]
+    },
+    "contact": {
+      "kicker": "Contacto",
+      "title": "Contacto",
+      "intro": "Cómo contactar con el proyecto durante el desarrollo y cómo confirmar que una comunicación procede realmente de ReserveChain.",
+      "s": [
+        {
+          "h": "Consultas generales y del proyecto",
+          "p": "Las consultas generales pueden enviarse mediante el formulario de lista de espera del proyecto. Registrar una consulta no constituye inversión, reserva ni asignación de ningún tipo."
+        },
+        {
+          "h": "Propietarios de activos y originadores",
+          "p": "Los tenedores de inventario de metales industriales documentado que deseen tratar su incorporación al registro pueden enviar una consulta por la vía de propietarios de activos."
+        },
+        {
+          "h": "Compradores industriales",
+          "p": "Los compradores con necesidades de suministro físico pueden enviar una consulta por la vía de compradores industriales. No se ofrece ningún inventario a la venta a través de este sitio web."
+        },
+        {
+          "h": "Verifica primero los canales oficiales",
+          "p": "Antes de actuar ante cualquier comunicación que aparente proceder de ReserveChain, consulta el Directorio de Canales Oficiales. ReserveChain no opera ventas de tokens, preventas, canales de pago ni solicitudes de conexión de monedero de ningún tipo, y nunca pedirá una frase semilla ni una clave privada."
+        }
+      ]
+    },
+    "about": {
+      "kicker": "Acerca de",
+      "title": "Acerca de ReserveChain",
+      "intro": "ReserveChain está desarrollando infraestructura institucional destinada a representar reservas documentadas de metales industriales como tokens en cadena, acompañadas de documentación transparente del activo.",
+      "s": [
+        {
+          "h": "Qué se está construyendo",
+          "p": "Una plataforma que combina un registro de activos de metales industriales, Pasaportes Digitales de Activo por unidad, una infraestructura ERC-20 configurable, conciliación de reservas y un flujo de redención física, junto con los portales y controles necesarios para operarlos."
+        },
+        {
+          "h": "Posicionamiento",
+          "p": "El proyecto se posiciona como infraestructura institucional para activos del mundo real. No es una oferta cripto especulativa, ni una preventa, ni un lanzamiento de token, y no se comercializa como tal."
+        },
+        {
+          "h": "Enfoque respecto a las afirmaciones",
+          "p": "Nada en este sitio web se presenta como operativo hasta que esté respaldado por documentación y aprobado. Cuando un dato aún no está disponible, la plataforma muestra un estado pendiente en lugar de una cifra ilustrativa que pudiera confundirse con información verificada."
+        },
+        {
+          "h": "Fase actual",
+          "p": "El proyecto se encuentra en fase de desarrollo y prelanzamiento. La estructura corporativa, la verificación de activos, los acuerdos de custodia, la clasificación del token y la auditoría independiente están todos pendientes."
+        }
+      ]
+    },
+    "corporate-status": {
+      "kicker": "Estado de desarrollo corporativo",
+      "title": "Estado de desarrollo corporativo",
+      "intro": "Una declaración clara de lo que se ha completado y lo que no, para que la fase del proyecto no quede sujeta a interpretación.",
+      "s": [
+        {
+          "h": "En desarrollo",
+          "p": "Lo siguiente está en curso y no finalizado.",
+          "li": [
+            "Estructura corporativa y de emisión suiza",
+            "Clasificación jurídica del token y posición regulatoria",
+            "Verificación de activos y documentación de laboratorio",
+            "Acuerdos de custodia, almacenamiento y seguro",
+            "Metodología de prueba de reservas y designación de un certificador",
+            "Auditoría independiente del contrato inteligente y test de intrusión"
+          ]
+        },
+        {
+          "h": "Aún no realizado",
+          "p": "No se ha emitido ningún token. No se ha desplegado ningún contrato en la red principal de Ethereum. No existe documentación de oferta. No se ha designado custodio, aseguradora, certificador ni auditor. No se ha obtenido ni solicitado autorización regulatoria sobre la base de una estructura final."
+        },
+        {
+          "h": "Qué existe hoy",
+          "p": "Un sitio web público en tres idiomas, una estructura de registro de activos y Pasaportes Digitales de Activo, una consola administrativa, una API de backend y una suite de contratos inteligentes ejercitada en una testnet pública. Los módulos sensibles están construidos pero permanecen inactivos."
+        },
+        {
+          "h": "Cómo se mantiene esta página",
+          "p": "Está previsto actualizar esta página a medida que los elementos pasen de en desarrollo a completados, publicando la documentación de respaldo junto a cada cambio."
+        }
+      ]
+    },
+    "roadmap": {
+      "kicker": "Hoja de ruta",
+      "title": "Hoja de ruta",
+      "intro": "La secuencia de trabajo prevista. Las fechas se omiten deliberadamente porque la entrega depende de pasos legales, de verificación y de autorización que no están bajo control unilateral del proyecto.",
+      "s": [
+        {
+          "h": "Etapa 1 — Fundamentos",
+          "p": "Requisitos, arquitectura, sistema de diseño, sitio web público en inglés, español e italiano, lista de espera y modelo de datos de activos subyacente. Sustancialmente implantado."
+        },
+        {
+          "h": "Etapa 2 — Registro e infraestructura",
+          "p": "Registro de activos, Pasaportes Digitales de Activo, API de backend, consola administrativa, gestión de casos de KYC y cumplimiento, y una suite ERC-20 configurable probada en testnet pública. En curso."
+        },
+        {
+          "h": "Etapa 3 — Verificación y estructura",
+          "p": "Verificación independiente de laboratorio, acuerdos de custodia y seguro, finalización de la estructura corporativa suiza, clasificación del token y designación de un certificador para el reporte de reservas. Depende de decisiones del titular y de la contratación de terceros."
+        },
+        {
+          "h": "Etapa 4 — Aseguramiento independiente",
+          "p": "Auditoría independiente del contrato inteligente y test de intrusión, remediación y pruebas de aceptación. Esta etapa es una barrera: nada posterior avanza hasta completarla."
+        },
+        {
+          "h": "Etapa 5 — Activación autorizada",
+          "p": "Cualquier despliegue en red principal, evento de generación de token, activación de compra, publicación de prueba de reservas o redención solo ocurriría tras completar la etapa 4 y mediar autorización por escrito. No se compromete ninguna fecha para esta etapa."
+        }
+      ]
+    },
+    "governance": {
+      "kicker": "Gobernanza",
+      "title": "Gobernanza",
+      "intro": "Los controles previstos para regir las acciones privilegiadas en la plataforma, la tesorería y el registro de activos.",
+      "s": [
+        {
+          "h": "Separación de funciones",
+          "p": "Las responsabilidades de operaciones, cumplimiento, finanzas, tesorería, contenidos y auditoría están separadas por rol. La plataforma está construida de forma que ninguna cuenta pueda iniciar y aprobar a la vez una acción sensible."
+        },
+        {
+          "h": "Aprobación por doble intervención",
+          "p": "Las acciones sensibles —publicación de afirmaciones sobre activos, cambios en la configuración del token, decisiones de cumplimiento y operaciones de tesorería— están diseñadas para requerir una segunda aprobación independiente antes de surtir efecto."
+        },
+        {
+          "h": "Control multifirma",
+          "p": "Está previsto que los roles privilegiados del contrato inteligente los ostente un esquema multifirma y no una clave individual. El conjunto de firmantes y el umbral no se han establecido."
+        },
+        {
+          "h": "Traza de auditoría",
+          "p": "Las acciones administrativas se registran en un registro de auditoría de solo anexado y resistente a manipulación, que recoge actor, momento, acción, registro afectado, valores anterior y nuevo, y el motivo. El registro no puede editarse ni eliminarse desde la interfaz."
+        },
+        {
+          "h": "Estado actual",
+          "p": "Estos controles están implementados en la plataforma. Las personas, entidades y esquemas de firmantes que los operarían aún no han sido designados."
+        }
+      ]
+    },
+    "faq": {
+      "kicker": "Preguntas frecuentes",
+      "title": "Preguntas frecuentes",
+      "intro": "Respuestas directas a las preguntas que con más frecuencia plantea la fase de desarrollo del proyecto.",
+      "s": [
+        {
+          "h": "¿Puedo comprar un token ahora?",
+          "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. No hay preventa, ni asignación, ni precio. Cualquier comunicación que le ofrezca un token de ReserveChain debe considerarse fraudulenta."
+        },
+        {
+          "h": "¿Qué me aporta unirme a la lista de espera?",
+          "p": "Registra su interés para que el proyecto pueda contactarle con novedades. No constituye una inversión, compra de tokens, reserva de activos, reserva de precio, asignación de tokens ni derecho a participar en ninguna oferta futura."
+        },
+        {
+          "h": "¿Son reales las cifras de pureza y reservas de este sitio?",
+          "p": "Las cifras mostradas son ilustrativas y proceden de documentación preliminar. Siguen sujetas a verificación documental, evaluación independiente y aprobación final, y se etiquetan como tales allí donde aparecen."
+        },
+        {
+          "h": "¿Existe una dirección de contrato inteligente?",
+          "p": "No se publica ninguna dirección de contrato en este sitio web. La suite de contratos se ejercita únicamente en una testnet pública. No debe confiarse en ninguna dirección presentada en otro lugar como contrato oficial de ReserveChain."
+        },
+        {
+          "h": "¿Está el metal realmente bajo custodia?",
+          "p": "No se ha designado ningún custodio, operador de almacén ni aseguradora. Los registros de custodia figuran como pendientes hasta que se firmen acuerdos y se apruebe la evidencia."
+        },
+        {
+          "h": "¿Pueden participar residentes de la UE o del EEE?",
+          "p": "Este sitio web no está dirigido a residentes de la Unión Europea ni del Espacio Económico Europeo, y nada de su contenido constituye comercialización de un criptoactivo conforme a MiCA. La elegibilidad jurisdiccional la determinaría la estructura legal final."
+        },
+        {
+          "h": "¿Cuándo se lanzará el proyecto?",
+          "p": "No se compromete ninguna fecha de lanzamiento. La activación depende de la finalización de la estructura legal, la verificación de activos, los acuerdos de custodia, una auditoría independiente y una autorización por escrito."
+        }
+      ]
+    },
+    "asset-owner-enquiries": {
+      "kicker": "Propietarios y originadores",
+      "title": "Consultas de propietarios de activos",
+      "intro": "Para productores, comercializadores y tenedores de inventario de metales industriales documentado que deseen conocer el proceso de incorporación previsto.",
+      "s": [
+        {
+          "h": "Proceso de incorporación previsto",
+          "p": "La incorporación se plantea ante todo como un ejercicio documental. No se publica nada sobre un activo hasta que la evidencia de respaldo ha sido revisada y aprobada.",
+          "li": [
+            "Consulta inicial y descripción del inventario",
+            "Diligencia debida sobre la contraparte, incluidos KYB y cribado de sanciones",
+            "Presentación de documentación de propiedad, título y procedencia",
+            "Análisis de laboratorio independiente e inspección física",
+            "Acuerdos de custodia, almacenamiento y seguro",
+            "Inscripción en el registro de activos con identificadores por unidad",
+            "Emisión de Pasaporte Digital de Activo para cada unidad documentada"
+          ]
+        },
+        {
+          "h": "Qué se requiere del propietario",
+          "p": "Evidencia clara de propiedad y título, acceso para inspección y muestreo independientes, identificación completa de partidas y unidades, y disposición a situar el inventario bajo un acuerdo de custodia documentado."
+        },
+        {
+          "h": "Qué no se ofrece",
+          "p": "No se ofrece compra, financiación, garantía de valoración, compromiso de tokenización ni listado alguno. La incorporación al registro no crea obligación para ninguna de las partes de avanzar hacia la tokenización."
+        },
+        {
+          "h": "Cómo consultar",
+          "p": "Envíe una consulta mediante el formulario de lista de espera del proyecto, indicando un interés como propietario de activos u originador. En esta fase no se ofrecen condiciones comerciales."
+        }
+      ]
+    },
+    "industrial-buyer-enquiries": {
+      "kicker": "Compradores industriales",
+      "title": "Consultas de compradores industriales",
+      "intro": "Para compradores industriales con necesidades de suministro físico de polvo de cobre o alambre de níquel de alta pureza.",
+      "s": [
+        {
+          "h": "Para qué sirve esta vía",
+          "p": "Para registrar una necesidad de suministro físico de modo que pueda considerarse a medida que se desarrollen los programas de activos y los acuerdos de custodia. Es una vía de consulta, no un canal de pedidos."
+        },
+        {
+          "h": "Información que ayuda",
+          "p": "Material y especificación requeridos, volúmenes indicativos y frecuencia de entrega, destino y requisitos de importación aplicables, y cualquier obligación de certificación o trazabilidad que imponga su proceso."
+        },
+        {
+          "h": "Qué no se ofrece",
+          "p": "No se ofrece inventario a la venta a través de este sitio web, no se cotiza precio alguno y no se compromete disponibilidad, plazo de entrega ni capacidad. Cualquier suministro futuro estaría sujeto a contrato, verificación y legislación aplicable."
+        },
+        {
+          "h": "Cómo consultar",
+          "p": "Envíe una consulta mediante el formulario de lista de espera del proyecto, indicando un interés como comprador industrial y el material en cuestión."
+        }
+      ]
+    },
+    "privacy": {
+      "kicker": "Legal",
+      "title": "Política de privacidad",
+      "intro": "Cómo se tratan los datos personales facilitados a través de este sitio web durante la fase de desarrollo del proyecto.",
+      "s": [
+        {
+          "h": "Quién es responsable",
+          "p": "El responsable será la entidad emisora de ReserveChain una vez finalizada la estructura corporativa. Hasta entonces, los datos personales facilitados a través de este sitio web son tratados por el equipo responsable del desarrollo de la plataforma. Esta sección se actualizará con los datos definitivos de la entidad."
+        },
+        {
+          "h": "Qué datos se recogen",
+          "p": "Únicamente los que usted facilita mediante la lista de espera o un formulario de consulta: nombre, correo electrónico, país, organización cuando se indique, el tipo de interés señalado y los consentimientos registrados. Datos técnicos como la dirección IP y la información del navegador pueden tratarse por seguridad y para operar el sitio."
+        },
+        {
+          "h": "Por qué se tratan",
+          "p": "Para responder a su consulta, enviarle las novedades del proyecto que haya solicitado, conservar constancia de los consentimientos prestados y cumplir obligaciones legales y de conservación. Sus datos no se utilizan para realizar oferta alguna de instrumento financiero, porque a través de este sitio web no se realiza ninguna."
+        },
+        {
+          "h": "Datos de pago y monedero",
+          "p": "En esta fase no se solicita, recoge ni acepta información de pago, dirección de monedero, clave privada ni frase semilla a través de este sitio web. Cualquier solicitud de esa información que aparente proceder de ReserveChain debe considerarse fraudulenta."
+        },
+        {
+          "h": "Comunicación de datos",
+          "p": "Los datos solo se comparten con los proveedores que operan el sitio web, su base de datos y el envío de correo, actuando conforme a instrucciones. Podrán comunicarse cuando lo exija la ley. No se venden ni se comparten con fines de marketing de terceros."
+        },
+        {
+          "h": "Conservación",
+          "p": "Los registros de consultas y de lista de espera se conservan durante el tiempo necesario para atender la consulta y acreditar los consentimientos prestados, y después se eliminan o anonimizan. Los plazos definitivos se fijarán con la estructura legal final."
+        },
+        {
+          "h": "Sus derechos",
+          "p": "Con arreglo a la legislación aplicable, puede solicitar el acceso a sus datos, la rectificación de datos inexactos, la supresión, la limitación del tratamiento, la portabilidad y la retirada del consentimiento en cualquier momento. La retirada no afecta al tratamiento previo a la misma."
+        },
+        {
+          "h": "Contacto y reclamaciones",
+          "p": "Las solicitudes pueden enviarse por la vía de contacto de este sitio web. También puede presentar una reclamación ante la autoridad de control competente en su jurisdicción."
+        }
+      ]
+    },
+    "cookie": {
+      "kicker": "Legal",
+      "title": "Política de cookies",
+      "intro": "Qué se almacena en su dispositivo al utilizar este sitio web y qué se ha decidido deliberadamente no almacenar.",
+      "s": [
+        {
+          "h": "Solo almacenamiento esencial",
+          "p": "Este sitio web está construido para funcionar únicamente con almacenamiento esencial. Son esenciales los elementos necesarios para servir el sitio en el idioma elegido, mantener operativo el formulario de lista de espera de varios pasos y proteger los formularios frente a abusos."
+        },
+        {
+          "h": "Preferencia de idioma",
+          "p": "Su selección de idioma entre inglés, español e italiano se refleja en la dirección de la página y puede almacenarse para que la navegación se mantenga en el idioma escogido."
+        },
+        {
+          "h": "Analítica y marketing",
+          "p": "No se instalan cookies de analítica ni de marketing sin su consentimiento, y no se realiza ningún seguimiento antes de prestarlo. Cuando se habilite analítica en el futuro, se presentará mediante un control de consentimiento que distinga las categorías esencial, analítica y marketing."
+        },
+        {
+          "h": "Sin datos personales en la analítica",
+          "p": "La plataforma está diseñada para que no se incluyan datos personales en los eventos de analítica ni en las direcciones de página."
+        },
+        {
+          "h": "Gestión del almacenamiento",
+          "p": "Puede borrar o bloquear el almacenamiento del navegador desde su configuración. Bloquear el almacenamiento esencial puede impedir que los formularios de este sitio web funcionen correctamente."
+        }
+      ]
+    },
+    "terms": {
+      "kicker": "Legal",
+      "title": "Términos de uso",
+      "intro": "Los términos con arreglo a los cuales se pone a disposición este sitio web durante la fase de desarrollo del proyecto.",
+      "s": [
+        {
+          "h": "Ámbito",
+          "p": "Estos términos rigen el uso de este sitio web. No crean relación contractual alguna respecto de ningún activo, token u oferta futura, ya que aquí no se ofrece ninguno."
+        },
+        {
+          "h": "Ni oferta ni asesoramiento",
+          "p": "Nada en este sitio web constituye oferta, invitación o solicitud de compra o suscripción de valores, tokens o instrumentos financieros, ni asesoramiento de inversión, jurídico, fiscal o contable. No debe depositarse confianza en este sitio web para adoptar decisión financiera alguna."
+        },
+        {
+          "h": "La información es provisional",
+          "p": "La información sobre activos, especificaciones, valoración, custodia y reservas mostrada en este sitio web es ilustrativa y está sujeta a verificación documental, evaluación independiente y aprobación final. Puede cambiar o retirarse sin previo aviso."
+        },
+        {
+          "h": "Elegibilidad",
+          "p": "No debe utilizar este sitio web cuando ello suponga infringir la legislación que le resulte aplicable. Este sitio web no está dirigido a residentes de la Unión Europea o del Espacio Económico Europeo, ni a personas situadas en una jurisdicción restringida."
+        },
+        {
+          "h": "Uso aceptable",
+          "p": "Se compromete a no hacer un uso indebido de este sitio web, incluyendo el intento de acceso no autorizado, el envío de información falsa por sus formularios, la interferencia en su funcionamiento o la suplantación de ReserveChain o de cualquiera de sus representantes."
+        },
+        {
+          "h": "Propiedad intelectual",
+          "p": "El contenido, el diseño y el código de este sitio web están protegidos. Los nombres y marcas de terceros mencionados siguen siendo propiedad de sus titulares y no se emplean para dar a entender respaldo o relación alguna."
+        },
+        {
+          "h": "Responsabilidad",
+          "p": "En la medida permitida por la ley, este sitio web se proporciona tal cual, sin garantía de exactitud, integridad ni disponibilidad. Nada en estos términos excluye responsabilidades que no puedan excluirse legalmente."
+        },
+        {
+          "h": "Modificaciones y ley aplicable",
+          "p": "Estos términos podrán actualizarse conforme avance el proyecto, y la versión definitiva se emitirá junto con la estructura corporativa final, indicando la ley aplicable y la jurisdicción competente."
+        }
+      ]
+    },
+    "risk-disclosure": {
+      "kicker": "Legal",
+      "title": "Divulgación de riesgos",
+      "intro": "Los principales riesgos asociados al proyecto tal como se describe en este sitio web. No es una lista exhaustiva ni sustituye al asesoramiento independiente.",
+      "s": [
+        {
+          "h": "Riesgo de desarrollo",
+          "p": "El proyecto está en desarrollo. Puede retrasarse, modificarse sustancialmente, suspenderse o abandonarse. No existe garantía de que se emita token alguno, de que se active ningún módulo de la plataforma ni de que el proyecto llegue a avanzar."
+        },
+        {
+          "h": "Riesgo legal y regulatorio",
+          "p": "La estructura corporativa, la clasificación jurídica de cualquier token futuro y el tratamiento regulatorio aplicable no están determinados. La evolución normativa puede restringir, retrasar o impedir el proyecto, o excluir la participación desde determinadas jurisdicciones."
+        },
+        {
+          "h": "Riesgo de activo y verificación",
+          "p": "La información sobre los activos es ilustrativa y no verificada. El análisis independiente puede no confirmar la composición, cantidad, calidad, propiedad o procedencia de un lote, y la documentación puede resultar incompleta o defectuosa."
+        },
+        {
+          "h": "Riesgo de custodia y seguro",
+          "p": "No se ha designado custodio ni aseguradora. Los activos físicos están expuestos a pérdida, daño, robo, deterioro, insolvencia del almacén y lagunas en la cobertura del seguro."
+        },
+        {
+          "h": "Riesgo tecnológico y de contrato inteligente",
+          "p": "Los contratos inteligentes pueden contener defectos. No se ha completado una auditoría independiente. Las transacciones en blockchain son por lo general irreversibles, y la pérdida de una clave privada supondría la pérdida permanente del acceso a los activos asociados."
+        },
+        {
+          "h": "Riesgo de valoración, liquidez y mercado",
+          "p": "Los precios de los metales industriales fluctúan. No se ofrece, promete ni implica mercado, listado en bolsa, liquidez, precio ni capacidad de venta o redención. Cualquier instrumento futuro podría ser ilíquido o perder valor."
+        },
+        {
+          "h": "Riesgo de contraparte y operativo",
+          "p": "El proyecto depende de terceros: laboratorios, inspectores, custodios, aseguradoras, auditores y proveedores de servicios. El incumplimiento, la insolvencia o la mala conducta de cualquiera de ellos podría afectar materialmente al proyecto."
+        },
+        {
+          "h": "Riesgo de fraude y suplantación",
+          "p": "Los proyectos en esta fase son objetivo de suplantación y fraude. No existe venta de tokens. Verifique toda comunicación con el Directorio de Canales Oficiales antes de actuar."
+        },
+        {
+          "h": "Pérdida total",
+          "p": "Cualquier participación futura, si llegara a ofrecerse, debe considerarse sujeta al riesgo de pérdida total del importe implicado."
+        }
+      ]
+    },
+    "restricted-jurisdictions": {
+      "kicker": "Legal",
+      "title": "Jurisdicciones restringidas",
+      "intro": "Dónde no está dirigido este sitio web y cómo está previsto gestionar la elegibilidad jurisdiccional.",
+      "s": [
+        {
+          "h": "Unión Europea y Espacio Económico Europeo",
+          "p": "Este sitio web no está dirigido a residentes de la Unión Europea ni del Espacio Económico Europeo. Nada de su contenido constituye comercialización, publicidad o solicitud respecto de un criptoactivo conforme a MiCA, y el proyecto no dispone de autorización alguna bajo ese régimen."
+        },
+        {
+          "h": "Jurisdicciones y personas sancionadas",
+          "p": "El proyecto no tiene intención de poner ninguna oferta futura a disposición de personas o entidades situadas en jurisdicciones sujetas a sanciones integrales, ni de personas sujetas a sanciones o medidas de congelación de activos aplicables."
+        },
+        {
+          "h": "Otras jurisdicciones restringidas",
+          "p": "No se ha establecido una lista definitiva de jurisdicciones permitidas y restringidas. La determinará la estructura legal final junto con el asesoramiento regulatorio aplicable, y se publicará antes de que pudiera realizarse oferta alguna."
+        },
+        {
+          "h": "Controles de elegibilidad previstos",
+          "p": "La plataforma está construida para soportar cribado jurisdiccional, comprobaciones de país de residencia, nacionalidad y ubicación actual, cribado de sanciones y de personas políticamente expuestas, restricciones de transferencia y conservación de las decisiones de elegibilidad. Estos controles están implementados pero inactivos."
+        },
+        {
+          "h": "Prohibición de elusión",
+          "p": "Cualquier norma futura de elegibilidad no debe eludirse, ni mediante el uso de un testaferro, un intermediario, una declaración falsa o medios técnicos de ocultación de la ubicación. Todo intento en tal sentido invalidaría la elegibilidad."
+        },
+        {
+          "h": "Su responsabilidad",
+          "p": "Es usted responsable de asegurarse de que acceder a este sitio web y cualquier participación futura serían lícitos para usted. Si no lo fueran, no debe continuar."
+        }
+      ]
+    },
+    "anti-fraud": {
+      "kicker": "Legal",
+      "title": "Antifraude y antisuplantación",
+      "intro": "Cómo reconocer comunicaciones fraudulentas que dicen representar a ReserveChain y qué es lo que el proyecto nunca le pedirá.",
+      "s": [
+        {
+          "h": "No existe venta de tokens",
+          "p": "No se ha emitido ningún token y ReserveChain no ofrece ni vende token, preventa, asignación, plaza en lista blanca ni descuento alguno. Cualquier oferta de estos elementos es fraudulenta, por convincente que parezca."
+        },
+        {
+          "h": "Lo que ReserveChain nunca hará",
+          "p": "Considere cualquiera de los siguientes hechos como prueba concluyente de fraude.",
+          "li": [
+            "Pedirle su frase semilla, clave privada o contraseña de monedero",
+            "Pedirle que conecte un monedero o apruebe una transacción",
+            "Pedirle que envíe criptomonedas o un pago de cualquier tipo",
+            "Publicarle o enviarle una dirección de contrato para comprar un token",
+            "Ofrecer rentabilidades garantizadas, asignaciones, bonificaciones o una cuenta atrás",
+            "Contactarle por un canal no oficial para solicitarle fondos o documentos personales"
+          ]
+        },
+        {
+          "h": "Patrones habituales de suplantación",
+          "p": "Los actores fraudulentos clonan sitios web en dominios similares, crean cuentas sociales con el nombre y la marca del proyecto, suplantan a miembros del equipo en mensajes directos y difunden direcciones de contrato, informes de auditoría o anuncios de alianzas inventados."
+        },
+        {
+          "h": "Cómo verificar",
+          "p": "Consulte el Directorio de Canales Oficiales de este sitio web antes de actuar ante cualquier comunicación. Confirme el nombre exacto del dominio. Considere no verificado cualquier canal que no figure allí, incluidos los que usen el nombre, el logotipo o la redacción del proyecto."
+        },
+        {
+          "h": "Si le contactan",
+          "p": "No envíe fondos, no conecte un monedero y no comparta documentos. Comunique la comunicación por la vía de contacto de este sitio web e infórmelo a la autoridad competente de su jurisdicción. ReserveChain no puede recuperar fondos enviados a un tercero fraudulento."
+        }
+      ]
+    },
+    "official-channels": {
+      "kicker": "Legal",
+      "title": "Directorio de canales oficiales",
+      "intro": "La lista definitiva de canales operados por el proyecto. Todo lo que no figure aquí no está operado por ReserveChain.",
+      "s": [
+        {
+          "h": "Sitio web",
+          "p": "Este sitio web es el canal principal del proyecto. Confirme el nombre de dominio en la barra de direcciones de su navegador antes de enviar cualquier información. Los dominios similares con grafías o extensiones distintas no son operados por el proyecto."
+        },
+        {
+          "h": "Canales aún no establecidos",
+          "p": "En esta fase no se han establecido canales oficiales de redes sociales, mensajería ni comunidad. Dado que no existe ninguno, cualquier cuenta, grupo o canal que se presente como comunidad oficial de ReserveChain no es auténtico."
+        },
+        {
+          "h": "Correo electrónico",
+          "p": "La correspondencia del proyecto solo se envía en respuesta a una consulta remitida desde este sitio web, y únicamente desde una dirección del dominio propio del proyecto. Los mensajes procedentes de proveedores de correo gratuitos o de dominios similares no son del proyecto."
+        },
+        {
+          "h": "Sin canales financieros",
+          "p": "El proyecto no opera canal de pago alguno, ni dirección de monedero para recibir fondos, ni listado en mercados, ni canal de venta de tokens de ningún tipo. Ningún canal de este tipo se introducirá mediante un mensaje no anunciado."
+        },
+        {
+          "h": "Mantenimiento de esta lista",
+          "p": "Está previsto actualizar este directorio cada vez que se establezca o se retire un canal. Considere esta página, y no un listado de terceros, como la referencia."
+        }
+      ]
+    },
+    "registry": {
+      "kicker": "Registro de activos",
+      "title": "Registro de activos",
+      "intro": "Índice a nivel de unidad de los lotes de metales industriales documentados. Cada fila corresponde a un contenedor o bobina individual y enlaza con su Pasaporte Digital de Activo.",
+      "col": {
+        "id": "ID de unidad",
+        "program": "Programa",
+        "unit": "Tipo de unidad",
+        "lab": "Laboratorio / CoA",
+        "ownership": "Propiedad",
+        "custody": "Custodia",
+        "valuation": "Valoración",
+        "insurance": "Seguro",
+        "reserve": "Informe de reserva",
+        "token": "Programa de token",
+        "redemption": "Redención"
+      },
+      "unit": {
+        "container": "Contenedor",
+        "coil": "Bobina"
+      },
+      "v": {
+        "inactive": "Inactivo"
+      },
+      "tableNote": "Todo campo respaldado por evidencia permanece en estado pendiente hasta que el documento de soporte haya sido recibido, revisado y aprobado. Se muestra deliberadamente pendiente en lugar de una cifra provisional, de modo que ningún valor de esta página pueda confundirse con un dato verificado."
+    },
+    "documents": {
+      "kicker": "Documentos y recursos",
+      "title": "Documentos y recursos",
+      "intro": "Índice de la documentación del proyecto, indicando qué está publicado, qué está en preparación y qué depende de evidencia todavía no aportada.",
+      "note": "Los documentos marcados como en preparación o pendientes no están disponibles para descarga. No se muestra ningún control de descarga para ellos, porque presentar un control inactivo daría a entender que existe un documento que no existe.",
+      "group": {
+        "corporate": "Corporativo y proyecto",
+        "token": "Token y tecnología",
+        "asset": "Documentación de activos y reservas",
+        "legal": "Legal y divulgación"
+      },
+      "state": {
+        "published": "Publicado",
+        "preparation": "En preparación",
+        "pending": "Pendiente de evidencia"
+      },
+      "doc": {
+        "overview": "Descripción general del proyecto",
+        "corporateStatus": "Estado de desarrollo corporativo",
+        "governance": "Marco de gobernanza",
+        "roadmap": "Hoja de ruta",
+        "whitepaper": "Whitepaper",
+        "tokenTerms": "Términos del token",
+        "smartContract": "Documentación del contrato inteligente",
+        "audit": "Informe de auditoría independiente",
+        "copperReport": "Informe de análisis de polvo de cobre",
+        "nickelReport": "Informe de análisis de alambre de níquel",
+        "coa": "Certificados de análisis",
+        "ownership": "Documentación de propiedad y título",
+        "valuation": "Documentación de valoración",
+        "custody": "Acuerdos de custodia y recibos de almacén",
+        "insurance": "Documentación de seguro",
+        "por": "Informe de prueba de reservas",
+        "redemption": "Términos de redención",
+        "risk": "Divulgación de riesgos",
+        "jurisdiction": "Jurisdicciones restringidas",
+        "privacy": "Política de privacidad",
+        "cookie": "Política de cookies",
+        "terms": "Términos de uso",
+        "antiFraud": "Antifraude y antisuplantación",
+        "materialEvents": "Avisos de hechos relevantes"
+      }
+    }
   }
 }
