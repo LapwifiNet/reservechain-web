@@ -2,6 +2,12 @@
 /.next
 /out
 .env*.local
+# Compose reads the root .env; it holds JWT_SECRET / SERVICE_API_TOKEN and must
+# never be committed. The *.example templates stay tracked.
+.env
+.env.*
+!.env.example
+!.env.docker.example
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts
