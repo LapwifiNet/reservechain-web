@@ -83,6 +83,20 @@ If any password is not set, a random 32-character password will be generated and
 - `compliance`: Access to waitlist, dashboard stats, and all KYC endpoints
 - `viewer`: Can authenticate but cannot access admin/compliance endpoints
 
+## Rate limiting
+
+`ThrottlerGuard` is registered globally (`APP_GUARD` in `app.module.ts`), so every route is rate
+limited by default.
+
+| Scope | Limit | Notes |
+|---|---|---|
+| Global default | 100 requests / 60s per IP | Baseline for general API traffic |
+| `POST /api/auth/login` | 5 requests / 60s per IP | Dedicated `@Throttle` to slow credential stuffing |
+| `GET /api/health` | exempt | `@SkipThrottle` so liveness probes are never blocked |
+
+Exceeding a limit returns HTTP `429 Too Many Requests`. Enforcement is covered by
+`test/rate-limit.e2e-spec.ts`.
+
 ## Dashboard integration
 `GET /api/dashboard/stats` returns totals (waitlist, programs, records, passports issued), `registrationsByType`, and `recentActivity` — designed to feed the admin dashboard UI directly. Requires admin or compliance role.
 

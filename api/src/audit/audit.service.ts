@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { createHash } from 'crypto';
 
@@ -61,7 +62,7 @@ export class AuditService {
         action: input.action,
         resourceType: input.resourceType,
         resourceId: input.resourceId,
-        metadata: input.metadata,
+        metadata: input.metadata as Prisma.InputJsonValue | undefined,
         ipAddress: input.ipAddress,
         userAgent: input.userAgent,
         prevHash,

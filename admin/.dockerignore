@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.git
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Never bake secrets into an image layer.
+.env
+.env.*

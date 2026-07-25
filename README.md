@@ -39,8 +39,9 @@ src/
 
 ## Production notes
 - Replace `src/lib/store.ts` (JSON file) with PostgreSQL + an append-only audit table.
-- Add Payload CMS for content, NestJS for the shared API, and the ERC-20 suite (Foundry)
-  per the full 22-phase build plan.
+- The shared API (`api/`, NestJS) and the ERC-20 suite (`contracts/`, Foundry) are already part of
+  this monorepo. Payload CMS for content is still **not created yet** (P10) per the full 22-phase
+  build plan.
 
 ## Database (production waitlist)
 

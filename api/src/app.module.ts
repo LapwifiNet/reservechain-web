@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from './prisma/prisma.module';
 import { HealthModule } from './health/health.module';
 import { WaitlistModule } from './waitlist/waitlist.module';
@@ -14,17 +14,19 @@ import { ChainSyncModule } from './chain-sync/chain-sync.module';
 import { AuthModule } from './auth/auth.module';
 import { KycModule } from './kyc/kyc.module';
 import { AuditModule } from './audit/audit.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuditInterceptor } from './audit/audit.interceptor';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
     ScheduleModule.forRoot(),
+    // Baseline limit for general API traffic. Sensitive routes tighten this
+    // with a dedicated @Throttle (see AuthController.login at 5/min).
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 5,
+        limit: 100,
       },
     ]),
     PrismaModule,
@@ -41,6 +43,10 @@ import { AuditInterceptor } from './audit/audit.interceptor';
     AuditModule,
   ],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: AuditInterceptor,
