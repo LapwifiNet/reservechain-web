@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.DS_Store
+*.tsbuildinfo
+coverage
+test
+
+# Never bake secrets into an image layer.
+.env
+.env.*
+docker-compose.yml

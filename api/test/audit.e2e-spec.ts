@@ -5,7 +5,7 @@ import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 
 describe('Audit Log (P9)', () => {
   let app: INestApplication;
@@ -24,6 +24,7 @@ describe('Audit Log (P9)', () => {
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
+    app.setGlobalPrefix('api');
     await app.init();
 
     prisma = app.get<PrismaService>(PrismaService);
@@ -31,15 +32,15 @@ describe('Audit Log (P9)', () => {
     configService = app.get<ConfigService>(ConfigService);
 
     // Seed test data
-    const adminPassword = await bcrypt.hash('test-admin-pass', 10);
-    const compliancePassword = await bcrypt.hash('test-compliance-pass', 10);
-    const viewerPassword = await bcrypt.hash('test-viewer-pass', 10);
+    const adminPassword = await bcryptjs.hash('test-admin-pass', 10);
+    const compliancePassword = await bcryptjs.hash('test-compliance-pass', 10);
+    const viewerPassword = await bcryptjs.hash('test-viewer-pass', 10);
 
     await prisma.adminUser.createMany({
       data: [
-        { email: 'test-admin-audit@local', passwordHash: adminPassword, role: 'admin' },
-        { email: 'test-compliance-audit@local', passwordHash: compliancePassword, role: 'compliance' },
-        { email: 'test-viewer-audit@local', passwordHash: viewerPassword, role: 'viewer' },
+        { email: 'test-admin-audit@example.local', passwordHash: adminPassword, role: 'ADMIN' },
+        { email: 'test-compliance-audit@example.local', passwordHash: compliancePassword, role: 'COMPLIANCE' },
+        { email: 'test-viewer-audit@example.local', passwordHash: viewerPassword, role: 'VIEWER' },
       ],
       skipDuplicates: true,
     });
@@ -47,20 +48,20 @@ describe('Audit Log (P9)', () => {
     // Generate tokens
     adminToken = await jwtService.signAsync({
       sub: 'test-admin-audit-id',
-      email: 'test-admin-audit@local',
-      role: 'admin',
+      email: 'test-admin-audit@example.local',
+      role: 'ADMIN',
     });
 
     complianceToken = await jwtService.signAsync({
       sub: 'test-compliance-audit-id',
-      email: 'test-compliance-audit@local',
-      role: 'compliance',
+      email: 'test-compliance-audit@example.local',
+      role: 'COMPLIANCE',
     });
 
     viewerToken = await jwtService.signAsync({
       sub: 'test-viewer-audit-id',
-      email: 'test-viewer-audit@local',
-      role: 'viewer',
+      email: 'test-viewer-audit@example.local',
+      role: 'VIEWER',
     });
 
     serviceToken = configService.get<string>('SERVICE_API_TOKEN') || 'test-service-token';
@@ -243,7 +244,7 @@ describe('Audit Log (P9)', () => {
         .post('/api/waitlist')
         .send({
           fullName: 'PII Test User',
-          email: 'pii-test@example.com',
+          email: `pii-test-${Date.now()}@example.com`,
           investorType: 'investor',
           consent: true,
         })
@@ -272,7 +273,7 @@ describe('Audit Log (P9)', () => {
       await supertest(app.getHttpServer())
         .post('/api/auth/login')
         .send({
-          email: 'test-admin-audit@local',
+          email: 'test-admin-audit@example.local',
           password: 'test-admin-pass',
         })
         .expect(201);

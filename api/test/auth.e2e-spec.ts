@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -24,6 +24,7 @@ describe('Auth and RBAC (P6)', () => {
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
+    app.setGlobalPrefix('api');
     await app.init();
 
     prisma = app.get<PrismaService>(PrismaService);
@@ -37,9 +38,9 @@ describe('Auth and RBAC (P6)', () => {
 
     await prisma.adminUser.createMany({
       data: [
-        { email: 'test-admin@local', passwordHash: adminPassword, role: 'ADMIN' },
-        { email: 'test-compliance@local', passwordHash: compliancePassword, role: 'COMPLIANCE' },
-        { email: 'test-viewer@local', passwordHash: viewerPassword, role: 'VIEWER' },
+        { email: 'test-admin@example.local', passwordHash: adminPassword, role: 'ADMIN' },
+        { email: 'test-compliance@example.local', passwordHash: compliancePassword, role: 'COMPLIANCE' },
+        { email: 'test-viewer@example.local', passwordHash: viewerPassword, role: 'VIEWER' },
       ],
       skipDuplicates: true,
     });
@@ -47,19 +48,19 @@ describe('Auth and RBAC (P6)', () => {
     // Generate tokens
     adminToken = await jwtService.signAsync({
       sub: 'test-admin-id',
-      email: 'test-admin@local',
+      email: 'test-admin@example.local',
       role: 'ADMIN',
     });
 
     complianceToken = await jwtService.signAsync({
       sub: 'test-compliance-id',
-      email: 'test-compliance@local',
+      email: 'test-compliance@example.local',
       role: 'COMPLIANCE',
     });
 
     viewerToken = await jwtService.signAsync({
       sub: 'test-viewer-id',
-      email: 'test-viewer@local',
+      email: 'test-viewer@example.local',
       role: 'VIEWER',
     });
 
@@ -81,7 +82,7 @@ describe('Auth and RBAC (P6)', () => {
         .post('/api/waitlist')
         .send({
           fullName: 'Test User',
-          email: 'test@example.com',
+          email: `test-${Date.now()}@example.com`,
           investorType: 'investor',
           consent: true,
         })
@@ -217,19 +218,19 @@ describe('Auth and RBAC (P6)', () => {
     it('POST /api/auth/login should return token for valid credentials', () => {
       return request(app.getHttpServer())
         .post('/api/auth/login')
-        .send({ email: 'test-admin@local', password: 'test-admin-pass' })
+        .send({ email: 'test-admin@example.local', password: 'test-admin-pass' })
         .expect(201)
         .expect((res) => {
           expect(res.body).toHaveProperty('accessToken');
-          expect(res.body.user).toHaveProperty('email', 'test-admin@local');
-          expect(res.body.user).toHaveProperty('role', 'admin');
+          expect(res.body.user).toHaveProperty('email', 'test-admin@example.local');
+          expect(res.body.user).toHaveProperty('role', 'ADMIN');
         });
     });
 
     it('POST /api/auth/login should return 401 for invalid credentials', () => {
       return request(app.getHttpServer())
         .post('/api/auth/login')
-        .send({ email: 'test-admin@local', password: 'wrong-password' })
+        .send({ email: 'test-admin@example.local', password: 'wrong-password' })
         .expect(401);
     });
 
@@ -239,7 +240,7 @@ describe('Auth and RBAC (P6)', () => {
         .set('Authorization', `Bearer ${adminToken}`)
         .expect(200)
         .expect((res) => {
-          expect(res.body).toHaveProperty('email', 'test-admin@local');
+          expect(res.body).toHaveProperty('email', 'test-admin@example.local');
           expect(res.body).toHaveProperty('role', 'ADMIN');
         });
     });
@@ -250,22 +251,22 @@ describe('Auth and RBAC (P6)', () => {
   });
 
   describe('JWT_SECRET validation', () => {
+    // The JwtModule factory validates JWT_SECRET while the module graph is
+    // instantiated, so the rejection surfaces from compile(), not init().
+    // An empty value (rather than `delete`) is required because ConfigModule
+    // repopulates a deleted key from the .env file.
     it('should refuse to start with missing JWT_SECRET', async () => {
       const originalJwtSecret = process.env.JWT_SECRET;
-      delete process.env.JWT_SECRET;
+      process.env.JWT_SECRET = '';
 
       try {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-          imports: [AppModule],
-        }).compile();
-
-        const testApp = moduleFixture.createNestApplication();
-        await expect(testApp.init()).rejects.toThrow('JWT_SECRET must be set and at least 32 characters long');
-        await testApp.close();
+        await expect(
+          Test.createTestingModule({ imports: [AppModule] }).compile(),
+        ).rejects.toThrow(
+          'JWT_SECRET must be set and at least 32 characters long',
+        );
       } finally {
-        if (originalJwtSecret) {
-          process.env.JWT_SECRET = originalJwtSecret;
-        }
+        process.env.JWT_SECRET = originalJwtSecret;
       }
     });
 
@@ -274,17 +275,13 @@ describe('Auth and RBAC (P6)', () => {
       process.env.JWT_SECRET = 'short-secret';
 
       try {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-          imports: [AppModule],
-        }).compile();
-
-        const testApp = moduleFixture.createNestApplication();
-        await expect(testApp.init()).rejects.toThrow('JWT_SECRET must be set and at least 32 characters long');
-        await testApp.close();
+        await expect(
+          Test.createTestingModule({ imports: [AppModule] }).compile(),
+        ).rejects.toThrow(
+          'JWT_SECRET must be set and at least 32 characters long',
+        );
       } finally {
-        if (originalJwtSecret) {
-          process.env.JWT_SECRET = originalJwtSecret;
-        }
+        process.env.JWT_SECRET = originalJwtSecret;
       }
     });
   });
@@ -302,9 +299,19 @@ describe('Auth and RBAC (P6)', () => {
         .expect(201);
     });
 
-    it('POST /api/kyc/cases/:id/screen should return stub response', () => {
+    it('POST /api/kyc/cases/:id/screen should return stub response', async () => {
+      const created = await request(app.getHttpServer())
+        .post('/api/kyc/cases')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({
+          subjectType: 'person',
+          legalName: 'Screen Test Person',
+          country: 'US',
+        })
+        .expect(201);
+
       return request(app.getHttpServer())
-        .post('/api/kyc/cases/test-id/screen')
+        .post(`/api/kyc/cases/${created.body.id}/screen`)
         .set('Authorization', `Bearer ${adminToken}`)
         .expect(201)
         .expect((res) => {

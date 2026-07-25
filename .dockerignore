@@ -1,0 +1,23 @@
+node_modules
+.next
+out
+.git
+.github
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Other workspaces build from their own contexts.
+api
+admin
+contracts
+infra
+cms
+mobile
+docs
+
+# Never bake secrets or local state into an image layer.
+.env
+.env.*
+data
+*.zip

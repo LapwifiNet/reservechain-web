@@ -3,7 +3,7 @@
 Operational admin/CMS console for the ReserveChain industrial-metals RWA platform.
 Built with **Next.js 14 (App Router) + TypeScript + Tailwind**, dark-first institutional theme.
 
-It reads **live data** from the P5 backend (`/api/*`) \u2014 no mock data. Point it at a running
+It reads **live data** from the backend API (`/api/*`) \u2014 no mock data. Point it at a running
 backend and the dashboard shows real totals, registrations, registry, passports and tokenomics.
 
 ## Sections
@@ -17,14 +17,19 @@ backend and the dashboard shows real totals, registrations, registry, passports 
 | Waitlist | `/waitlist` | `GET /api/waitlist` | live |
 | Tokenomics | `/tokenomics` | `GET /api/tokenomics` | live |
 | Reserve Reports | `/reserves` | `GET /api/proof-of-reserves` | **inactive (501)** |
-| KYC / KYB | `/kyc` | \u2014 | **inactive** |
+| KYC / KYB | `/kyc` | `GET /api/kyc/cases`, `GET /api/kyc/stats` | **guarded**\* |
 | Redemption | `/redemption` | `POST /api/redemption` | **inactive (501)** |
-| Audit Log | `/audit` | ChainEvent store | **inactive** |
+| Audit Log | `/audit` | `GET /api/audit` | live |
+
+\* The KYC/KYB backend (`KycModule`) is fully implemented and role-guarded (JWT + ADMIN/COMPLIANCE);
+case creation, review and stats are live. The `/kyc` admin page still renders a placeholder pending
+UI wiring to those endpoints. Sanctions/PEP screening (`POST /api/kyc/cases/:id/screen`) remains an
+illustrative stub pending provider authorization.
 
 ## Run locally
 
 ```bash
-# 1) Start the P5 backend first (see api/README.md) so it serves on http://127.0.0.1:4000/api
+# 1) Start the API backend first (see api/README.md) so it serves on http://127.0.0.1:4000/api
 
 # 2) Then the admin console:
 cd admin
@@ -48,8 +53,10 @@ banner and an empty state instead of crashing.
 ## Compliance
 
 - Testnet demo only. All asset purities, tokenomics and passport figures are **illustrative**.
-- Sensitive surfaces (Proof-of-Reserves, KYC/KYB, Redemption, Audit) are intentionally **inactive**
-  and gated behind future phases (P6/P11/P12/P18) plus written authorization.
+- Proof-of-Reserves (P11) and Redemption (P12) are intentionally **inactive** (HTTP 501) and gated
+  behind future phases plus written authorization.
+- KYC/KYB (P6) and the Audit Log (P9) are implemented and role-guarded (JWT + ADMIN/COMPLIANCE), not
+  gated; KYC/KYB sanctions screening is an illustrative stub pending provider authorization.
 - Admin endpoints require authentication via JWT or service token (P6 auth + RBAC).
 
 ## CI
