@@ -5,9 +5,25 @@ import { PageHeader } from '@/components/PageHeader';
 import { DataTable, type Column } from '@/components/DataTable';
 import { Badge } from '@/components/Badge';
 import { ApiErrorBanner } from '@/components/ApiErrorBanner';
-import { api } from '@/lib/api';
 import { formatDate } from '@/lib/format';
-import type { AuditEvent, ChainVerificationResult } from '@/lib/types';
+import type { AuditEvent, AuditListResponse, ChainVerificationResult } from '@/lib/types';
+
+// This is a client component, so it cannot import @/lib/api (that reads the
+// session cookie via next/headers, which is server-only). It calls the admin
+// proxy routes instead, which attach the signed-in user's JWT server-side.
+type ApiResult<T> = { data: T | null; error: string | null };
+
+async function fetchJson<T>(path: string): Promise<ApiResult<T>> {
+  try {
+    const res = await fetch(path, { cache: 'no-store' });
+    if (!res.ok) {
+      return { data: null, error: `HTTP ${res.status} ${res.statusText}` };
+    }
+    return (await res.json()) as ApiResult<T>;
+  } catch (e) {
+    return { data: null, error: e instanceof Error ? e.message : 'network_error' };
+  }
+}
 
 export default function AuditPage() {
   const [events, setEvents] = useState<AuditEvent[]>([]);
@@ -28,7 +44,10 @@ export default function AuditPage() {
     async function loadEvents() {
       setLoading(true);
       setError(null);
-      const result = await api.audit({ skip, take, ...filters });
+      const qs = new URLSearchParams({ skip: String(skip), take: String(take) });
+      if (filters.action) qs.set('action', filters.action);
+      if (filters.resourceType) qs.set('resourceType', filters.resourceType);
+      const result = await fetchJson<AuditListResponse>(`/api/audit?${qs.toString()}`);
       if (cancelled) return;
       if (result.error) {
         setError(result.error);
@@ -40,7 +59,7 @@ export default function AuditPage() {
     }
 
     async function loadVerification() {
-      const result = await api.auditVerify();
+      const result = await fetchJson<ChainVerificationResult>('/api/audit/verify');
       if (cancelled) return;
       if (result.data) {
         setVerification(result.data);

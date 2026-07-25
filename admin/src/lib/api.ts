@@ -1,3 +1,4 @@
+import { getToken } from "./session";
 import type {
   AssetProgram,
   AssetRecord,
@@ -12,23 +13,28 @@ import type {
 } from "./types";
 
 const BASE = process.env.API_BASE_URL || "http://127.0.0.1:4000/api";
-const API_TOKEN = process.env.API_TOKEN;
 
 export type ApiResult<T> = { data: T | null; error: string | null };
 
+// Reads run as the signed-in user (session cookie JWT). getToken() still falls
+// back to API_TOKEN for headless/server-to-server reads; writes never do — see
+// backendFetch in ./backend.
 async function get<T>(path: string): Promise<ApiResult<T>> {
+  const token = getToken();
   try {
-    const headers: HeadersInit = { accept: "application/json" };
-    if (API_TOKEN) {
-      headers["authorization"] = `Bearer ${API_TOKEN}`;
-    }
     const res = await fetch(`${BASE}${path}`, {
       cache: "no-store",
-      headers,
+      headers: {
+        accept: "application/json",
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+      },
     });
     if (!res.ok) {
-      if (res.status === 401) {
-        return { data: null, error: "Unauthorized — set API_TOKEN" };
+      if (res.status === 401 || res.status === 403) {
+        return {
+          data: null,
+          error: `Unauthorized (HTTP ${res.status}) — sign in again`,
+        };
       }
       return { data: null, error: `HTTP ${res.status} ${res.statusText}` };
     }
