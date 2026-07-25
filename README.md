@@ -100,14 +100,10 @@ infrastructure (`infra/` Terraform, P19) are **not created yet**.
 ## Compliance (kept throughout)
 - Only clearly labeled **illustrative** data — never fabricated.
 - Verbatim prelaunch disclosure shown in the footer and on the waitlist.
-- Sensitive modules (Proof-of-Reserves, redemption, wallet, purchase) are **not** part of
-  this public draft and remain inactive until authorized.
-
-## Production notes
-- Replace `src/lib/store.ts` (JSON file) with PostgreSQL + an append-only audit table.
-- The shared API (`api/`, NestJS) and the ERC-20 suite (`contracts/`, Foundry) are already part of
-  this monorepo. Payload CMS for content is still **not created yet** (P10) per the full 22-phase
-  build plan.
+- Proof-of-Reserves (P11) and Redemption (P12) are built as surfaces only: the API returns
+  HTTP `501` and the admin console renders a gated notice. They stay inactive pending
+  written authorization. KYC / KYB (P6) and the append-only Audit log (P9) are implemented
+  and role-guarded, readable only by an authenticated ADMIN or COMPLIANCE user.
 
 ## Database (production waitlist)
 

@@ -16,13 +16,17 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Params convention: take `params` whole and read fields in the body, never
+// destructure it in the signature — Next 15+ passes a Promise, so the upgrade
+// is then a one-line `const { locale } = await params;` here.
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const { locale } = params;
   if (!routing.locales.includes(locale as any)) notFound();
   const messages = await getMessages();
   return (

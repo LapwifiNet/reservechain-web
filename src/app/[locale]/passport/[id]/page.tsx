@@ -3,12 +3,17 @@ import { Disclosure } from '@/components/Disclosure';
 import { SpecTable } from '@/components/SpecTable';
 import { StatusTag } from '@/components/StatusTag';
 
+// Params convention: take `params` whole and read fields in the body, never
+// destructure it in the signature — Next 15+ passes a Promise, so the upgrade
+// is then a one-line `const { id } = await params;` here (which also means this
+// component must become async and swap useTranslations for getTranslations).
 export default function Passport({ params }: { params: { id: string } }) {
   const t = useTranslations('passport');
+  const { id } = params;
   return (
     <div className="mx-auto max-w-content px-5 py-12">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-copper">{t('kicker')} · {params.id}</div>
-      <h1 className="serif mt-2 text-3xl">Copper Powder — Unit {params.id}</h1>
+      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-copper">{t('kicker')} · {id}</div>
+      <h1 className="serif mt-2 text-3xl">Copper Powder — Unit {id}</h1>
       <div className="mt-3 flex flex-wrap gap-2">
         <StatusTag>{t('tag.reservePending')}</StatusTag>
         <StatusTag kind="notissued">{t('tag.tokenNotIssued')}</StatusTag>

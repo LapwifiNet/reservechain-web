@@ -27,12 +27,16 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+// Params convention: take `params` whole and read fields in the body, never
+// destructure it in the signature — Next 15+ passes a Promise, so the upgrade
+// is then a one-line `const { id } = await params;` here.
 export default async function KycCaseDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { data, error } = await api.kycCase(params.id);
+  const { id } = params;
+  const { data, error } = await api.kycCase(id);
 
   return (
     <div className="space-y-6">
