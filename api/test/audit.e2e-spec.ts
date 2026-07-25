@@ -268,6 +268,41 @@ describe('Audit Log (P9)', () => {
       }
     });
 
+    it('should not log the KYC subject legal name in create events', async () => {
+      const legalName = 'Illustrative PII Probe Ltd';
+      await supertest(app.getHttpServer())
+        .post('/api/kyc/cases')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({ subjectType: 'entity', legalName, country: 'SG' })
+        .expect(201);
+
+      // The interceptor records the event from an un-awaited tap callback, so
+      // it lands shortly after the response. Poll for this test's own event
+      // rather than racing it.
+      let created: Record<string, unknown> | undefined;
+      for (let attempt = 0; attempt < 20 && !created; attempt++) {
+        const auditResponse = await supertest(app.getHttpServer())
+          .get('/api/audit?action=create.kyc&take=10')
+          .set('Authorization', `Bearer ${adminToken}`)
+          .expect(200);
+        created = auditResponse.body.events.find((e: Record<string, any>) => {
+          const b = e?.metadata?.body;
+          return b?.subjectType === 'entity' && b?.country === 'SG';
+        });
+        if (!created) await new Promise((r) => setTimeout(r, 100));
+      }
+      expect(created).toBeDefined();
+
+      const metadata = created!.metadata as Record<string, unknown>;
+      const body = metadata?.body as Record<string, unknown>;
+      expect(body.legalName).toBe('[PII_REDACTED]');
+      // Non-PII fields are still recorded, so the event stays useful.
+      expect(body.subjectType).toBe('entity');
+      expect(body.country).toBe('SG');
+      // And the name must not appear anywhere in the stored event.
+      expect(JSON.stringify(created)).not.toContain(legalName);
+    });
+
     it('should not log passwords in auth events', async () => {
       // Login with a password
       await supertest(app.getHttpServer())

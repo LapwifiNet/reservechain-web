@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateKycCaseDto } from './dto/create-kyc-case.dto';
 import { ReviewKycCaseDto } from './dto/review-kyc-case.dto';

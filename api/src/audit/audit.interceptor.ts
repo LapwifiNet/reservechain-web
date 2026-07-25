@@ -10,7 +10,6 @@ import { tap } from 'rxjs/operators';
 import { AuditService, AuditRecordInput } from './audit.service';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../common/decorators/roles.decorator';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../common/enums/role.enum';
 
 /**
@@ -91,7 +90,7 @@ export class AuditInterceptor implements NestInterceptor {
     );
   }
 
-  private extractResourceInfo(url: string, method: string): {
+  private extractResourceInfo(url: string, _method: string): {
     resourceType: string | undefined;
     resourceId: string | undefined;
   } {
@@ -138,14 +137,19 @@ export class AuditInterceptor implements NestInterceptor {
       if (sensitiveFields.some((field) => lowerKey.includes(field))) {
         sanitized[key] = '[REDACTED]';
       }
-      // For waitlist entries, store only the ID if available, not PII
-      else if (lowerKey === 'email' && body.id) {
-        sanitized[key] = '[PII_REDACTED]';
-        sanitized.id = body.id;
-      }
       // For KYC documents, store only the case ID
       else if (lowerKey.includes('document') || lowerKey.includes('file')) {
         sanitized[key] = '[DOCUMENT_REDACTED]';
+      }
+      // Subject identifiers are PII and are never written to the audit trail.
+      // This is unconditional: an earlier version only redacted `email`, and
+      // only when the body also carried an `id`, so a KYC create body of
+      // { subjectType, legalName, country } stored legalName in clear text.
+      // Non-PII keys such as `id` still pass through, keeping records traceable.
+      else if (
+        piiFields.some((field) => lowerKey.includes(field.toLowerCase()))
+      ) {
+        sanitized[key] = '[PII_REDACTED]';
       }
       else {
         sanitized[key] = value;
