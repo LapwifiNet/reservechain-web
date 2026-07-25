@@ -1,0 +1,122 @@
+# ReserveChain full stack.
+#
+#   cp .env.docker.example .env && docker compose up --build
+#
+# Brings up Postgres, the API, the public website and the admin console.
+# For hot-reloading development, add the dev override:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#
+# TESTNET ONLY. Chain sync is disabled by default and the gated modules
+# (proof-of-reserves, redemption) stay inactive — see AGENTS.md.
+
+name: reservechain
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-reservechain}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reservechain}
+      POSTGRES_DB: ${POSTGRES_DB:-reservechain}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - reservechain_pg:/var/lib/postgresql/data
+    healthcheck:
+      # Gates dependent services so the API never races the database on boot.
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-reservechain} -d ${POSTGRES_DB:-reservechain}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-reservechain}:${POSTGRES_PASSWORD:-reservechain}@postgres:5432/${POSTGRES_DB:-reservechain}?schema=public
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:4100}
+      # Required. Both must be >= 32 characters; main.ts and AuthModule refuse
+      # to start otherwise. Never commit real values.
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required — copy .env.docker.example to .env}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-12h}
+      SERVICE_API_TOKEN: ${SERVICE_API_TOKEN:?SERVICE_API_TOKEN is required — copy .env.docker.example to .env}
+      # Opt-in seeding, handled by docker-entrypoint.sh.
+      RUN_DB_SEED: ${RUN_DB_SEED:-false}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
+      SEED_COMPLIANCE_PASSWORD: ${SEED_COMPLIANCE_PASSWORD:-}
+      SEED_VIEWER_PASSWORD: ${SEED_VIEWER_PASSWORD:-}
+      # Chain sync — testnet only, disabled unless explicitly enabled.
+      CHAIN_SYNC_ENABLED: ${CHAIN_SYNC_ENABLED:-false}
+      CHAIN_RPC_URL: ${CHAIN_RPC_URL:-}
+      CHAIN_ID: ${CHAIN_ID:-11155111}
+      TOKEN_ADDRESS: ${TOKEN_ADDRESS:-}
+      CHAIN_SYNC_START_BLOCK: ${CHAIN_SYNC_START_BLOCK:-0}
+      # Gated modules stay inactive (AGENTS.md guardrail 2).
+      PROOF_OF_RESERVES_ENABLED: "false"
+      REDEMPTION_ENABLED: "false"
+    ports:
+      - "${API_PORT:-4000}:4000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:4000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  web:
+    build:
+      context: .
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      # The website keeps its own `waitlist` table, separate from the API's
+      # Prisma-managed WaitlistEntry, so sharing one database is safe.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-reservechain}:${POSTGRES_PASSWORD:-reservechain}@postgres:5432/${POSTGRES_DB:-reservechain}
+      # Local Postgres has no TLS; src/lib/store.ts enables SSL unless this is
+      # exactly "disable".
+      PGSSL: disable
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+
+  admin:
+    build:
+      context: ./admin
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4100
+      # Server-side only; never exposed to the browser.
+      API_BASE_URL: http://api:4000/api
+      API_TOKEN: ${SERVICE_API_TOKEN:?SERVICE_API_TOKEN is required — copy .env.docker.example to .env}
+    ports:
+      - "${ADMIN_PORT:-4100}:4100"
+
+  # One-off Foundry toolchain, not part of the running stack. Usage:
+  #   docker compose run --rm contracts "forge build --sizes"
+  #   docker compose run --rm contracts "forge test -vvv"
+  contracts:
+    image: ghcr.io/foundry-rs/foundry:latest
+    profiles: ["tools"]
+    working_dir: /contracts
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["forge --version"]
+    volumes:
+      - ./contracts:/contracts
+
+volumes:
+  reservechain_pg:

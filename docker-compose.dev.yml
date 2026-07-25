@@ -1,0 +1,61 @@
+# Development override — hot reload against the same Postgres.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#
+# Each service builds only the `deps` stage (dependencies installed, no source),
+# then bind-mounts the working tree over it. The anonymous volume on
+# /app/node_modules keeps the image's Linux-built modules from being shadowed by
+# the host's node_modules.
+#
+# Every service pins its own `image:` tag. Without it Compose derives the tag
+# from project + service name, so building this override would overwrite the
+# production images with the source-less `deps` stage and a later plain
+# `docker compose up` would boot containers that exit immediately.
+
+services:
+  api:
+    image: reservechain-api-dev
+    build:
+      context: ./api
+      target: deps
+    environment:
+      NODE_ENV: development
+    # The production image's entrypoint runs migrations then dist/main.js; in
+    # dev we need generate + migrate before the watcher instead.
+    entrypoint: []
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run start:dev"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    healthcheck:
+      # Longer start period: the dev watcher compiles on boot.
+      start_period: 90s
+
+  web:
+    image: reservechain-web-dev
+    build:
+      context: .
+      target: deps
+    environment:
+      NODE_ENV: development
+    # -H 0.0.0.0 so the dev server is reachable from the host, not just the
+    # container loopback.
+    command: npm run dev -- -H 0.0.0.0 -p 3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+  admin:
+    image: reservechain-admin-dev
+    build:
+      context: ./admin
+      target: deps
+    environment:
+      NODE_ENV: development
+    # The script already pins -p 4100; -H 0.0.0.0 exposes it to the host.
+    command: npm run dev -- -H 0.0.0.0
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+      - /app/.next

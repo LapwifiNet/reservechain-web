@@ -5,6 +5,10 @@ NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, 
 ## Requirements
 - Node 20+, Docker (for Postgres), and network access for `npm install`.
 
+> Running the **whole stack** (Postgres + API + website + admin) in containers is documented
+> in the root `README.md`: `docker compose up --build` from the repository root. The
+> `docker-compose.yml` in this folder starts only Postgres, for the local workflow below.
+
 ## Quick start
 ```bash
 cd api
