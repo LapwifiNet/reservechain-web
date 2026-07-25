@@ -93,6 +93,33 @@ export type AuditListResponse = {
   total: number;
 };
 
+// Mirrors the KycCase model in api/prisma/schema.prisma. The columns are plain
+// strings in the database; the unions below come from the class-validator
+// @IsIn rules on CreateKycCaseDto and ReviewKycCaseDto.
+export type KycSubjectType = "person" | "entity";
+export type KycCaseStatus = "pending" | "in_review" | "approved" | "rejected";
+export type KycRiskLevel = "low" | "medium" | "high" | "unrated";
+
+export type KycCase = {
+  id: string;
+  subjectType: KycSubjectType;
+  legalName: string;
+  country: string;
+  status: KycCaseStatus;
+  riskLevel?: KycRiskLevel | null;
+  notes?: string | null;
+  reviewedBy?: string | null;
+  reviewedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+// Shape returned by KycService.stats().
+export type KycStats = {
+  total: number;
+  byStatus: { status: KycCaseStatus; count: number }[];
+};
+
 export type ChainVerificationResult = {
   valid: boolean;
   firstBrokenSequence?: number;
