@@ -18,13 +18,23 @@ export default function Home() {
 
       <View style={{ gap: spacing.sm }}>
         <Link href="/programs" asChild>
-          <Button title={t("home.explorePrograms")} onPress={() => {}} />
+          <Button
+            testID="btn-programs"
+            title={t("home.explorePrograms")}
+            onPress={() => {}}
+          />
         </Link>
         <Link href="/waitlist" asChild>
-          <Button title={t("home.join")} variant="ghost" onPress={() => {}} />
+          <Button
+            testID="btn-waitlist"
+            title={t("home.join")}
+            variant="ghost"
+            onPress={() => {}}
+          />
         </Link>
         <Link href="/investor" asChild>
           <Button
+            testID="btn-investor"
             title={t("nav.investor")}
             variant="ghost"
             onPress={() => {}}
