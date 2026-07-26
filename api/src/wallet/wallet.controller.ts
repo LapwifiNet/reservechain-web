@@ -6,6 +6,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { InvestorJwtGuard } from '../investor/investor-jwt.guard';
+import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { WalletService } from './wallet.service';
 import { LinkWalletDto } from './dto/link-wallet.dto';
 
@@ -15,14 +16,14 @@ import { LinkWalletDto } from './dto/link-wallet.dto';
  * Class-gated by WALLET_ENABLED, and the service refuses even with the flag on.
  * See WalletService.
  *
- * The three investor routes use InvestorJwtGuard and therefore carry no
- * `@Roles`, so AuditInterceptor — which records only mutating requests on
- * role-guarded routes — would not record a wallet link or revoke if this module
- * were implemented. Nothing is unaudited today because nothing is written. Same
- * gap already recorded for the investor portal and the redemption routes; it
- * has to be closed when any of them is activated, not after.
+ * The three investor routes use InvestorJwtGuard and carry no `@Roles`, so the
+ * class carries `@AuditAs('investor')`: a wallet link or revoke is recorded and
+ * attributed to the investor, not to a staff principal. Linking a wallet ties a
+ * durable public chain identifier to a named person, which is exactly the kind
+ * of act an audit trail exists for.
  */
 @Controller('wallet')
+@AuditAs('investor')
 @RequireFlag('WALLET_ENABLED')
 @UseGuards(FeatureFlagGuard)
 export class WalletController {

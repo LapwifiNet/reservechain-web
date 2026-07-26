@@ -10,6 +10,10 @@ import { catchError, concatMap, map } from 'rxjs/operators';
 import { AuditService, AuditRecordInput } from './audit.service';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../common/decorators/roles.decorator';
+import {
+  AUDIT_DOMAIN_KEY,
+  type AuditDomain,
+} from '../common/decorators/audit-domain.decorator';
 import type { AuthenticatedUser } from '../common/enums/role.enum';
 
 /**
@@ -36,11 +40,21 @@ export class AuditInterceptor implements NestInterceptor {
       context.getClass(),
     ]);
 
-    // Only audit mutating requests on role-guarded routes
+    // A route may instead declare a non-staff actor domain with @AuditAs().
+    const auditDomain = this.reflector.getAllAndOverride<AuditDomain>(
+      AUDIT_DOMAIN_KEY,
+      [context.getHandler(), context.getClass()],
+    );
+
+    // Audit mutating requests that are either role-guarded (every staff
+    // action) or explicitly attributed to another actor domain. Investor
+    // routes carry no @Roles by design — the Role enum must not gain an
+    // investor value (invariant 20) — so without the second clause investor
+    // self-registration was recorded nowhere.
     const isMutating = ['POST', 'PATCH', 'PUT', 'DELETE'].includes(request.method);
     const isRoleGuarded = requiredRoles && requiredRoles.length > 0;
 
-    if (!isMutating || !isRoleGuarded) {
+    if (!isMutating || !(isRoleGuarded || auditDomain)) {
       return next.handle();
     }
 
@@ -54,10 +68,28 @@ export class AuditInterceptor implements NestInterceptor {
     // Sanitize request body to exclude sensitive data
     const sanitizedBody = this.sanitizeBody(request.body);
 
+    // Actor resolution. Staff routes read req.user; investor routes read
+    // req.investor, which InvestorJwtGuard sets. On register and login there is
+    // no authenticated principal yet, so the actor is the subject of the
+    // request itself, taken from the body BEFORE sanitizeBody redacts it.
+    //
+    // actorRole is a plain String column, so 'investor' is recorded without
+    // touching the Role enum (invariant 20). An investor is never attributed
+    // as an admin principal, and never as `service@reservechain`.
+    const investor: { sub?: string; email?: string } | undefined =
+      request.investor;
+    const isInvestorDomain = auditDomain === 'investor';
+
+    const actorId = isInvestorDomain ? investor?.sub : user?.sub;
+    const actorEmail = isInvestorDomain
+      ? (investor?.email ?? this.subjectEmailFromBody(request.body))
+      : user?.email;
+    const actorRole = isInvestorDomain ? 'investor' : user?.role;
+
     const auditInput: AuditRecordInput = {
-      actorId: user?.sub,
-      actorEmail: user?.email,
-      actorRole: user?.role,
+      actorId,
+      actorEmail,
+      actorRole,
       action: this.determineAction(method, url),
       resourceType: resourceInfo.resourceType,
       resourceId: resourceInfo.resourceId,
@@ -87,6 +119,22 @@ export class AuditInterceptor implements NestInterceptor {
         return throwError(() => error);
       }),
     );
+  }
+
+  /**
+   * The email of the subject a request is about, for unauthenticated
+   * investor-domain mutations (register, login) where no principal exists yet.
+   *
+   * This is the actor's identity, not request content: it is stored in
+   * actorEmail, the same column a staff actor's email occupies, and the audit
+   * read surface is ADMIN/COMPLIANCE-only. It is deliberately separate from
+   * sanitizeBody, which still redacts `email` inside metadata.body — an audit
+   * event has to say who acted, or it is not an audit event.
+   */
+  private subjectEmailFromBody(body: unknown): string | undefined {
+    if (!body || typeof body !== 'object') return undefined;
+    const email = (body as Record<string, unknown>).email;
+    return typeof email === 'string' ? email : undefined;
   }
 
   /**

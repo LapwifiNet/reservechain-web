@@ -7,6 +7,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { InvestorJwtGuard } from '../investor/investor-jwt.guard';
+import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { PurchaseService } from './purchase.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { RejectPurchaseDto, SettlePurchaseDto } from './dto/review-purchase.dto';
@@ -17,13 +18,14 @@ import { RejectPurchaseDto, SettlePurchaseDto } from './dto/review-purchase.dto'
  * Class-gated by PURCHASE_ENABLED, and the service refuses even with the flag
  * on. See PurchaseService.
  *
- * As with the wallet module, the investor-scoped routes carry no `@Roles` and
- * would fall outside AuditInterceptor's scope if implemented. For an order
- * pipeline that is the more serious half of the gap: the staff decisions
- * (approve/reject/settle) are role-guarded and would be audited, but the
- * investor's own intent — the thing being decided on — would not.
+ * As with the wallet module, the investor-scoped routes carry no `@Roles`, so
+ * the class carries `@AuditAs('investor')`. For an order pipeline that matters
+ * more than elsewhere: the staff decisions (approve/reject/settle) are
+ * role-guarded and audited, and the investor's own intent — the thing being
+ * decided on — is now audited too, instead of being the one unrecorded step.
  */
 @Controller('purchase')
+@AuditAs('investor')
 @RequireFlag('PURCHASE_ENABLED')
 @UseGuards(FeatureFlagGuard)
 export class PurchaseController {

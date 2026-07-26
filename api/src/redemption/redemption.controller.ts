@@ -6,6 +6,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { InvestorJwtGuard } from '../investor/investor-jwt.guard';
+import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { RedemptionService } from './redemption.service';
 import { CreateRedemptionDto } from './dto/create-redemption.dto';
 import { RejectRedemptionDto, SettleRedemptionDto } from './dto/review-redemption.dto';
@@ -16,15 +17,15 @@ import { RejectRedemptionDto, SettleRedemptionDto } from './dto/review-redemptio
  * Gated by REDEMPTION_ENABLED at the class level; the service refuses even when
  * the flag is on. See RedemptionService for why.
  *
- * Investor-scoped routes use InvestorJwtGuard, so they carry no `@Roles`. That
- * has a consequence worth stating rather than discovering later: AuditInterceptor
- * records only mutating requests on role-guarded routes, so if this module is
- * ever implemented, an investor creating a redemption request will not be
- * audited unless the interceptor's scope is widened at the same time. Nothing
- * is unaudited today because nothing is written. This is the same gap already
- * recorded against the investor portal.
+ * Investor-scoped routes use InvestorJwtGuard, so they carry no `@Roles` — the
+ * Role enum must not gain an investor value (invariant 20). The class therefore
+ * carries `@AuditAs('investor')`, which brings those routes into
+ * AuditInterceptor's scope and attributes them to the investor subject rather
+ * than to a staff principal. Without it they would be silently unaudited the
+ * moment this module was implemented.
  */
 @Controller('redemption')
+@AuditAs('investor')
 @RequireFlag('REDEMPTION_ENABLED')
 @UseGuards(FeatureFlagGuard)
 export class RedemptionController {

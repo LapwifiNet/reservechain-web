@@ -222,16 +222,47 @@ describe('P8 investor portal: the token domains are disjoint', () => {
   });
 
   describe('no investor credential can reach the audit trail', () => {
-    it('records no audit event at all for investor register/login', async () => {
-      // AuditInterceptor deliberately records only mutating requests on
-      // ROLE-GUARDED routes. The public investor register/login routes carry
-      // no @Roles, so their bodies — password included — never reach the audit
-      // log in any form, which is stronger than redaction. Pinned here so a
-      // future change that starts recording them has to face this spec.
+    it('records register with the password redacted and the email PII-redacted', async () => {
+      // Inverted deliberately. This previously asserted ZERO investor audit
+      // events, pinning the old `isMutating && isRoleGuarded` scope in which
+      // investor self-registration — creating a row holding an email and a full
+      // name — was recorded nowhere. The scope now includes @AuditAs('investor')
+      // routes, so the assertion becomes the one that actually protects the
+      // credential: the event exists AND the body carries no password.
+      const email = `spec-audit-${Date.now()}@example.local`;
+      await supertest(app.getHttpServer())
+        .post('/api/investor/register')
+        .send({
+          fullName: 'Illustrative Audit Subject',
+          email,
+          password: 'spec-only-not-a-real-secret',
+        })
+        .expect(201);
+
       const events = await prisma.auditEvent.findMany({
-        where: { action: { contains: 'investor' } },
+        where: { action: 'create.investor' },
+        orderBy: { sequence: 'desc' },
+        take: 20,
       });
-      expect(events).toHaveLength(0);
+      const event = events.find(
+        (e) => (e.metadata as Record<string, any>)?.url === '/api/investor/register',
+      );
+      expect(event).toBeDefined();
+
+      const body = (event!.metadata as Record<string, any>).body;
+      expect(body.password).toBe('[REDACTED]');
+      expect(body.email).toBe('[PII_REDACTED]');
+      expect(body.fullName).toBe('[PII_REDACTED]');
+
+      // The credential must not survive anywhere in the stored event.
+      expect(JSON.stringify(event)).not.toContain('spec-only-not-a-real-secret');
+
+      // Attributed to the investor subject, never to an admin principal and
+      // never to the service principal (invariant 20).
+      expect(event!.actorRole).toBe('investor');
+      expect(event!.actorEmail).toBe(email);
+
+      await prisma.investorUser.deleteMany({ where: { email } });
     });
 
     it('redacts the investor email on the role-guarded KYC create that links it', async () => {

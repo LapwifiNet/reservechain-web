@@ -4,9 +4,11 @@ import { InvestorService } from './investor.service';
 import { RegisterInvestorDto } from './dto/register-investor.dto';
 import { LoginInvestorDto } from './dto/login-investor.dto';
 import { InvestorJwtGuard } from './investor-jwt.guard';
+import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { InvestorEmail } from './investor.decorator';
 
 @Controller('investor')
+@AuditAs('investor')
 export class InvestorController {
   constructor(private readonly service: InvestorService) {}
 
