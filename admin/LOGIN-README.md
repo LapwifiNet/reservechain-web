@@ -56,14 +56,28 @@ enforced rule, not a preference: a review must be attributable to a named
 compliance officer, and the backend records `req.user.email` as the reviewer, so
 a shared service principal would make every review identical in the audit log.
 
-Scope of that enforcement: it lives in this console, in `backendFetch()`. The
-backend's `JwtAuthGuard` still accepts `SERVICE_API_TOKEN` as an ADMIN service
-principal on **all** routes, so a caller holding that token can bypass the
-console and write directly to the API, recording `reviewedBy` as
-`service@reservechain`. Closing that gap requires rejecting the service
-principal on KYC write routes in the API itself; until then, treat
-`SERVICE_API_TOKEN` as a credential that must not be distributed to anyone who
-should not be able to forge a review.
+Scope of that enforcement: it is applied twice, independently.
+
+1. **In this console**, in `backendFetch()`, as described above.
+2. **In the API**, in `JwtAuthGuard`. A request authenticated by
+   `SERVICE_API_TOKEN` is refused on every state-changing method — `POST`,
+   `PATCH`, `PUT`, `DELETE` — with `403` and the error code
+   `service_principal_write_denied`. It is `403` rather than `401` because the
+   caller is authenticated; it is simply not authorised to write. The rule is
+   applied at the guard, so it covers the whole guarded surface rather than the
+   KYC routes alone, and a caller holding the token can no longer bypass the
+   console to forge a review.
+
+A single route can opt back in with `@AllowServiceWrite()`
+(`api/src/common/decorators/allow-service-write.decorator.ts`). Nothing uses it
+today; it exists so that granting machine write access is a visible, reviewable
+annotation on a specific handler rather than a silent widening of the guard.
+
+Reads are deliberately unaffected: `SERVICE_API_TOKEN` remains an ADMIN-level
+read credential across the guarded surface, which includes personal data such as
+`GET /api/waitlist` and `GET /api/kyc/cases`. It still must not be distributed to
+anyone who should not be able to read that data — the change removes the ability
+to forge a write, not the need to protect the token.
 
 ## Local use
 

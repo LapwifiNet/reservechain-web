@@ -6,11 +6,15 @@ import * as bcryptjs from 'bcryptjs';
 import { AppModule } from '../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 
-// Pins down the rule that a KYC write must be attributable to a named
-// compliance officer. The suite deliberately runs with SERVICE_API_TOKEN and
-// API_TOKEN both set, so a regression that reintroduces the shared-service-token
-// fallback fails here instead of passing silently.
-describe('KYC writes reject the shared service token', () => {
+// Pins down the rule that the shared service token must not be able to write:
+// a KYC write has to be attributable to a named compliance officer. The rule is
+// enforced in JwtAuthGuard for every state-changing method, so these KYC cases
+// stand in for the whole guarded surface.
+//
+// The suite deliberately runs with SERVICE_API_TOKEN and API_TOKEN both set, so
+// a regression that reintroduces the shared-service-token fallback fails here
+// instead of passing silently.
+describe('The service token must not be able to write (KYC surface)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let serviceToken: string;
@@ -21,6 +25,9 @@ describe('KYC writes reject the shared service token', () => {
   const REVIEWER_EMAIL = 'spec-reviewer@example.local';
   const REVIEWER_PASSWORD = 'spec-only-not-a-real-secret';
   const SUBJECT_NAME = 'Illustrative Subject — Service Token Spec';
+  // Distinct from SUBJECT_NAME so the "nothing was written" assertion below
+  // cannot be satisfied or defeated by the fixtures created with a real session.
+  const DENIED_SUBJECT_NAME = 'Illustrative Subject — Refused Service Write';
 
   beforeAll(async () => {
     // Both credentials present for the whole suite.
@@ -72,7 +79,9 @@ describe('KYC writes reject the shared service token', () => {
   });
 
   afterAll(async () => {
-    await prisma.kycCase.deleteMany({ where: { legalName: SUBJECT_NAME } });
+    await prisma.kycCase.deleteMany({
+      where: { legalName: { in: [SUBJECT_NAME, DENIED_SUBJECT_NAME] } },
+    });
     await prisma.adminUser.deleteMany({ where: { email: REVIEWER_EMAIL } });
     await prisma.$disconnect();
     await app.close();
@@ -90,24 +99,48 @@ describe('KYC writes reject the shared service token', () => {
         .expect(401);
     });
 
-    it('rejects POST /api/kyc/cases with only the service token', () => {
-      return supertest(app.getHttpServer())
+    // 403 and not 401: the service token is a valid credential, so the caller
+    // is authenticated. It is simply not authorised to change state.
+    it('rejects POST /api/kyc/cases with only the service token', async () => {
+      const res = await supertest(app.getHttpServer())
         .post('/api/kyc/cases')
         .set('Authorization', `Bearer ${serviceToken}`)
         .send({
           subjectType: 'person',
-          legalName: SUBJECT_NAME,
+          legalName: DENIED_SUBJECT_NAME,
           country: 'SG',
         })
-        .expect(401);
+        .expect(403);
+
+      expect(res.body.message).toBe('service_principal_write_denied');
     });
 
-    it('rejects POST /api/kyc/cases/:id/review with only the service token', () => {
-      return supertest(app.getHttpServer())
+    it('rejects POST /api/kyc/cases/:id/review with only the service token', async () => {
+      const res = await supertest(app.getHttpServer())
         .post(`/api/kyc/cases/${caseId}/review`)
         .set('Authorization', `Bearer ${serviceToken}`)
         .send({ status: 'approved', riskLevel: 'low' })
-        .expect(401);
+        .expect(403);
+
+      expect(res.body.message).toBe('service_principal_write_denied');
+    });
+
+    it('rejects POST /api/kyc/cases/:id/screen with only the service token', async () => {
+      const res = await supertest(app.getHttpServer())
+        .post(`/api/kyc/cases/${caseId}/screen`)
+        .set('Authorization', `Bearer ${serviceToken}`)
+        .expect(403);
+
+      expect(res.body.message).toBe('service_principal_write_denied');
+    });
+
+    // The write must be refused before it reaches the service layer, not merely
+    // unattributed once it gets there.
+    it('leaves no case behind from the refused writes', async () => {
+      const stored = await prisma.kycCase.findMany({
+        where: { legalName: DENIED_SUBJECT_NAME },
+      });
+      expect(stored).toHaveLength(0);
     });
   });
 
