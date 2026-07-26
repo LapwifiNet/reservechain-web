@@ -105,10 +105,19 @@ infrastructure (`infra/` Terraform, P19) are **not created yet**.
   written authorization. KYC / KYB (P6) and the append-only Audit log (P9) are implemented
   and role-guarded, readable only by an authenticated ADMIN or COMPLIANCE user.
 
-## Database (production waitlist)
+## Waitlist storage
 
-The waitlist store auto-selects a backend at runtime:
-- **No `DATABASE_URL`** → local JSON file (`data/waitlist.json`), development only.
-- **`DATABASE_URL` set** → PostgreSQL (Vercel Postgres, Neon, Supabase, ...). The `waitlist` table is created automatically on first write; see `src/db/schema.sql`.
+The API owns waitlist registrations. The website's `src/app/api/waitlist/route.ts`
+validates the submission and proxies it to `POST {WAITLIST_API_BASE}/waitlist`, so the
+site and the admin console read and write the same rows — a signup on the public site
+appears immediately on the admin **Waitlist** page.
 
-On Vercel, add `DATABASE_URL` under Project → Settings → Environment Variables, then redeploy. The JSON file store does **not** persist on Vercel (ephemeral filesystem), so a database is required for a working hosted waitlist.
+Set `WAITLIST_API_BASE` (server-side only; never `NEXT_PUBLIC_*`) to the API base URL:
+`http://127.0.0.1:4000/api` locally, `http://api:4000/api` under Docker Compose, and the
+deployed API host on Vercel — add it under Project → Settings → Environment Variables,
+then redeploy. No credential is sent with the request: `POST /waitlist` is public by
+design and the website holds no service token.
+
+The website no longer uses `DATABASE_URL` or `PGSSL`; its own JSON/Postgres store has
+been removed. Re-submitting an address returns the existing registration id rather than
+an error, so the form stays idempotent.

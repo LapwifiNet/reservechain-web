@@ -126,7 +126,7 @@ export class AuditInterceptor implements NestInterceptor {
     if (!body) return {};
 
     const sensitiveFields = ['password', 'passwordHash', 'token', 'accessToken', 'refreshToken', 'apiKey', 'secret'];
-    const piiFields = ['email', 'fullName', 'legalName', 'firstName', 'lastName', 'address', 'phone'];
+    const piiFields = ['email', 'fullName', 'legalName', 'firstName', 'lastName', 'address', 'phone', 'organization'];
 
     const sanitized: Record<string, unknown> = {};
 

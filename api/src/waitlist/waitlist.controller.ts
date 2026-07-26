@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { WaitlistService } from './waitlist.service';
 import { CreateWaitlistDto } from './dto/create-waitlist.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
@@ -10,6 +11,10 @@ import { Role } from '../common/enums/role.enum';
 export class WaitlistController {
   constructor(private readonly service: WaitlistService) {}
 
+  // Public by design — this is the public website's signup form. That also makes
+  // it an internet-reachable unauthenticated write, so it gets a tighter limit
+  // than the global 100/min baseline.
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post()
   create(@Body() dto: CreateWaitlistDto) {
     return this.service.create(dto);

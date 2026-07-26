@@ -75,18 +75,16 @@ services:
       context: .
     restart: unless-stopped
     depends_on:
-      postgres:
+      api:
         condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: 3000
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
-      # The website keeps its own `waitlist` table, separate from the API's
-      # Prisma-managed WaitlistEntry, so sharing one database is safe.
-      DATABASE_URL: postgresql://${POSTGRES_USER:-reservechain}:${POSTGRES_PASSWORD:-reservechain}@postgres:5432/${POSTGRES_DB:-reservechain}
-      # Local Postgres has no TLS; src/lib/store.ts enables SSL unless this is
-      # exactly "disable".
-      PGSSL: disable
+      # The website no longer owns a waitlist store. It proxies signups to the
+      # API, which is the single source of truth. Server-side only, and no
+      # credential is sent — POST /waitlist is public by design.
+      WAITLIST_API_BASE: ${WAITLIST_API_BASE:-http://api:4000/api}
     ports:
       - "${WEB_PORT:-3000}:3000"
 

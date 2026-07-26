@@ -395,7 +395,9 @@
       "name": "Nombre completo",
       "email": "Correo electrónico",
       "org": "Organización",
-      "interest": "Área de interés"
+      "interest": "Área de interés",
+      "type": "Tipo de inversor",
+      "typePlaceholder": "Seleccione una opción…"
     },
     "eligibilityNotice": "Aviso de elegibilidad: el registro de interés no constituye una inversión, compra de tokens, reserva de activos, reserva de precio, asignación de tokens ni derecho a participar en ninguna oferta futura. En esta fase no se requiere ni se permite conexión de monedero ni pago alguno.",
     "c": {

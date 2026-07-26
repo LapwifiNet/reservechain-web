@@ -6,12 +6,15 @@ export function WaitlistForm() {
   const t = useTranslations('waitlist');
   const locale = useLocale();
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ name: '', email: '', organization: '', interest: '' });
+  const [form, setForm] = useState({ name: '', email: '', organization: '', interest: '', investorType: '' });
   const [consent, setConsent] = useState({ notInvestment: false, notRestricted: false, privacy: false });
   const [status, setStatus] = useState('idle');
 
   const allConsent = consent.notInvestment && consent.notRestricted && consent.privacy;
   const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email);
+  // The API classifies every registration, so collect it rather than letting
+  // every signup fall back to "other".
+  const step1Ok = emailOk && !!form.investorType;
 
   async function submit() {
     setStatus('saving');
@@ -44,9 +47,23 @@ export function WaitlistForm() {
         <div className="mt-8 space-y-4">
           <Field label={t('f.name')} value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
           <Field label={t('f.email')} value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" required />
+          <label className="block">
+            <span className="mb-1 block text-xs text-text2">{t('f.type')} *</span>
+            <select
+              value={form.investorType}
+              onChange={(e) => setForm({ ...form, investorType: e.target.value })}
+              className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm outline-none focus:border-copper"
+            >
+              <option value="">{t('f.typePlaceholder')}</option>
+              <option value="institution">{t('types.institution')}</option>
+              <option value="investor">{t('types.investor')}</option>
+              <option value="partner">{t('types.partner')}</option>
+              <option value="other">{t('types.other')}</option>
+            </select>
+          </label>
           <Field label={t('f.org')} value={form.organization} onChange={(v) => setForm({ ...form, organization: v })} />
           <Field label={t('f.interest')} value={form.interest} onChange={(v) => setForm({ ...form, interest: v })} />
-          <button disabled={!emailOk} onClick={() => setStep(2)} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
+          <button disabled={!step1Ok} onClick={() => setStep(2)} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
             {t('next')}
           </button>
         </div>

@@ -48,9 +48,14 @@ model Passport {
 model WaitlistEntry {
   id           String   @id @default(cuid())
   fullName     String
+  // Unique so a resubmission returns the existing row instead of duplicating.
   email        String   @unique
   investorType String
   consent      Boolean  @default(false)
+  // Optional context captured from the public website form.
+  organization String?
+  interest     String?
+  locale       String   @default("en")
   createdAt    DateTime @default(now())
 }
 

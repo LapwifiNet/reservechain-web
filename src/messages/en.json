@@ -395,7 +395,9 @@
       "name": "Full name",
       "email": "Email",
       "org": "Organization",
-      "interest": "Area of interest"
+      "interest": "Area of interest",
+      "type": "Investor type",
+      "typePlaceholder": "Select one…"
     },
     "eligibilityNotice": "Eligibility Notice: Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. No wallet connection or payment is required or permitted at this stage.",
     "c": {

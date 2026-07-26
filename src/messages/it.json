@@ -395,7 +395,9 @@
       "name": "Nome completo",
       "email": "Email",
       "org": "Organizzazione",
-      "interest": "Area di interesse"
+      "interest": "Area di interesse",
+      "type": "Tipo di investitore",
+      "typePlaceholder": "Seleziona un'opzione…"
     },
     "eligibilityNotice": "Avviso di idoneità: la registrazione di interesse non costituisce investimento, acquisto di token, prenotazione di attivi, prenotazione di prezzo, assegnazione di token o diritto a partecipare a qualsiasi offerta futura. In questa fase non è richiesta né consentita alcuna connessione di portafoglio o pagamento.",
     "c": {
