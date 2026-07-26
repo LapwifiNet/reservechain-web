@@ -78,11 +78,13 @@ export function createPrismaMock() {
       orderBy,
       skip,
       take,
+      select,
     }: {
       where?: Where;
       orderBy?: OrderBy;
       skip?: number;
       take?: number;
+      select?: Record<string, boolean>;
     } = {}) => {
       let rows = applyOrder(
         db[key].filter((r) => matchWhere(r, where)),
@@ -90,7 +92,15 @@ export function createPrismaMock() {
       );
       if (typeof skip === 'number') rows = rows.slice(skip);
       if (typeof take === 'number') rows = rows.slice(0, take);
-      return rows.map((r) => ({ ...r }));
+      return rows.map((r) => {
+        if (!select) return { ...r };
+        // Prisma-style projection: only the selected keys are returned.
+        const projected: Row = {};
+        for (const [field, on] of Object.entries(select)) {
+          if (on) projected[field] = r[field];
+        }
+        return projected;
+      });
     },
 
     create: async ({ data }: { data: Row }) => {

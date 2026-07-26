@@ -249,8 +249,9 @@ describe('P8 investor portal: the token domains are disjoint', () => {
         })
         .expect(201);
 
-      // The interceptor records from an un-awaited tap, so poll for the event
-      // rather than racing it (same pattern as the audit PII spec).
+      // Since the concatMap fix the audit write commits before the response
+      // returns; the loop only locates this test's event among events other
+      // tests create, not to tolerate timing.
       let event: Record<string, any> | undefined;
       for (let attempt = 0; attempt < 30 && !event; attempt++) {
         const res = await supertest(app.getHttpServer())

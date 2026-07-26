@@ -61,13 +61,20 @@ describe('KYC/KYB compliance (e2e, mocked persistence)', () => {
       .expect(400);
   });
 
-  it('lists cases for a compliance user', async () => {
+  it('lists cases for a compliance user, without the investor-email link', async () => {
     const res = await request(app.getHttpServer())
       .get('/api/kyc/cases')
       .set(bearer(ctx.complianceToken))
       .expect(200);
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThanOrEqual(1);
+    // The case above was created WITH an email; the list projection must not
+    // return it (PII the console table has no use for). The single-case
+    // detail view keeps it — see the screen test below.
+    for (const row of res.body) {
+      expect(row).not.toHaveProperty('email');
+      expect(row.legalName).toBeDefined();
+    }
   });
 
   it('reviews a case and records the reviewer', async () => {

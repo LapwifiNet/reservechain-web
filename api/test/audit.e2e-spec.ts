@@ -285,9 +285,9 @@ describe('Audit Log (P9)', () => {
         .send({ subjectType: 'entity', legalName, country: 'SG' })
         .expect(201);
 
-      // The interceptor records the event from an un-awaited tap callback, so
-      // it lands shortly after the response. Poll for this test's own event
-      // rather than racing it.
+      // Since the concatMap fix the audit write commits before the response
+      // returns; the loop is kept only to find this test's own event among
+      // events other tests create, not to tolerate timing.
       let created: Record<string, unknown> | undefined;
       for (let attempt = 0; attempt < 20 && !created; attempt++) {
         const auditResponse = await supertest(app.getHttpServer())
@@ -310,6 +310,41 @@ describe('Audit Log (P9)', () => {
       expect(body.country).toBe('SG');
       // And the name must not appear anywhere in the stored event.
       expect(JSON.stringify(created)).not.toContain(legalName);
+    });
+
+    // Same shape as the legal-name pin above: KycCase.email is the P8
+    // investor-email link, and it is PII exactly like the subject name.
+    it('should not log the KYC investor email link in create events', async () => {
+      const email = 'pii-probe-investor@example.local';
+      await supertest(app.getHttpServer())
+        .post('/api/kyc/cases')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .send({
+          subjectType: 'person',
+          legalName: 'Illustrative Email Probe',
+          country: 'CH',
+          email,
+        })
+        .expect(201);
+
+      // The audit write commits before the response returns since the
+      // concatMap fix, so a single read suffices.
+      const auditResponse = await supertest(app.getHttpServer())
+        .get('/api/audit?action=create.kyc&take=10')
+        .set('Authorization', `Bearer ${adminToken}`)
+        .expect(200);
+      const created = auditResponse.body.events.find(
+        (e: Record<string, any>) => {
+          const b = e?.metadata?.body;
+          return b?.country === 'CH' && b?.email;
+        },
+      );
+      expect(created).toBeDefined();
+
+      const body = (created!.metadata as Record<string, any>)?.body;
+      expect(body.email).toBe('[PII_REDACTED]');
+      // And the address must not appear anywhere in the stored event.
+      expect(JSON.stringify(created)).not.toContain(email);
     });
 
     it('should not log passwords in auth events', async () => {

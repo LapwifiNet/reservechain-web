@@ -11,6 +11,25 @@ export class KycService {
     return this.prisma.kycCase.findMany({
       orderBy: { createdAt: 'desc' },
       take,
+      // Explicit projection: the investor-email link (P8) is PII and the
+      // console table has no use for it, so the list endpoint never returns
+      // it. The single-case detail view (get) still does — a compliance
+      // officer reviewing one case may need the link, and that route is
+      // equally role-guarded.
+      select: {
+        id: true,
+        subjectType: true,
+        legalName: true,
+        country: true,
+        status: true,
+        riskLevel: true,
+        sanctions: true,
+        notes: true,
+        reviewedBy: true,
+        reviewedAt: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
   }
 
