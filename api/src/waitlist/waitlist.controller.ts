@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
+import { AuditAs } from '../common/decorators/audit-domain.decorator';
 
 @Controller('waitlist')
 export class WaitlistController {
@@ -14,6 +15,19 @@ export class WaitlistController {
   // Public by design — this is the public website's signup form. That also makes
   // it an internet-reachable unauthenticated write, so it gets a tighter limit
   // than the global 100/min baseline.
+  // Audited. A public unauthenticated signup still persists a PII row — name,
+  // email, organisation — and the same reasoning that brought investor
+  // self-registration into scope applies here: the actor is the registrant, and
+  // "nobody was signed in" is not a reason for a persisted personal record to
+  // have no audit event. sanitizeBody redacts email, fullName and organisation
+  // in the stored body; the registrant's address is kept in actorEmail, which
+  // is the attribution field and is readable only by ADMIN/COMPLIANCE — the
+  // same roles that can already read the waitlist itself.
+  //
+  // Only successes are recorded: a rejected signup persists nothing, and the
+  // failure of a public marketing form is not a security signal the way a
+  // rejected sign-in is.
+  @AuditAs('public')
   @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post()
   create(@Body() dto: CreateWaitlistDto) {

@@ -12,7 +12,7 @@ import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../common/decorators/roles.decorator';
 import {
   AUDIT_DOMAIN_KEY,
-  type AuditDomain,
+  type AuditSpec,
 } from '../common/decorators/audit-domain.decorator';
 import type { AuthenticatedUser } from '../common/enums/role.enum';
 
@@ -40,11 +40,13 @@ export class AuditInterceptor implements NestInterceptor {
       context.getClass(),
     ]);
 
-    // A route may instead declare a non-staff actor domain with @AuditAs().
-    const auditDomain = this.reflector.getAllAndOverride<AuditDomain>(
+    // A route may instead declare an actor domain with @AuditAs().
+    const auditSpec = this.reflector.getAllAndOverride<AuditSpec>(
       AUDIT_DOMAIN_KEY,
       [context.getHandler(), context.getClass()],
     );
+    const auditDomain = auditSpec?.domain;
+    const recordFailures = auditSpec?.options?.outcomes === 'all';
 
     // Audit mutating requests that are either role-guarded (every staff
     // action) or explicitly attributed to another actor domain. Investor
@@ -78,13 +80,15 @@ export class AuditInterceptor implements NestInterceptor {
     // as an admin principal, and never as `service@reservechain`.
     const investor: { sub?: string; email?: string } | undefined =
       request.investor;
-    const isInvestorDomain = auditDomain === 'investor';
+    const isStaffPrincipal = !auditDomain || auditDomain === 'staff';
 
-    const actorId = isInvestorDomain ? investor?.sub : user?.sub;
-    const actorEmail = isInvestorDomain
-      ? (investor?.email ?? this.subjectEmailFromBody(request.body))
-      : user?.email;
-    const actorRole = isInvestorDomain ? 'investor' : user?.role;
+    const actorId = auditDomain === 'investor' ? investor?.sub : user?.sub;
+    const actorEmail = isStaffPrincipal
+      ? (user?.email ?? this.subjectEmailFromBody(request.body))
+      : (investor?.email ?? this.subjectEmailFromBody(request.body));
+    const actorRole = isStaffPrincipal
+      ? (user?.role ?? auditDomain)
+      : auditDomain;
 
     const auditInput: AuditRecordInput = {
       actorId,
@@ -96,6 +100,7 @@ export class AuditInterceptor implements NestInterceptor {
       metadata: {
         url,
         method,
+        outcome: 'success',
         body: sanitizedBody,
         query: this.sanitizeQuery(request.query),
       },
@@ -115,8 +120,35 @@ export class AuditInterceptor implements NestInterceptor {
         ),
       ),
       catchError((error) => {
-        this.logger.warn(`Request failed, not recording audit: ${error.message}`);
-        return throwError(() => error);
+        if (!recordFailures) {
+          this.logger.warn(
+            `Request failed, not recording audit: ${error.message}`,
+          );
+          return throwError(() => error);
+        }
+
+        // The failure IS the record. A rejected sign-in is written with the
+        // actor identity stripped: an audit row that named the attempted
+        // address would turn the trail into an oracle for which addresses
+        // exist, and it would do so on a route reachable without credentials.
+        // AuthService throws the same invalid_credentials for an unknown user
+        // and a wrong password, so 'failure' alone discloses nothing.
+        const failureInput: AuditRecordInput = {
+          ...auditInput,
+          actorId: undefined,
+          actorEmail: '[PII_REDACTED]',
+          metadata: {
+            ...(auditInput.metadata as Record<string, unknown>),
+            outcome: 'failure',
+            // The reason is deliberately the generic code the caller already
+            // received; nothing here distinguishes "no such account" from
+            // "wrong password".
+            reason: 'rejected',
+          },
+        };
+        return from(this.record(failureInput)).pipe(
+          concatMap(() => throwError(() => error)),
+        );
       }),
     );
   }
@@ -146,6 +178,15 @@ export class AuditInterceptor implements NestInterceptor {
     input: AuditRecordInput,
   ): Promise<void> {
     if (response.statusCode < 200 || response.statusCode >= 400) return;
+    await this.record(input);
+  }
+
+  /**
+   * Writes one audit event. A failed audit write is logged and swallowed — it
+   * must never surface to the caller, and on the failure path it must never
+   * mask the original error.
+   */
+  private async record(input: AuditRecordInput): Promise<void> {
     try {
       await this.auditService.record(input);
     } catch (error) {
