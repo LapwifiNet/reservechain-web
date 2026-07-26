@@ -27,11 +27,15 @@ npm run start:dev              # API on http://localhost:4000/api
 The API now requires authentication for admin and compliance endpoints. Two auth methods are supported:
 
 ### 1. JWT Login (for human users)
+
+Substitute the password the seed actually used — see **Seeded admin users** below. The seed
+reads it from `SEED_ADMIN_PASSWORD`, or generates a random one and prints it once.
+
 ```bash
 # Login to get a token
 curl -X POST http://localhost:4000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"admin@reservechain.local","password":"admin123"}'
+  -d '{"email":"admin@reservechain.local","password":"<SEED_ADMIN_PASSWORD>"}'
 
 # Use the token in subsequent requests
 curl http://localhost:4000/api/dashboard/stats \

@@ -54,9 +54,11 @@ addressed in `60fd0c0`:
 
 ## Reporting
 
-`TODO: contact` — no security contact is configured in this repository.
+No security contact is published for this repository, and no coordinated-disclosure process
+is in place.
 
 Because this is an unselected contest submission with nothing deployed, there is no
-production system to report against and no disclosure process in place. If this repository
-is ever engaged and operated, a real contact address and a coordinated-disclosure policy
-must be added here before any environment is exposed publicly.
+production system to report against. Findings about the code itself are best raised as
+issues on the repository. If this repository is ever engaged and operated, a real contact
+address and a coordinated-disclosure policy must be added here before any environment is
+exposed publicly.

@@ -118,19 +118,33 @@ contracts/                 # Solidity + Foundry ERC-20 suite (testnet only)
   script/                  # deploy and role-assignment scripts
   test/                    # Foundry tests
 
+cms/                       # Payload v2 CMS on Express; own database, port 3001
+  src/collections/         # AssetPrograms, AssetRecords, Passports, Media, Users
+  src/access/              # role-based access rules
+  src/migrations/          # Payload schema migrations
+  src/seed/                # seed script (random admin password unless SEED_ADMIN_PASSWORD)
+
 infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet inventory templates
 ```
 
-Payload CMS (`cms/`, P10), the React Native app (`mobile/`, P13) and the Terraform
-infrastructure (`infra/` Terraform, P19) are **not created yet**.
+The React Native app (`mobile/`, P13), the Terraform infrastructure (`infra/` Terraform,
+P19) and the mirrored specification docs (`docs/`, P21) are **not created yet**. Payload
+CMS (`cms/`, P10) exists — see the entry above and the Docker service table.
 
 ## Compliance (kept throughout)
 - Only clearly labeled **illustrative** data — never fabricated.
 - Verbatim prelaunch disclosure shown in the footer and on the waitlist.
-- Proof-of-Reserves (P11) and Redemption (P12) are built as surfaces only: the API returns
-  HTTP `501` and the admin console renders a gated notice. They stay inactive pending
-  written authorization. KYC / KYB (P6) and the append-only Audit log (P9) are implemented
-  and role-guarded, readable only by an authenticated ADMIN or COMPLIANCE user.
+- Four modules are built as surfaces only — Proof-of-Reserves (P11), Redemption (P12),
+  wallet linking and token purchase: the API returns HTTP `501` for all four, and the admin
+  console renders a gated notice on its `/reserves` and `/redemption` pages (wallet and
+  purchase have no console page). Each is gated twice. `FeatureFlagGuard` refuses with `501`
+  before authentication is considered when the module's flag
+  (`PROOF_OF_RESERVES_ENABLED`, `REDEMPTION_ENABLED`, `WALLET_ENABLED`,
+  `PURCHASE_ENABLED`, all default `false`) is off, and with the flag on every service
+  method still refuses with `501` — so enabling a flag moves the refusal rather than
+  activating a workflow. They stay inactive pending written authorization. KYC / KYB (P6)
+  and the append-only Audit log (P9) are implemented and role-guarded, readable only by an
+  authenticated ADMIN or COMPLIANCE user.
 
 ## Waitlist storage
 
@@ -153,3 +167,7 @@ an error, so the form stays idempotent.
 
 Intellectual property in this submission is offered to the contest issuer under the terms
 of the contest brief. Ownership of this repository transfers on engagement.
+
+The code published here is licensed under Apache License 2.0. That grant is perpetual and
+irrevocable for anyone who has already obtained a copy, and a later transfer of repository
+ownership does not revoke it.
