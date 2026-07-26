@@ -172,16 +172,30 @@ an error, so the form stays idempotent.
 ## Intellectual property
 
 Intellectual property in this submission is offered to the contest issuer under the terms
-of the contest brief. Ownership of this repository transfers on engagement.
+of the contest brief.
+
+## Ownership, licensing & trademarks
+
+Three separate layers, with different holders and different terms:
+
+| Layer | Holder | Terms |
+| --- | --- | --- |
+| The code in this repository | Tin Ly | Licensed under Apache License 2.0 ([LICENSE](LICENSE)). Licensed, never assigned. |
+| The "ReserveChain" name, logo, visual identity and the `reservechain.io` domain | The prospective client | **Not licensed by this repository.** Apache 2.0 section 6 grants no trademark rights. See [TRADEMARKS.md](TRADEMARKS.md). |
+| The specification and brief | The prospective client | Not in this repository. The specification lives in Notion and is not mirrored in-tree. |
 
 The code published here is licensed under Apache License 2.0. That grant is perpetual and
 irrevocable for anyone who has already obtained a copy, and a later transfer of repository
 ownership does not revoke it.
 
-## Licensing
+The Solidity sources under `contracts/` carry the same `Apache-2.0` SPDX identifier. Those
+four files were previously published with an `MIT` SPDX header, so anyone who obtained a
+copy before that change retains the MIT grant for those files.
 
-The repository is licensed under Apache License 2.0 ([LICENSE](LICENSE)), and the Solidity
-sources under `contracts/` carry the same `Apache-2.0` SPDX identifier. The Apache licence
-grants no trademark or brand rights — see section 6 of [LICENSE](LICENSE). The four Solidity
-files were previously published with an `MIT` SPDX header, so anyone who obtained a copy
-before this change retains the MIT grant for those files.
+Two outcomes remain open. If the submission is selected, the work is handed over to the
+client under this licence. If it is not, the code continues as a de-branded, generic
+real-world-asset tokenization platform under a different name.
+
+Anyone redistributing or deploying this code must rename the project and remove the brand
+references first — see [TRADEMARKS.md](TRADEMARKS.md) for what that involves. Security
+status, known issues and how to report a vulnerability are in [SECURITY.md](SECURITY.md).
