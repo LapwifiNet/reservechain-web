@@ -63,9 +63,8 @@ High-level counts (waitlist, KYC cases by status) and quick links.
   described as a completed screening; any surface that displays it carries the
   stub wording.
 - **Review** — set the decision (`approve` / `reject`), risk level and notes.
-  Decisions are attributed to you by email. **They are not timestamped**:
-  `reviewedAt` exists in the schema but is never written, so the console shows a
-  permanently empty "reviewed at". Known defect, recorded in `SECURITY.md`.
+  Decisions are attributed to you by email **and timestamped**: `reviewedBy` and
+  `reviewedAt` are written together, never separately.
 - KYC approval is the gate for investor actions elsewhere — approve only with adequate evidence.
 
 ### 2.4 Tokenomics configuration

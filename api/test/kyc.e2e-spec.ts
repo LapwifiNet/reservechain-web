@@ -87,6 +87,13 @@ describe('KYC/KYB compliance (e2e, mocked persistence)', () => {
     expect(res.body.status).toBe('approved');
     expect(res.body.riskLevel).toBe('low');
     expect(res.body.reviewedBy).toBe('compliance@reservechain.local');
+
+    // reviewedAt is set together with reviewedBy, never separately. It was
+    // previously never written at all, so every reviewed case carried an
+    // attributed reviewer and a blank timestamp — a decision you cannot place
+    // in time against a sanctions list version or a document expiry.
+    expect(res.body.reviewedAt).toBeTruthy();
+    expect(Number.isNaN(Date.parse(String(res.body.reviewedAt)))).toBe(false);
   });
 
   it('runs the illustrative sanctions screening stub and persists the outcome', async () => {

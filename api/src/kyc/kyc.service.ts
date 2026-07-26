@@ -54,6 +54,12 @@ export class KycService {
         riskLevel: dto.riskLevel,
         notes: dto.notes,
         reviewedBy: reviewer,
+        // Set together with reviewedBy, never separately. A compliance
+        // decision carrying a named reviewer but no time is incomplete: it
+        // cannot be placed against a sanctions list version, a document expiry,
+        // or anything else that moves. The column existed and was simply never
+        // written, so every reviewed case showed a blank "Reviewed at".
+        reviewedAt: new Date(),
       },
     });
   }
