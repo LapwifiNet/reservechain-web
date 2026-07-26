@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "programs": "Programas",
+    "waitlist": "Registrar interés",
+    "investor": "Inversor"
+  },
+  "home": {
+    "title": "RWA respaldado por metales industriales",
+    "subtitle": "Demostración previa al lanzamiento de metales industriales tokenizados. Solo testnet.",
+    "explorePrograms": "Explorar programas",
+    "join": "Registrar interés"
+  },
+  "programs": {
+    "title": "Programas de activos",
+    "empty": "Aún no hay programas disponibles.",
+    "purity": "Pureza",
+    "viewPassport": "Ver pasaporte de muestra"
+  },
+  "passport": {
+    "title": "Pasaporte Digital de Activo",
+    "lot": "Lote",
+    "coa": "Certificado de análisis",
+    "tokenMapping": "Mapeo de token",
+    "notActivated": "El mapeo de token se muestra solo después de activar el lote.",
+    "illustrative": "Ilustrativo"
+  },
+  "waitlist": {
+    "title": "Registrar interés",
+    "name": "Nombre completo",
+    "email": "Correo electrónico",
+    "investorType": "Tipo de inversor (opcional)",
+    "region": "Organización (opcional)",
+    "consent": "He leído la divulgación y consiento registrar mi interés.",
+    "submit": "Enviar",
+    "success": "Gracias. Su interés ha sido registrado.",
+    "consentRequired": "Debe consentir antes de enviar.",
+    "invalidEmail": "Introduzca un correo válido.",
+    "nameRequired": "Introduzca su nombre.",
+    "type": {
+      "institution": "Institución",
+      "investor": "Inversor individual",
+      "partner": "Socio",
+      "other": "Otro"
+    }
+  },
+  "investor": {
+    "login": "Iniciar sesión",
+    "register": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "fullName": "Nombre completo",
+    "status": "Su estado",
+    "logout": "Cerrar sesión",
+    "noAccount": "¿Sin cuenta? Cree una",
+    "haveAccount": "¿Ya tiene cuenta? Inicie sesión",
+    "kyc": "Estado KYC",
+    "kyc.pending": "Pendiente",
+    "kyc.in_review": "En revisión",
+    "kyc.approved": "Aprobado",
+    "kyc.rejected": "Rechazado",
+    "kyc.none": "No iniciado",
+    "gatedNote": "La billetera, la compra, el rescate y la prueba de reservas están inactivos durante el prelanzamiento."
+  },
+  "common": {
+    "loading": "Cargando…",
+    "retry": "Reintentar",
+    "error": "Algo salió mal.",
+    "disclosure": "Divulgación"
+  }
+}

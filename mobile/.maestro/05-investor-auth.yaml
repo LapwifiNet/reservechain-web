@@ -1,0 +1,33 @@
+appId: io.reservechain.app
+name: 05-investor-auth
+tags:
+  - backend
+---
+# Requires a reachable backend (POST /investor/register, GET /investor/status).
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "btn-investor"
+- assertVisible: "Log in"
+# Switch to registration.
+- tapOn:
+    id: "btn-toggle"
+- assertVisible: "Create account"
+- tapOn:
+    id: "input-fullname"
+- inputText: "QA Investor"
+- tapOn:
+    id: "input-email"
+- inputText: "investor+${maestro.random}@example.com"
+- tapOn:
+    id: "input-password"
+- inputText: "QaPassw0rd!23"
+- hideKeyboard
+- tapOn:
+    id: "btn-submit"
+# Lands on the status screen after auth.
+- assertVisible: "Your status"
+- assertVisible:
+    text: "KYC status:.*"
+- assertVisible:
+    id: "btn-logout"

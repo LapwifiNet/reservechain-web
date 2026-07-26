@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "ReserveChain",
+    "slug": "reservechain-mobile",
+    "scheme": "reservechain",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0E1116",
+    "splash": {
+      "backgroundColor": "#0E1116",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "io.reservechain.app"
+    },
+    "android": {
+      "package": "io.reservechain.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0E1116"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router", "expo-secure-store", "expo-localization"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -1,0 +1,16 @@
+# Maestro workspace configuration.
+# Run the whole suite with:  maestro test .maestro
+# App under test:
+appId: io.reservechain.app
+
+# Flows are auto-discovered from this folder. Data-dependent flows
+# (03, 05, 06) require a reachable backend/CMS; tag them so they can be
+# skipped in offline/UI-only runs:  maestro test .maestro --exclude-tags=backend
+executionOrder:
+  flowsOrder:
+    - 01-home-smoke
+    - 02-waitlist-validation
+    - 04-i18n-switch
+    - 03-waitlist-happy-path
+    - 05-investor-auth
+    - 06-programs-passport

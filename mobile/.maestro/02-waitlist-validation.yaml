@@ -1,0 +1,35 @@
+appId: io.reservechain.app
+name: 02-waitlist-validation
+tags:
+  - ui
+---
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "btn-waitlist"
+- assertVisible: "Register interest"
+# Submit is disabled until consent is given.
+- assertVisible:
+    id: "btn-submit"
+    enabled: false
+# Give consent to enable the button, then trigger field validation.
+- tapOn:
+    id: "chk-consent"
+- assertVisible:
+    id: "btn-submit"
+    enabled: true
+# Empty name -> name required error.
+- tapOn:
+    id: "btn-submit"
+- assertVisible: "Please enter your name."
+# Fill name, bad email -> invalid email error.
+- tapOn:
+    id: "input-name"
+- inputText: "QA Tester"
+- tapOn:
+    id: "input-email"
+- inputText: "not-an-email"
+- hideKeyboard
+- tapOn:
+    id: "btn-submit"
+- assertVisible: "Please enter a valid email."

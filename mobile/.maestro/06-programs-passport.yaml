@@ -1,0 +1,18 @@
+appId: io.reservechain.app
+name: 06-programs-passport
+tags:
+  - backend
+---
+# Requires the CMS public endpoints with at least one published program.
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "btn-programs"
+- assertVisible: "Asset programs"
+# Open the first program card, then its sample passport.
+- tapOn:
+    text: "View sample passport"
+- assertVisible: "Digital Asset Passport"
+# Token mapping section is present (value only shown for activated lots).
+- assertVisible: "Token mapping"
+- assertVisible: "Disclosure"

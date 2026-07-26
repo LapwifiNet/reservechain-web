@@ -1,0 +1,22 @@
+appId: io.reservechain.app
+name: 01-home-smoke
+tags:
+  - smoke
+  - ui
+---
+- launchApp:
+    clearState: true
+- assertVisible: "Industrial-metals-backed RWA"
+- assertVisible: "Disclosure"
+# Verbatim prelaunch disclosure must be present on the home screen.
+- assertVisible:
+    text: ".*No tokens are being offered or sold.*"
+- assertVisible:
+    id: "btn-programs"
+- assertVisible:
+    id: "btn-waitlist"
+- assertVisible:
+    id: "btn-investor"
+# Gated-module note is shown.
+- assertVisible:
+    text: ".*inactive during prelaunch.*"

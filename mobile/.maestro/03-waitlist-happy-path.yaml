@@ -1,0 +1,25 @@
+appId: io.reservechain.app
+name: 03-waitlist-happy-path
+tags:
+  - backend
+---
+# Requires a reachable backend (POST /waitlist). Set EXPO_PUBLIC_API_BASE.
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "btn-waitlist"
+- tapOn:
+    id: "input-name"
+- inputText: "QA Tester"
+- tapOn:
+    id: "input-email"
+- inputText: "qa+${maestro.random}@example.com"
+- hideKeyboard
+- tapOn:
+    id: "chk-consent"
+- tapOn:
+    id: "btn-submit"
+# Success confirmation.
+- assertVisible:
+    text: ".*your interest has been registered.*"
+    ignoreCase: true

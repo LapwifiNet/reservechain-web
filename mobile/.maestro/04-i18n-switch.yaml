@@ -1,0 +1,17 @@
+appId: io.reservechain.app
+name: 04-i18n-switch
+tags:
+  - ui
+---
+- launchApp:
+    clearState: true
+- assertVisible: "Industrial-metals-backed RWA"
+# Switch to Spanish.
+- tapOn: "ES"
+- assertVisible: "RWA respaldado por metales industriales"
+# Switch to Italian.
+- tapOn: "IT"
+- assertVisible: "RWA garantito da metalli industriali"
+# Back to English.
+- tapOn: "EN"
+- assertVisible: "Industrial-metals-backed RWA"

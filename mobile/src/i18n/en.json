@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "programs": "Programs",
+    "waitlist": "Register interest",
+    "investor": "Investor"
+  },
+  "home": {
+    "title": "Industrial-metals-backed RWA",
+    "subtitle": "A prelaunch demonstration of tokenized industrial metals. Testnet only.",
+    "explorePrograms": "Explore programs",
+    "join": "Register interest"
+  },
+  "programs": {
+    "title": "Asset programs",
+    "empty": "No programs available yet.",
+    "purity": "Purity",
+    "viewPassport": "View sample passport"
+  },
+  "passport": {
+    "title": "Digital Asset Passport",
+    "lot": "Lot",
+    "coa": "Certificate of analysis",
+    "tokenMapping": "Token mapping",
+    "notActivated": "Token mapping is shown only after the lot is activated.",
+    "illustrative": "Illustrative"
+  },
+  "waitlist": {
+    "title": "Register interest",
+    "name": "Full name",
+    "email": "Email",
+    "investorType": "Investor type (optional)",
+    "region": "Organization (optional)",
+    "consent": "I have read the disclosure and consent to registering my interest.",
+    "submit": "Submit",
+    "success": "Thank you. Your interest has been registered.",
+    "consentRequired": "You must consent before submitting.",
+    "invalidEmail": "Please enter a valid email.",
+    "nameRequired": "Please enter your name.",
+    "type": {
+      "institution": "Institution",
+      "investor": "Individual investor",
+      "partner": "Partner",
+      "other": "Other"
+    }
+  },
+  "investor": {
+    "login": "Log in",
+    "register": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "status": "Your status",
+    "logout": "Log out",
+    "noAccount": "No account? Create one",
+    "haveAccount": "Already have an account? Log in",
+    "kyc": "KYC status",
+    "kyc.pending": "Pending",
+    "kyc.in_review": "In review",
+    "kyc.approved": "Approved",
+    "kyc.rejected": "Rejected",
+    "kyc.none": "Not started",
+    "gatedNote": "Wallet, purchase, redemption and proof-of-reserves are inactive during prelaunch."
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Retry",
+    "error": "Something went wrong.",
+    "disclosure": "Disclosure"
+  }
+}

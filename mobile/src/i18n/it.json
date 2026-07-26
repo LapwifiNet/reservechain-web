@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "programs": "Programmi",
+    "waitlist": "Registra interesse",
+    "investor": "Investitore"
+  },
+  "home": {
+    "title": "RWA garantito da metalli industriali",
+    "subtitle": "Dimostrazione pre-lancio di metalli industriali tokenizzati. Solo testnet.",
+    "explorePrograms": "Esplora i programmi",
+    "join": "Registra interesse"
+  },
+  "programs": {
+    "title": "Programmi di asset",
+    "empty": "Nessun programma ancora disponibile.",
+    "purity": "Purezza",
+    "viewPassport": "Vedi passaporto di esempio"
+  },
+  "passport": {
+    "title": "Passaporto Digitale dell'Asset",
+    "lot": "Lotto",
+    "coa": "Certificato di analisi",
+    "tokenMapping": "Mappatura del token",
+    "notActivated": "La mappatura del token viene mostrata solo dopo l'attivazione del lotto.",
+    "illustrative": "Illustrativo"
+  },
+  "waitlist": {
+    "title": "Registra interesse",
+    "name": "Nome completo",
+    "email": "Email",
+    "investorType": "Tipo di investitore (opzionale)",
+    "region": "Organizzazione (facoltativo)",
+    "consent": "Ho letto l'informativa e acconsento a registrare il mio interesse.",
+    "submit": "Invia",
+    "success": "Grazie. Il tuo interesse è stato registrato.",
+    "consentRequired": "Devi acconsentire prima di inviare.",
+    "invalidEmail": "Inserisci un'email valida.",
+    "nameRequired": "Inserisci il tuo nome.",
+    "type": {
+      "institution": "Istituzione",
+      "investor": "Investitore individuale",
+      "partner": "Partner",
+      "other": "Altro"
+    }
+  },
+  "investor": {
+    "login": "Accedi",
+    "register": "Crea account",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Nome completo",
+    "status": "Il tuo stato",
+    "logout": "Esci",
+    "noAccount": "Nessun account? Creane uno",
+    "haveAccount": "Hai già un account? Accedi",
+    "kyc": "Stato KYC",
+    "kyc.pending": "In attesa",
+    "kyc.in_review": "In revisione",
+    "kyc.approved": "Approvato",
+    "kyc.rejected": "Rifiutato",
+    "kyc.none": "Non avviato",
+    "gatedNote": "Wallet, acquisto, rimborso e proof-of-reserves sono inattivi durante il pre-lancio."
+  },
+  "common": {
+    "loading": "Caricamento…",
+    "retry": "Riprova",
+    "error": "Qualcosa è andato storto.",
+    "disclosure": "Informativa"
+  }
+}
