@@ -145,9 +145,16 @@ The worker refuses to run against Ethereum mainnet (chainId 1) — both the decl
 ## Environment Variables
 
 Required for P6 authentication:
-- `JWT_SECRET`: Secret key for JWT signing (change in production)
-- `JWT_EXPIRES_IN`: Token expiration time (default: 12h)
-- `SERVICE_API_TOKEN`: Service token for server-to-server authentication (admin console)
+- `JWT_SECRET`: Secret key for admin/staff JWT signing (change in production)
+- `JWT_EXPIRES_IN`: Token expiration time (default: 12h; also used for investor tokens)
+- `SERVICE_API_TOKEN`: Service token for server-to-server authentication (admin console).
+  Read-only: state-changing requests with it are refused with 403.
+
+Required for P8 (investor portal):
+- `INVESTOR_JWT_SECRET`: Secret key for investor-portal JWT signing. Must be at least
+  32 characters and must differ from `JWT_SECRET` — investor and staff tokens are
+  disjoint domains (`typ: 'investor'` vs `typ: 'admin'`) signed with different keys,
+  and the API refuses to start otherwise.
 
 ## CI
 The unified CI pipeline is at `.github/workflows/ci.yml` in the repository root. It runs install → prisma generate → lint → build → e2e tests for all packages.

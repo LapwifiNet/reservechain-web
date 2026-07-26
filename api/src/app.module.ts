@@ -14,6 +14,7 @@ import { ChainSyncModule } from './chain-sync/chain-sync.module';
 import { AuthModule } from './auth/auth.module';
 import { KycModule } from './kyc/kyc.module';
 import { AuditModule } from './audit/audit.module';
+import { InvestorModule } from './investor/investor.module';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuditInterceptor } from './audit/audit.interceptor';
 
@@ -41,6 +42,8 @@ import { AuditInterceptor } from './audit/audit.interceptor';
     AuthModule,
     KycModule,
     AuditModule,
+    // P8: public investor portal (own token domain, read-only status).
+    InvestorModule,
   ],
   providers: [
     {

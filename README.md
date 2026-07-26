@@ -34,7 +34,7 @@ Brings up PostgreSQL, the API, the website and the admin console together. The A
 its Prisma migrations on start, so the database is ready without a manual step.
 
 ```bash
-cp .env.docker.example .env          # then set JWT_SECRET and SERVICE_API_TOKEN
+cp .env.docker.example .env          # then set JWT_SECRET, SERVICE_API_TOKEN, INVESTOR_JWT_SECRET
 openssl rand -hex 32                 # generate a value for each
 docker compose up --build
 ```
@@ -46,9 +46,11 @@ docker compose up --build
 | Admin console | http://localhost:4100 | reads the API server-side |
 | PostgreSQL | `localhost:5432` | user/db `reservechain` |
 
-`.env` is gitignored — `JWT_SECRET` and `SERVICE_API_TOKEN` must each be at least 32
-characters or the API refuses to start. The admin console authenticates to the API with
-`SERVICE_API_TOKEN`, so both services read the same value.
+`.env` is gitignored — `JWT_SECRET`, `SERVICE_API_TOKEN` and `INVESTOR_JWT_SECRET` must
+each be at least 32 characters or the API refuses to start, and `INVESTOR_JWT_SECRET`
+must differ from `JWT_SECRET` (the investor portal's tokens are a separate domain from
+staff tokens). The admin console authenticates to the API with `SERVICE_API_TOKEN`, so
+both services read the same value.
 
 **Development with hot reload** — bind-mounts the working tree and runs `next dev` /
 `nest start --watch`, so edits on the host reload inside the containers:

@@ -98,8 +98,14 @@ model KycCase {
   subjectType  String
   legalName    String
   country      String
+  // P8: optional link to a portal investor by normalised email. The investor
+  // portal's read-only status endpoint surfaces the latest case matching it.
+  email        String?
   status       String    @default("pending")
   riskLevel    String?
+  // P8: persisted sanctions-screening outcome. Null until a real (non-stub)
+  // screening writes it; the portal shows null as "not screened".
+  sanctions    String?
   notes        String?
   reviewedBy   String?
   reviewedAt   DateTime?
@@ -108,6 +114,20 @@ model KycCase {
 
   @@index([status])
   @@index([createdAt])
+  @@index([email])
+}
+
+// P8: public investors who self-register on the website portal. Deliberately
+// separate from AdminUser (staff) — and from the Role enum feeding @Roles() —
+// so an investor account can never satisfy an admin route's role check.
+// Portal tokens carry typ="investor" and are signed with INVESTOR_JWT_SECRET.
+model InvestorUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  fullName     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model AuditEvent {

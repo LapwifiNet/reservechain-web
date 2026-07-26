@@ -28,8 +28,14 @@ describe('Auth and RBAC (P6)', () => {
     await app.init();
 
     prisma = app.get<PrismaService>(PrismaService);
-    jwtService = app.get<JwtService>(JwtService);
     configService = app.get<ConfigService>(ConfigService);
+    // Construct the signer explicitly: since P8 the app has TWO JwtModule
+    // registrations (admin and investor domains), so app.get(JwtService) is
+    // ambiguous. These are admin-domain tokens, signed with JWT_SECRET.
+    jwtService = new JwtService({
+      secret: configService.get<string>('JWT_SECRET'),
+      signOptions: { expiresIn: '1h' },
+    });
 
     // Seed test data
     const adminPassword = await bcryptjs.hash('test-admin-pass', 10);
@@ -50,18 +56,21 @@ describe('Auth and RBAC (P6)', () => {
       sub: 'test-admin-id',
       email: 'test-admin@example.local',
       role: 'ADMIN',
+      typ: 'admin',
     });
 
     complianceToken = await jwtService.signAsync({
       sub: 'test-compliance-id',
       email: 'test-compliance@example.local',
       role: 'COMPLIANCE',
+      typ: 'admin',
     });
 
     viewerToken = await jwtService.signAsync({
       sub: 'test-viewer-id',
       email: 'test-viewer@example.local',
       role: 'VIEWER',
+      typ: 'admin',
     });
 
     serviceToken = configService.get<string>('SERVICE_API_TOKEN') || 'test-service-token';

@@ -40,7 +40,8 @@
     "risk": "Risk Disclosure",
     "restricted": "Restricted Jurisdictions",
     "antiFraud": "Anti-Fraud & Anti-Impersonation",
-    "officialChannels": "Official Channels"
+    "officialChannels": "Official Channels",
+    "portal": "Investor portal"
   },
   "notice": {
     "provisionalLabel": "Provisional information",
@@ -1237,5 +1238,59 @@
         "materialEvents": "Material events notices"
       }
     }
+  },
+  "portal": {
+    "title": "Investor Portal",
+    "subtitle": "Sign in to view your registration, verification status and program information. In development — no offer or sale.",
+    "welcome": "Welcome, {name}",
+    "signOut": "Sign out",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters.",
+    "working": "Please wait…",
+    "loginTitle": "Sign in",
+    "loginCta": "Sign in",
+    "registerTitle": "Create your account",
+    "registerCta": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "errLogin": "Incorrect email or password.",
+    "errRegister": "Could not create your account. Please try again.",
+    "errAlready": "That email is already registered. Try signing in.",
+    "errNetwork": "Network error. Please try again.",
+    "account": "Account",
+    "memberSince": "Member since",
+    "verification": "Verification (KYC/KYB)",
+    "verificationNote": "Identity verification is handled by our compliance team. Status shown here is illustrative during development.",
+    "riskLevel": "Risk level",
+    "sanctions": {
+      "not_screened": "Not screened",
+      "clear_stub": "Clear",
+      "flagged": "Flagged"
+    },
+    "waitlist": "Waitlist registration",
+    "waitlistNone": "You are not on the waitlist yet.",
+    "investorType": "Investor type",
+    "organization": "Organization",
+    "interest": "Area of interest",
+    "joined": "Joined",
+    "programs": "Programs",
+    "programsNone": "No programs published yet.",
+    "illustrative": "Illustrative",
+    "kycStatus": {
+      "not_started": "Not started",
+      "pending": "Pending",
+      "in_review": "In review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "risk": {
+      "unrated": "Unrated",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "sanctionsLabel": "Sanctions screening"
   }
 }

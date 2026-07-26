@@ -40,7 +40,8 @@
     "risk": "Informativa sui rischi",
     "restricted": "Giurisdizioni soggette a restrizioni",
     "antiFraud": "Antifrode e anti-impersonificazione",
-    "officialChannels": "Canali ufficiali"
+    "officialChannels": "Canali ufficiali",
+    "portal": "Portale"
   },
   "notice": {
     "provisionalLabel": "Informazioni provvisorie",
@@ -1237,5 +1238,59 @@
         "materialEvents": "Avvisi su eventi rilevanti"
       }
     }
+  },
+  "portal": {
+    "title": "Portale investitori",
+    "subtitle": "Accedi per vedere la tua registrazione, lo stato di verifica e le informazioni sui programmi. In sviluppo: nessuna offerta né vendita.",
+    "welcome": "Benvenuto/a, {name}",
+    "signOut": "Esci",
+    "fullName": "Nome completo",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "Almeno 8 caratteri.",
+    "working": "Attendi…",
+    "loginTitle": "Accedi",
+    "loginCta": "Accedi",
+    "registerTitle": "Crea il tuo account",
+    "registerCta": "Crea account",
+    "noAccount": "Non hai ancora un account?",
+    "haveAccount": "Hai già un account?",
+    "errLogin": "Email o password non corretti.",
+    "errRegister": "Impossibile creare l'account. Riprova.",
+    "errAlready": "Questa email è già registrata. Prova ad accedere.",
+    "errNetwork": "Errore di rete. Riprova.",
+    "account": "Account",
+    "memberSince": "Membro dal",
+    "verification": "Verifica (KYC/KYB)",
+    "verificationNote": "La verifica dell'identità è gestita dal nostro team compliance. Lo stato mostrato è illustrativo durante lo sviluppo.",
+    "riskLevel": "Livello di rischio",
+    "sanctions": {
+      "not_screened": "Non verificato",
+      "clear_stub": "Nessuna corrispondenza",
+      "flagged": "Segnalato"
+    },
+    "waitlist": "Registrazione lista d'attesa",
+    "waitlistNone": "Non sei ancora nella lista d'attesa.",
+    "investorType": "Tipo di investitore",
+    "organization": "Organizzazione",
+    "interest": "Area di interesse",
+    "joined": "Iscritto",
+    "programs": "Programmi",
+    "programsNone": "Nessun programma pubblicato.",
+    "illustrative": "Illustrativo",
+    "kycStatus": {
+      "not_started": "Non avviato",
+      "pending": "In attesa",
+      "in_review": "In revisione",
+      "approved": "Approvato",
+      "rejected": "Rifiutato"
+    },
+    "risk": {
+      "unrated": "Non valutato",
+      "low": "Basso",
+      "medium": "Medio",
+      "high": "Alto"
+    },
+    "sanctionsLabel": "Screening sanzioni"
   }
 }

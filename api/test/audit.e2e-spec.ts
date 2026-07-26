@@ -28,8 +28,14 @@ describe('Audit Log (P9)', () => {
     await app.init();
 
     prisma = app.get<PrismaService>(PrismaService);
-    jwtService = app.get<JwtService>(JwtService);
     configService = app.get<ConfigService>(ConfigService);
+    // Construct the signer explicitly: since P8 the app has TWO JwtModule
+    // registrations (admin and investor domains), so app.get(JwtService) is
+    // ambiguous. These are admin-domain tokens, signed with JWT_SECRET.
+    jwtService = new JwtService({
+      secret: configService.get<string>('JWT_SECRET'),
+      signOptions: { expiresIn: '1h' },
+    });
 
     // Seed test data
     const adminPassword = await bcryptjs.hash('test-admin-pass', 10);
@@ -50,18 +56,21 @@ describe('Audit Log (P9)', () => {
       sub: 'test-admin-audit-id',
       email: 'test-admin-audit@example.local',
       role: 'ADMIN',
+      typ: 'admin',
     });
 
     complianceToken = await jwtService.signAsync({
       sub: 'test-compliance-audit-id',
       email: 'test-compliance-audit@example.local',
       role: 'COMPLIANCE',
+      typ: 'admin',
     });
 
     viewerToken = await jwtService.signAsync({
       sub: 'test-viewer-audit-id',
       email: 'test-viewer-audit@example.local',
       role: 'VIEWER',
+      typ: 'admin',
     });
 
     serviceToken = configService.get<string>('SERVICE_API_TOKEN') || 'test-service-token';

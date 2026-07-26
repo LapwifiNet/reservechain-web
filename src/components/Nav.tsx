@@ -57,6 +57,12 @@ export default function Nav() {
         <div className="flex shrink-0 items-center gap-3">
           <LocaleSwitcher />
           <Link
+            href="/portal"
+            className="hidden rounded-lg px-3 py-2 text-sm text-text2 hover:text-text lg:inline-block"
+          >
+            {t('portal')}
+          </Link>
+          <Link
             href="/waitlist"
             className="hidden rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:brightness-110 sm:inline-block"
           >
@@ -87,9 +93,12 @@ export default function Nav() {
               </ul>
             </div>
           ))}
+          <Link href="/portal" className="mt-3 block py-2 text-sm text-text2">
+            {t('portal')}
+          </Link>
           <Link
             href="/waitlist"
-            className="mt-4 inline-block rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white"
+            className="mt-2 inline-block rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white"
           >
             {t('cta')}
           </Link>

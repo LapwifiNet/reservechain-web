@@ -47,6 +47,8 @@ services:
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required — copy .env.docker.example to .env}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-12h}
       SERVICE_API_TOKEN: ${SERVICE_API_TOKEN:?SERVICE_API_TOKEN is required — copy .env.docker.example to .env}
+      # P8 investor portal — its own signing key, must differ from JWT_SECRET.
+      INVESTOR_JWT_SECRET: ${INVESTOR_JWT_SECRET:?INVESTOR_JWT_SECRET is required — copy .env.docker.example to .env}
       # Opt-in seeding, handled by docker-entrypoint.sh.
       RUN_DB_SEED: ${RUN_DB_SEED:-false}
       SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}

@@ -26,7 +26,10 @@ const STATE_CHANGING_METHODS = new Set(['POST', 'PATCH', 'PUT', 'DELETE']);
  *   design — the caller is authenticated, it is simply not authorised to write.
  *   A single route may opt back in with `@AllowServiceWrite()`.
  * - Otherwise verifies a signed JWT issued by /api/auth/login. Those callers are
- *   unaffected by the rule above and write as themselves.
+ *   unaffected by the rule above and write as themselves. The JWT must carry
+ *   typ='admin' (P8): investor-portal tokens use a different signing secret
+ *   AND typ='investor', and a token with no typ at all is rejected rather than
+ *   defaulted into the admin domain.
  *
  * The restriction lives here rather than in individual controllers because
  * RolesGuard compares only `role`, and the service principal carries
@@ -77,6 +80,12 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwt.verifyAsync(token);
+      // Token-domain isolation (P8): only admin-domain JWTs pass this guard.
+      // A missing typ is rejected too — nothing defaults into the admin
+      // domain, and pre-P8 sessions are deliberately invalidated.
+      if (payload?.typ !== 'admin') {
+        throw new Error('wrong_token_type');
+      }
       req.user = {
         sub: payload.sub,
         email: payload.email,

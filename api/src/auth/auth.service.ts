@@ -26,6 +26,10 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       role,
+      // Explicit token domain (P8). JwtAuthGuard rejects any JWT without
+      // typ='admin', so an investor-portal token — different typ AND a
+      // different signing secret — can never authenticate an admin route.
+      typ: 'admin',
     });
     return {
       accessToken,

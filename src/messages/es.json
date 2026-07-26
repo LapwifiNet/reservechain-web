@@ -40,7 +40,8 @@
     "risk": "Divulgación de riesgos",
     "restricted": "Jurisdicciones restringidas",
     "antiFraud": "Antifraude y antisuplantación",
-    "officialChannels": "Canales oficiales"
+    "officialChannels": "Canales oficiales",
+    "portal": "Portal"
   },
   "notice": {
     "provisionalLabel": "Información provisional",
@@ -1237,5 +1238,59 @@
         "materialEvents": "Avisos de hechos relevantes"
       }
     }
+  },
+  "portal": {
+    "title": "Portal del inversor",
+    "subtitle": "Inicia sesión para ver tu registro, estado de verificación e información de programas. En desarrollo: sin oferta ni venta.",
+    "welcome": "Bienvenido/a, {name}",
+    "signOut": "Cerrar sesión",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordHint": "Al menos 8 caracteres.",
+    "working": "Espera…",
+    "loginTitle": "Iniciar sesión",
+    "loginCta": "Iniciar sesión",
+    "registerTitle": "Crea tu cuenta",
+    "registerCta": "Crear cuenta",
+    "noAccount": "¿Aún no tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "errLogin": "Correo o contraseña incorrectos.",
+    "errRegister": "No se pudo crear tu cuenta. Inténtalo de nuevo.",
+    "errAlready": "Ese correo ya está registrado. Inicia sesión.",
+    "errNetwork": "Error de red. Inténtalo de nuevo.",
+    "account": "Cuenta",
+    "memberSince": "Miembro desde",
+    "verification": "Verificación (KYC/KYB)",
+    "verificationNote": "La verificación de identidad la gestiona nuestro equipo de cumplimiento. El estado mostrado es ilustrativo durante el desarrollo.",
+    "riskLevel": "Nivel de riesgo",
+    "sanctions": {
+      "not_screened": "Sin cribar",
+      "clear_stub": "Sin coincidencias",
+      "flagged": "Marcado"
+    },
+    "waitlist": "Registro en lista de espera",
+    "waitlistNone": "Aún no estás en la lista de espera.",
+    "investorType": "Tipo de inversor",
+    "organization": "Organización",
+    "interest": "Área de interés",
+    "joined": "Registrado",
+    "programs": "Programas",
+    "programsNone": "Aún no hay programas publicados.",
+    "illustrative": "Ilustrativo",
+    "kycStatus": {
+      "not_started": "Sin iniciar",
+      "pending": "Pendiente",
+      "in_review": "En revisión",
+      "approved": "Aprobado",
+      "rejected": "Rechazado"
+    },
+    "risk": {
+      "unrated": "Sin calificar",
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto"
+    },
+    "sanctionsLabel": "Cribado de sanciones"
   }
 }
