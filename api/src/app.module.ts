@@ -17,6 +17,8 @@ import { AuditModule } from './audit/audit.module';
 import { InvestorModule } from './investor/investor.module';
 import { ProofOfReservesModule } from './proof-of-reserves/proof-of-reserves.module';
 import { RedemptionModule } from './redemption/redemption.module';
+import { WalletModule } from './wallet/wallet.module';
+import { PurchaseModule } from './purchase/purchase.module';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuditInterceptor } from './audit/audit.interceptor';
 
@@ -50,6 +52,8 @@ import { AuditInterceptor } from './audit/audit.interceptor';
     // in the service, so neither is an implementation waiting for a switch.
     ProofOfReservesModule,
     RedemptionModule,
+    WalletModule,
+    PurchaseModule,
   ],
   providers: [
     {

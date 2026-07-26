@@ -194,3 +194,44 @@ model RedemptionRequest {
   @@index([investorEmail, createdAt])
   @@index([status])
 }
+
+// ---- Wallet / Purchase: gated modules, published SHAPE only ----
+// Same rule as the P11/P12 models above: both services refuse every call,
+// import no PrismaModule, and touch neither table. Created by the
+// wallet_purchase migration and must stay empty. A Wallet row is durable,
+// publicly correlatable identity data tied to a named investor, and a
+// PurchaseIntent is a record of an order for a token that is not issued —
+// neither may be populated until the modules are implemented under written
+// authorization. No key material is modelled here: an address is a public
+// identifier, and nothing in this schema holds a private key, mnemonic or seed.
+
+model Wallet {
+  investorEmail String   @id
+  address       String
+  chainId       Int      @default(11155111) // Sepolia testnet only (AGENTS §1)
+  status        String   @default("linked") // linked | revoked
+  verified      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([address])
+}
+
+model PurchaseIntent {
+  id              String   @id @default(cuid())
+  investorEmail   String
+  programCode     String
+  tokenAmount     Float
+  quoteCurrency   String?
+  walletAddress   String
+  network         String   @default("testnet")
+  status          String   @default("pending") // pending | approved | rejected | settled
+  rejectionReason String?
+  reviewedBy      String?
+  txRef           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([investorEmail, createdAt])
+  @@index([status])
+}

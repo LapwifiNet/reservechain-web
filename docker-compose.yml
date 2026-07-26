@@ -67,6 +67,10 @@ services:
       # inactive. Not overridable from .env on purpose — there is no operational
       # reason to tune a threshold for a module that refuses every call.
       REDEMPTION_REQUIRED_APPROVALS: "2"
+      # Wallet linking and token purchase. Hard-coded off, same as the two flags
+      # above, so a stray value in .env cannot open them.
+      WALLET_ENABLED: "false"
+      PURCHASE_ENABLED: "false"
     ports:
       - "${API_PORT:-4000}:4000"
     healthcheck:

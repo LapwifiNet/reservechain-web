@@ -222,3 +222,19 @@ so a blind `cp -R` can silently revert them.
     module import, in the direction that puts staff tokens on investor routes.
     Exporting the guard does not fix it; binding the secret does. Pinned by
     `test/gated-modules.e2e-spec.ts`.
+35. Nothing in this repository holds, requests, logs or persists a private key,
+    mnemonic, seed phrase or signer metadata — not in code, tests, fixtures,
+    example env files or the schema. Wallet linking records a public address
+    only. Proof of control is a signature the holder produces; it is never a
+    secret this platform receives. The wallet/purchase overlay shipped none of
+    it, and that must stay true when the module is implemented.
+36. `LinkWalletDto.chainId` uses `@IsIn([11155111])`, not `@IsInt()`. The
+    overlay accepted any integer with only a comment saying mainnet was not
+    permitted, so `chainId: 1` validated — a published contract accepting an
+    Ethereum mainnet address on a testnet-only platform. AGENTS §1 puts that
+    constraint in code, not in prose.
+37. The purchase module quotes no price and computes no amount. `tokenAmount`
+    is client-supplied, `quoteCurrency` is an ISO-4217 code with no value
+    attached, and no fee, rate or valuation exists anywhere in it. Introducing
+    one requires a figure from `TokenomicsConfig` or the frozen illustrative
+    set (AGENTS §4), never a literal.

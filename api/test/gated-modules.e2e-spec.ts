@@ -20,16 +20,24 @@ import { PrismaService } from '../src/prisma/prisma.service';
 // Also pins invariant 34: the redemption module's investor guard must verify
 // with INVESTOR_JWT_SECRET. It previously resolved AuthModule's admin signer,
 // so an admin-signed token carrying typ:'investor' passed.
-describe('P11/P12 gated modules stay inert', () => {
+describe('Gated modules stay inert (P11/P12 + wallet/purchase)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let adminToken: string;
   let investorToken: string;
   let adminSignedInvestorToken: string;
 
-  const flagsBefore = {
-    por: process.env.PROOF_OF_RESERVES_ENABLED,
-    redemption: process.env.REDEMPTION_ENABLED,
+  const FLAGS = [
+    'PROOF_OF_RESERVES_ENABLED',
+    'REDEMPTION_ENABLED',
+    'WALLET_ENABLED',
+    'PURCHASE_ENABLED',
+  ];
+  const flagsBefore = Object.fromEntries(
+    FLAGS.map((f) => [f, process.env[f]]),
+  );
+  const setFlags = (value: 'true' | 'false') => {
+    for (const f of FLAGS) process.env[f] = value;
   };
 
   // Every route the two modules expose.
@@ -44,6 +52,17 @@ describe('P11/P12 gated modules stay inert', () => {
     ['post', '/api/redemption/requests/some-id/approve', () => adminToken],
     ['post', '/api/redemption/requests/some-id/reject', () => adminToken],
     ['post', '/api/redemption/requests/some-id/settle', () => adminToken],
+    ['post', '/api/wallet/link', () => investorToken],
+    ['get', '/api/wallet/me', () => investorToken],
+    ['post', '/api/wallet/revoke', () => investorToken],
+    ['get', '/api/wallet', () => adminToken],
+    ['get', '/api/purchase/disclosure', () => ''],
+    ['post', '/api/purchase/intents', () => investorToken],
+    ['get', '/api/purchase/intents/mine', () => investorToken],
+    ['get', '/api/purchase/intents', () => adminToken],
+    ['post', '/api/purchase/intents/some-id/approve', () => adminToken],
+    ['post', '/api/purchase/intents/some-id/reject', () => adminToken],
+    ['post', '/api/purchase/intents/some-id/settle', () => adminToken],
   ];
 
   const call = (method: string, path: string, token: string) => {
@@ -59,8 +78,7 @@ describe('P11/P12 gated modules stay inert', () => {
       process.env.INVESTOR_JWT_SECRET ||
       'spec-investor-secret-at-least-32-characters';
     // The suite controls the flags itself; start from off.
-    process.env.PROOF_OF_RESERVES_ENABLED = 'false';
-    process.env.REDEMPTION_ENABLED = 'false';
+    setFlags('false');
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -98,17 +116,13 @@ describe('P11/P12 gated modules stay inert', () => {
   });
 
   afterAll(async () => {
-    process.env.PROOF_OF_RESERVES_ENABLED = flagsBefore.por ?? 'false';
-    process.env.REDEMPTION_ENABLED = flagsBefore.redemption ?? 'false';
+    for (const f of FLAGS) process.env[f] = flagsBefore[f] ?? 'false';
     await prisma.$disconnect();
     await app.close();
   });
 
   describe('flags off: refused at the guard', () => {
-    beforeAll(() => {
-      process.env.PROOF_OF_RESERVES_ENABLED = 'false';
-      process.env.REDEMPTION_ENABLED = 'false';
-    });
+    beforeAll(() => setFlags('false'));
 
     it.each(ROUTES)('%s %s → 501 module_disabled', async (method, path, tok) => {
       const res = await call(method, path, tok());
@@ -125,14 +139,8 @@ describe('P11/P12 gated modules stay inert', () => {
   });
 
   describe('flags on: the service still refuses (AGENTS §2)', () => {
-    beforeAll(() => {
-      process.env.PROOF_OF_RESERVES_ENABLED = 'true';
-      process.env.REDEMPTION_ENABLED = 'true';
-    });
-    afterAll(() => {
-      process.env.PROOF_OF_RESERVES_ENABLED = 'false';
-      process.env.REDEMPTION_ENABLED = 'false';
-    });
+    beforeAll(() => setFlags('true'));
+    afterAll(() => setFlags('false'));
 
     it.each(ROUTES)('%s %s → still 501', async (method, path, tok) => {
       const res = await call(method, path, tok());
@@ -140,9 +148,12 @@ describe('P11/P12 gated modules stay inert', () => {
       // Never 2xx: no gated route may succeed on any code path.
       expect([400, 501]).toContain(res.status);
       if (res.status === 501) {
-        expect(['proof_of_reserves_inactive', 'redemption_inactive']).toContain(
-          res.body.error,
-        );
+        expect([
+          'proof_of_reserves_inactive',
+          'redemption_inactive',
+          'wallet_inactive',
+          'purchase_inactive',
+        ]).toContain(res.body.error);
       }
     });
 
@@ -160,8 +171,18 @@ describe('P11/P12 gated modules stay inert', () => {
         amount: 5,
       });
 
+      await call('post', '/api/wallet/link', investorToken).send({
+        address: '0x0000000000000000000000000000000000000001',
+      });
+      await call('post', '/api/purchase/intents', investorToken).send({
+        programCode: 'CP',
+        tokenAmount: 1,
+      });
+
       expect(await prisma.reserveAttestation.count()).toBe(0);
       expect(await prisma.redemptionRequest.count()).toBe(0);
+      expect(await prisma.wallet.count()).toBe(0);
+      expect(await prisma.purchaseIntent.count()).toBe(0);
     });
 
     it('the service principal cannot write to a gated staff route (invariant 16)', async () => {
