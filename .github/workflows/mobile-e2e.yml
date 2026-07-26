@@ -1,0 +1,136 @@
+# Runs the Expo app's Maestro flows on an Android emulator.
+#
+# THIS WORKFLOW HAS NEVER RUN, and cannot: GitHub Actions is billing-locked on
+# this account and every job fails at startup. It is verified by actionlint
+# alone. The Gradle build, the emulator boot, the APK install and all six flows
+# are unproven — no flow has ever been executed anywhere, on CI or a desk.
+#
+# Trigger is workflow_dispatch ONLY. The overlay also fired on every pull
+# request touching mobile/**, which is wrong here for two reasons: this is a
+# 45-minute emulator job that has never completed once, so auto-firing it would
+# make every mobile PR red for reasons nobody has diagnosed; and Actions has
+# never run at all on this repository, so there is no baseline to regress from.
+# Re-enable the pull_request trigger once it has passed manually at least once.
+#
+# Note on credentials, since it is easy to over-state: this job does NOT need an
+# Expo account, an Apple team id or Google Play credentials. Those are required
+# for EAS *store* builds. `expo prebuild` plus `gradlew assembleDebug` produces
+# a debug APK locally on the runner. What it needs is a runner with the Android
+# SDK, KVM and network access.
+name: Mobile E2E (Maestro)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_backend_flows:
+        description: "Also run backend-tagged flows (03, 05, 06). Requires a DISPOSABLE API/CMS — these flows write rows."
+        type: boolean
+        default: false
+      backend_is_disposable:
+        description: "I confirm EXPO_PUBLIC_API_BASE points at a disposable environment, not production."
+        type: boolean
+        default: false
+
+concurrency:
+  group: mobile-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    name: Android UI flows
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: mobile
+    env:
+      # Optional: point backend flows at a reachable API/CMS via repo Variables.
+      EXPO_PUBLIC_API_BASE: ${{ vars.EXPO_PUBLIC_API_BASE }}
+      EXPO_PUBLIC_CMS_BASE: ${{ vars.EXPO_PUBLIC_CMS_BASE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Flows 03 and 05 submit a waitlist registration and register an investor.
+      # Both PERSIST ROWS holding a name and an email address. Nothing about a
+      # repository variable stops it naming a production API, so running the
+      # backend flows requires an explicit confirmation that the target is
+      # disposable — a CI job must not create PII rows in a real database.
+      - name: Guard backend flows
+        if: ${{ inputs.run_backend_flows }}
+        env:
+          API_BASE: ${{ vars.EXPO_PUBLIC_API_BASE }}
+          CMS_BASE: ${{ vars.EXPO_PUBLIC_CMS_BASE }}
+        run: |
+          if [ "${{ inputs.backend_is_disposable }}" != "true" ]; then
+            echo "::error::run_backend_flows was requested without confirming the target is disposable." \
+                 "Flows 03 and 05 persist a waitlist row and an investor account. Re-run with" \
+                 "backend_is_disposable = true only if EXPO_PUBLIC_API_BASE points at a throwaway environment."
+            exit 1
+          fi
+          if [ -z "$API_BASE" ] || [ -z "$CMS_BASE" ]; then
+            echo "::error::Backend flows need repository variables EXPO_PUBLIC_API_BASE and EXPO_PUBLIC_CMS_BASE." \
+                 "Neither is currently set on this repository. Refusing to continue: the app would fall back to" \
+                 "no host and every backend flow would fail with an unrelated 'not_configured' error."
+            exit 1
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prebuild native Android project
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build debug APK
+        working-directory: mobile/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Enable KVM (hardware acceleration)
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run Maestro flows on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          profile: pixel_5
+          disable-animations: true
+          working-directory: mobile
+          script: |
+            adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+            # Default excludes the backend-tagged flows (03, 05, 06), which are
+            # the ones that write rows. The guard step above has already
+            # confirmed a disposable target if they are being included.
+            TAGS_ARG="--exclude-tags=backend"
+            if [ "${{ inputs.run_backend_flows }}" = "true" ]; then
+              TAGS_ARG=""
+            fi
+            maestro test .maestro $TAGS_ARG --format junit --output maestro-report.xml
+
+      - name: Upload Maestro report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-report
+          path: |
+            mobile/maestro-report.xml
+            mobile/.maestro/**
+          if-no-files-found: warn
