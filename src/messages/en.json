@@ -19,7 +19,6 @@
     "copper": "Copper Powder",
     "nickel": "Nickel Wire",
     "registry": "Asset Registry",
-    "passport": "Digital Asset Passport",
     "tokenization": "Tokenization",
     "redemption": "Redemption",
     "legalStructure": "Legal & Asset-Holding Structure",
@@ -344,44 +343,6 @@
     },
     "tag": {
       "illustrative": "ILLUSTRATIVE"
-    }
-  },
-  "passport": {
-    "kicker": "Digital Asset Passport",
-    "details": "Asset Details",
-    "reserve": "Reserve & Token Status",
-    "docsNote": "No documents available — pending verification and upload.",
-    "f": {
-      "material": "Material",
-      "program": "Asset Program",
-      "purity": "Purity",
-      "lot": "Lot",
-      "weight": "Net Weight",
-      "lab": "Lab Verification",
-      "ownership": "Ownership",
-      "valuation": "Valuation",
-      "insurance": "Insurance",
-      "availability": "Availability"
-    },
-    "s": {
-      "custody": "Custody",
-      "reserve": "Reserve Status",
-      "tokenization": "Tokenization",
-      "contract": "Contract Address",
-      "image": "Image"
-    },
-    "v": {
-      "pending": "Pending",
-      "notIssued": "Not issued",
-      "notForSale": "Not offered for sale",
-      "notDeployed": "Not deployed",
-      "pendingPhoto": "Verified photography pending"
-    },
-    "tag": {
-      "illustrative": "Illustrative",
-      "reservePending": "Reserve: Pending",
-      "tokenNotIssued": "Token: Not issued",
-      "custodyPending": "Custody: Pending"
     }
   },
   "waitlist": {

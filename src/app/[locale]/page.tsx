@@ -115,7 +115,7 @@ export default function Home() {
           </div>
           <p className="mt-4 text-sm text-text2">{s('passport.note')}</p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Button href="/passport/DAP-0001" variant="ghost">
+            <Button href="/passports" variant="ghost">
               {s('passport.cta')}
             </Button>
             <Button href="/registry" variant="ghost">

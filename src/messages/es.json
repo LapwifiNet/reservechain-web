@@ -19,7 +19,6 @@
     "copper": "Polvo de Cobre",
     "nickel": "Alambre de Níquel",
     "registry": "Registro de activos",
-    "passport": "Pasaporte Digital de Activo",
     "tokenization": "Tokenización",
     "redemption": "Redención",
     "legalStructure": "Estructura legal y de tenencia",
@@ -344,44 +343,6 @@
     },
     "tag": {
       "illustrative": "ILUSTRATIVO"
-    }
-  },
-  "passport": {
-    "kicker": "Pasaporte Digital de Activo",
-    "details": "Detalles del activo",
-    "reserve": "Estado de reserva y token",
-    "docsNote": "No hay documentos disponibles: pendientes de verificación y carga.",
-    "f": {
-      "material": "Material",
-      "program": "Programa de activo",
-      "purity": "Pureza",
-      "lot": "Lote",
-      "weight": "Peso neto",
-      "lab": "Verificación de laboratorio",
-      "ownership": "Propiedad",
-      "valuation": "Valoración",
-      "insurance": "Seguro",
-      "availability": "Disponibilidad"
-    },
-    "s": {
-      "custody": "Custodia",
-      "reserve": "Estado de reserva",
-      "tokenization": "Tokenización",
-      "contract": "Dirección del contrato",
-      "image": "Imagen"
-    },
-    "v": {
-      "pending": "Pendiente",
-      "notIssued": "No emitido",
-      "notForSale": "No ofrecido a la venta",
-      "notDeployed": "No desplegado",
-      "pendingPhoto": "Fotografía verificada pendiente"
-    },
-    "tag": {
-      "illustrative": "Ilustrativo",
-      "reservePending": "Reserva: Pendiente",
-      "tokenNotIssued": "Token: No emitido",
-      "custodyPending": "Custodia: Pendiente"
     }
   },
   "waitlist": {

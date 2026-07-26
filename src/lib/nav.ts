@@ -5,7 +5,13 @@
  * message keys under the `nav` namespace so Nav and Footer stay in sync and the
  * count stays auditable against the brief.
  */
-export type NavLink = { href: string; key: string };
+/**
+ * `key` is a message key. It resolves under the `nav` namespace unless `ns`
+ * names another one — used by the passports entry so the label comes from the
+ * `Passports` namespace the DAP overlay shipped, rather than duplicating that
+ * string into `nav`.
+ */
+export type NavLink = { href: string; key: string; ns?: string };
 export type NavGroup = { key: string; items: NavLink[] };
 
 export const mainNav: NavGroup[] = [
@@ -25,7 +31,7 @@ export const mainNav: NavGroup[] = [
       { href: '/copper-powder', key: 'copper' },
       { href: '/nickel-wire', key: 'nickel' },
       { href: '/registry', key: 'registry' },
-      { href: '/passport/DAP-0001', key: 'passport' },
+      { href: '/passports', key: 'title', ns: 'Passports' },
     ],
   },
   {
@@ -48,6 +54,10 @@ export const mainNav: NavGroup[] = [
 
 /** Home plus every grouped link — asserted against the brief's count of 16. */
 export const mainNavCount = 1 + mainNav.reduce((n, g) => n + g.items.length, 0);
+
+/** Resolves a nav link's full message path, honouring an override namespace. */
+export const navMessageKey = (item: NavLink) =>
+  item.ns ? `${item.ns}.${item.key}` : `nav.${item.key}`;
 
 export const companyNav: NavLink[] = [
   { href: '/about', key: 'about' },

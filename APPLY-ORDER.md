@@ -162,3 +162,15 @@ so a blind `cp -R` can silently revert them.
     wording in **all three locales**. The stored value `clear_stub` is not a
     label. See the Open items entry — this shipped as a bare "Clear" and
     reached users.
+28. `CMS_API_BASE` is server-side only, must never become `NEXT_PUBLIC_`, and
+    carries no credential — the same rule as `WAITLIST_API_BASE`.
+29. Public pages degrade, they do not fail. A CMS or API outage must render
+    `notFound()` or a degraded page, never a 500, on any unauthenticated
+    marketing surface. Do not add a health-gated `depends_on` from the website
+    to the CMS: it converts a degraded page into a website that will not start.
+30. Exactly one passport surface exists, and it is the CMS-backed one at
+    `/passports`. The hardcoded `/passport/:id` route was retired because it
+    rendered invented per-unit content while holding the navigation link, which
+    AGENTS §3 forbids. Do not reintroduce a passport page backed by fixtures,
+    and keep the permanent redirect: the old URLs were linked from the nav, the
+    home page and the registry table.

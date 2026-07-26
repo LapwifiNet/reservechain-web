@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Disclosure } from './Disclosure';
-import { mainNav, companyNav, engageNav, legalNav } from '@/lib/nav';
+import { mainNav, companyNav, engageNav, legalNav, navMessageKey } from '@/lib/nav';
 
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -15,6 +15,7 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
 export default function Footer() {
   const t = useTranslations('footer');
   const n = useTranslations('nav');
+  const root = useTranslations();
   const platform = mainNav[0].items;
   const assets = mainNav[1].items;
 
@@ -30,7 +31,7 @@ export default function Footer() {
             {platform.map((i) => (
               <li key={i.href}>
                 <Link href={i.href} className="hover:text-text">
-                  {n(i.key)}
+                  {root(navMessageKey(i))}
                 </Link>
               </li>
             ))}
@@ -40,7 +41,7 @@ export default function Footer() {
             {assets.map((i) => (
               <li key={i.href}>
                 <Link href={i.href} className="hover:text-text">
-                  {n(i.key)}
+                  {root(navMessageKey(i))}
                 </Link>
               </li>
             ))}
@@ -50,7 +51,7 @@ export default function Footer() {
             {companyNav.map((i) => (
               <li key={i.href}>
                 <Link href={i.href} className="hover:text-text">
-                  {n(i.key)}
+                  {root(navMessageKey(i))}
                 </Link>
               </li>
             ))}
@@ -60,7 +61,7 @@ export default function Footer() {
             {engageNav.map((i) => (
               <li key={i.href}>
                 <Link href={i.href} className="hover:text-text">
-                  {n(i.key)}
+                  {root(navMessageKey(i))}
                 </Link>
               </li>
             ))}
@@ -73,7 +74,7 @@ export default function Footer() {
             {legalNav.map((i) => (
               <li key={i.href}>
                 <Link href={i.href} className="hover:text-text">
-                  {n(i.key)}
+                  {root(navMessageKey(i))}
                 </Link>
               </li>
             ))}

@@ -19,7 +19,6 @@
     "copper": "Polvere di Rame",
     "nickel": "Filo di Nichel",
     "registry": "Registro degli attivi",
-    "passport": "Passaporto Digitale dell'Attivo",
     "tokenization": "Tokenizzazione",
     "redemption": "Riscatto",
     "legalStructure": "Struttura legale e di detenzione",
@@ -344,44 +343,6 @@
     },
     "tag": {
       "illustrative": "ILLUSTRATIVO"
-    }
-  },
-  "passport": {
-    "kicker": "Passaporto Digitale dell'Attivo",
-    "details": "Dettagli dell'attivo",
-    "reserve": "Stato di riserva e token",
-    "docsNote": "Nessun documento disponibile: in attesa di verifica e caricamento.",
-    "f": {
-      "material": "Materiale",
-      "program": "Programma dell'attivo",
-      "purity": "Purezza",
-      "lot": "Lotto",
-      "weight": "Peso netto",
-      "lab": "Verifica di laboratorio",
-      "ownership": "Proprietà",
-      "valuation": "Valutazione",
-      "insurance": "Assicurazione",
-      "availability": "Disponibilità"
-    },
-    "s": {
-      "custody": "Custodia",
-      "reserve": "Stato della riserva",
-      "tokenization": "Tokenizzazione",
-      "contract": "Indirizzo del contratto",
-      "image": "Immagine"
-    },
-    "v": {
-      "pending": "In attesa",
-      "notIssued": "Non emesso",
-      "notForSale": "Non offerto in vendita",
-      "notDeployed": "Non distribuito",
-      "pendingPhoto": "Fotografia verificata in attesa"
-    },
-    "tag": {
-      "illustrative": "Illustrativo",
-      "reservePending": "Riserva: In attesa",
-      "tokenNotIssued": "Token: Non emesso",
-      "custodyPending": "Custodia: In attesa"
     }
   },
   "waitlist": {

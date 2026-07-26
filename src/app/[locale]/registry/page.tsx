@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
 import { PageHeader } from '@/components/PageHeader';
 import { Notice } from '@/components/Notice';
 import { Disclosure } from '@/components/Disclosure';
@@ -50,10 +49,16 @@ export default function RegistryPage() {
           <tbody>
             {registryUnits.map((u, i) => (
               <tr key={u.id} className={i % 2 ? 'bg-surface/40' : ''}>
+                {/*
+                  Plain text, not a link. These ids are illustrative registry
+                  identifiers with no per-unit passport behind them: the route
+                  that used to serve them rendered hardcoded content, and the
+                  CMS passports are program-level and slugged from their titles,
+                  so no unit id resolves to one. Linking the id anywhere would
+                  promise a per-unit record the site does not have.
+                */}
                 <th scope="row" className="whitespace-nowrap border-t border-border/60 px-4 py-3 text-left font-medium">
-                  <Link href={`/passport/${u.id}`} className="text-brand hover:underline">
-                    {u.id}
-                  </Link>
+                  {u.id}
                 </th>
                 <td className="whitespace-nowrap border-t border-border/60 px-4 py-3">
                   <span className={u.program === 'copper' ? 'text-copper' : 'text-nickel'}>

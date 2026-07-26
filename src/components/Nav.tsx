@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import { mainNav } from '@/lib/nav';
+import { mainNav, navMessageKey } from '@/lib/nav';
 import LocaleSwitcher from './LocaleSwitcher';
 
 /**
@@ -12,6 +12,9 @@ import LocaleSwitcher from './LocaleSwitcher';
  */
 export default function Nav() {
   const t = useTranslations('nav');
+  // Root-scoped translator: one nav item's label lives in the Passports
+  // namespace (see navMessageKey), so it cannot resolve through `t`.
+  const root = useTranslations();
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-canvas/90 backdrop-blur">
@@ -44,7 +47,7 @@ export default function Nav() {
                         href={item.href}
                         className="block rounded-lg px-3 py-2 text-sm text-text2 hover:bg-surface2 hover:text-text"
                       >
-                        {t(item.key)}
+                        {root(navMessageKey(item))}
                       </Link>
                     </li>
                   ))}
@@ -86,7 +89,7 @@ export default function Nav() {
                 {group.items.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="block py-2 text-sm text-text2">
-                      {t(item.key)}
+                      {root(navMessageKey(item))}
                     </Link>
                   </li>
                 ))}
