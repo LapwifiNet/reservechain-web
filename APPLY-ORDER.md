@@ -326,3 +326,38 @@ so a blind `cp -R` can silently revert them.
     procedure that has not been performed must say so where a reader will see
     it, not in a footnote — `docs/RUNBOOK.md` and `.github/workflows/deploy.yml`
     are the pattern.
+50. `reviewedBy` and `reviewedAt` are written together on a KYC decision, never
+    separately. An attributed reviewer with no time is half a record: the
+    decision cannot be placed against a sanctions list version, a document
+    expiry, or anything else that moves. `reviewedAt` existed in the schema and
+    was simply never written, so every reviewed case showed a blank field and
+    the admin manual had to be corrected to say decisions were not timestamped.
+    The same defect is pre-baked into `RedemptionRequest` and `PurchaseIntent`
+    for whoever implements those.
+51. `EXPO_PUBLIC_*` is published, not configured. Expo inlines those variables
+    into the shipped bundle, so anyone who downloads the app can read them.
+    Only values that are already public may go there — today, two base URLs for
+    endpoints that serve unauthenticated callers. Never a token, key, signing
+    secret or account identifier. The mobile client also has **no default host**:
+    the overlay fell back to a real domain this project neither controls nor has
+    deployed, which would have shipped inside a store binary.
+52. The mobile app is investor-domain only, and presents no gated module. It
+    authenticates solely against `/investor/{register,login,status}` with
+    `INVESTOR_JWT_SECRET`-signed tokens, holds the session in
+    `expo-secure-store`, and must never acquire an admin-domain capability or
+    become a fourth token domain (invariants 19, 20, 24). It has no screen and
+    no client method for proof-of-reserves, redemption, wallet linking or
+    purchase, and must not gain one while those refuse with `501` — an app
+    store listing reaches the public directly, so a rendered reserve figure or
+    redemption form there is the most damaging fabrication this project could
+    publish (invariant 33).
+53. No wallet library, key storage, mnemonic handling, secure-enclave or
+    signing code in the mobile app, and no analytics, crash-reporting or
+    attribution SDK. The overlay shipped none of either; the backend has no
+    telemetry at all, so a mobile SDK would be the first in the project and a
+    deliberate decision to make, not an overlay default to inherit. Anything
+    transmitting user data needs the AGENTS §8 argument made explicitly first.
+54. `mobile/` stays out of the root workspace and the root TypeScript project,
+    exactly as `admin`, `api`, `cms`, `contracts` and `infra` do. It is not an
+    npm workspace member and is listed in the root `tsconfig.json` exclude, so
+    root `npm ci`, `tsc --noEmit` and `next build` are unaffected by it.

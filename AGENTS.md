@@ -5,7 +5,7 @@ making any change. If a requested change conflicts with the Compliance guardrail
 say so in the pull request description instead of implementing it.
 
 Before applying any overlay package, `APPLY-ORDER.md` is mandatory reading: it holds the
-apply order and invariants 1–49, which must survive every apply.
+apply order and invariants 1–54, which must survive every apply.
 
 ## 1. What this project is
 
@@ -38,7 +38,7 @@ invariants every change must preserve), `SECURITY.md` (known defects and securit
 | `contracts/` | Solidity, Foundry, OpenZeppelin v5 | ERC-20 token, deploy and role scripts, tests |
 | `infra/wallets/` | Docs + templates | Gnosis Safe setup, role matrix, wallet inventory |
 | `cms/` | Payload v2 CMS on Express, PostgreSQL | Asset registry + public Digital Asset Passports, port 3001, own database `reservechain_cms` |
-| `mobile/` | React Native (Expo) | **Not created yet** (P13) |
+| `mobile/` | React Native (Expo SDK 51), Expo Router, TypeScript | iOS + Android app, investor domain only. Verified with lint + `tsc`; **never run on a device and never built** |
 | `infra/terraform/` | Terraform, AWS | VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR, Secrets Manager. Verified with `validate` / `fmt`, never applied from this repository |
 | `docs/` | Markdown | Runbook, user + admin manuals, training guide. **Not** the specification — that stays in Notion (P21) |
 

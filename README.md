@@ -127,13 +127,16 @@ cms/                       # Payload v2 CMS on Express; own database, port 3001
   src/seed/                # seed script (random admin password unless SEED_ADMIN_PASSWORD)
 
 infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet inventory templates
+mobile/                    # Expo app (iOS + Android); standalone, not an npm workspace
 docs/                      # RUNBOOK, USER-MANUAL, ADMIN-MANUAL, TRAINING
                            #   (operations + onboarding; not the specification)
 infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR,
                            #   Secrets Manager). Validated, never applied
 ```
 
-The React Native app (`mobile/`, P13) is **not created yet**. `docs/` holds the operations
+The React Native app (`mobile/`, P13) exists — Expo SDK 51, iOS + Android, investor domain
+only — and has been verified with lint and `tsc --noEmit`; it has **never been run on a
+device or built into a binary**, and none of its six Maestro flows has been executed. `docs/` holds the operations
 runbook, the user and admin manuals and the training guide; the specification itself (brief,
 PRD, wireframes, roadmap) is **not** mirrored in-repo and stays in Notion (P21). Payload CMS (`cms/`, P10) exists — see the entry above and the
 Docker service table. The Terraform infrastructure (`infra/terraform/`, P19) exists and is
