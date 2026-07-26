@@ -127,12 +127,15 @@ cms/                       # Payload v2 CMS on Express; own database, port 3001
   src/seed/                # seed script (random admin password unless SEED_ADMIN_PASSWORD)
 
 infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet inventory templates
+docs/                      # RUNBOOK, USER-MANUAL, ADMIN-MANUAL, TRAINING
+                           #   (operations + onboarding; not the specification)
 infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR,
                            #   Secrets Manager). Validated, never applied
 ```
 
-The React Native app (`mobile/`, P13) and the mirrored specification docs (`docs/`, P21)
-are **not created yet**. Payload CMS (`cms/`, P10) exists — see the entry above and the
+The React Native app (`mobile/`, P13) is **not created yet**. `docs/` holds the operations
+runbook, the user and admin manuals and the training guide; the specification itself (brief,
+PRD, wireframes, roadmap) is **not** mirrored in-repo and stays in Notion (P21). Payload CMS (`cms/`, P10) exists — see the entry above and the
 Docker service table. The Terraform infrastructure (`infra/terraform/`, P19) exists and is
 verified with `terraform validate` and `fmt -check`; it has never been applied, and no AWS
 resource exists as a result of anything in this repository.

@@ -5,16 +5,28 @@ making any change. If a requested change conflicts with the Compliance guardrail
 say so in the pull request description instead of implementing it.
 
 Before applying any overlay package, `APPLY-ORDER.md` is mandatory reading: it holds the
-apply order and invariants 1–46, which must survive every apply.
+apply order and invariants 1–49, which must survive every apply.
 
 ## 1. What this project is
 
 ReserveChain is an institutional RWA (real-world asset) tokenization platform for industrial
 metals (Copper Powder, Nickel Wire). It is **pre-launch**. Nothing is being offered or sold.
-The build follows a 22-phase plan (P1-P22). The authoritative specification lives in Notion and
-is **not** mirrored into this repository: `docs/` does not exist (P21, see the table below), so
-no specification content is available in-tree. Do not assume a local copy of the brief, PRD,
-wireframes or roadmap exists — Notion is the only source.
+The build follows a 22-phase plan (P1-P22). The authoritative **specification** lives in Notion
+and is still **not** mirrored into this repository. `docs/` now exists, but it holds operational
+and onboarding documentation only:
+
+| File | What it is |
+| --- | --- |
+| `docs/RUNBOOK.md` | Intended operations procedure — deploy, rollback, backup/restore, incident response. **Never exercised**; see its status block |
+| `docs/USER-MANUAL.md` | The product as built, for visitors and investors |
+| `docs/ADMIN-MANUAL.md` | The product as built, for ADMIN / COMPLIANCE staff |
+| `docs/TRAINING.md` | Onboarding guide for new contributors |
+
+Do **not** assume a local copy of the brief, PRD, wireframes, design system or roadmap exists —
+none of those are in `docs/`, and Notion remains the only source for them. What is in-repo, and
+authoritative there, is `AGENTS.md` (these rules), `APPLY-ORDER.md` (the apply order and the
+invariants every change must preserve), `SECURITY.md` (known defects and security posture) and
+`TRADEMARKS.md` (what the Apache-2.0 licence does and does not cover).
 
 ## 2. Repository layout (actual)
 
@@ -28,7 +40,7 @@ wireframes or roadmap exists — Notion is the only source.
 | `cms/` | Payload v2 CMS on Express, PostgreSQL | Asset registry + public Digital Asset Passports, port 3001, own database `reservechain_cms` |
 | `mobile/` | React Native (Expo) | **Not created yet** (P13) |
 | `infra/terraform/` | Terraform, AWS | VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR, Secrets Manager. Verified with `validate` / `fmt`, never applied from this repository |
-| `docs/` | Markdown | **Not created yet** (P21) |
+| `docs/` | Markdown | Runbook, user + admin manuals, training guide. **Not** the specification — that stays in Notion (P21) |
 
 Do not restructure existing folders. When adding a workstream that does not exist yet, create it
 at the path in the table above.

@@ -301,3 +301,28 @@ so a blind `cp -R` can silently revert them.
     users. Overlay #11 shipped four Dockerfiles, all regressions, and its CMS
     image would have deployed a service that 500s on every database request.
     Diff before copying; prefer taking nothing.
+47. Staff sign-ins are audited on both outcomes, and a rejected attempt is not
+    an oracle. `POST /auth/login` carries `@AuditAs('staff', { outcomes: 'all'
+    })`; failures are written with `actorId` dropped, `actorEmail` forced to
+    `[PII_REDACTED]` and a generic `reason: 'rejected'`. `AuthService` raises
+    the same `invalid_credentials` for an unknown account and a wrong password,
+    so the row discloses nothing about which addresses exist — and it must stay
+    that way, because this is an audit row created by an unauthenticated
+    caller. Recording only successes would make a credential-stuffing run
+    invisible, which is the case the trail most needs to cover.
+48. Every mutation that persists a personal record is audited, including public
+    unauthenticated ones. Investor registration and waitlist signup both create
+    PII rows with nobody signed in; "there was no principal" is not a reason for
+    a persisted personal record to have no audit event. The registrant is the
+    actor. `sanitizeBody` redacts the body regardless.
+49. Documentation is verified against the code before it ships, and says so
+    when it describes something unexercised. Three separate documentation
+    overlays shipped claims that were false of this repository — a smoke test
+    checking for `503` when the contract is `501`, an admin manual stating a
+    feature flag would activate a gated module, a training guide asserting the
+    e2e suite needs no database and that CI must be green when CI has never
+    run. Nothing compiles a prose claim, so a false one ships silently and is
+    then trusted in an incident or on a first day. Any document describing a
+    procedure that has not been performed must say so where a reader will see
+    it, not in a footnote — `docs/RUNBOOK.md` and `.github/workflows/deploy.yml`
+    are the pattern.
