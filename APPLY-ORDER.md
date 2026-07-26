@@ -174,3 +174,27 @@ so a blind `cp -R` can silently revert them.
     AGENTS §3 forbids. Do not reintroduce a passport page backed by fixtures,
     and keep the permanent redirect: the old URLs were linked from the nav, the
     home page and the registry table.
+31. The gated-module contract is **501**, everywhere. `SensitiveController`,
+    `FeatureFlagGuard` and the admin console's gated notices on `/reserves` and
+    `/redemption` all state 501; the PoR/redemption overlay shipped 503, which
+    would have made the console's rendered code wrong. One rule, one number.
+32. A feature flag is the outer wall, not the only one. The Proof-of-Reserves
+    and Redemption services refuse every call and import no `PrismaModule`, so
+    enabling `PROOF_OF_RESERVES_ENABLED` or `REDEMPTION_ENABLED` moves the
+    refusal from the guard to the service and activates nothing. AGENTS §2
+    requires this — "do not wire them to real logic, even behind a feature flag
+    that defaults on" — and the overlay shipped complete working
+    implementations, including a public endpoint that would have served a
+    computed reserve-coverage ratio. Do not reinstate the logic when
+    implementing: that is a reviewed piece of work under written
+    authorization, not the removal of a `throw`.
+33. `ReserveAttestation` and `RedemptionRequest` are published shape. Their
+    tables exist and must stay empty: nothing reads or writes them, no seed
+    touches them, and no fixture reserve figure, custodian, auditor, vault or
+    coverage ratio may be introduced. A fabricated reserve number is the most
+    damaging fabrication this repository could ship.
+34. Any module providing `InvestorJwtGuard` must register the investor
+    `JwtModule` (`INVESTOR_JWT_SECRET`), not rely on `AuthModule`'s. The
+    overlay provided the guard while importing only `AuthModule`, which would
+    have handed it the admin signer and merged the two token domains on those
+    routes — invariant 19, defeated by a module import.

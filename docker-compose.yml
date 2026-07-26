@@ -63,6 +63,10 @@ services:
       # Gated modules stay inactive (AGENTS.md guardrail 2).
       PROOF_OF_RESERVES_ENABLED: "false"
       REDEMPTION_ENABLED: "false"
+      # Part of the P12 published shape; nothing reads it while redemption is
+      # inactive. Not overridable from .env on purpose — there is no operational
+      # reason to tune a threshold for a module that refuses every call.
+      REDEMPTION_REQUIRED_APPROVALS: "2"
     ports:
       - "${API_PORT:-4000}:4000"
     healthcheck:

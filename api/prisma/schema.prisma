@@ -85,32 +85,32 @@ enum Role {
 }
 
 model AdminUser {
-  id           String    @id @default(cuid())
-  email        String    @unique
+  id           String   @id @default(cuid())
+  email        String   @unique
   passwordHash String
-  role         Role      @default(VIEWER)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  role         Role     @default(VIEWER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model KycCase {
-  id           String    @id @default(cuid())
-  subjectType  String
-  legalName    String
-  country      String
+  id          String    @id @default(cuid())
+  subjectType String
+  legalName   String
+  country     String
   // P8: optional link to a portal investor by normalised email. The investor
   // portal's read-only status endpoint surfaces the latest case matching it.
-  email        String?
-  status       String    @default("pending")
-  riskLevel    String?
+  email       String?
+  status      String    @default("pending")
+  riskLevel   String?
   // P8: persisted sanctions-screening outcome. Null until a real (non-stub)
   // screening writes it; the portal shows null as "not screened".
-  sanctions    String?
-  notes        String?
-  reviewedBy   String?
-  reviewedAt   DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  sanctions   String?
+  notes       String?
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([status])
   @@index([createdAt])
@@ -131,23 +131,66 @@ model InvestorUser {
 }
 
 model AuditEvent {
-  id          String    @id @default(cuid())
-  sequence    Int       @default(autoincrement())
-  actorId     String?
-  actorEmail  String?
-  actorRole   String?
-  action      String
+  id           String   @id @default(cuid())
+  sequence     Int      @default(autoincrement())
+  actorId      String?
+  actorEmail   String?
+  actorRole    String?
+  action       String
   resourceType String?
-  resourceId  String?
-  metadata    Json?
-  ipAddress   String?
-  userAgent   String?
-  prevHash    String?
-  hash        String?
-  createdAt   DateTime  @default(now())
+  resourceId   String?
+  metadata     Json?
+  ipAddress    String?
+  userAgent    String?
+  prevHash     String?
+  hash         String?
+  createdAt    DateTime @default(now())
 
   @@index([sequence])
   @@index([actorId])
   @@index([resourceType, resourceId])
   @@index([createdAt])
+}
+
+// ---- P11/P12: gated modules (Proof-of-Reserves, Redemption) ----
+// These models are published SHAPE, not storage in use. Both modules are
+// inactive: their services refuse every call, touch no database, and do not
+// import PrismaModule. The tables are created by the por_redemption migration
+// and stay empty until the modules are genuinely implemented under written
+// authorization. Nothing seeds them, and no fixture data exists for them.
+
+model ReserveAttestation {
+  id                String   @id @default(cuid())
+  programCode       String
+  circulatingSupply Float
+  verifiedReserve   Float
+  ratio             Float
+  method            String
+  status            String   @default("draft") // draft | published
+  notes             String?
+  attestedBy        String?
+  periodStart       DateTime
+  periodEnd         DateTime
+  createdAt         DateTime @default(now())
+
+  @@index([status, periodEnd])
+}
+
+model RedemptionRequest {
+  id                String   @id @default(cuid())
+  investorEmail     String
+  programCode       String
+  amount            Float
+  status            String   @default("pending") // pending | approved | rejected | settled
+  approvals         Int      @default(0)
+  requiredApprovals Int      @default(2)
+  rejectionReason   String?
+  reviewedBy        String?
+  txRef             String?
+  note              String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([investorEmail, createdAt])
+  @@index([status])
 }
