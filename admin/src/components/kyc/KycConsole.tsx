@@ -13,9 +13,12 @@ import type {
 import { StatCard } from "@/components/StatCard";
 
 // Field names and unions here follow api/prisma/schema.prisma and the
-// class-validator rules on CreateKycCaseDto / ReviewKycCaseDto. The KycCase
-// model has no email and no persisted sanctions field, so neither is collected
-// or displayed — screening is a stub whose result is not stored.
+// class-validator rules on CreateKycCaseDto / ReviewKycCaseDto. The model now
+// has nullable email and sanctions columns (added for P8), but this console
+// deliberately collects and displays neither: the email link is PII excluded
+// from the list endpoint (invariant 23), and the stored sanctions value is the
+// literal 'clear_stub' — rendering it as a screening outcome would violate
+// invariant 22. Screening remains a labelled stub.
 
 const STATUS_TONE: Record<string, string> = {
   pending: "bg-warning/15 text-warning",

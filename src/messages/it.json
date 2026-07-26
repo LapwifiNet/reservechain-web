@@ -1266,7 +1266,7 @@
     "riskLevel": "Livello di rischio",
     "sanctions": {
       "not_screened": "Non verificato",
-      "clear_stub": "Nessuna corrispondenza",
+      "clear_stub": "Nessuna corrispondenza — simulazione illustrativa",
       "flagged": "Segnalato"
     },
     "waitlist": "Registrazione lista d'attesa",

@@ -83,3 +83,62 @@ so a blind `cp -R` can silently revert them.
    go to the relevant `.env.example` with placeholder values.
 10. Gated modules stay inactive: PoR, redemption, wallet connect and purchase must
     not become reachable. Flags default OFF.
+11. `admin/src/lib/api.ts` retains `audit()`, `auditVerify()`, `kycStats()`,
+    `kycCases(take?)` and `kycCase(id)`, and takes its bearer token from
+    `getToken()`.
+12. `admin/src/lib/backend.ts` never falls back to `API_TOKEN` /
+    `SERVICE_API_TOKEN`. All KYC writes from the console use the session cookie
+    only and 401 without it. This is the client-side half of the rule; the
+    server-side half is invariant 16.
+13. Admin `KycCase` field names track `api/prisma/schema.prisma`: `legalName`
+    (not `subjectName`), `subjectType` `person` / `entity`, nullable
+    `riskLevel`. Amended in `c1c09d9`: nullable `email` and `sanctions` now
+    exist on the Prisma model, added additively so the email-matched KYC card
+    works, with `CreateKycCaseDto.email` optional and redacted by
+    `AuditInterceptor`. They must stay nullable and must not be typed the way
+    the kyc-admin overlay typed them.
+14. `AuditInterceptor.sanitizeBody` keeps `piiFields` wired in, so KYC subject
+    names are redacted from the audit trail.
+15. `admin/src/app/audit/page.tsx` is a client component and must not import
+    `@/lib/api`, which is server-only via `next/headers`. It calls the
+    `/api/audit` and `/api/audit/verify` proxy routes.
+16. `JwtAuthGuard` keeps `assertServicePrincipalMayProceed`: the shared service
+    token is a read-only principal, refused with
+    `403 service_principal_write_denied` on POST / PATCH / PUT / DELETE. The
+    rule lives in the guard, not in controllers, because `RolesGuard` compares
+    only `role` and the service principal carries `Role.ADMIN`.
+    `@AllowServiceWrite()` is the sole opt-in and is currently applied to no
+    route — every new use of it is a deliberate hole and must be justified in
+    review.
+17. `CreateWaitlistDto.consent` uses `@Equals(true)`, not bare `@IsBoolean()`.
+    The website is a thin proxy, so the API is the only consent enforcement
+    point, and `@IsBoolean()` alone accepts `false`.
+18. The website owns no waitlist store. `src/lib/store.ts` and
+    `src/db/schema.sql` are deleted and must not return; the API is the single
+    source of truth. `WAITLIST_API_BASE` is server-side only and must never
+    become `NEXT_PUBLIC_`, and the website sends no credential to it.
+19. The investor and admin token domains stay disjoint. `INVESTOR_JWT_SECRET`
+    is a separate secret, at least 32 characters, and the API refuses to start
+    if it equals `JWT_SECRET`. Every token carries an explicit `typ`;
+    `JwtAuthGuard` accepts only `typ: 'admin'` and `InvestorJwtGuard` only
+    `typ: 'investor'`, and a missing `typ` is rejected by both. Do not add a
+    backward-compatibility default — that would reopen the domain merge in one
+    line.
+20. Investors never enter `AdminUser`, and no investor value is added to the
+    `Role` enum. `Role` feeds `@Roles(...)` on admin routes; widening it would
+    grant investors admin-route standing by construction.
+21. `AuditService.record()` serializes with a `pg_advisory_xact_lock` inside a
+    transaction, and `AuditInterceptor` awaits the write as part of the request
+    stream. The audit table is a single tamper-evident hash chain, so two
+    concurrent appends can fork it, and a forked chain fails verification
+    permanently with no repair path. Do not remove the lock as a performance
+    optimisation. `maxWorkers: 1` in the e2e config is the test-side half of the
+    same constraint.
+22. The sanctions value on a KYC case is a stub. `screen()` persists the literal
+    `clear_stub`. No surface — admin console, investor portal, API response, or
+    export — may render it as a clean sanctions result or drop the stub label.
+    Until a real provider is wired, presenting it as a screening outcome would
+    be a compliance misrepresentation, not a UI detail.
+23. The KYC case-list endpoint must not return `email`. It is excluded by an
+    explicit `select`. The detail endpoint may return it because it is
+    role-guarded and a reviewer needs the link.

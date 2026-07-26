@@ -4,6 +4,9 @@ Instructions for AI coding agents working in this repository. Read this file com
 making any change. If a requested change conflicts with the Compliance guardrails below, stop and
 say so in the pull request description instead of implementing it.
 
+Before applying any overlay package, `overlays/APPLY-ORDER.md` is mandatory reading: it holds
+the apply order and invariants 1–23, which must survive every apply.
+
 ## 1. What this project is
 
 ReserveChain is an institutional RWA (real-world asset) tokenization platform for industrial

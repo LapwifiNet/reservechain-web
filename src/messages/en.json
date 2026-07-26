@@ -1266,7 +1266,7 @@
     "riskLevel": "Risk level",
     "sanctions": {
       "not_screened": "Not screened",
-      "clear_stub": "Clear",
+      "clear_stub": "Clear — illustrative stub",
       "flagged": "Flagged"
     },
     "waitlist": "Waitlist registration",
