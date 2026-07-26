@@ -36,6 +36,17 @@ const STATE_CHANGING_METHODS = new Set(['POST', 'PATCH', 'PUT', 'DELETE']);
  * Role.ADMIN — without it, the shared token would satisfy every `@Roles(...)`
  * check in the codebase and every write would be attributed to
  * `service@reservechain` instead of a named operator.
+ *
+ * The admin signing key is read from ConfigService and passed explicitly to
+ * verifyAsync, never inherited from the injected JwtService's configuration.
+ * Nest instantiates `@UseGuards(...)` enhancers in the injector of the module
+ * that declares the controller, so an inherited secret makes this guard's
+ * correctness a property of where it is mounted: any module whose imports
+ * resolve a different JwtModule would silently verify admin tokens with
+ * another domain's key. That is not hypothetical — it happened to
+ * InvestorJwtGuard in RedemptionModule, where an admin-signed token carrying
+ * typ:'investor' was accepted on an investor route. Binding the key here makes
+ * the guard correct at every mount point, present and future. Invariant 19.
  */
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -78,8 +89,18 @@ export class JwtAuthGuard implements CanActivate {
       }
     }
 
+    // Bind the admin signing key here rather than inheriting whichever one
+    // this guard's injector supplies. See the class docstring: mount location
+    // must not decide which domain a token is verified against.
+    const adminSecret = this.config.get<string>('JWT_SECRET');
+    if (!adminSecret) {
+      throw new UnauthorizedException('invalid_token');
+    }
+
     try {
-      const payload = await this.jwt.verifyAsync(token);
+      const payload = await this.jwt.verifyAsync(token, {
+        secret: adminSecret,
+      });
       // Token-domain isolation (P8): only admin-domain JWTs pass this guard.
       // A missing typ is rejected too — nothing defaults into the admin
       // domain, and pre-P8 sessions are deliberately invalidated.

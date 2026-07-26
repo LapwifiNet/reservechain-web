@@ -124,6 +124,22 @@ so a blind `cp -R` can silently revert them.
     `typ: 'investor'`, and a missing `typ` is rejected by both. Do not add a
     backward-compatibility default — that would reopen the domain merge in one
     line.
+
+    **Separate secrets only hold if the guard binds its own key.** Both guards
+    read their secret from `ConfigService` and pass it explicitly to
+    `verifyAsync`. A guard that instead relies on the injected `JwtService`'s
+    configured secret satisfies this invariant on paper and violates it at
+    runtime: Nest instantiates `@UseGuards(...)` enhancers in the injector of
+    the module that DECLARES the controller, not the module that exports the
+    guard, so the key becomes a property of where the guard is mounted. Such a
+    guard is correct only while every mounting module's imports happen to
+    resolve the intended `JwtModule`, and the failure mode is a token from the
+    wrong domain being accepted — silently, and invisible to code review, since
+    the mount site looks identical either way. This is not hypothetical: it
+    happened to `InvestorJwtGuard` in `RedemptionModule`, which verified
+    investor tokens with `JWT_SECRET` and accepted an admin-signed token on an
+    investor route. Exporting the guard from its owning module does not fix it.
+    Pinned at every mount point by `test/guard-key-binding.e2e-spec.ts`.
 20. Investors never enter `AdminUser`, and no investor value is added to the
     `Role` enum. `Role` feeds `@Roles(...)` on admin routes; widening it would
     grant investors admin-route standing by construction.
