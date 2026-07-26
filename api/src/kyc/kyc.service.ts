@@ -46,6 +46,13 @@ export class KycService {
    */
   async screen(id: string) {
     await this.get(id);
+    // Persist the illustrative outcome so the case (and the investor portal's
+    // read-only status card) reflects that the stub ran. 'clear_stub' is
+    // deliberately distinct from any value a real provider would write.
+    await this.prisma.kycCase.update({
+      where: { id },
+      data: { sanctions: 'clear_stub' },
+    });
     return {
       caseId: id,
       provider: 'stub',
