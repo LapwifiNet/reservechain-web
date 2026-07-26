@@ -22,13 +22,15 @@
 
 ![CI](https://github.com/LapwifiNet/reservechain-web/actions/workflows/ci.yml/badge.svg)
 
-Working draft of the ReserveChain platform, an institutional RWA tokenization project for
-industrial metals (Copper Powder, Nickel Wire). It is **pre-launch** — nothing is offered or
-sold. The repository is a four-workspace monorepo: the public website, a REST API, an
-internal admin console, and the ERC-20 contract suite. The website carries the verbatim
-prelaunch disclosure, the Copper Powder / Nickel Wire program pages, a sample Digital Asset
-Passport and a multi-step waitlist; it is dark-first, institutional, responsive and
-internationalized (EN / ES / IT). Development follows a 22-phase plan (P1–P22).
+What was built for the submission: a working draft of the ReserveChain platform, an
+institutional RWA tokenization project for industrial metals (Copper Powder, Nickel Wire).
+It is **pre-launch** — nothing is offered or sold. The repository is a monorepo of five
+workspaces: the public website, a REST API, an internal admin console, the ERC-20 contract
+suite and a Payload CMS. The website was built to carry the verbatim prelaunch disclosure,
+the Copper Powder / Nickel Wire program pages, a sample Digital Asset Passport and a
+multi-step waitlist; it was designed dark-first, institutional, responsive and
+internationalized (EN / ES / IT). It was built against a 22-phase plan (P1–P22), which was
+the plan for the submission rather than a delivery schedule now in progress.
 
 ## Stack
 - **Website** (`/`, `src/`) — Next.js 14 (App Router) + TypeScript + Tailwind CSS, with
