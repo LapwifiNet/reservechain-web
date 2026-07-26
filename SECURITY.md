@@ -2,7 +2,7 @@
 
 ## Status
 
-This repository is a **contest submission**. It has not been selected, there is no client
+This repository is a **contest submission**. It has not been selected yet, there is no client
 engagement behind it, and nothing here runs in production.
 
 - **Not audited.** No independent smart-contract audit has been performed on the
@@ -52,13 +52,37 @@ addressed in `60fd0c0`:
    parallel jest workers corrupted each other's view by construction. Jest now runs the
    suites serially (`maxWorkers: 1`).
 
+## Before exposing any environment publicly
+
+Nothing here is deployed. If that ever changes, confirm all of the following first. Each
+line points at a known-issues row above rather than restating it.
+
+1. **Verify the deployed revision is at or after `94b5872`.** Admin endpoints in earlier
+   scaffold revisions were unauthenticated and served waitlist PII with no credential — see
+   the "Admin endpoints in earlier scaffold revisions were unauthenticated" row above.
+2. **Confirm all four feature flags are `false`** — `PROOF_OF_RESERVES_ENABLED`,
+   `REDEMPTION_ENABLED`, `WALLET_ENABLED`, `PURCHASE_ENABLED`. See the gated-module
+   paragraph under **Status**.
+3. **Confirm no seeded admin user exists outside local development.** Admin seeding is
+   skipped when `NODE_ENV=production`; verify it was not run against the target database by
+   another path.
+
 ## Reporting
 
-No security contact is published for this repository, and no coordinated-disclosure process
-is in place.
+**Security contact: t@lapwifi.net**
 
-Because this is an unselected contest submission with nothing deployed, there is no
-production system to report against. Findings about the code itself are best raised as
-issues on the repository. If this repository is ever engaged and operated, a real contact
-address and a coordinated-disclosure policy must be added here before any environment is
-exposed publicly.
+Report anything exploitable **privately to that address**. Do not open a public issue for
+it. Non-sensitive findings about the code itself — the kind of gaps recorded in the
+known-issues table above — may still be raised as issues on the repository.
+
+The disclosure process:
+
+- **Acknowledgement target: 5 business days.** This is a target for confirming receipt, not
+  a fix deadline.
+- **No bounty is offered.** There is no payment for reports.
+- **Reporters are credited** in any resulting fix or advisory, unless they ask not to be.
+
+Because this is a not-yet-selected contest submission with nothing deployed, there is no
+production system to report against. If this repository is ever engaged and operated, this
+policy must be revisited before any environment is exposed publicly — see the preconditions
+above.
