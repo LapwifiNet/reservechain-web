@@ -1,0 +1,34 @@
+# Copy to terraform.tfvars and fill in. NEVER commit the real file — it holds
+# every application secret in plaintext, and *.tfvars is gitignored for that
+# reason. Generate each secret with: openssl rand -hex 32
+#
+# One workspace per environment; `environment` must match the selected
+# workspace. See README.md.
+project     = "reservechain"
+environment = "staging"
+region      = "eu-central-1"
+
+# Apex domain and a regional ACM certificate covering it plus api./admin./cms.
+# Placeholders: no real domain, account id or ARN belongs in this file.
+domain          = "example.invalid"
+certificate_arn = "arn:aws:acm:eu-central-1:000000000000:certificate/REPLACE-ME"
+
+# Database
+db_instance_class    = "db.t4g.small"
+db_allocated_storage = 20
+db_password          = "REPLACE-ME"
+
+# Application secrets. Each must be at least 32 characters, and
+# investor_jwt_secret MUST differ from jwt_secret — the API refuses to start
+# otherwise (invariant 19). payload_secret must differ from both (invariant 24).
+jwt_secret          = "REPLACE-ME"
+investor_jwt_secret = "REPLACE-ME"
+payload_secret      = "REPLACE-ME"
+service_api_token   = "REPLACE-ME"
+
+# Chain. Sepolia only — validated in variables.tf, not merely documented.
+# Mainnet requires written authorization (P20, AGENTS §1).
+chain_id = 11155111
+
+# Deployment
+image_tag = "latest"

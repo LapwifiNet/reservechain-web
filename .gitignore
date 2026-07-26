@@ -12,5 +12,27 @@
 *.tsbuildinfo
 next-env.d.ts
 infra/wallets/wallets.json
+
+# Terraform. State holds db_password, jwt_secret, investor_jwt_secret,
+# payload_secret and service_api_token in PLAINTEXT — `sensitive = true` hides
+# values from CLI output, it does not encrypt state. tfvars holds the same
+# secrets as inputs. Neither may ever be committed; only the *.example files are
+# tracked.
+infra/terraform/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+backend.hcl
+!backend.hcl.example
+# .terraform.lock.hcl IS committed on purpose: it pins provider versions and
+# checksums, so it is a supply-chain control, not build output. Generated for
+# linux and darwin on both architectures so CI does not have to regenerate it.
+.terraformrc
+terraform.rc
 data/waitlist.json
 *.zip
