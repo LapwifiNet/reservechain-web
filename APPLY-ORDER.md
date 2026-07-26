@@ -269,3 +269,35 @@ so a blind `cp -R` can silently revert them.
     `terraform init -backend=false`, `terraform validate`, `terraform fmt
     -check -recursive`. Do not run `plan` or `apply` against real credentials
     as part of any automated check, and do not add a CI job that does.
+43. Investor-domain mutations are audited. `AuditInterceptor` records mutating
+    requests that are role-guarded **or** carry `@AuditAs('investor')`, which
+    the investor, wallet, purchase and redemption controllers do. Those routes
+    carry no `@Roles` deliberately — the `Role` enum feeds `@Roles(...)` on
+    admin routes and must never gain an investor value (invariant 20) — so
+    without the second clause they fall out of scope silently, which is how
+    investor self-registration went unrecorded. The actor is the investor
+    subject: `req.investor`, or the request body's email on register/login
+    where no principal exists yet. `actorRole` is a plain String column, so
+    `'investor'` is recorded without touching the enum. Never attribute an
+    investor action to an admin or to the service principal.
+44. Widening audit scope and proving redaction are one change, never two. The
+    investor register body carries a password; recording it without redaction
+    would convert an audit gap into a credential leak, which is strictly worse
+    than the gap. `password` must land as `[REDACTED]` and `email` / `fullName`
+    as `[PII_REDACTED]`, verified by reading the stored row back out of the
+    database — not by reading `sensitiveFields` and assuming. Pinned by
+    `test/investor-isolation.e2e-spec.ts`.
+45. The deploy workflow never fires on a push. `workflow_dispatch` is its only
+    trigger, and both jobs bind to a GitHub environment so protection rules
+    apply. Work reaches `main` with no green CI on this repository, so a push
+    trigger would deploy unreviewed commits. The environment binding is
+    necessary, not sufficient: required reviewers must be configured on the
+    `prod` environment, and a workflow cannot enforce that on itself. Deploying
+    the api service runs `prisma migrate deploy` at container start, so
+    approving a prod deploy is approving a production migration.
+46. An overlay's Dockerfiles do not overwrite the ones on `main`. Every
+    container image here carries corrections the overlays predate — the CMS
+    migrate step (invariant 26), the API's openssl and entrypoint, non-root
+    users. Overlay #11 shipped four Dockerfiles, all regressions, and its CMS
+    image would have deployed a service that 500s on every database request.
+    Diff before copying; prefer taking nothing.

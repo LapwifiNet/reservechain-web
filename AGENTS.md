@@ -5,7 +5,7 @@ making any change. If a requested change conflicts with the Compliance guardrail
 say so in the pull request description instead of implementing it.
 
 Before applying any overlay package, `APPLY-ORDER.md` is mandatory reading: it holds the
-apply order and invariants 1–42, which must survive every apply.
+apply order and invariants 1–46, which must survive every apply.
 
 ## 1. What this project is
 
