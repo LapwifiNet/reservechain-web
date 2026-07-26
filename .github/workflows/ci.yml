@@ -29,6 +29,9 @@ jobs:
             npm install
           fi
       - run: npm run lint --if-present
+      # Locale parity. Must run: next build cannot detect a missing translation
+      # key, because next-intl resolves messages per request.
+      - run: npm test
       - run: npm run build
 
   api:
