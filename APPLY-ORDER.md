@@ -238,3 +238,34 @@ so a blind `cp -R` can silently revert them.
     attached, and no fee, rate or valuation exists anywhere in it. Introducing
     one requires a figure from `TokenomicsConfig` or the frozen illustrative
     set (AGENTS §4), never a literal.
+38. Sepolia is enforced in variable validation, never in a description. The
+    Terraform `chain_id` variable uses `validation { condition = var.chain_id ==
+    11155111 }`, matching `LinkWalletDto.chainId` in the API (invariant 36).
+    AGENTS §1 has now been violated twice by the same mechanism — a rule stated
+    in a comment or a variable description while the validator accepted
+    anything — so treat prose about mainnet as documentation of an unenforced
+    rule until you find the check.
+39. No Terraform state, `*.tfvars`, `backend.hcl` or `.terraform/` directory is
+    ever committed; only the `*.example` files are tracked. State holds
+    `db_password`, `jwt_secret`, `investor_jwt_secret`, `payload_secret` and
+    `service_api_token` in **plaintext** — `sensitive = true` hides values from
+    CLI output, it does not encrypt state. The S3 backend is declared as a
+    partial `backend "s3" {}` and configured from a gitignored `backend.hcl`,
+    because a commented-out backend silently falls back to local state, which
+    is how those secrets end up in an untracked file next to the code.
+40. Infrastructure ships every gated-module flag disabled.
+    `PROOF_OF_RESERVES_ENABLED`, `REDEMPTION_ENABLED`, `WALLET_ENABLED`,
+    `PURCHASE_ENABLED` and `CHAIN_SYNC_ENABLED` are `"false"` in the api task
+    definition, asserted by a `check` block. A task definition, parameter store
+    entry or deploy workflow is a new place for a flag to be turned on by
+    accident, and it is further from review than a `.env` file.
+41. No secret, key, certificate, account id, real domain or ARN is committed in
+    infrastructure code. Secrets reach containers only from Secrets Manager,
+    injected as task `secrets` rather than baked into an image or task
+    `environment`. Terraform variables carrying secrets validate a minimum
+    length and reject the `REPLACE-ME` placeholder, so a misconfigured apply
+    fails at plan time rather than as a crash-looping service.
+42. Terraform is verified, never applied, from this repository:
+    `terraform init -backend=false`, `terraform validate`, `terraform fmt
+    -check -recursive`. Do not run `plan` or `apply` against real credentials
+    as part of any automated check, and do not add a CI job that does.
