@@ -29,6 +29,8 @@ COPY --from=builder --chown=payload:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=payload:nodejs /app/dist ./dist
 COPY --from=builder --chown=payload:nodejs /app/build ./build
 COPY --chown=payload:nodejs package.json ./
+COPY --chown=payload:nodejs docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Uploaded Certificates of Analysis and imagery. Mount a volume here to persist
 # them; the image ships the directory owned by the unprivileged user.
@@ -37,4 +39,5 @@ RUN mkdir -p /app/uploads && chown payload:nodejs /app/uploads
 USER payload
 EXPOSE 3001
 ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["node", "dist/server.js"]

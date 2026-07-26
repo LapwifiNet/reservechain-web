@@ -145,6 +145,11 @@ services:
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:?PAYLOAD_SECRET is required — copy .env.docker.example to .env}
       PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-http://localhost:3001}
       CORS_ORIGINS: ${CMS_CORS_ORIGINS:-http://localhost:3000,http://localhost:4100}
+      # Opt-in seeding, handled by docker-entrypoint.sh. The seed never creates
+      # users in production and never ships a password.
+      RUN_CMS_SEED: ${RUN_CMS_SEED:-false}
+      SEED_ADMIN_EMAIL: ${CMS_SEED_ADMIN_EMAIL:-}
+      SEED_ADMIN_PASSWORD: ${CMS_SEED_ADMIN_PASSWORD:-}
     ports:
       - "${CMS_PORT:-3001}:3001"
     healthcheck:

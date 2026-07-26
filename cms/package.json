@@ -11,6 +11,7 @@
     "build": "npm run build:payload && npm run build:server",
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts ts-node -T src/seed/seed.ts",
+    "seed:prod": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js node dist/seed/seed.js",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "lint": "eslint \"src/**/*.ts\" --max-warnings=0"
   },
