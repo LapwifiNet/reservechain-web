@@ -5,8 +5,8 @@ import {
   CallHandler,
   Logger,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { from, Observable, throwError } from 'rxjs';
+import { catchError, concatMap, map } from 'rxjs/operators';
 import { AuditService, AuditRecordInput } from './audit.service';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../common/decorators/roles.decorator';
@@ -71,23 +71,38 @@ export class AuditInterceptor implements NestInterceptor {
       userAgent: request.headers['user-agent'] as string,
     };
 
+    // The audit write is part of the response stream, not a fire-and-forget
+    // callback: concatMap defers the response until record() has committed, so
+    // a caller that sees the response can rely on the audit row existing. An
+    // earlier version recorded from an un-awaited async tap, which let the
+    // write land after an assertion (or a human) had already read the log.
     return next.handle().pipe(
-      tap({
-        next: async () => {
-          // Only record on success (2xx, 3xx)
-          if (response.statusCode >= 200 && response.statusCode < 400) {
-            try {
-              await this.auditService.record(auditInput);
-            } catch (error) {
-              this.logger.error('Failed to record audit event', error);
-            }
-          }
-        },
-        error: (error) => {
-          this.logger.warn(`Request failed, not recording audit: ${error.message}`);
-        },
+      concatMap((value) =>
+        from(this.recordIfSuccessful(response, auditInput)).pipe(
+          map(() => value),
+        ),
+      ),
+      catchError((error) => {
+        this.logger.warn(`Request failed, not recording audit: ${error.message}`);
+        return throwError(() => error);
       }),
     );
+  }
+
+  /**
+   * Records the event only on success (2xx/3xx). A failed audit write is
+   * logged and swallowed — it must never surface to the caller.
+   */
+  private async recordIfSuccessful(
+    response: { statusCode: number },
+    input: AuditRecordInput,
+  ): Promise<void> {
+    if (response.statusCode < 200 || response.statusCode >= 400) return;
+    try {
+      await this.auditService.record(input);
+    } catch (error) {
+      this.logger.error('Failed to record audit event', error);
+    }
   }
 
   private extractResourceInfo(url: string, _method: string): {

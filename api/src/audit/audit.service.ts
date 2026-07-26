@@ -30,44 +30,54 @@ export class AuditService {
    * The hash is computed over the canonical serialization of the record plus prevHash.
    */
   async record(input: AuditRecordInput): Promise<void> {
-    // Get the last event to obtain prevHash
-    const lastEvent = await this.prisma.auditEvent.findFirst({
-      orderBy: { sequence: 'desc' },
-    });
+    // The chain link is read-the-tail-then-insert. Two concurrent writers that
+    // read the same tail — parallel requests on one instance interleaving at
+    // the await boundary, or two API instances sharing the database — would
+    // both chain onto it, forking the chain and permanently breaking
+    // verification. A transaction-scoped advisory lock serialises writers
+    // across every connection to the database, making the link deterministic.
+    await this.prisma.$transaction(async (tx) => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext('audit_event_chain'))`;
 
-    const prevHash = lastEvent?.hash || null;
-    const sequence = lastEvent ? lastEvent.sequence + 1 : 1;
+      // Get the last event to obtain prevHash
+      const lastEvent = await tx.auditEvent.findFirst({
+        orderBy: { sequence: 'desc' },
+      });
 
-    // Compute hash over canonical serialization
-    const hash = this.computeHash({
-      sequence,
-      actorId: input.actorId || null,
-      actorEmail: input.actorEmail || null,
-      actorRole: input.actorRole || null,
-      action: input.action,
-      resourceType: input.resourceType || null,
-      resourceId: input.resourceId || null,
-      metadata: input.metadata || null,
-      ipAddress: input.ipAddress || null,
-      userAgent: input.userAgent || null,
-      prevHash,
-    });
+      const prevHash = lastEvent?.hash || null;
+      const sequence = lastEvent ? lastEvent.sequence + 1 : 1;
 
-    await this.prisma.auditEvent.create({
-      data: {
+      // Compute hash over canonical serialization
+      const hash = this.computeHash({
         sequence,
-        actorId: input.actorId,
-        actorEmail: input.actorEmail,
-        actorRole: input.actorRole,
+        actorId: input.actorId || null,
+        actorEmail: input.actorEmail || null,
+        actorRole: input.actorRole || null,
         action: input.action,
-        resourceType: input.resourceType,
-        resourceId: input.resourceId,
-        metadata: input.metadata as Prisma.InputJsonValue | undefined,
-        ipAddress: input.ipAddress,
-        userAgent: input.userAgent,
+        resourceType: input.resourceType || null,
+        resourceId: input.resourceId || null,
+        metadata: input.metadata || null,
+        ipAddress: input.ipAddress || null,
+        userAgent: input.userAgent || null,
         prevHash,
-        hash,
-      },
+      });
+
+      await tx.auditEvent.create({
+        data: {
+          sequence,
+          actorId: input.actorId,
+          actorEmail: input.actorEmail,
+          actorRole: input.actorRole,
+          action: input.action,
+          resourceType: input.resourceType,
+          resourceId: input.resourceId,
+          metadata: input.metadata as Prisma.InputJsonValue | undefined,
+          ipAddress: input.ipAddress,
+          userAgent: input.userAgent,
+          prevHash,
+          hash,
+        },
+      });
     });
   }
 
