@@ -11,8 +11,10 @@ apply order and invariants 1–27, which must survive every apply.
 
 ReserveChain is an institutional RWA (real-world asset) tokenization platform for industrial
 metals (Copper Powder, Nickel Wire). It is **pre-launch**. Nothing is being offered or sold.
-The build follows a 22-phase plan (P1-P22); the authoritative specification lives in Notion and
-is mirrored into `docs/`.
+The build follows a 22-phase plan (P1-P22). The authoritative specification lives in Notion and
+is **not** mirrored into this repository: `docs/` does not exist (P21, see the table below), so
+no specification content is available in-tree. Do not assume a local copy of the brief, PRD,
+wireframes or roadmap exists — Notion is the only source.
 
 ## 2. Repository layout (actual)
 

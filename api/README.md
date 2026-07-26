@@ -1,6 +1,6 @@
 # ReserveChain API (P9 — Auth + RBAC + KYC + Audit Log)
 
-NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, tamper-evident audit logging, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Sensitive modules (Proof-of-Reserves, redemption) are present but **inactive**.
+NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, tamper-evident audit logging, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Four modules — Proof-of-Reserves, redemption, wallet linking and token purchase — are present but **inactive**: every route returns `501`.
 
 ## Requirements
 - Node 20+, Docker (for Postgres), and network access for `npm install`.
@@ -83,13 +83,54 @@ If any password is not set, a random 32-character password will be generated and
 | POST | `/api/kyc/cases/:id/screen` | **Stub** sanctions screening | admin, compliance |
 | GET | `/api/audit` | List audit events (paginated, filterable) | admin, compliance |
 | GET | `/api/audit/verify` | Verify audit chain integrity | admin, compliance |
-| GET | `/api/proof-of-reserves` | **Inactive** → 501 | gated |
-| POST | `/api/redemption` | **Inactive** → 501 | gated |
+| — | `/api/por/*` (4 routes) | **Inactive** (P11) → 501 | gated — see below |
+| — | `/api/redemption/*` (6 routes) | **Inactive** (P12) → 501 | gated — see below |
+| — | `/api/wallet/*` (4 routes) | **Inactive** → 501 | gated — see below |
+| — | `/api/purchase/*` (7 routes) | **Inactive** → 501 | gated — see below |
 
 **Role definitions:**
 - `admin`: Full access to all admin/compliance endpoints
 - `compliance`: Access to waitlist, dashboard stats, and all KYC endpoints
 - `viewer`: Can authenticate but cannot access admin/compliance endpoints
+
+### Gated routes — all 21 return 501
+
+These are the real method-and-path pairs the four inactive controllers serve. Every one of
+them refuses. `FeatureFlagGuard` returns `501` before authentication is considered when the
+module's flag is off, and with the flag on every service method still returns `501`, so
+enabling a flag moves the refusal rather than activating a workflow. All four flags default
+to `false`.
+
+The **Role** column is the access the route *would* carry if it were ever activated; it is
+not reachable today. `investor` means an investor-portal token (`InvestorJwtGuard`), which
+is a separate token domain from staff roles.
+
+| Module (flag) | Method | Path | Role (if activated) |
+|---|---|---|---|
+| Proof-of-Reserves (`PROOF_OF_RESERVES_ENABLED`) | GET | `/api/por/status` | public |
+| | GET | `/api/por/attestations` | admin, compliance |
+| | POST | `/api/por/attestations` | admin, compliance |
+| | POST | `/api/por/attestations/:id/publish` | admin |
+| Redemption (`REDEMPTION_ENABLED`) | POST | `/api/redemption/requests` | investor |
+| | GET | `/api/redemption/requests/mine` | investor |
+| | GET | `/api/redemption/requests` | admin, compliance |
+| | POST | `/api/redemption/requests/:id/approve` | admin, compliance |
+| | POST | `/api/redemption/requests/:id/reject` | admin, compliance |
+| | POST | `/api/redemption/requests/:id/settle` | admin |
+| Wallet (`WALLET_ENABLED`) | POST | `/api/wallet/link` | investor |
+| | GET | `/api/wallet/me` | investor |
+| | POST | `/api/wallet/revoke` | investor |
+| | GET | `/api/wallet` | admin, compliance |
+| Purchase (`PURCHASE_ENABLED`) | GET | `/api/purchase/disclosure` | public |
+| | POST | `/api/purchase/intents` | investor |
+| | GET | `/api/purchase/intents/mine` | investor |
+| | GET | `/api/purchase/intents` | admin, compliance |
+| | POST | `/api/purchase/intents/:id/approve` | admin, compliance |
+| | POST | `/api/purchase/intents/:id/reject` | admin, compliance |
+| | POST | `/api/purchase/intents/:id/settle` | admin |
+
+Enforcement is covered by `test/gated-modules.e2e-spec.ts`, which exercises all 21 routes
+with the flags off and again with them on, and asserts the four backing tables stay empty.
 
 ## Rate limiting
 
