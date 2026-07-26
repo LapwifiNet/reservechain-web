@@ -100,6 +100,24 @@ terraform fmt -check -recursive
 This is the verification bar used in this repository. Nothing here is applied
 automatically, and no CI job runs `plan` or `apply`.
 
+## The deploy role is not created here
+
+`.github/workflows/deploy.yml` assumes an IAM role via GitHub OIDC, but **this
+stack does not define it**. The roles here are the ECS task execution role and
+the ECS task role, both trusted by `ecs-tasks.amazonaws.com` — neither is
+assumable by GitHub. The deploy role has to be created out of band, trusted by
+`token.actions.githubusercontent.com` and scoped to this repository, with only:
+
+- `ecr:GetAuthorizationToken`, and push/pull on the four `reservechain/*` repos;
+- `ecs:UpdateService` and `ecs:DescribeServices` on the four services.
+
+Scope it to the specific cluster and repositories. It should not be able to
+create infrastructure, read Secrets Manager, or touch RDS — the deploy workflow
+does none of those, and a role broader than the workflow is a standing
+capability rather than a deploy credential.
+
+Its ARN goes in the GitHub secret `AWS_DEPLOY_ROLE_ARN`, per environment.
+
 ## Cost
 
 Nothing in this directory creates a resource until someone runs `apply`. When

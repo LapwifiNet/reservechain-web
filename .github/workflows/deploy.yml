@@ -1,0 +1,146 @@
+# Manual deploy: build images, push to ECR, roll the ECS services created by
+# infra/terraform/.
+#
+# THIS WORKFLOW HAS NEVER RUN. GitHub Actions is billing-locked on this account,
+# so everything below is verified by actionlint only — the AWS calls, the OIDC
+# assume-role, the ECR push and the ECS rollout are all unproven.
+#
+# It cannot fire on a push: the only trigger is workflow_dispatch. That matters
+# here because work goes straight to main with no green CI, so a push trigger
+# would put unreviewed commits into an environment.
+#
+# Both jobs bind to a GitHub environment (`staging` / `prod`), which is the only
+# approval mechanism available to a workflow_dispatch run. Configure required
+# reviewers on the `prod` environment before this is ever used, otherwise anyone
+# with write access can pick `prod` from the dropdown and ship. Nothing in this
+# file can enforce that on its own — see the note in the README.
+#
+# Deploying the api service runs `prisma migrate deploy` at container start, so
+# approving a prod deploy is also approving a production migration.
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        type: choice
+        options:
+          - staging
+          - prod
+        default: staging
+      image_tag:
+        description: Extra image tag to publish (git SHA is always tagged)
+        default: latest
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_NAMESPACE: reservechain
+
+jobs:
+  build:
+    name: Build & push (${{ matrix.service }})
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: web
+            context: .
+            dockerfile: Dockerfile
+          - service: api
+            context: api
+            dockerfile: api/Dockerfile
+          - service: admin
+            context: admin
+            dockerfile: admin/Dockerfile
+          - service: cms
+            context: cms
+            dockerfile: cms/Dockerfile
+    steps:
+      - name: Verify deploy credentials are configured
+        env:
+          ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+        run: |
+          if [ -z "$ROLE_ARN" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN is not set for environment '${{ inputs.environment }}'." \
+                 "Create the GitHub OIDC deploy role and add the secret before deploying." \
+                 "Refusing to continue: a deploy that proceeds without credentials is worse than one that stops."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build & push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: |
+            ${{ steps.ecr.outputs.registry }}/${{ env.ECR_NAMESPACE }}/${{ matrix.service }}:${{ github.sha }}
+            ${{ steps.ecr.outputs.registry }}/${{ env.ECR_NAMESPACE }}/${{ matrix.service }}:${{ inputs.image_tag }}
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
+
+  deploy:
+    name: Roll ECS services
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Verify deploy credentials are configured
+        env:
+          ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+        run: |
+          if [ -z "$ROLE_ARN" ]; then
+            echo "::error::AWS_DEPLOY_ROLE_ARN is not set for environment '${{ inputs.environment }}'."
+            exit 1
+          fi
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Force new deployment
+        env:
+          CLUSTER: ${{ env.ECR_NAMESPACE }}-${{ inputs.environment }}
+        run: |
+          for svc in web api admin cms; do
+            echo "::group::Deploying $svc"
+            aws ecs update-service \
+              --cluster "$CLUSTER" \
+              --service "$svc" \
+              --force-new-deployment >/dev/null
+            echo "::endgroup::"
+          done
+
+      - name: Wait for services to stabilize
+        env:
+          CLUSTER: ${{ env.ECR_NAMESPACE }}-${{ inputs.environment }}
+        run: |
+          aws ecs wait services-stable \
+            --cluster "$CLUSTER" \
+            --services web api admin cms
+          echo "All services stable."
