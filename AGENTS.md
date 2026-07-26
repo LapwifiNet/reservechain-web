@@ -5,7 +5,7 @@ making any change. If a requested change conflicts with the Compliance guardrail
 say so in the pull request description instead of implementing it.
 
 Before applying any overlay package, `APPLY-ORDER.md` is mandatory reading: it holds the
-apply order and invariants 1–27, which must survive every apply.
+apply order and invariants 1–42, which must survive every apply.
 
 ## 1. What this project is
 
@@ -27,7 +27,7 @@ wireframes or roadmap exists — Notion is the only source.
 | `infra/wallets/` | Docs + templates | Gnosis Safe setup, role matrix, wallet inventory |
 | `cms/` | Payload v2 CMS on Express, PostgreSQL | Asset registry + public Digital Asset Passports, port 3001, own database `reservechain_cms` |
 | `mobile/` | React Native (Expo) | **Not created yet** (P13) |
-| `infra/` (Terraform) | Terraform, AWS | **Not created yet** (P19) |
+| `infra/terraform/` | Terraform, AWS | VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR, Secrets Manager. Verified with `validate` / `fmt`, never applied from this repository |
 | `docs/` | Markdown | **Not created yet** (P21) |
 
 Do not restructure existing folders. When adding a workstream that does not exist yet, create it
@@ -37,14 +37,29 @@ at the path in the table above.
 
 `PrismaModule`, `HealthModule`, `WaitlistModule`, `AssetsModule`, `PassportsModule`,
 `TokenomicsModule`, `DashboardModule`, `SensitiveModule`, `ChainSyncModule`, `AuthModule`,
-`KycModule`, `AuditModule`.
+`KycModule`, `AuditModule`, `InvestorModule`, `ProofOfReservesModule`, `RedemptionModule`,
+`WalletModule`, `PurchaseModule`.
+
+`InvestorModule` is the public investor portal and owns its own token domain
+(`INVESTOR_JWT_SECRET`, `typ: 'investor'`) — see guardrail 2 and invariant 19.
+
+`ProofOfReservesModule`, `RedemptionModule`, `WalletModule` and `PurchaseModule` are
+**inert**. Each is class-gated by a feature flag that defaults false AND refuses in its
+service, so every route answers `501` in both flag states: `module_disabled` at the guard
+when the flag is off, `*_inactive` at the service when it is on. Turning a flag on
+activates nothing.
 `ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' })` and `ScheduleModule.forRoot()` 
 must be preserved when editing `app.module.ts`.
 
 ## 4. Prisma models (`api/prisma/schema.prisma`)
 
 `AssetProgram`, `AssetRecord`, `Passport`, `WaitlistEntry`, `ChainEvent`, `TokenomicsConfig`,
-`AdminUser`, `KycCase`, `AuditEvent`.
+`AdminUser`, `KycCase`, `InvestorUser`, `AuditEvent`, `ReserveAttestation`,
+`RedemptionRequest`, `Wallet`, `PurchaseIntent`.
+
+`ReserveAttestation`, `RedemptionRequest`, `Wallet` and `PurchaseIntent` are published
+**shape only**. Their tables exist and must stay empty: the four gated services touch no
+database and import no `PrismaModule`, and no seed references them.
 
 - Never edit an applied migration. Add a new migration with a descriptive name:
   `npx prisma migrate dev --name p6_auth_kyc` or `npx prisma migrate dev --name p9_audit_log`.
