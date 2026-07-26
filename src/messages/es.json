@@ -1292,5 +1292,32 @@
       "high": "Alto"
     },
     "sanctionsLabel": "Cribado de sanciones"
+  },
+  "Passports": {
+    "title": "Pasaportes de Activos Digitales",
+    "subtitle": "Procedencia verificable para cada programa de metales industriales. Solo testnet — todas las cifras son ilustrativas.",
+    "viewPassport": "Ver pasaporte",
+    "backToList": "Todos los pasaportes",
+    "programLabel": "Programa",
+    "metalLabel": "Metal",
+    "purityLabel": "Pureza",
+    "stageLabel": "Etapa",
+    "provenance": "Procedencia",
+    "tokenMapping": "Token en cadena",
+    "tokenInactive": "No hay token activo en cadena. Este pasaporte es ilustrativo y no representa una oferta ni una venta.",
+    "contractAddress": "Dirección del contrato",
+    "circulatingSupply": "Suministro circulante",
+    "disclosureHeading": "Aviso legal",
+    "empty": "Aún no hay pasaportes publicados.",
+    "metals": {
+      "copper": "Cobre",
+      "nickel": "Níquel",
+      "other": "Otro"
+    },
+    "stages": {
+      "illustrative": "Ilustrativo",
+      "provisional": "Provisional",
+      "full": "Completo"
+    }
   }
 }

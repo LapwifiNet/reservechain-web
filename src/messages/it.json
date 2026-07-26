@@ -1292,5 +1292,32 @@
       "high": "Alto"
     },
     "sanctionsLabel": "Screening sanzioni"
+  },
+  "Passports": {
+    "title": "Passaporti di Asset Digitali",
+    "subtitle": "Provenienza verificabile per ogni programma di metalli industriali. Solo testnet — tutte le cifre sono illustrative.",
+    "viewPassport": "Vedi passaporto",
+    "backToList": "Tutti i passaporti",
+    "programLabel": "Programma",
+    "metalLabel": "Metallo",
+    "purityLabel": "Purezza",
+    "stageLabel": "Fase",
+    "provenance": "Provenienza",
+    "tokenMapping": "Token on-chain",
+    "tokenInactive": "Nessun token on-chain attivo. Questo passaporto è illustrativo e non rappresenta un'offerta né una vendita.",
+    "contractAddress": "Indirizzo del contratto",
+    "circulatingSupply": "Offerta circolante",
+    "disclosureHeading": "Informativa",
+    "empty": "Nessun passaporto pubblicato al momento.",
+    "metals": {
+      "copper": "Rame",
+      "nickel": "Nichel",
+      "other": "Altro"
+    },
+    "stages": {
+      "illustrative": "Illustrativo",
+      "provisional": "Provvisorio",
+      "full": "Completo"
+    }
   }
 }

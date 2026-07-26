@@ -1292,5 +1292,32 @@
       "high": "High"
     },
     "sanctionsLabel": "Sanctions screening"
+  },
+  "Passports": {
+    "title": "Digital Asset Passports",
+    "subtitle": "Verifiable provenance for each industrial-metal program. Testnet only — all figures illustrative.",
+    "viewPassport": "View passport",
+    "backToList": "All passports",
+    "programLabel": "Program",
+    "metalLabel": "Metal",
+    "purityLabel": "Purity",
+    "stageLabel": "Stage",
+    "provenance": "Provenance",
+    "tokenMapping": "On-chain token",
+    "tokenInactive": "No active on-chain token. This passport is illustrative and does not represent an offer or sale.",
+    "contractAddress": "Contract address",
+    "circulatingSupply": "Circulating supply",
+    "disclosureHeading": "Disclosure",
+    "empty": "No published passports yet.",
+    "metals": {
+      "copper": "Copper",
+      "nickel": "Nickel",
+      "other": "Other"
+    },
+    "stages": {
+      "illustrative": "Illustrative",
+      "provisional": "Provisional",
+      "full": "Full"
+    }
   }
 }

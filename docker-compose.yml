@@ -87,6 +87,9 @@ services:
       # API, which is the single source of truth. Server-side only, and no
       # credential is sent — POST /waitlist is public by design.
       WAITLIST_API_BASE: ${WAITLIST_API_BASE:-http://api:4000/api}
+      # Digital Asset Passport pages read the CMS's public endpoints.
+      # Server-side only; never NEXT_PUBLIC_, and no credential is sent.
+      CMS_API_BASE: ${CMS_API_BASE:-http://cms:3001/api}
     ports:
       - "${WEB_PORT:-3000}:3000"
 
