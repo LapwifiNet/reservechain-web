@@ -72,3 +72,8 @@ After deploy, grant operational roles to the multisig / operators (see
 Metadata, admin roles, controlled mint, cap enforcement, burn, pause/unpause, role
 restrictions, redemption inactive-by-default + post-activation flow, treasury update,
 and a fuzz test for minting within the cap. Target ≥ 90% coverage before audit (P18).
+
+## License
+
+These contracts are licensed under Apache-2.0 (`SPDX-License-Identifier: Apache-2.0`); the
+OpenZeppelin dependencies remain under their own MIT license.
