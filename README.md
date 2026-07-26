@@ -34,7 +34,7 @@ Brings up PostgreSQL, the API, the website and the admin console together. The A
 its Prisma migrations on start, so the database is ready without a manual step.
 
 ```bash
-cp .env.docker.example .env          # then set JWT_SECRET, SERVICE_API_TOKEN, INVESTOR_JWT_SECRET
+cp .env.docker.example .env          # set JWT_SECRET, SERVICE_API_TOKEN, INVESTOR_JWT_SECRET, PAYLOAD_SECRET
 openssl rand -hex 32                 # generate a value for each
 docker compose up --build
 ```
@@ -44,12 +44,17 @@ docker compose up --build
 | Website | http://localhost:3000 | redirects to `/en` |
 | API | http://localhost:4000/api | `/api/health` reports database status |
 | Admin console | http://localhost:4100 | reads the API server-side |
+| CMS | http://localhost:3001/admin | Payload; asset registry + public passports |
 | PostgreSQL | `localhost:5432` | user/db `reservechain` |
+| PostgreSQL (CMS) | `localhost:5433` | user `reservechain`, db `reservechain_cms` |
 
-`.env` is gitignored — `JWT_SECRET`, `SERVICE_API_TOKEN` and `INVESTOR_JWT_SECRET` must
-each be at least 32 characters or the API refuses to start, and `INVESTOR_JWT_SECRET`
-must differ from `JWT_SECRET` (the investor portal's tokens are a separate domain from
-staff tokens). The admin console authenticates to the API with `SERVICE_API_TOKEN`, so
+`.env` is gitignored — `JWT_SECRET`, `SERVICE_API_TOKEN`, `INVESTOR_JWT_SECRET` and
+`PAYLOAD_SECRET` must each be at least 32 characters or the services refuse to start.
+The three signing keys must all differ from one another: staff, investor and CMS
+sessions are deliberately disjoint token domains, so a token from one is not merely
+unauthorised in another — it fails signature verification. The CMS also runs against
+its own database and never touches the API's. The admin console authenticates to the
+API with `SERVICE_API_TOKEN`, so
 both services read the same value.
 
 **Development with hot reload** — bind-mounts the working tree and runs `next dev` /

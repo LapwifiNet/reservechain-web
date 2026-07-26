@@ -59,3 +59,19 @@ services:
       - ./admin:/app
       - /app/node_modules
       - /app/.next
+
+  cms:
+    image: reservechain-cms-dev
+    build:
+      context: ./cms
+      target: deps
+    environment:
+      NODE_ENV: development
+    # nodemon watches src/ and re-execs ts-node; Payload builds the admin panel
+    # in memory in dev, so there is no bundle step here.
+    command: npm run dev
+    volumes:
+      - ./cms:/app
+      - /app/node_modules
+      - /app/build
+      - /app/dist

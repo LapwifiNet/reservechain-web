@@ -106,6 +106,54 @@ services:
     ports:
       - "${ADMIN_PORT:-4100}:4100"
 
+  # The CMS owns its own Postgres instance rather than a second database inside
+  # the API's. The official image only runs init scripts on a first-time empty
+  # data directory, so adding a database to the existing `postgres` service
+  # would silently skip every environment whose volume already exists. A
+  # separate service is also the honest shape: the CMS is its own trust
+  # boundary, with its own credentials, and must never reach API tables.
+  postgres-cms:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${CMS_POSTGRES_USER:-reservechain}
+      POSTGRES_PASSWORD: ${CMS_POSTGRES_PASSWORD:-reservechain}
+      POSTGRES_DB: ${CMS_POSTGRES_DB:-reservechain_cms}
+    ports:
+      - "${CMS_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - reservechain_cms_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${CMS_POSTGRES_USER:-reservechain} -d ${CMS_POSTGRES_DB:-reservechain_cms}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cms:
+    build:
+      context: ./cms
+    restart: unless-stopped
+    depends_on:
+      postgres-cms:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URI: postgresql://${CMS_POSTGRES_USER:-reservechain}:${CMS_POSTGRES_PASSWORD:-reservechain}@postgres-cms:5432/${CMS_POSTGRES_DB:-reservechain_cms}?schema=public
+      # Third token domain. Must be >= 32 chars and must differ from both
+      # JWT_SECRET and INVESTOR_JWT_SECRET; the CMS refuses to start otherwise.
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?PAYLOAD_SECRET is required — copy .env.docker.example to .env}
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-http://localhost:3001}
+      CORS_ORIGINS: ${CMS_CORS_ORIGINS:-http://localhost:3000,http://localhost:4100}
+    ports:
+      - "${CMS_PORT:-3001}:3001"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:3001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
   # One-off Foundry toolchain, not part of the running stack. Usage:
   #   docker compose run --rm contracts "forge build --sizes"
   #   docker compose run --rm contracts "forge test -vvv"
@@ -120,3 +168,4 @@ services:
 
 volumes:
   reservechain_pg:
+  reservechain_cms_pg:

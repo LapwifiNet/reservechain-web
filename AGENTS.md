@@ -23,7 +23,7 @@ is mirrored into `docs/`.
 | `admin/` | Next.js | Internal admin console, reads the API server-side |
 | `contracts/` | Solidity, Foundry, OpenZeppelin v5 | ERC-20 token, deploy and role scripts, tests |
 | `infra/wallets/` | Docs + templates | Gnosis Safe setup, role matrix, wallet inventory |
-| `cms/` | Payload CMS | **Not created yet** (P10) |
+| `cms/` | Payload v2 CMS on Express, PostgreSQL | Asset registry + public Digital Asset Passports, port 3001, own database `reservechain_cms` |
 | `mobile/` | React Native (Expo) | **Not created yet** (P13) |
 | `infra/` (Terraform) | Terraform, AWS | **Not created yet** (P19) |
 | `docs/` | Markdown | **Not created yet** (P21) |

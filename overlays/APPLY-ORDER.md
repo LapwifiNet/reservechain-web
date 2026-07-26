@@ -31,7 +31,7 @@ Apply one overlay per commit. Run `git diff` before every commit.
 | 3 | reservechain-kyc-admin.zip | `kycadmin/` | `admin/` | Full KycConsole with review + screen. Supersedes the read-only `/kyc` page currently on main |
 | 4 | reservechain-investor-portal.zip | `p8/` | `api -> api/`, `web -> root` | Migration `investor_portal` |
 | 5 | reservechain-backend-tests.zip | `p8tests/` | `api/` | Reconcile with the existing `api/jest.config.js` |
-| 6 | reservechain-cms.zip | `cms/` | `cms/` | Payload, separate DB `reservechain_cms`, port 3001 |
+| 6 | ~~reservechain-cms.zip~~ | `cms/` | `cms/` | **Applied.** Payload, own DB `reservechain_cms` on 5433, port 3001. Seed credential stripped; `PAYLOAD_SECRET` is a third disjoint token domain |
 | 7 | reservechain-webdap.zip | `webdap/` | root (`src/` + `messages/`) | Merge locale JSON, do not overwrite |
 | 8 | reservechain-por-redemption.zip | `porredemption/` | `api/` | Migration `por_redemption`. Ships flags OFF |
 | 9 | reservechain-wallet-purchase.zip | `walletpurchase/` | `api/` | Migration `wallet_purchase`. Ships flags OFF |

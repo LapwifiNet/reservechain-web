@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+uploads
+.git
+.DS_Store
+*.tsbuildinfo
+
+# Generated at build time from the Payload config.
+src/payload-types.ts
+src/generated-schema.graphql
+
+# Never bake secrets into an image layer.
+.env
+.env.*
+docker-compose.yml
