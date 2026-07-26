@@ -1,46 +1,32 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from '../auth/auth.module';
+import { InvestorModule } from '../investor/investor.module';
 import { FeatureFlagGuard } from '../common/guards/feature-flag.guard';
-import { InvestorJwtGuard } from '../investor/investor-jwt.guard';
 import { RedemptionController } from './redemption.controller';
 import { RedemptionService } from './redemption.service';
 
 /**
  * P12, inactive.
  *
- * InvestorJwtGuard must verify with INVESTOR_JWT_SECRET, so this module
- * registers the investor JwtModule rather than relying on AuthModule's, which
- * is the admin domain (invariant 19). The overlay provided InvestorJwtGuard
- * while importing only AuthModule, which would have handed it the admin
- * signer and quietly merged the two token domains on this module's routes.
+ * Imports InvestorModule for InvestorJwtGuard rather than providing the guard
+ * itself. This is load-bearing, not tidiness. The overlay listed the guard in
+ * its own `providers` while importing only AuthModule, so Nest built it in this
+ * module's injector, where the only JwtService is AuthModule's admin signer:
+ * the guard then verified investor tokens with JWT_SECRET. Confirmed by
+ * request before the fix — a token carrying typ:'investor' but signed with the
+ * ADMIN secret passed the guard and reached the service, while a correctly
+ * signed investor token was refused. That is invariant 19 defeated by a module
+ * import, in the direction that lets a staff-domain token onto investor routes.
+ *
+ * Registering a local JwtModule here does not fix it either: AuthModule also
+ * exports one, and the resolution is ambiguous. Importing the owning module is
+ * the only unambiguous form.
  *
  * PrismaModule is deliberately not imported: the service touches no database.
  */
 @Module({
-  imports: [
-    AuthModule,
-    ConfigModule,
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        const secret = config.get<string>('INVESTOR_JWT_SECRET');
-        if (!secret || secret.length < 32) {
-          throw new Error(
-            'INVESTOR_JWT_SECRET must be set and at least 32 characters long',
-          );
-        }
-        if (secret === config.get<string>('JWT_SECRET')) {
-          throw new Error(
-            'INVESTOR_JWT_SECRET must differ from JWT_SECRET — the investor and admin token domains are deliberately disjoint',
-          );
-        }
-        return { secret };
-      },
-    }),
-  ],
+  imports: [AuthModule, InvestorModule],
   controllers: [RedemptionController],
-  providers: [RedemptionService, FeatureFlagGuard, InvestorJwtGuard],
+  providers: [RedemptionService, FeatureFlagGuard],
 })
 export class RedemptionModule {}

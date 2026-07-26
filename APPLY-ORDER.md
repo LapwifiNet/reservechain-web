@@ -193,8 +193,16 @@ so a blind `cp -R` can silently revert them.
     touches them, and no fixture reserve figure, custodian, auditor, vault or
     coverage ratio may be introduced. A fabricated reserve number is the most
     damaging fabrication this repository could ship.
-34. Any module providing `InvestorJwtGuard` must register the investor
-    `JwtModule` (`INVESTOR_JWT_SECRET`), not rely on `AuthModule`'s. The
-    overlay provided the guard while importing only `AuthModule`, which would
-    have handed it the admin signer and merged the two token domains on those
-    routes — invariant 19, defeated by a module import.
+34. `InvestorJwtGuard` binds its own signing key: it reads
+    `INVESTOR_JWT_SECRET` from `ConfigService` and passes it explicitly to
+    `verifyAsync`. Do not "simplify" this back to relying on the injected
+    `JwtService`'s configured secret. Nest instantiates `@UseGuards(...)`
+    enhancers in the injector of the module declaring the controller, not the
+    module exporting the guard, so a second module mounting it gets whichever
+    `JwtService` its own imports resolve. That is not theoretical: when
+    RedemptionModule mounted this guard alongside `AuthModule`, it verified
+    investor tokens with `JWT_SECRET`, and a token carrying `typ: 'investor'`
+    signed with the ADMIN key passed the guard — invariant 19 defeated by a
+    module import, in the direction that puts staff tokens on investor routes.
+    Exporting the guard does not fix it; binding the secret does. Pinned by
+    `test/gated-modules.e2e-spec.ts`.

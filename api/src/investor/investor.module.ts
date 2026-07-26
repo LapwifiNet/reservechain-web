@@ -38,5 +38,11 @@ import { InvestorJwtGuard } from './investor-jwt.guard';
   ],
   controllers: [InvestorController],
   providers: [InvestorService, InvestorJwtGuard],
+  // Exported so other modules reuse THIS instance, built in this module's
+  // injector where the only JwtService is the investor one. A module that
+  // merely lists InvestorJwtGuard in its own providers gets whichever
+  // JwtService its own imports resolve — which is how a redemption route came
+  // to accept an admin-signed token. See invariant 34.
+  exports: [InvestorJwtGuard],
 })
 export class InvestorModule {}
