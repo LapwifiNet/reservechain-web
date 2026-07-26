@@ -26,33 +26,39 @@ Apply one overlay per commit. Run `git diff` before every commit.
 
 | # | Archive | Extract root | Copy to | Notes |
 |---|---|---|---|---|
-| 1 | reservechain-admin-login.zip | `admin/` (+ LOGIN-README.md) | `admin/` | Per-user JWT, httpOnly cookie, middleware. Unblocks attributable KYC reviews |
-| 2 | reservechain-waitlist-wire.zip | `waitlistwire/` | `web -> root`, `api -> api/` | Migration `waitlist_website_fields` |
-| 3 | reservechain-kyc-admin.zip | `kycadmin/` | `admin/` | Full KycConsole with review + screen. Supersedes the read-only `/kyc` page currently on main |
-| 4 | reservechain-investor-portal.zip | `p8/` | `api -> api/`, `web -> root` | Migration `investor_portal` |
-| 5 | reservechain-backend-tests.zip | `p8tests/` | `api/` | Reconcile with the existing `api/jest.config.js` |
+| 1 | ~~reservechain-admin-login.zip~~ | `admin/` (+ LOGIN-README.md) | `admin/` | Per-user JWT, httpOnly cookie, middleware. Unblocks attributable KYC reviews **Applied** · `dbce350` |
+| 2 | ~~reservechain-waitlist-wire.zip~~ | `waitlistwire/` | `web -> root`, `api -> api/` | Migration `waitlist_website_fields` **Applied** · `a5d4e66` |
+| 3 | ~~reservechain-kyc-admin.zip~~ | `kycadmin/` | `admin/` | Full KycConsole with review + screen. Supersedes the read-only `/kyc` page currently on main **Applied** · `823bb90` |
+| 4 | ~~reservechain-investor-portal.zip~~ | `p8/` | `api -> api/`, `web -> root` | Migration `investor_portal` **Applied** · `c1c09d9` |
+| 5 | ~~reservechain-backend-tests.zip~~ | `p8tests/` | `api/` | Reconcile with the existing `api/jest.config.js` **Applied** · `428f354` |
 | 6 | ~~reservechain-cms.zip~~ | `cms/` | `cms/` | **Applied.** Payload, own DB `reservechain_cms` on 5433, port 3001. Seed credential stripped; `PAYLOAD_SECRET` is a third disjoint token domain |
-| 7 | reservechain-webdap.zip | `webdap/` | root (`src/` + `messages/`) | Merge locale JSON, do not overwrite |
-| 8 | reservechain-por-redemption.zip | `porredemption/` | `api/` | Migration `por_redemption`. Ships flags OFF |
-| 9 | reservechain-wallet-purchase.zip | `walletpurchase/` | `api/` | Migration `wallet_purchase`. Ships flags OFF |
-| 10 | reservechain-infra-terraform.zip | `infra/` | `infra/terraform/` | `plan` only until AWS account exists |
-| 11 | reservechain-ci-deploy.zip | `cideploy/` | `.github/` | Needs `AWS_DEPLOY_ROLE_ARN` + OIDC |
-| 12 | reservechain-ops-runbook.zip | `runbook/` | `docs/` | |
-| 13 | reservechain-manuals.zip | `manuals/` | `docs/` | |
-| 14 | reservechain-training.zip | `training/` | `docs/` | |
-| 15 | reservechain-mobile-e2e.zip | `mobile/` | `mobile/` | Expo app WITH testIDs + `.maestro/`. Supersedes `reservechain-mobile.zip` — do not use the older one |
-| 16 | reservechain-acceptance-qa.zip | `qa/` | `docs/` | |
-| 17 | reservechain-mobile-e2e-ci.zip | `mobilee2eci/` | `.github/workflows/` | |
+| 7 | ~~reservechain-webdap.zip~~ | `webdap/` | root (`src/` + `messages/`) | Merge locale JSON, do not overwrite **Applied** · `b97508b` |
+| 8 | ~~reservechain-por-redemption.zip~~ | `porredemption/` | `api/` | Migration `por_redemption`. Ships flags OFF **Applied** · `8440a14` |
+| 9 | ~~reservechain-wallet-purchase.zip~~ | `walletpurchase/` | `api/` | Migration `wallet_purchase`. Ships flags OFF **Applied** · `5347731` |
+| 10 | ~~reservechain-infra-terraform.zip~~ | `infra/` | `infra/terraform/` | `plan` only until AWS account exists **Applied** · `77ca002` |
+| 11 | ~~reservechain-ci-deploy.zip~~ | `cideploy/` | `.github/` | Needs `AWS_DEPLOY_ROLE_ARN` + OIDC **Applied** · `40f0e7d` |
+| 12 | ~~reservechain-ops-runbook.zip~~ | `runbook/` | `docs/` | **Applied** · `e1248a3` |
+| 13 | ~~reservechain-manuals.zip~~ | `manuals/` | `docs/` | **Applied** · `c0ebe13` |
+| 14 | ~~reservechain-training.zip~~ | `training/` | `docs/` | **Applied** · `7b44a81` |
+| 15 | ~~reservechain-mobile-e2e.zip~~ | `mobile/` | `mobile/` | Expo app WITH testIDs + `.maestro/`. Supersedes `reservechain-mobile.zip` — do not use the older one |
+| 16 | ~~reservechain-acceptance-qa.zip~~ | `qa/` | `docs/` | **Applied.** Rewritten to actual status; 7 items describe features that do not exist |
+| 17 | ~~reservechain-mobile-e2e-ci.zip~~ | `mobilee2eci/` | `.github/workflows/` | **Applied.** Dispatch-only; backend flows gated behind a disposable-target confirmation |
 
-### Independent of the chain — apply any time
+### Ordered chain: COMPLETE
 
-| Archive | Extract root | Copy to |
+All seventeen ordered overlays are applied. Every one of them shipped at least
+one defect — see the notes above and the commit messages. Nothing in the ordered
+chain remains.
+
+### Independent of the chain — none applied
+
+| Archive | Would touch | Anything depend on it? |
 |---|---|---|
-| reservechain-monitoring.zip | `monitoring/` | `infra/terraform/` + app Sentry init |
-| reservechain-loadtest-k6.zip | `perf/` | `perf/` |
-| reservechain-seo-analytics.zip | `seo/` | root `src/` |
-| reservechain-a11y.zip | `a11y/` | root |
-| reservechain-i18n-qa.zip | `i18nqa/` | root `messages/` (diff, do not overwrite) |
+| reservechain-monitoring.zip | `infra/terraform/` (alarms, dashboards, SNS) + an error-tracking SDK in each app | **Yes, by absence.** `docs/RUNBOOK.md` and the acceptance checklist both record "no alerting, no dashboards, no on-call" as gaps. This overlay is what would close them. Note it would introduce the project's FIRST telemetry SDK — an AGENTS §8 decision to make deliberately, not inherit (invariant 53) |
+| reservechain-loadtest-k6.zip | a new `perf/` directory | No. Nothing references it. Load-testing an unapplied stack has little meaning until something is deployed |
+| reservechain-seo-analytics.zip | root `src/` (metadata, sitemap, analytics) | No — but two cautions: the site has **no sitemap or robots file** today, and "analytics" here would again be the project's first telemetry |
+| reservechain-a11y.zip | root (`src/` components and pages) | No. The nav already carries `aria-label` and keyboard-reachable menus; this would extend that |
+| reservechain-i18n-qa.zip | root `src/messages/` (diff, never overwrite) | Partly superseded. Key-path parity is already enforced by `tests/i18n-parity.test.mjs` and the root `npm test`; this overlay would need reconciling against that rather than replacing it |
 
 ## Migration order
 
@@ -361,3 +367,30 @@ so a blind `cp -R` can silently revert them.
     exactly as `admin`, `api`, `cms`, `contracts` and `infra` do. It is not an
     npm workspace member and is listed in the root `tsconfig.json` exclude, so
     root `npm ci`, `tsc --noEmit` and `next build` are unaffected by it.
+55. An acceptance checklist states actual status per item, never intended
+    status. It exists to be signed, and a signature asserts that testing
+    happened, so an item marked done that nobody has run is a false
+    attestation rather than optimism. `docs/ACCEPTANCE-CHECKLIST.md` marks
+    each criterion Verified / Unverifiable / Inert / Absent / Client **on the
+    item**, and carries a mechanical count. As shipped it marked ~60 items done,
+    including seven for features this repository does not contain — no
+    whitepaper, no architecture docs, no admin toggle UI, no investor-facing KYC
+    submission, no error tracking, no alerting or on-call, no penetration test.
+56. No test procedure asks for real personal data, a real wallet address or a
+    real payment instrument. Synthetic data only, on every surface — the
+    waitlist and investor tables hold PII under the same rules a production
+    system would, and a QA walkthrough is not a reason to put a real person in
+    them.
+57. A CI job must never write rows into a real database. The mobile E2E
+    workflow's backend-tagged flows persist a waitlist registration and an
+    investor account, and a repository variable can name any host, so running
+    them requires an explicit `backend_is_disposable` confirmation and fails
+    loudly without it. `--exclude-tags=backend` keeps them out of a default
+    run; that exclusion only works because flows 03, 05 and 06 actually carry
+    the tag, which is worth re-checking whenever a flow is added.
+58. A workflow that has never completed once does not fire automatically. Both
+    `deploy.yml` and `mobile-e2e.yml` are `workflow_dispatch`-only. Actions has
+    never run on this repository, so there is no baseline to regress from, and
+    an unproven 45-minute emulator job auto-firing on every mobile pull request
+    would make them red for reasons nobody has diagnosed. Re-enable automatic
+    triggers per workflow, after it has passed manually.
