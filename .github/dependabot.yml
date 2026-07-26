@@ -39,6 +39,46 @@ updates:
           - "minor"
           - "patch"
 
+  # CMS dependencies.
+  # The Payload v2 axis is pinned deliberately and the pins are load-bearing:
+  # @payloadcms/db-postgres 0.8.x requires an unpublished drizzle-kit
+  # prerelease, so it is held with an override to the published 0.23.2, and an
+  # automated bump breaks `npm install` outright. Payload 2 is also fixed to
+  # React 18 — React 19 conflicts through its transitive peers. Major bumps
+  # are ignored for all of them; minor/patch still flow.
+  - package-ecosystem: "npm"
+    directory: "/cms"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      cms-minor-patch:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "payload"
+          - "@payloadcms/*"
+          - "drizzle-kit"
+          - "drizzle-orm"
+          - "react"
+          - "react-dom"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      - dependency-name: "payload"
+        update-types: ["major"]
+      - dependency-name: "@payloadcms/*"
+        update-types: ["major"]
+      - dependency-name: "drizzle-kit"
+        update-types: ["major", "minor"]
+      - dependency-name: "drizzle-orm"
+        update-types: ["major", "minor"]
+      - dependency-name: "react"
+        update-types: ["major"]
+      - dependency-name: "react-dom"
+        update-types: ["major"]
+
   # Admin console dependencies
   - package-ecosystem: "npm"
     directory: "/admin"

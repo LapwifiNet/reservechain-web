@@ -142,3 +142,23 @@ so a blind `cp -R` can silently revert them.
 23. The KYC case-list endpoint must not return `email`. It is excluded by an
     explicit `select`. The detail endpoint may return it because it is
     role-guarded and a reviewer needs the link.
+24. The CMS is a **third** token domain, disjoint from the other two.
+    `PAYLOAD_SECRET` must be at least 32 characters, must differ from both
+    `JWT_SECRET` and `INVESTOR_JWT_SECRET`, and has no fallback — the service
+    refuses to boot otherwise. An admin or investor JWT must resolve to
+    `user: null` on the CMS, and a CMS write with an API token must be refused.
+25. The CMS owns its own database on its own Postgres instance. Zero CMS tables
+    may appear in the API's database. Do not consolidate them into one
+    instance: the Postgres image runs init scripts only on a first-time empty
+    data directory, so a second database added that way is silently skipped on
+    every existing volume.
+26. **A booting CMS is not a working CMS.** Payload auto-pushes schema only in
+    development. Under `NODE_ENV=production` it does neither, so the service
+    starts, serves `/health` and `/admin`, and 500s on every database request.
+    Committed migrations plus a migrate step in the entrypoint are mandatory,
+    and the check that proves it is a real data request such as
+    `GET /api/passports?limit=1`, never a health probe.
+27. Every user-facing surface that shows a sanctions value must carry the stub
+    wording in **all three locales**. The stored value `clear_stub` is not a
+    label. See the Open items entry — this shipped as a bare "Clear" and
+    reached users.
