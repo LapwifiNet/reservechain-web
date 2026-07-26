@@ -173,3 +173,11 @@ of the contest brief. Ownership of this repository transfers on engagement.
 The code published here is licensed under Apache License 2.0. That grant is perpetual and
 irrevocable for anyone who has already obtained a copy, and a later transfer of repository
 ownership does not revoke it.
+
+## Licensing
+
+The repository is licensed under Apache License 2.0 ([LICENSE](LICENSE)), and the Solidity
+sources under `contracts/` carry the same `Apache-2.0` SPDX identifier. The Apache licence
+grants no trademark or brand rights — see section 6 of [LICENSE](LICENSE). The four Solidity
+files were previously published with an `MIT` SPDX header, so anyone who obtained a copy
+before this change retains the MIT grant for those files.

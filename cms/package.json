@@ -2,6 +2,7 @@
   "name": "reservechain-cms",
   "version": "0.1.0",
   "private": true,
+  "license": "Apache-2.0",
   "description": "ReserveChain Registry + Digital Asset Passport CMS (Payload v2). Manages asset programs, physical records / certificates, and public passports. Testnet only.",
   "main": "dist/server.js",
   "scripts": {
