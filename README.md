@@ -1,5 +1,25 @@
 # ReserveChain
 
+> **Contest submission — not a live product.** This repository is a contest entry. It was
+> submitted, it was **not selected**, there is no client engagement or contract behind it,
+> and nothing here runs in production or is operated as a service.
+>
+> - **Testnet only.** The contract suite targets the **Sepolia** testnet. There is no
+>   mainnet deployment and no mainnet contract address exists.
+> - **No tokens are being offered or sold.** Nothing in this repository is an offer, a
+>   solicitation of an offer, investment advice, or a prospectus.
+> - **The data is illustrative.** Every quantity, purity, valuation, certificate,
+>   custodian, insurer and tokenomics figure here is an illustrative placeholder. None of
+>   it is real data about real metal, real reserves or real counterparties.
+> - **The wallet, purchase, proof-of-reserves and redemption modules are built but
+>   disabled.** They publish route shapes only and return HTTP `501`. Enabling them
+>   requires a finalized legal structure, an independent smart-contract audit, a
+>   penetration test, and written authorization.
+> - **Not audited, not penetration-tested.** Do not deploy this to mainnet and do not use
+>   it to custody real assets or real funds.
+> - Provided **as-is** under [LICENSE](LICENSE), without warranty of any kind. Known
+>   issues and gaps are recorded in [SECURITY.md](SECURITY.md).
+
 ![CI](https://github.com/LapwifiNet/reservechain-web/actions/workflows/ci.yml/badge.svg)
 
 Working draft of the ReserveChain platform, an institutional RWA tokenization project for
@@ -128,3 +148,8 @@ design and the website holds no service token.
 The website no longer uses `DATABASE_URL` or `PGSSL`; its own JSON/Postgres store has
 been removed. Re-submitting an address returns the existing registration id rather than
 an error, so the form stays idempotent.
+
+## Intellectual property
+
+Intellectual property in this submission is offered to the contest issuer under the terms
+of the contest brief. Ownership of this repository transfers on engagement.
