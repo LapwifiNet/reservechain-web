@@ -9,8 +9,30 @@
  */
 const CMS_API_BASE = process.env.CMS_API_BASE || "http://127.0.0.1:3001/api";
 
-// Cache CMS responses for 5 minutes; passports change rarely.
-const REVALIDATE_SECONDS = 300;
+/** Hard ceiling on a CMS call, so an unreachable CMS cannot stall a render. */
+const CMS_TIMEOUT_MS = 5_000;
+
+/**
+ * Fetch options for every CMS read.
+ *
+ * The try/catch at each call site reads as graceful degradation, but on its
+ * own it was not: with the CMS unreachable the first `/passports` render
+ * blocked for over ninety seconds before falling through to the empty state.
+ * A bare fetch to that same refused port rejects in ~45ms, so the delay came
+ * from Next's data cache retrying underneath `next: { revalidate }` — a path
+ * that also ignores `signal`, which is why an AbortSignal alone did not bound
+ * it, and racing the promise only made the render return early while the
+ * losing fetch rejected later and tore the response stream.
+ *
+ * `cache: 'no-store'` keeps the request out of that layer entirely, so the
+ * rejection lands in the catch where it belongs and the signal is honoured.
+ * Nothing is lost: both callers declare `export const revalidate = 300`, so
+ * the rendered page is still cached — this only stops it being cached twice.
+ */
+const cmsFetchInit = (): RequestInit => ({
+  cache: "no-store",
+  signal: AbortSignal.timeout(CMS_TIMEOUT_MS),
+});
 
 export type PublicPassport = {
   slug: string;
@@ -63,7 +85,7 @@ export async function getPassport(
   try {
     const res = await fetch(
       `${CMS_API_BASE}/passports/public/${encodeURIComponent(slug)}`,
-      { next: { revalidate: REVALIDATE_SECONDS } },
+      cmsFetchInit(),
     );
     if (!res.ok) return null;
     return (await res.json()) as PublicPassport;
@@ -78,7 +100,7 @@ export async function listPassports(): Promise<PassportSummary[]> {
     `${CMS_API_BASE}/passports` +
     `?where[status][equals]=published&depth=1&limit=100&sort=title`;
   try {
-    const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+    const res = await fetch(url, cmsFetchInit());
     if (!res.ok) return [];
     const data = (await res.json()) as { docs?: PassportListDoc[] };
     return (data.docs || []).map((d) => ({
