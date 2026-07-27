@@ -50,15 +50,20 @@ All seventeen ordered overlays are applied. Every one of them shipped at least
 one defect — see the notes above and the commit messages. Nothing in the ordered
 chain remains.
 
-### Independent of the chain — none applied
+### Independent of the chain — three of five applied
+
+| # | Archive | Status |
+|---|---|---|
+| 18 | ~~reservechain-a11y.zip~~ | **Applied.** axe over 34 routes x 3 locales; four real defects fixed, one of them critical |
+| 19 | ~~reservechain-seo-analytics.zip~~ | **Applied in part.** Sitemap, robots and canonicals applied; the analytics and consent-banner half deleted unapplied |
+| 20 | ~~reservechain-i18n-qa.zip~~ | **Reconciled, catalogues not applied.** One check adopted into the existing parity test; four of the other five redundant or contradictory |
+
+Two remain, neither applied:
 
 | Archive | Would touch | Anything depend on it? |
 |---|---|---|
 | reservechain-monitoring.zip | `infra/terraform/` (alarms, dashboards, SNS) + an error-tracking SDK in each app | **Yes, by absence.** `docs/RUNBOOK.md` and the acceptance checklist both record "no alerting, no dashboards, no on-call" as gaps. This overlay is what would close them. Note it would introduce the project's FIRST telemetry SDK — an AGENTS §8 decision to make deliberately, not inherit (invariant 53) |
 | reservechain-loadtest-k6.zip | a new `perf/` directory | No. Nothing references it. Load-testing an unapplied stack has little meaning until something is deployed |
-| reservechain-seo-analytics.zip | root `src/` (metadata, sitemap, analytics) | No — but two cautions: the site has **no sitemap or robots file** today, and "analytics" here would again be the project's first telemetry |
-| reservechain-a11y.zip | root (`src/` components and pages) | No. The nav already carries `aria-label` and keyboard-reachable menus; this would extend that |
-| reservechain-i18n-qa.zip | root `src/messages/` (diff, never overwrite) | Partly superseded. Key-path parity is already enforced by `tests/i18n-parity.test.mjs` and the root `npm test`; this overlay would need reconciling against that rather than replacing it |
 
 ## Migration order
 
@@ -394,3 +399,43 @@ so a blind `cp -R` can silently revert them.
     an unproven 45-minute emulator job auto-firing on every mobile pull request
     would make them red for reasons nobody has diagnosed. Re-enable automatic
     triggers per workflow, after it has passed manually.
+59. Search-engine indexing is opt-in, never a default, and no origin is ever
+    assumed. `SITE_INDEXABLE` must be the exact string `true` before
+    `robots.txt` allows anything or `sitemap.xml` lists anything; unset means
+    `Disallow: /` and `noindex, nofollow` on every page. `NEXT_PUBLIC_SITE_URL`
+    has no fallback in code — the SEO overlay defaulted it to
+    `https://reservechain.io`, a domain this project neither controls nor has
+    deployed, which would have pointed every canonical tag, hreflang alternate
+    and sitemap `<loc>` at it. A wrong canonical is worse than a missing one.
+    The three `/portal` routes stay out of the index and out of the sitemap
+    even on a deployment that is indexable.
+60. One mechanism per rule. Page metadata is built in `src/lib/meta.ts` and
+    nowhere else; the route list lives in `src/lib/routes.ts` and is held
+    against the file tree by `tests/routes-parity.test.mjs`; locale checks live
+    in `tests/i18n-parity.test.mjs`. Overlays #19 and #20 each shipped a second
+    implementation of a rule this repository already enforced — a parallel
+    `buildMetadata()` and a parallel key-parity script. Two mechanisms for one
+    rule do not stay in agreement, and the half of the codebase still on the
+    older one is the half nobody checks.
+61. A check nobody can run is not a check. The accessibility suite needs a
+    browser download and a running site, so it is a local script
+    (`npm run test:a11y`) and no workflow triggers it; `npm test` stays
+    dependency-free and browserless. Where a suite talks to a running site,
+    the port is explicit — `docker compose` publishes the web container on
+    3000, and a scan that defaults there while compose is up silently reports
+    on the container image instead of the working tree. That is not
+    hypothetical: it happened three times while overlay #18 was being applied.
+62. A colour token carries one contrast role. `copper #C0703B` passes as text
+    on the canvas (5.06:1) and fails behind white text (3.73:1), and no single
+    shade satisfies both — so solid fills use `copperDeep #A85C2B` and text
+    keeps `copper`. Any new token used both ways needs the same split. All
+    WCAG 2.1 AA violations are fixed or explained in the change that
+    introduces them; there are no suppressions in the suite today.
+63. Every outbound call from a render path has a deadline. `src/lib/cms.ts`
+    reads the CMS with `cache: 'no-store'` and a 5s `AbortSignal`, because a
+    `try/catch` without a deadline is not graceful degradation: with the CMS
+    down, `/passports` blocked for over ninety seconds before reaching its
+    empty state. Next's data cache retries underneath `next: { revalidate }`
+    and ignores `signal` on that path, and racing the promise instead returns
+    early while the losing fetch rejects later and tears the response stream —
+    a fast 200 with a truncated body. Keep the request out of that layer.
