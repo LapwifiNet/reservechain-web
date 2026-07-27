@@ -3,7 +3,7 @@ import { Link } from '@/i18n/routing';
 
 type Variant = 'primary' | 'ghost' | 'outline';
 const styles: Record<Variant, string> = {
-  primary: 'bg-copper text-white hover:brightness-110 border border-copper',
+  primary: 'bg-copperDeep text-white hover:brightness-110 border border-copperDeep',
   ghost: 'bg-surface text-text border border-border hover:border-copper',
   outline: 'bg-transparent text-copper border border-copper hover:bg-copper/10',
 };

@@ -63,7 +63,7 @@ export function WaitlistForm() {
           </label>
           <Field label={t('f.org')} value={form.organization} onChange={(v) => setForm({ ...form, organization: v })} />
           <Field label={t('f.interest')} value={form.interest} onChange={(v) => setForm({ ...form, interest: v })} />
-          <button disabled={!step1Ok} onClick={() => setStep(2)} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
+          <button disabled={!step1Ok} onClick={() => setStep(2)} className="rounded-lg bg-copperDeep px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
             {t('next')}
           </button>
         </div>
@@ -77,7 +77,7 @@ export function WaitlistForm() {
           <Check label={t('c.privacy')} checked={consent.privacy} onChange={(v) => setConsent({ ...consent, privacy: v })} />
           <div className="flex gap-3">
             <button onClick={() => setStep(1)} className="rounded-lg border border-border px-5 py-2.5 text-sm">{t('back')}</button>
-            <button disabled={!allConsent || status === 'saving'} onClick={submit} className="rounded-lg bg-copper px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
+            <button disabled={!allConsent || status === 'saving'} onClick={submit} className="rounded-lg bg-copperDeep px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40">
               {status === 'saving' ? t('saving') : t('submit')}
             </button>
           </div>

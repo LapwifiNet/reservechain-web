@@ -34,7 +34,18 @@ export default function RegistryPage() {
         <Notice variant="provisional" />
       </PageHeader>
 
-      <div className="mt-8 overflow-x-auto rounded-xl border border-border">
+      {/*
+        A horizontally scrolling region has to be reachable by keyboard:
+        without tabIndex a keyboard-only user cannot scroll the table to the
+        columns that overflow (WCAG 2.1.1). role+label stop it from being an
+        unnamed tab stop.
+      */}
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label={t('title')}
+        className="mt-8 overflow-x-auto rounded-xl border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-copper"
+      >
         <table className="w-full min-w-[980px] text-sm">
           <caption className="sr-only">{t('title')}</caption>
           <thead>

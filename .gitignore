@@ -36,3 +36,7 @@ backend.hcl
 terraform.rc
 data/waitlist.json
 *.zip
+
+# playwright (a11y suite) artefacts
+/test-results
+/playwright-report

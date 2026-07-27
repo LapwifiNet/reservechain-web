@@ -27,7 +27,7 @@ export default async function PassportsIndexPage({
       <p className="mt-2 text-neutral-400">{t("subtitle")}</p>
 
       {passports.length === 0 ? (
-        <p className="mt-8 text-neutral-500">{t("empty")}</p>
+        <p className="mt-8 text-text2">{t("empty")}</p>
       ) : (
         <ul className="mt-8 space-y-3">
           {passports.map((p) => (

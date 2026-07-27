@@ -1,4 +1,7 @@
 {
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
   "nav": {
     "primary": "Primary",
     "menu": "Menu",

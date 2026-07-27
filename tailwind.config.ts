@@ -7,7 +7,7 @@ const config: Config = {
         canvas: '#0E1116', surface: '#171A21', surface2: '#1F232C',
         border: '#2A2F3A', ink: '#16181D',
         text: '#ECEEF1', text2: '#A2ABB8',
-        copper: '#C0703B', nickel: '#6B7785', brand: '#2783DE',
+        copper: '#C0703B', copperDeep: '#A85C2B', nickel: '#8792A1', brand: '#2783DE',
         ok: '#46A171', warn: '#D5803B', danger: '#E56458',
       },
       borderRadius: { xl: '12px', lg: '8px' },

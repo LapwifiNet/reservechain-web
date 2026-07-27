@@ -67,7 +67,7 @@ export default function Nav() {
           </Link>
           <Link
             href="/waitlist"
-            className="hidden rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white hover:brightness-110 sm:inline-block"
+            className="hidden rounded-lg bg-copperDeep px-4 py-2 text-sm font-medium text-white hover:brightness-110 sm:inline-block"
           >
             {t('cta')}
           </Link>
@@ -101,7 +101,7 @@ export default function Nav() {
           </Link>
           <Link
             href="/waitlist"
-            className="mt-2 inline-block rounded-lg bg-copper px-4 py-2 text-sm font-medium text-white"
+            className="mt-2 inline-block rounded-lg bg-copperDeep px-4 py-2 text-sm font-medium text-white"
           >
             {t('cta')}
           </Link>
