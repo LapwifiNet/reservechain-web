@@ -1,4 +1,10 @@
 import PortalAuthForm from "../PortalAuthForm";
+import { routeMetadata } from "@/lib/meta";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return routeMetadata('/portal/login', params.locale);
+}
+
 
 export const dynamic = "force-dynamic";
 

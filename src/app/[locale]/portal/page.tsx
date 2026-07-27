@@ -5,6 +5,12 @@ import { INVESTOR_COOKIE, fetchInvestorStatus } from "@/lib/investor";
 import { Disclosure } from "@/components/Disclosure";
 import { StatusTag } from "@/components/StatusTag";
 import PortalHeader from "./PortalHeader";
+import { routeMetadata } from "@/lib/meta";
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return routeMetadata('/portal', params.locale);
+}
+
 
 export const dynamic = "force-dynamic";
 

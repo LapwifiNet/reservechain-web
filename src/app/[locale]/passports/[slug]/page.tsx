@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { getPassport } from "@/lib/cms";
+import { routeMetadata } from "@/lib/meta";
 import PassportView from "@/components/PassportView";
 
 export const revalidate = 300;
@@ -17,6 +18,9 @@ export async function generateMetadata({
   return {
     title: `${passport.title} · ${t("title")}`,
     description: passport.program.title || undefined,
+    // Slug-level canonical: the same passport is reachable in three locales,
+    // and without this each one competes with the other two.
+    ...routeMetadata(`/passports/${slug}`, locale),
   };
 }
 

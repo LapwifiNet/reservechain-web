@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { listPassports } from "@/lib/cms";
+import { routeMetadata } from "@/lib/meta";
 
 export const revalidate = 300;
 
@@ -10,7 +11,11 @@ export async function generateMetadata({
   params: { locale: string };
 }) {
   const t = await getTranslations({ locale, namespace: "Passports" });
-  return { title: t("title"), description: t("subtitle") };
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+    ...routeMetadata("/passports", locale),
+  };
 }
 
 export default async function PassportsIndexPage({

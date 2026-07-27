@@ -2,6 +2,12 @@ import { useTranslations } from 'next-intl';
 import { Disclosure } from '@/components/Disclosure';
 import { SpecTable } from '@/components/SpecTable';
 import { StatusTag } from '@/components/StatusTag';
+import { routeMetadata } from '@/lib/meta';
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return routeMetadata('/copper-powder', params.locale);
+}
+
 
 export default function CopperPowder() {
   const t = useTranslations('program');

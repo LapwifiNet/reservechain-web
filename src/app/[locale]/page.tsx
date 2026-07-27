@@ -4,6 +4,12 @@ import { Button } from '@/components/Button';
 import { Disclosure } from '@/components/Disclosure';
 import { Section, Card, CardGrid } from '@/components/Section';
 import { StatusTag } from '@/components/StatusTag';
+import { routeMetadata } from '@/lib/meta';
+
+export function generateMetadata({ params }: { params: { locale: string } }) {
+  return routeMetadata('', params.locale);
+}
+
 
 /**
  * Home page — the 22 sections required by FR-WEB-2, in the order set by the
