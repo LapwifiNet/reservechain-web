@@ -65,6 +65,31 @@ Two remain, neither applied:
 | reservechain-monitoring.zip | `infra/terraform/` (alarms, dashboards, SNS) + an error-tracking SDK in each app | **Yes, by absence.** `docs/RUNBOOK.md` and the acceptance checklist both record "no alerting, no dashboards, no on-call" as gaps. This overlay is what would close them. Note it would introduce the project's FIRST telemetry SDK — an AGENTS §8 decision to make deliberately, not inherit (invariant 53) |
 | reservechain-loadtest-k6.zip | a new `perf/` directory | No. Nothing references it. Load-testing an unapplied stack has little meaning until something is deployed |
 
+**What has to be true before monitoring can be applied.** An alarm names a
+resource, so the Terraform stack has to have been applied at least once —
+today it never has: there is no state, no backend, and `AWS_DEPLOY_ROLE_ARN`
+does not exist, so every alarm would reference an ARN nobody can resolve and
+`terraform plan` would be the only thing anyone could run. It also needs a
+decision the repository has never made: which error-tracking SDK, in which of
+the five packages, sending what to whose account. That is the project's first
+telemetry of any kind, and the same reason the analytics half of overlay #19
+was deleted rather than applied applies here — a privacy position first, an
+SDK second. Finally an alarm needs a destination: an SNS topic is not an
+on-call rotation, and `docs/RUNBOOK.md` records that there is no rotation and
+no owner to page. Applying it before those three things exist produces
+infrastructure that cannot be planned, telemetry nobody chose, and alerts
+nobody receives.
+
+**What has to be true before loadtest-k6 can be applied.** An environment
+worth measuring. Nothing is deployed: no API host, no database outside
+`docker compose`, no CDN in front of the website. Run against compose on a
+laptop it measures the laptop, and a number produced that way is worse than no
+number because it gets quoted later. It also needs a target to compare
+against — there is no latency or throughput budget written down anywhere in
+this repository — and a decision about data, since a load test that exercises
+`POST /waitlist` writes registration rows (invariant 57 covers exactly this
+for the mobile E2E job and applies unchanged here).
+
 ## Migration order
 
 `p6_auth_kyc` (already applied) -> `waitlist_website_fields` -> `audit_log`
