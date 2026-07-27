@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 import { alternatesFor, robotsFor, siteUrl } from '@/lib/seo';
+
+const SITE_NAME = 'ReserveChain.io';
 
 /**
  * Per-page SEO metadata sourced from the same message namespace the page
@@ -34,6 +37,15 @@ export function pageMetadata(ns: string, routeFor?: string) {
  * waitlist and the three portal pages. Without it those emitted no canonical
  * at all, so `/en/waitlist` and `/it/waitlist` looked to a crawler like two
  * unrelated pages carrying the same layout metadata.
+ *
+ * The Open Graph and Twitter cards carry no image. The overlay pointed both at
+ * /og/default.png and /og/logo.png; there is no public/ directory in this
+ * repo, so a card would have resolved to a broken image. Everything else about
+ * a card is still worth emitting — og:title and og:description are filled by
+ * Next from the page's own title and description, so the card says exactly
+ * what the page says, and `summary` is the correct card type for one with no
+ * image. og:locale plus alternateLocale is what tells a scraper the same page
+ * exists in the other two languages.
  */
 export function routeMetadata(route: string, locale: string): Metadata {
   const origin = siteUrl();
@@ -42,5 +54,13 @@ export function routeMetadata(route: string, locale: string): Metadata {
     ...(origin ? { metadataBase: new URL(origin) } : {}),
     ...(alternates ? { alternates: alternates(locale) } : {}),
     robots: robotsFor(route),
+    openGraph: {
+      type: 'website',
+      siteName: SITE_NAME,
+      locale,
+      alternateLocale: routing.locales.filter((l) => l !== locale),
+      ...(origin ? { url: `${origin}/${locale}${route}` } : {}),
+    },
+    twitter: { card: 'summary' },
   };
 }
