@@ -70,19 +70,19 @@
   route: /[locale]/legal-structure
   status: partial
   regions: [banner-proposed, spv-diagram]
-  gap: InfoPage; không có sơ đồ SPV
+  gap: TimelineList slot đã có; còn thiếu sơ đồ SPV thật
 
 - id: SC-WEB-TOKENIZE
   route: /[locale]/tokenization
   status: partial
   regions: [banner-testnet, erc20-lifecycle, parameter-table]
-  gap: InfoPage; thiếu lifecycle diagram và bảng tham số illustrative
+  gap: SpecTable slot đã có (parameter rows = pending, không bịa); còn thiếu lifecycle diagram
 
 - id: SC-WEB-REDEEM
   route: /[locale]/redemption
   status: partial
   regions: [banner-inactive, process-diagram, eligibility-table]
-  gap: InfoPage
+  gap: Diagram slot đã có (process steps); còn thiếu eligibility-table
   note: liên quan D3
 
 - id: SC-WEB-ENT
@@ -126,7 +126,8 @@
 - id: SC-WEB-ROADMAP
   route: /[locale]/roadmap
   status: partial
-  gap: InfoPage; spec ngụ ý timeline có mốc + trạng thái
+  regions: [timeline-milestones]
+  gap: TimelineList slot đã có (5 stages); còn thiếu status chips theo D5
 
 - id: SC-WEB-GOV
   route: /[locale]/governance
