@@ -16,8 +16,10 @@
 > none. Specifically, none of the following exists or has ever run: GitHub
 > Actions (billing-locked — no workflow has ever executed), any AWS resource
 > (`infra/terraform/` is validated, never applied), any monitoring alarm,
-> dashboard or on-call rotation, any mobile binary, device or emulator run, any
-> app-store listing, and any hosted URL.
+> dashboard or on-call rotation, any release binary, any iOS build of any kind,
+> any app-store listing, and any hosted URL. A **debug APK** has been built and
+> run on an Android emulator (see P13) — that is the only binary that exists and
+> the only device-class environment anything has run in.
 >
 > Do not sign this document as evidence of acceptance testing. It is a statement
 > of what has and has not been checked.
@@ -199,18 +201,20 @@ name, email address, wallet address or payment instrument.
 | QA-07 | Passport | Open a published passport | Renders program, highlights, disclosure; `tokenMapping` is `null` | ✅ Verified. The **activated** token-mapping path has never been exercised — no lot has been activated |
 | QA-08 | Audit | Perform an admin mutation | Entry appears, attributed and timestamped | ✅ Verified |
 | QA-09 | Health | `GET /api/health` | 200 ok | ✅ Verified |
-| QA-10 | Mobile | Launch app, browse programs, submit waitlist | Parity with web; disclosure present | ⚠️ Unverifiable — never run on a device |
+| QA-10 | Mobile | Launch app, browse programs, submit waitlist | Parity with web; disclosure present | ✅ Verified **in part** on the Android emulator (debug APK, `Linken_AdMachine`): the app launches, the disclosure renders verbatim, and the waitlist submits against a real `POST /waitlist` (Maestro 03). **Browsing programs is not covered** — Maestro 06 needs the CMS reachable from the emulator with published programs. See P13 |
 | QA-11 | Token domains | Present an admin token to an investor route and vice versa | 401 in both directions, including cross-signed forgeries | ✅ Verified |
 | QA-12 | Sign-in audit | Fail a sign-in against a real and an unknown account | Two byte-identical audit rows; neither names the attempted address | ✅ Verified |
 
 ## Environment pre-flight
 
 - [ ] `.env` set for api / web / admin / cms; both databases reachable
+- [ ] `cms/.env` present — `DATABASE_URI` is required and has no fallback. Confirm the port belongs to this project's CMS Postgres (`lsof -iTCP:5433 -sTCP:LISTEN -n -P`) before migrating: a wrong port connects and migrates rather than failing
 - [ ] Migrations applied in order — the actual on-disk chain is:
       `init_db` → `p6_auth_kyc` → `p9_audit_log` → `waitlist_website_fields` →
       `investor_portal` → `drop_legacy_waitlist_table` → `por_redemption` →
       `wallet_purchase`
 - [ ] CMS on its own database (`reservechain_cms`) and its own Postgres instance
+- [ ] CMS `settings` row created — `npm run seed` does **not** create it, and until it exists the website silently falls back to the `SITE_MODE` env value and the first state on each status scale
 - [ ] All `*_ENABLED` flags = `false`
 - [ ] Seed accounts created locally (random password, printed once)
 - [ ] Synthetic test data only — no real personal data anywhere
@@ -231,8 +235,9 @@ counted separately below).
 | ⬜ Client decision | 3 |
 | **Total** | **77** |
 
-QA matrix: 10 of 12 verified, 1 unverifiable (QA-10, mobile on a device), and
-QA-07's activated-token-mapping path unexercised.
+QA matrix: 11 of 12 verified, QA-10 verified in part (launch and waitlist on the
+Android emulator; browsing programs unexercised), and QA-07's
+activated-token-mapping path unexercised.
 
 The seven **Absent** items are the gaps this checklist would otherwise have
 ticked silently: no whitepaper, no architecture docs, no admin toggle UI, no
