@@ -6,6 +6,7 @@ import { routing } from '@/i18n/routing';
 import { robotsFor, siteUrl } from '@/lib/seo';
 import Nav from '@/components/Nav';
 import SkipLink from '@/components/SkipLink';
+import { ModeBanner } from '@/components/ModeBanner';
 import Footer from '@/components/Footer';
 import '@/styles/globals.css';
 
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <SkipLink />
+          <ModeBanner />
           <Nav />
           <main id="main-content">{children}</main>
           <Footer />

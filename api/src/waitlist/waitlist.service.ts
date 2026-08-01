@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { MailService } from '../mail/mail.service';
 import { CreateWaitlistDto } from './dto/create-waitlist.dto';
 import {
   WaitlistCreated,
@@ -8,7 +9,10 @@ import {
 
 @Injectable()
 export class WaitlistService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mail: MailService,
+  ) {}
 
   /**
    * Idempotent on email. Re-submitting an address returns the existing entry's
@@ -29,6 +33,13 @@ export class WaitlistService {
 
     try {
       const entry = await this.prisma.waitlistEntry.create({ data: { ...dto } });
+      // Confirmation mail is fire-and-forget: it must never fail the
+      // registration, and MailService already swallows its own errors.
+      await this.mail.sendWaitlistConfirmation({
+        email: entry.email,
+        name: entry.fullName,
+        entryId: entry.id,
+      });
       return { ok: true, id: entry.id };
     } catch (e: any) {
       // Two submissions of the same address can race between the lookup and the

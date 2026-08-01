@@ -1283,5 +1283,11 @@
       "provisional": "Provvisorio",
       "full": "Completo"
     }
+  },
+  "mode": {
+    "label": "Website mode: {mode}",
+    "development": "Development deployment — content may change or be reset at any time. This is not the production site.",
+    "waitlist": "Waiting list is open. Registrations express interest only and do not constitute an investment or reservation.",
+    "other": "This deployment is in {mode} mode. Nothing on this site is an offer or sale of tokens."
   }
 }
