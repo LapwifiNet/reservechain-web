@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type {
   KycCase,
   KycCaseStatus,
@@ -90,12 +90,41 @@ export function KycConsole({
   cases: KycCase[];
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [newCase, setNewCase] = useState<NewCase>(BLANK);
   const [review, setReview] = useState<ReviewState | null>(null);
+
+  // Per-case permalink (?case=<id>) — the replacement for the /kyc/[id]
+  // route that was dropped: a review decision can be linked to, reloaded,
+  // and shared between compliance officers without an extra route.
+  const openReview = (c: KycCase) => {
+    setReview({
+      id: c.id,
+      legalName: c.legalName,
+      status: c.status,
+      riskLevel: c.riskLevel ?? "unrated",
+      notes: c.notes ?? "",
+    });
+    router.replace(`/kyc?case=${encodeURIComponent(c.id)}`, { scroll: false });
+  };
+
+  const closeReview = () => {
+    setReview(null);
+    router.replace("/kyc", { scroll: false });
+  };
+
+  // Deep-link: ?case=<id> on first paint opens that case's review modal.
+  // Only when the id exists in the fetched list — an unknown id leaves the
+  // console in its default state instead of rendering an empty modal.
+  const initial = searchParams.get("case");
+  if (initial && !review) {
+    const match = cases.find((c) => c.id === initial);
+    if (match) openReview(match);
+  }
 
   const count = (s: string) =>
     stats.byStatus.find((b) => b.status === s)?.count ?? 0;
@@ -146,6 +175,7 @@ export function KycConsole({
       });
       if (res.ok) {
         setReview(null);
+        router.replace("/kyc", { scroll: false });
         router.refresh();
       } else {
         setMsg(
@@ -347,15 +377,7 @@ export function KycConsole({
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
                     <button
-                      onClick={() =>
-                        setReview({
-                          id: c.id,
-                          legalName: c.legalName,
-                          status: c.status,
-                          riskLevel: c.riskLevel ?? "unrated",
-                          notes: c.notes ?? "",
-                        })
-                      }
+                      onClick={() => openReview(c)}
                       className="rounded-md border border-border px-2.5 py-1 text-xs text-text-2 hover:bg-surface-2 hover:text-text"
                     >
                       Review
@@ -378,7 +400,7 @@ export function KycConsole({
       {review && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          onClick={() => !busy && setReview(null)}
+          onClick={() => !busy && closeReview()}
         >
           <div
             className="w-full max-w-md rounded-xl border border-border bg-surface p-6"
@@ -437,7 +459,7 @@ export function KycConsole({
 
             <div className="mt-6 flex justify-end gap-3">
               <button
-                onClick={() => setReview(null)}
+                onClick={() => closeReview()}
                 disabled={busy}
                 className="rounded-md border border-border px-4 py-2 text-sm text-text-2 hover:bg-surface-2 disabled:opacity-50"
               >
