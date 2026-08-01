@@ -249,3 +249,36 @@ model Enquiry {
 
   @@index([kind, createdAt])
 }
+
+// ── P17 — Reconciliation (FR-RECON) ─────────────────────────────────────
+// A run records one execution of the reconciliation suite. Results are
+// never auto-adjusted — exceptions are reported for human resolution.
+model ReconcileRun {
+  id         String   @id @default(cuid())
+  type       String // e.g. chain_gaps | audit_integrity | supply_coverage (registered, unavailable until sources active)
+  status     String   @default("completed") // completed | failed
+  summary    Json? // counts, verdict per check
+  createdBy  String? // admin email when started by a user
+  startedAt  DateTime @default(now())
+  finishedAt DateTime @updatedAt
+
+  exceptions ReconcileException[]
+
+  @@index([type, startedAt])
+}
+
+model ReconcileException {
+  id        String   @id @default(cuid())
+  runId     String
+  run       ReconcileRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+  code      String // e.g. chain_gap | duplicate_event | audit_break | coverage_mismatch
+  severity  String   @default("warning") // info | warning | critical
+  message   String
+  data      Json?
+  resolved  Boolean  @default(false)
+  resolvedBy String?
+  resolvedAt DateTime?
+
+  @@index([resolved, code])
+  @@index([runId])
+}

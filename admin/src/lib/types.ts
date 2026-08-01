@@ -54,3 +54,6 @@ export type KycStats = Schemas["KycStats"];
 export type KycSubjectType = KycCase["subjectType"];
 export type KycCaseStatus = KycCase["status"];
 export type KycRiskLevel = NonNullable<KycCase["riskLevel"]>;
+
+export type ReconcileRun = Schemas["ReconcileRunResponse"];
+export type ReconcileException = Schemas["ReconcileExceptionSummary"];

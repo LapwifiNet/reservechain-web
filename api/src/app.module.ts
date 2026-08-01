@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { HealthModule } from './health/health.module';
 import { WaitlistModule } from './waitlist/waitlist.module';
 import { EnquiriesModule } from './enquiries/enquiries.module';
+import { ReconcileModule } from './reconcile/reconcile.module';
 import { AssetsModule } from './assets/assets.module';
 import { PassportsModule } from './passports/passports.module';
 import { TokenomicsModule } from './tokenomics/tokenomics.module';
@@ -39,6 +40,7 @@ import { AuditInterceptor } from './audit/audit.interceptor';
     HealthModule,
     WaitlistModule,
     EnquiriesModule,
+    ReconcileModule,
     AssetsModule,
     PassportsModule,
     TokenomicsModule,

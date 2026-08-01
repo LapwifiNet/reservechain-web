@@ -1243,6 +1243,88 @@
         ],
         "type": "object"
       },
+      "ReconcileExceptionSummary": {
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          },
+          "id": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "resolved": {
+            "type": "boolean"
+          },
+          "resolvedAt": {
+            "nullable": true,
+            "type": "string"
+          },
+          "resolvedBy": {
+            "nullable": true,
+            "type": "string"
+          },
+          "runId": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "runId",
+          "code",
+          "severity",
+          "message",
+          "resolved"
+        ],
+        "type": "object"
+      },
+      "ReconcileRunResponse": {
+        "properties": {
+          "createdBy": {
+            "nullable": true,
+            "type": "string"
+          },
+          "exceptions": {
+            "items": {
+              "$ref": "#/components/schemas/ReconcileExceptionSummary"
+            },
+            "type": "array"
+          },
+          "finishedAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "object"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "status",
+          "startedAt",
+          "finishedAt"
+        ],
+        "type": "object"
+      },
       "RegisterInvestorDto": {
         "properties": {
           "email": {
@@ -1289,6 +1371,10 @@
         ],
         "type": "object"
       },
+      "ResolveExceptionDto": {
+        "properties": {},
+        "type": "object"
+      },
       "ReviewKycCaseDto": {
         "properties": {
           "notes": {
@@ -1317,6 +1403,10 @@
         "required": [
           "status"
         ],
+        "type": "object"
+      },
+      "RunReconcileDto": {
+        "properties": {},
         "type": "object"
       },
       "SettlePurchaseDto": {
@@ -2597,6 +2687,227 @@
         },
         "tags": [
           "inactive"
+        ]
+      }
+    },
+    "/api/reconcile/exceptions": {
+      "get": {
+        "operationId": "Reconcile_exceptions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "severity",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReconcileExceptionSummary"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "reconcile"
+        ]
+      }
+    },
+    "/api/reconcile/exceptions/{id}/resolve": {
+      "post": {
+        "operationId": "Reconcile_resolve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveExceptionDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReconcileExceptionSummary"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "reconcile"
+        ]
+      }
+    },
+    "/api/reconcile/run": {
+      "post": {
+        "operationId": "Reconcile_run",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunReconcileDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReconcileRunResponse"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "reconcile"
+        ]
+      }
+    },
+    "/api/reconcile/runs": {
+      "get": {
+        "operationId": "Reconcile_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReconcileRunResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "reconcile"
+        ]
+      }
+    },
+    "/api/reconcile/runs/{id}": {
+      "get": {
+        "operationId": "Reconcile_detail",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReconcileRunResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "reconcile"
         ]
       }
     },

@@ -7,6 +7,8 @@ import type {
   Tokenomics,
   WaitlistEntry,
   Enquiry,
+  ReconcileRun,
+  ReconcileException,
   AuditListResponse,
   ChainVerificationResult,
   KycCase,
@@ -46,6 +48,35 @@ async function get<T>(path: string): Promise<ApiResult<T>> {
   }
 }
 
+
+async function post<T>(path: string, body: unknown): Promise<ApiResult<T>> {
+  const token = getToken();
+  try {
+    const res = await fetch(`${BASE}${path}`, {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "content-type": "application/json",
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      if (res.status === 401 || res.status === 403) {
+        return {
+          data: null,
+          error: `Unauthorized (HTTP ${res.status}) — sign in again`,
+        };
+      }
+      return { data: null, error: `HTTP ${res.status} ${res.statusText}` };
+    }
+    return { data: (await res.json()) as T, error: null };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "network_error";
+    return { data: null, error: msg };
+  }
+}
+
 export const api = {
   base: BASE,
   dashboardStats: () => get<DashboardStats>("/dashboard/stats"),
@@ -54,6 +85,12 @@ export const api = {
   passports: () => get<Passport[]>("/passports"),
   waitlist: () => get<WaitlistEntry[]>("/waitlist"),
   enquiries: () => get<Enquiry[]>("/enquiries"),
+  reconcileRuns: () => get<ReconcileRun[]>("/reconcile/runs"),
+  reconcileExceptions: () => get<ReconcileException[]>("/reconcile/exceptions"),
+  reconcileRun: (type: string) =>
+    post<ReconcileRun>("/reconcile/run", { type }),
+  resolveException: (id: string) =>
+    post<ReconcileException>(`/reconcile/exceptions/${id}/resolve`, {}),
   tokenomics: () => get<Tokenomics>("/tokenomics"),
   audit: (params: {
     skip?: number;

@@ -525,6 +525,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/reconcile/exceptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reconcile_exceptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reconcile/exceptions/{id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Reconcile_resolve"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reconcile/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Reconcile_run"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reconcile/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reconcile_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reconcile/runs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reconcile_detail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/redemption": {
         parameters: {
             query?: never;
@@ -1098,6 +1178,27 @@ export interface components {
             /** @description Always `Illustrative` until a real template is authorised. */
             template: string;
         };
+        ReconcileExceptionSummary: {
+            code: string;
+            data?: Record<string, never>;
+            id: string;
+            message: string;
+            resolved: boolean;
+            resolvedAt?: string | null;
+            resolvedBy?: string | null;
+            runId: string;
+            severity: string;
+        };
+        ReconcileRunResponse: {
+            createdBy?: string | null;
+            exceptions?: components["schemas"]["ReconcileExceptionSummary"][];
+            finishedAt: string;
+            id: string;
+            startedAt: string;
+            status: string;
+            summary?: Record<string, never>;
+            type: string;
+        };
         RegisterInvestorDto: {
             email: string;
             fullName: string;
@@ -1109,6 +1210,7 @@ export interface components {
         RejectRedemptionDto: {
             reason: string;
         };
+        ResolveExceptionDto: Record<string, never>;
         ReviewKycCaseDto: {
             notes?: string;
             /** @enum {string} */
@@ -1116,6 +1218,7 @@ export interface components {
             /** @enum {string} */
             status: "pending" | "in_review" | "approved" | "rejected";
         };
+        RunReconcileDto: Record<string, never>;
         SettlePurchaseDto: {
             txRef?: string;
         };
@@ -1955,6 +2058,133 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    Reconcile_exceptions: {
+        parameters: {
+            query: {
+                code: string;
+                severity: string;
+                take: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconcileExceptionSummary"][];
+                };
+            };
+        };
+    };
+    Reconcile_resolve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResolveExceptionDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconcileExceptionSummary"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Reconcile_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RunReconcileDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconcileRunResponse"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    Reconcile_list: {
+        parameters: {
+            query: {
+                take: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconcileRunResponse"][];
+                };
+            };
+        };
+    };
+    Reconcile_detail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReconcileRunResponse"];
+                };
             };
         };
     };
