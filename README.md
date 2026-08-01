@@ -68,7 +68,7 @@ docker compose up --build
 | Admin console | http://localhost:4100 | reads the API server-side |
 | CMS | http://localhost:3001/admin | Payload; asset registry + public passports |
 | PostgreSQL | `localhost:5432` | user/db `reservechain` |
-| PostgreSQL (CMS) | `localhost:5433` | user `reservechain`, db `reservechain_cms` |
+| PostgreSQL (CMS) | `localhost:5433` | user `reservechain`, db `reservechain_cms`. Check the port is free first — `lsof -iTCP:5433 -sTCP:LISTEN -n -P` — and override with `CMS_POSTGRES_PORT`. Pointing the CMS at the wrong Postgres does not error; it migrates it |
 
 `.env` is gitignored — `JWT_SECRET`, `SERVICE_API_TOKEN`, `INVESTOR_JWT_SECRET` and
 `PAYLOAD_SECRET` must each be at least 32 characters or the services refuse to start.
@@ -78,6 +78,10 @@ unauthorised in another — it fails signature verification. The CMS also runs a
 its own database and never touches the API's. The admin console authenticates to the
 API with `SERVICE_API_TOKEN`, so
 both services read the same value.
+
+Running the CMS outside Docker needs `cms/.env` — `DATABASE_URI` is required and has no
+fallback, because a connection string that is wrong still connects and still migrates,
+against the wrong database.
 
 **Development with hot reload** — bind-mounts the working tree and runs `next dev` /
 `nest start --watch`, so edits on the host reload inside the containers:
@@ -121,7 +125,7 @@ contracts/                 # Solidity + Foundry ERC-20 suite (testnet only)
   test/                    # Foundry tests
 
 cms/                       # Payload v2 CMS on Express; own database, port 3001
-  src/collections/         # AssetPrograms, AssetRecords, Passports, Media, Users
+  src/collections/         # AssetPrograms, AssetRecords, Passports, Media, Users, Settings
   src/access/              # role-based access rules
   src/migrations/          # Payload schema migrations
   src/seed/                # seed script (random admin password unless SEED_ADMIN_PASSWORD)
@@ -130,16 +134,27 @@ infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet invento
 mobile/                    # Expo app (iOS + Android); standalone, not an npm workspace
 docs/                      # RUNBOOK, USER-MANUAL, ADMIN-MANUAL, TRAINING
                            #   (operations + onboarding; not the specification)
+  spec/                    # one-way read-only mirror of the Notion spec:
+                           #   screens.yaml (80 screen ids), decisions.yaml (D1-D6).
+                           #   Gated by `npm run verify:screens`
 infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR,
                            #   Secrets Manager). Validated, never applied
 ```
 
 The React Native app (`mobile/`, P13) exists — Expo SDK 51, iOS + Android, investor domain
-only — and has been verified with lint and `tsc --noEmit`; it has **never been run on a
-device or built into a binary**, and none of its six Maestro flows has been executed. `docs/` holds the operations
-runbook, the user and admin manuals and the training guide; the full specification (brief,
-PRD, wireframes, roadmap) stays in Notion (P21); only the screen registry + decision log
-(`docs/spec/`, one-way mirror from Notion, CI-gated by `npm run verify:screens`) are in-repo. Payload CMS (`cms/`, P10) exists — see the entry above and the
+only — verified with lint and `tsc --noEmit`, and a **debug APK has been built and run on
+an Android emulator** (`Linken_AdMachine`). Four of its six Maestro flows pass there
+(`01-home-smoke`, `02-waitlist-validation`, `03-waitlist-happy-path` against a real
+`POST /waitlist`, `04-i18n-switch`); `05-investor-auth` and `06-programs-passport` fail on
+environment rather than app code, needing the API and CMS reachable from the emulator.
+**No release binary exists, no iOS build of any kind has been produced, and nothing is
+published to an app store** — EAS Build has never run. `docs/` holds the operations
+runbook, the user and admin manuals and the training guide. The **authoritative**
+specification (brief, PRD, wireframes, roadmap) stays in Notion (P21); only the screen
+registry and decision log are mirrored in-tree, as `docs/spec/screens.yaml` (84 screen ids)
+and `docs/spec/decisions.yaml` (D1–D6). That mirror is one-way and read-only — change
+Notion and re-sync; never edit the YAML to change the spec — and `npm run verify:screens`
+gates it in CI. Payload CMS (`cms/`, P10) exists — see the entry above and the
 Docker service table. The Terraform infrastructure (`infra/terraform/`, P19) exists and is
 verified with `terraform validate` and `fmt -check`; it has never been applied, and no AWS
 resource exists as a result of anything in this repository.
@@ -189,8 +204,7 @@ Three separate layers, with different holders and different terms:
 | --- | --- | --- |
 | The code in this repository | Tin Ly | Licensed under Apache License 2.0 ([LICENSE](LICENSE)). Licensed, never assigned. |
 | The "ReserveChain" name, logo, visual identity and the `reservechain.io` domain | The prospective client | **Not licensed by this repository.** Apache 2.0 section 6 grants no trademark rights. See [TRADEMARKS.md](TRADEMARKS.md). |
-| The specification and brief | The prospective client | The authoritative specification lives in Notion. The repository carries only a read-only, one-way mirror of the screen registry + decision log (`docs/spec/`), which is CI-gated; it is not a substitute for the spec. |
-
+| The specification and brief | The prospective client | The authoritative specification lives in Notion. Only the screen registry and decision log are mirrored in-tree (`docs/spec/`), one-way and read-only. |
 The code published here is licensed under Apache License 2.0. That grant is perpetual and
 irrevocable for anyone who has already obtained a copy, and a later transfer of repository
 ownership does not revoke it.
