@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { PageHeader } from './PageHeader';
 import { Notice } from './Notice';
 import { Disclosure } from './Disclosure';
+import { ReactNode } from 'react';
 
 type Block = { h: string; p: string; li?: string[] };
 
@@ -12,15 +13,24 @@ type Block = { h: string; p: string; li?: string[] };
  *
  * `notice` renders the mandated pre-approval banner for the page type, and
  * long-form pages stay inside the 680-760px measure from the design system.
+ *
+ * Since the Screen Registry pass (step 2), this component is a *composition
+ * base*: `children` render after the content blocks, so a page can declare
+ * slots (Diagram / TimelineList / SpecTable / StatusPanel / EnquiryForm)
+ * without abandoning the shared header, notice and disclosure. Pages that
+ * still render only InfoPage are exactly the ones `verify:screens` check 4
+ * flags — add a slot, don't fork the layout.
  */
 export function InfoPage({
   ns,
   notice,
   narrow = false,
+  children,
 }: {
   ns: string;
   notice?: 'provisional' | 'draft' | 'proposed';
   narrow?: boolean;
+  children?: ReactNode;
 }) {
   const t = useTranslations(`page.${ns}`);
   const blocks = t.raw('s') as Block[];
@@ -47,6 +57,8 @@ export function InfoPage({
             ) : null}
           </section>
         ))}
+
+        {children ? <div className="py-8">{children}</div> : null}
       </div>
 
       <div className="py-10">

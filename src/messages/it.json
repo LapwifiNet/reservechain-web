@@ -521,7 +521,24 @@
           "h": "Stato attuale",
           "p": "Il modulo Prova delle Riserve è costruito ma inattivo. Nessuna cifra di riserva, rapporto di copertura o attestazione è pubblicata, e nessuna lo sarà finché non saranno disponibili dati di origine, un attestatore nominato e un'autorizzazione scritta."
         }
-      ]
+      ],
+      "dash": {
+        "reserve": {
+          "label": "Stato delle riserve",
+          "value": "In sospeso",
+          "note": "I dati sulle riserve saranno pubblicati solo dopo verifica documentale e approvazione scritta."
+        },
+        "supply": {
+          "label": "Offerta di token",
+          "value": "Non emesso",
+          "note": "Nessun token è stato emesso. Le cifre dell'offerta saranno mostrate una volta definite e approvate."
+        },
+        "coverage": {
+          "label": "Copertura delle riserve",
+          "value": "In sospeso",
+          "note": "Il rapporto di copertura sarà calcolato solo da dati di riserve e offerta approvati."
+        }
+      }
     },
     "industrial-metal-assets": {
       "kicker": "Programmi di attivi",

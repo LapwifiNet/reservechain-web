@@ -5,6 +5,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from './prisma/prisma.module';
 import { HealthModule } from './health/health.module';
 import { WaitlistModule } from './waitlist/waitlist.module';
+import { EnquiriesModule } from './enquiries/enquiries.module';
 import { AssetsModule } from './assets/assets.module';
 import { PassportsModule } from './passports/passports.module';
 import { TokenomicsModule } from './tokenomics/tokenomics.module';
@@ -37,6 +38,7 @@ import { AuditInterceptor } from './audit/audit.interceptor';
     PrismaModule,
     HealthModule,
     WaitlistModule,
+    EnquiriesModule,
     AssetsModule,
     PassportsModule,
     TokenomicsModule,

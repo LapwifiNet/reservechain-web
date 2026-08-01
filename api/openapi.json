@@ -416,6 +416,46 @@
         ],
         "type": "object"
       },
+      "CreateEnquiryDto": {
+        "properties": {
+          "company": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "fullName": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "enterprise",
+              "asset-owner",
+              "industrial-buyer",
+              "contact"
+            ],
+            "type": "string"
+          },
+          "locale": {
+            "maxLength": 10,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 2000,
+            "minLength": 10,
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "fullName",
+          "email",
+          "message"
+        ],
+        "type": "object"
+      },
       "CreateKycCaseDto": {
         "properties": {
           "country": {
@@ -629,6 +669,60 @@
           "programs",
           "records",
           "passportsIssued"
+        ],
+        "type": "object"
+      },
+      "EnquiryCreated": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "id"
+        ],
+        "type": "object"
+      },
+      "EnquiryResponse": {
+        "properties": {
+          "company": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "fullName",
+          "email",
+          "message",
+          "locale",
+          "createdAt"
         ],
         "type": "object"
       },
@@ -1687,6 +1781,83 @@
         ],
         "tags": [
           "dashboard"
+        ]
+      }
+    },
+    "/api/enquiries": {
+      "get": {
+        "operationId": "Enquiries_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EnquiryResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "enquiries"
+        ]
+      },
+      "post": {
+        "operationId": "Enquiries_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnquiryDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnquiryCreated"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnquiryCreated"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "enquiries"
         ]
       }
     },

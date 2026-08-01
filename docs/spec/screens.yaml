@@ -15,7 +15,7 @@
   route: /[locale]/how-it-works
   status: partial
   regions: [banner-proposed, diagram-7-step]
-  gap: chỉ InfoPage (heading + paragraph); không có diagram 7 bước
+  gap: Diagram slot đã có (numbered steps từ copy); spec 7 bước, copy hiện 6 — chờ CMS/copy đủ 7
 
 - id: SC-WEB-ASSETS
   route: /[locale]/industrial-metal-assets
@@ -63,7 +63,7 @@
   route: /[locale]/proof-of-reserves
   status: partial
   regions: [banner-proposed, placeholder-dashboard, attestation-feed]
-  gap: InfoPage; không có dashboard placeholder (reserve vs circulating)
+  gap: StatusPanel placeholder đã có (reserve/supply/coverage = Pending); còn thiếu attestation feed
   note: liên quan D3
 
 - id: SC-WEB-LEGAL
@@ -89,19 +89,19 @@
   route: /[locale]/enterprise
   status: partial
   regions: [content, enquiry-form]
-  gap: không có form; API không có endpoint enquiries
+  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
 
 - id: SC-WEB-ASSETOWNER
   route: /[locale]/asset-owner-enquiries
   status: partial
   regions: [content, enquiry-form]
-  gap: không có form
+  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
 
 - id: SC-WEB-BUYER
   route: /[locale]/industrial-buyer-enquiries
   status: partial
   regions: [content, enquiry-form]
-  gap: không có form
+  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
 
 - id: SC-WEB-DOCS
   route: /[locale]/documents
@@ -135,13 +135,14 @@
 - id: SC-WEB-FAQ
   route: /[locale]/faq
   status: partial
-  gap: InfoPage phẳng; không có accordion/nhóm câu hỏi
+  regions: [faq-accordion]
+  gap: accordion slot đã có (FaqAccordion); còn thiếu nhóm câu hỏi theo chủ đề
 
 - id: SC-WEB-CONTACT
   route: /[locale]/contact
   status: partial
   regions: [content, enquiry-form]
-  gap: không có form lưu enquiry
+  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI lưu enquiry
 
 - id: SC-WEB-WL
   route: /[locale]/waitlist

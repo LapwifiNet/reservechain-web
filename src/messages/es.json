@@ -521,7 +521,24 @@
           "h": "Estado actual",
           "p": "El módulo de Prueba de Reservas está construido pero inactivo. No se publica ninguna cifra de reservas, ratio de cobertura ni certificación, y no se publicará ninguna hasta que existan datos fuente, un certificador designado y autorización por escrito."
         }
-      ]
+      ],
+      "dash": {
+        "reserve": {
+          "label": "Estado de las reservas",
+          "value": "Pendiente",
+          "note": "Los datos de reservas se publicarán solo tras verificación documental y aprobación escrita."
+        },
+        "supply": {
+          "label": "Suministro de tokens",
+          "value": "No emitido",
+          "note": "Ningún token ha sido emitido. Las cifras de suministro se mostrarán una vez definidas y aprobadas."
+        },
+        "coverage": {
+          "label": "Cobertura de reservas",
+          "value": "Pendiente",
+          "note": "El ratio de cobertura se calculará únicamente a partir de datos de reservas y suministro aprobados."
+        }
+      }
     },
     "industrial-metal-assets": {
       "kicker": "Programas de activos",

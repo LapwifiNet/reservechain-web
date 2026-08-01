@@ -145,6 +145,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/enquiries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Enquiries_list"];
+        put?: never;
+        post: operations["Enquiries_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/health": {
         parameters: {
             query?: never;
@@ -850,6 +866,15 @@ export interface components {
             programCode: string;
             verifiedReserve: number;
         };
+        CreateEnquiryDto: {
+            company?: string;
+            email: string;
+            fullName: string;
+            /** @enum {string} */
+            kind: "enterprise" | "asset-owner" | "industrial-buyer" | "contact";
+            locale?: string;
+            message: string;
+        };
         CreateKycCaseDto: {
             country: string;
             email?: string;
@@ -905,6 +930,20 @@ export interface components {
             programs: number;
             records: number;
             waitlist: number;
+        };
+        EnquiryCreated: {
+            id: string;
+            ok: boolean;
+        };
+        EnquiryResponse: {
+            company?: string | null;
+            createdAt: string;
+            email: string;
+            fullName: string;
+            id: string;
+            kind: string;
+            locale: string;
+            message: string;
         };
         HealthResponse: {
             /**
@@ -1303,6 +1342,58 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DashboardStats"];
+                };
+            };
+        };
+    };
+    Enquiries_list: {
+        parameters: {
+            query: {
+                take: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnquiryResponse"][];
+                };
+            };
+        };
+    };
+    Enquiries_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateEnquiryDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnquiryCreated"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EnquiryCreated"];
                 };
             };
         };

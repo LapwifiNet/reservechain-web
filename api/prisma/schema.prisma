@@ -235,3 +235,17 @@ model PurchaseIntent {
   @@index([investorEmail, createdAt])
   @@index([status])
 }
+
+model Enquiry {
+  id        String   @id @default(cuid())
+  kind      String // enterprise | asset-owner | industrial-buyer | contact
+  fullName  String
+  email     String
+  // Optional context captured from the public website form.
+  company   String?
+  message   String
+  locale    String   @default("en")
+  createdAt DateTime @default(now())
+
+  @@index([kind, createdAt])
+}

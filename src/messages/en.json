@@ -521,7 +521,24 @@
           "h": "Current status",
           "p": "The Proof-of-Reserves module is built but inactive. No reserve figures, coverage ratios or attestations are published, and none will be published until source data, an appointed attestor and written authorization are in place."
         }
-      ]
+      ],
+      "dash": {
+        "reserve": {
+          "label": "Reserve status",
+          "value": "Pending",
+          "note": "Reserve data will be published only after documentary verification and written approval."
+        },
+        "supply": {
+          "label": "Token supply",
+          "value": "Not issued",
+          "note": "No token has been issued. Supply figures will be shown once defined and approved."
+        },
+        "coverage": {
+          "label": "Reserve coverage",
+          "value": "Pending",
+          "note": "Coverage ratio will be computed from approved reserve and supply data only."
+        }
+      }
     },
     "industrial-metal-assets": {
       "kicker": "Asset Programs",
