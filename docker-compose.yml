@@ -98,6 +98,13 @@ services:
       # Digital Asset Passport pages read the CMS's public endpoints.
       # Server-side only; never NEXT_PUBLIC_, and no credential is sent.
       CMS_API_BASE: ${CMS_API_BASE:-http://cms:3001/api}
+      # Website mode (FR-MODE, decision D4). The CMS `settings` row is the source
+      # of truth; src/lib/mode.ts reads this env value only as the fallback, when
+      # the CMS is unreachable or the row does not exist yet. It was documented in
+      # .env.docker.example from the start but never passed to this container, so
+      # the fallback always resolved to `development` regardless of .env — a
+      # documented knob wired to nothing. Never opens a gated module by itself.
+      SITE_MODE: ${SITE_MODE:-development}
     ports:
       - "${WEB_PORT:-3000}:3000"
 
@@ -131,6 +138,12 @@ services:
       POSTGRES_PASSWORD: ${CMS_POSTGRES_PASSWORD:-reservechain}
       POSTGRES_DB: ${CMS_POSTGRES_DB:-reservechain_cms}
     ports:
+      # 5433 is a common second-Postgres port and collides with other local
+      # stacks often enough to be worth checking before you migrate:
+      #   lsof -iTCP:5433 -sTCP:LISTEN -n -P
+      # Set CMS_POSTGRES_PORT in .env if it is taken, and change cms/.env to
+      # match. Pointing DATABASE_URI at the wrong Postgres does not error — it
+      # connects, and Payload migrates a database that belongs to someone else.
       - "${CMS_POSTGRES_PORT:-5433}:5432"
     volumes:
       - reservechain_cms_pg:/var/lib/postgresql/data
@@ -157,7 +170,8 @@ services:
       PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-http://localhost:3001}
       CORS_ORIGINS: ${CMS_CORS_ORIGINS:-http://localhost:3000,http://localhost:4100}
       # Opt-in seeding, handled by docker-entrypoint.sh. The seed never creates
-      # users in production and never ships a password.
+      # users in production and never ships a password. It does NOT create the
+      # `settings` singleton row — that is a one-time manual step in the admin UI.
       RUN_CMS_SEED: ${RUN_CMS_SEED:-false}
       SEED_ADMIN_EMAIL: ${CMS_SEED_ADMIN_EMAIL:-}
       SEED_ADMIN_PASSWORD: ${CMS_SEED_ADMIN_PASSWORD:-}
