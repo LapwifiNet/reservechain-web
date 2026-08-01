@@ -6,12 +6,12 @@
  * Asset Verification · Eligibility · Early Participation · Live Offering ·
  * Redemption · Enterprise Onboarding.
  *
- * Decision log D4 (Screen Registry): the spec wants modes to be CMS data
- * (SC-CMS-SETTINGS); that screen does not exist yet. Until it does, the mode
- * is an env variable (`SITE_MODE`) — the four kill-switch flags
- * (`POR_ENABLED` etc.) stay env-only and keep answering 501; a mode change
- * alone never opens a gated module. This file is the single place the mode is
- * read, so switching to CMS data later is a one-file change.
+ * Decision log D4 (Screen Registry): modes are CMS data (SC-CMS-SETTINGS,
+ * Payload `settings` collection) read server-side with an env fallback —
+ * `CMS_API_BASE` unreachable or doc missing → `SITE_MODE` env → `development`.
+ * The four kill-switch flags (`POR_ENABLED` etc.) stay env-only and keep
+ * answering 501; a mode change alone never opens a gated module. This file is
+ * the single place the mode is read.
  *
  * Mode semantics at pre-launch:
  * - `development` (default): dev/staging. Everything above the fold works,
@@ -72,6 +72,19 @@ export function isMode(mode: SiteMode): boolean {
  */
 export function offeringMode(): boolean {
   return OFFERING_MODES.includes(siteMode());
+}
+
+/** Site mode resolved from CMS settings with env fallback (server-side). */
+export async function siteModeFromCms(): Promise<SiteMode> {
+  try {
+    const { getWebsiteSettings } = await import('@/lib/cms');
+    const s = await getWebsiteSettings();
+    const raw = s?.siteMode?.trim().toLowerCase() ?? '';
+    if ((SITE_MODES as readonly string[]).includes(raw)) return raw as SiteMode;
+  } catch {
+    /* fall through to env */
+  }
+  return siteMode();
 }
 
 /** Human label for the current mode, used by the dev banner. */

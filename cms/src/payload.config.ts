@@ -9,6 +9,7 @@ import Media from "./collections/Media";
 import AssetPrograms from "./collections/AssetPrograms";
 import AssetRecords from "./collections/AssetRecords";
 import Passports from "./collections/Passports";
+import Settings from "./collections/Settings";
 
 const origins = (process.env.CORS_ORIGINS || "")
   .split(",")
@@ -26,7 +27,7 @@ export default buildConfig({
     },
   },
   editor: slateEditor({}),
-  collections: [Users, Media, AssetPrograms, AssetRecords, Passports],
+  collections: [Users, Media, AssetPrograms, AssetRecords, Passports, Settings],
   db: postgresAdapter({
     pool: {
       connectionString:

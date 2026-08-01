@@ -114,3 +114,29 @@ export async function listPassports(): Promise<PassportSummary[]> {
     return [];
   }
 }
+
+/**
+ * Website settings (SC-CMS-SETTINGS) — the current site mode, read from the
+ * CMS with an env fallback.
+ *
+ * Returns null on any failure so the caller falls back to the env default
+ * (public pages degrade, they do not fail — invariant 29). The value is the
+ * raw Payload doc; the website's src/lib/mode.ts validates it against
+ * SITE_MODES and falls back to `development` for anything unknown.
+ */
+export async function getWebsiteSettings(): Promise<{
+  siteMode?: string | null;
+  waitlistOpen?: boolean | null;
+} | null> {
+  const url = `${CMS_API_BASE}/settings?where[name][equals]=default&limit=1&depth=0`;
+  try {
+    const res = await fetch(url, cmsFetchInit());
+    if (!res.ok) return null;
+    const data = (await res.json()) as { docs?: Array<{ siteMode?: string | null; waitlistOpen?: boolean | null }> };
+    const doc = data.docs?.[0];
+    if (!doc) return null;
+    return { siteMode: doc.siteMode ?? null, waitlistOpen: doc.waitlistOpen ?? null };
+  } catch {
+    return null;
+  }
+}

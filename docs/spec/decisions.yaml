@@ -19,8 +19,8 @@
 
 - id: D4
   title: Website modes
-  status: open
-  options: Mode as CMS data (SC-CMS-SETTINGS) separate from the 4 env kill-switch flags; flags stay env + 501. Interim: SITE_MODE env var (implemented 2026-08-02, src/lib/mode.ts)
+  status: closed
+  decision: Mode is CMS data (Payload settings collection, SC-CMS-SETTINGS) with SITE_MODE env fallback; the 4 kill-switch flags stay env-only and keep answering 501. Implemented 2026-08-02 (cms/src/collections/Settings.ts, src/lib/mode.ts siteModeFromCms)
 
 - id: D5
   title: Status chips (publication / token / asset)

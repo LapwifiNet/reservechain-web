@@ -297,9 +297,8 @@
   status: missing
 
 - id: SC-CMS-SETTINGS
-  status: missing
-  blocked_by: D4
-  gap: không có UI nào; flags là env var. Đây là screen chặn D4 và D5
+  status: partial
+  gap: Payload settings collection đã có (siteMode 10 modes, waitlistOpen, disclosureOverrides) + web đọc CMS với env fallback (D4 closed); còn thiếu admin UI điều khiển + status state machine (D5)
 
 # ── D. Asset-owner / Enterprise (4) ──────────────────────────────────────
 - id: SC-AO-ONBOARD
