@@ -1,6 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateWaitlistDto } from './dto/create-waitlist.dto';
+import {
+  WaitlistCreated,
+  WaitlistEntryResponse,
+} from './dto/waitlist.response.dto';
 
 @Injectable()
 export class WaitlistService {
@@ -12,7 +16,7 @@ export class WaitlistService {
    * same success state rather than a failure. `email` is UNIQUE, so this cannot
    * create a duplicate row.
    */
-  async create(dto: CreateWaitlistDto) {
+  async create(dto: CreateWaitlistDto): Promise<WaitlistCreated> {
     // Defence in depth: the DTO already requires consent === true, but the
     // service must not store a registration without recorded consent even if it
     // is ever called without the validation pipe.
@@ -39,12 +43,12 @@ export class WaitlistService {
     }
   }
 
-  count() {
+  count(): Promise<number> {
     return this.prisma.waitlistEntry.count();
   }
 
   // NOTE: admin-only surface. Protect behind auth/RBAC in P6/P9.
-  list(take = 50) {
+  list(take = 50): Promise<WaitlistEntryResponse[]> {
     return this.prisma.waitlistEntry.findMany({
       orderBy: { createdAt: 'desc' },
       take,

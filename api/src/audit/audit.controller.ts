@@ -4,13 +4,21 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  AuditListResponse,
+  ChainVerificationResponse,
+} from './dto/audit.response.dto';
 
+@ApiTags('audit')
+@ApiBearerAuth()
 @Controller('audit')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN, Role.COMPLIANCE)
 export class AuditController {
   constructor(private readonly service: AuditService) {}
 
+  @ApiOkResponse({ type: AuditListResponse })
   @Get()
   async list(
     @Query('skip') skip?: string,
@@ -32,6 +40,7 @@ export class AuditController {
     });
   }
 
+  @ApiOkResponse({ type: ChainVerificationResponse })
   @Get('verify')
   async verify() {
     return this.service.verifyChain();

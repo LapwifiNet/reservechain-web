@@ -11,6 +11,7 @@ import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { PurchaseService } from './purchase.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { RejectPurchaseDto, SettlePurchaseDto } from './dto/review-purchase.dto';
+import { ApiInactive } from '../common/decorators/api-inactive.decorator';
 
 /**
  * Purchase API — INACTIVE.
@@ -24,6 +25,7 @@ import { RejectPurchaseDto, SettlePurchaseDto } from './dto/review-purchase.dto'
  * role-guarded and audited, and the investor's own intent — the thing being
  * decided on — is now audited too, instead of being the one unrecorded step.
  */
+@ApiInactive('P14', 'PURCHASE_ENABLED')
 @Controller('purchase')
 @AuditAs('investor')
 @RequireFlag('PURCHASE_ENABLED')

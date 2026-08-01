@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { configureHttpSurface } from './app.config';
+import { mountApiDocs } from './openapi/docs';
 
 async function bootstrap() {
   // Validate SERVICE_API_TOKEN if set
@@ -16,8 +17,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
   app.enableCors({ origin: process.env.CORS_ORIGIN?.split(',') ?? '*' });
-  app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  configureHttpSurface(app);
+  mountApiDocs(app);
   const port = Number(process.env.PORT ?? 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console

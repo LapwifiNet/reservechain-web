@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { PassportResponse } from './dto/passports.response.dto';
 
 @Injectable()
 export class PassportsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  list(take = 100) {
+  list(take = 100): Promise<PassportResponse[]> {
     return this.prisma.passport.findMany({
       orderBy: { createdAt: 'desc' },
       take,
@@ -13,7 +14,7 @@ export class PassportsService {
     });
   }
 
-  async byId(passportId: string) {
+  async byId(passportId: string): Promise<PassportResponse> {
     const p = await this.prisma.passport.findUnique({
       where: { passportId },
       include: { assetRecord: { include: { program: true } } },

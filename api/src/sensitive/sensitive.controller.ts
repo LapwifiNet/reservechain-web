@@ -1,10 +1,12 @@
 import { Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { ApiInactive } from '../common/decorators/api-inactive.decorator';
 
 /**
  * Sensitive modules are intentionally INACTIVE until written authorization.
  * These endpoints exist to document the surface and return 501 Not Implemented
  * so integrators can wire against a stable contract without any live behavior.
  */
+@ApiInactive('P11/P12')
 @Controller()
 export class SensitiveController {
   @Get('proof-of-reserves')

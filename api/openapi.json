@@ -1,0 +1,2810 @@
+{
+  "components": {
+    "schemas": {
+      "AssetProgramDetail": {
+        "properties": {
+          "code": {
+            "description": "Short program code, e.g. the copper or nickel program.",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "metal": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "purity": {
+            "description": "Illustrative until supporting evidence is published.",
+            "type": "string"
+          },
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/AssetRecordSummary"
+            },
+            "type": "array"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name",
+          "metal",
+          "purity",
+          "description",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "records"
+        ],
+        "type": "object"
+      },
+      "AssetProgramSummary": {
+        "properties": {
+          "code": {
+            "description": "Short program code, e.g. the copper or nickel program.",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "metal": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "purity": {
+            "description": "Illustrative until supporting evidence is published.",
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "name",
+          "metal",
+          "purity",
+          "description",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "AssetRecordSummary": {
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "batch": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "programId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "weightKg": {
+            "description": "Illustrative. No published weight is evidence-backed yet.",
+            "nullable": true,
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "assetId",
+          "programId",
+          "batch",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "AssetRecordWithProgram": {
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "batch": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "program": {
+            "$ref": "#/components/schemas/AssetProgramSummary"
+          },
+          "programId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "weightKg": {
+            "description": "Illustrative. No published weight is evidence-backed yet.",
+            "nullable": true,
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "assetId",
+          "programId",
+          "batch",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "program"
+        ],
+        "type": "object"
+      },
+      "AuditEventResponse": {
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "actorEmail": {
+            "description": "PII. `[PII_REDACTED]` on a rejected unauthenticated attempt.",
+            "nullable": true,
+            "type": "string"
+          },
+          "actorId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "actorRole": {
+            "nullable": true,
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "hash": {
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ipAddress": {
+            "nullable": true,
+            "type": "string"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "description": "Request body after redaction: secrets become [REDACTED], PII fields become [PII_REDACTED]. Free-form by nature — this is the one response field a generated client cannot narrow.",
+            "nullable": true,
+            "type": "object"
+          },
+          "prevHash": {
+            "nullable": true,
+            "type": "string"
+          },
+          "resourceId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "resourceType": {
+            "nullable": true,
+            "type": "string"
+          },
+          "sequence": {
+            "description": "Monotonic. The hash chain is ordered by this.",
+            "type": "number"
+          },
+          "userAgent": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "actorId",
+          "actorEmail",
+          "actorRole",
+          "action",
+          "resourceType",
+          "resourceId",
+          "ipAddress",
+          "userAgent",
+          "prevHash",
+          "hash",
+          "createdAt"
+        ],
+        "type": "object"
+      },
+      "AuditListResponse": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEventResponse"
+            },
+            "type": "array"
+          },
+          "total": {
+            "description": "Total matching the filter, not the page size.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "events",
+          "total"
+        ],
+        "type": "object"
+      },
+      "AuthLoginResult": {
+        "properties": {
+          "accessToken": {
+            "description": "Admin-domain JWT. Not accepted by any investor route.",
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
+        },
+        "required": [
+          "accessToken",
+          "user"
+        ],
+        "type": "object"
+      },
+      "AuthMe": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "ADMIN",
+              "COMPLIANCE",
+              "VIEWER"
+            ],
+            "type": "string"
+          },
+          "service": {
+            "type": "boolean"
+          },
+          "sub": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "role"
+        ],
+        "type": "object"
+      },
+      "AuthUser": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "ADMIN",
+              "COMPLIANCE",
+              "VIEWER"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "role"
+        ],
+        "type": "object"
+      },
+      "ChainVerificationResponse": {
+        "properties": {
+          "firstBrokenSequence": {
+            "description": "Present only when `valid` is false. Absent, not null, on a good chain.",
+            "type": "number"
+          },
+          "totalEvents": {
+            "type": "number"
+          },
+          "valid": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "valid",
+          "totalEvents"
+        ],
+        "type": "object"
+      },
+      "CreateAttestationDto": {
+        "properties": {
+          "circulatingSupply": {
+            "minimum": 1,
+            "type": "number"
+          },
+          "method": {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          "notes": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "periodEnd": {
+            "type": "string"
+          },
+          "periodStart": {
+            "type": "string"
+          },
+          "programCode": {
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          },
+          "verifiedReserve": {
+            "minimum": 1,
+            "type": "number"
+          }
+        },
+        "required": [
+          "programCode",
+          "circulatingSupply",
+          "verifiedReserve",
+          "method",
+          "periodStart",
+          "periodEnd"
+        ],
+        "type": "object"
+      },
+      "CreateKycCaseDto": {
+        "properties": {
+          "country": {
+            "maxLength": 56,
+            "minLength": 2,
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "legalName": {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          "subjectType": {
+            "enum": [
+              "person",
+              "entity"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "subjectType",
+          "legalName",
+          "country"
+        ],
+        "type": "object"
+      },
+      "CreatePurchaseDto": {
+        "properties": {
+          "programCode": {
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          },
+          "quoteCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          },
+          "tokenAmount": {
+            "minimum": 1,
+            "type": "number"
+          }
+        },
+        "required": [
+          "programCode",
+          "tokenAmount"
+        ],
+        "type": "object"
+      },
+      "CreateRedemptionDto": {
+        "properties": {
+          "amount": {
+            "minimum": 1,
+            "type": "number"
+          },
+          "note": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "programCode": {
+            "maxLength": 32,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "programCode",
+          "amount"
+        ],
+        "type": "object"
+      },
+      "CreateWaitlistDto": {
+        "properties": {
+          "consent": {
+            "description": "Must be exactly true.",
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "fullName": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "interest": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "investorType": {
+            "enum": [
+              "institution",
+              "investor",
+              "partner",
+              "other"
+            ],
+            "type": "string"
+          },
+          "locale": {
+            "maxLength": 10,
+            "type": "string"
+          },
+          "organization": {
+            "maxLength": 200,
+            "type": "string"
+          }
+        },
+        "required": [
+          "consent",
+          "fullName",
+          "email",
+          "investorType"
+        ],
+        "type": "object"
+      },
+      "DashboardActivityRow": {
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "program": {
+            "description": "Program NAME, not code — the service maps `r.program.name`.",
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "assetId",
+          "program",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "DashboardRegistrationCount": {
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "type": {
+            "enum": [
+              "institution",
+              "investor",
+              "partner",
+              "other"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "count"
+        ],
+        "type": "object"
+      },
+      "DashboardStats": {
+        "properties": {
+          "recentActivity": {
+            "description": "The five most recently updated records.",
+            "items": {
+              "$ref": "#/components/schemas/DashboardActivityRow"
+            },
+            "type": "array"
+          },
+          "registrationsByType": {
+            "items": {
+              "$ref": "#/components/schemas/DashboardRegistrationCount"
+            },
+            "type": "array"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/DashboardTotals"
+          }
+        },
+        "required": [
+          "totals",
+          "registrationsByType",
+          "recentActivity"
+        ],
+        "type": "object"
+      },
+      "DashboardTotals": {
+        "properties": {
+          "passportsIssued": {
+            "type": "number"
+          },
+          "programs": {
+            "type": "number"
+          },
+          "records": {
+            "type": "number"
+          },
+          "waitlist": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "waitlist",
+          "programs",
+          "records",
+          "passportsIssued"
+        ],
+        "type": "object"
+      },
+      "HealthResponse": {
+        "properties": {
+          "db": {
+            "description": "Result of `SELECT 1` against the API database.",
+            "enum": [
+              "up",
+              "down"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok"
+            ],
+            "type": "string"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "db",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "InvestorAuthResult": {
+        "properties": {
+          "accessToken": {
+            "description": "Investor-domain JWT (typ=investor). Not accepted by any admin route.",
+            "type": "string"
+          },
+          "investor": {
+            "$ref": "#/components/schemas/InvestorPublic"
+          }
+        },
+        "required": [
+          "accessToken",
+          "investor"
+        ],
+        "type": "object"
+      },
+      "InvestorKycSummary": {
+        "properties": {
+          "riskLevel": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unrated"
+            ],
+            "type": "string"
+          },
+          "sanctions": {
+            "description": "Never a real screening result. `not_screened` when nothing ran, `clear_stub` when the illustrative screener did.",
+            "type": "string"
+          },
+          "status": {
+            "description": "`not_started` is synthesised when no case exists; the other values come from the case row.",
+            "enum": [
+              "not_started",
+              "pending",
+              "in_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "riskLevel",
+          "sanctions"
+        ],
+        "type": "object"
+      },
+      "InvestorProgramSummary": {
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "metal": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "purity": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "metal",
+          "purity",
+          "status"
+        ],
+        "type": "object"
+      },
+      "InvestorPublic": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "id": {
+            "description": "Null when the caller has a valid token but no investor row — `status` falls back to an email-only profile rather than 404ing.",
+            "nullable": true,
+            "type": "string"
+          },
+          "memberSince": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "fullName"
+        ],
+        "type": "object"
+      },
+      "InvestorStatus": {
+        "properties": {
+          "kyc": {
+            "$ref": "#/components/schemas/InvestorKycSummary"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/InvestorPublic"
+          },
+          "programs": {
+            "items": {
+              "$ref": "#/components/schemas/InvestorProgramSummary"
+            },
+            "type": "array"
+          },
+          "waitlist": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvestorWaitlistSummary"
+              }
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "profile",
+          "waitlist",
+          "kyc",
+          "programs"
+        ],
+        "type": "object"
+      },
+      "InvestorWaitlistSummary": {
+        "properties": {
+          "interest": {
+            "nullable": true,
+            "type": "string"
+          },
+          "investorType": {
+            "type": "string"
+          },
+          "joinedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "organization": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "investorType",
+          "organization",
+          "interest",
+          "joinedAt"
+        ],
+        "type": "object"
+      },
+      "KycCaseDetail": {
+        "properties": {
+          "country": {
+            "description": "ISO 3166-1 alpha-2.",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "description": "PII. Present on this role-guarded detail route only; the case list omits it (invariant 23).",
+            "nullable": true,
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          },
+          "reviewedAt": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "reviewedBy": {
+            "nullable": true,
+            "type": "string"
+          },
+          "riskLevel": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unrated"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "sanctions": {
+            "description": "Persisted screening outcome. `clear_stub` is written by the illustrative screener and is not a real screening result. Null means never screened.",
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "in_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string"
+          },
+          "subjectType": {
+            "enum": [
+              "person",
+              "entity"
+            ],
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "subjectType",
+          "legalName",
+          "country",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "KycCaseListItem": {
+        "properties": {
+          "country": {
+            "description": "ISO 3166-1 alpha-2.",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string"
+          },
+          "notes": {
+            "nullable": true,
+            "type": "string"
+          },
+          "reviewedAt": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "reviewedBy": {
+            "nullable": true,
+            "type": "string"
+          },
+          "riskLevel": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unrated"
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "sanctions": {
+            "description": "Persisted screening outcome. `clear_stub` is written by the illustrative screener and is not a real screening result. Null means never screened.",
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "in_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string"
+          },
+          "subjectType": {
+            "enum": [
+              "person",
+              "entity"
+            ],
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "subjectType",
+          "legalName",
+          "country",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "KycScreenResult": {
+        "properties": {
+          "caseId": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "provider": {
+            "description": "Always `stub`. No provider is called.",
+            "enum": [
+              "stub"
+            ],
+            "type": "string"
+          },
+          "result": {
+            "description": "Always `clear`. Not a screening result.",
+            "enum": [
+              "clear"
+            ],
+            "type": "string"
+          },
+          "screenedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caseId",
+          "provider",
+          "result",
+          "screenedAt",
+          "note"
+        ],
+        "type": "object"
+      },
+      "KycStats": {
+        "properties": {
+          "byStatus": {
+            "items": {
+              "$ref": "#/components/schemas/KycStatusCount"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "total",
+          "byStatus"
+        ],
+        "type": "object"
+      },
+      "KycStatusCount": {
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "in_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "count"
+        ],
+        "type": "object"
+      },
+      "LinkWalletDto": {
+        "properties": {
+          "address": {
+            "pattern": "/^0x[a-fA-F0-9]{40}$/",
+            "type": "string"
+          },
+          "chainId": {
+            "enum": [
+              11155111
+            ],
+            "type": "number"
+          }
+        },
+        "required": [
+          "address"
+        ],
+        "type": "object"
+      },
+      "LoginDto": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "minLength": 6,
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object"
+      },
+      "LoginInvestorDto": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object"
+      },
+      "PassportResponse": {
+        "properties": {
+          "assetRecord": {
+            "$ref": "#/components/schemas/AssetRecordWithProgram"
+          },
+          "assetRecordId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "issuedAt": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "passportId": {
+            "type": "string"
+          },
+          "purity": {
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "template": {
+            "description": "Always `Illustrative` until a real template is authorised.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "passportId",
+          "assetRecordId",
+          "template",
+          "purity",
+          "status",
+          "issuedAt",
+          "createdAt",
+          "assetRecord"
+        ],
+        "type": "object"
+      },
+      "RegisterInvestorDto": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "fullName": {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "type": "string"
+          }
+        },
+        "required": [
+          "fullName",
+          "email",
+          "password"
+        ],
+        "type": "object"
+      },
+      "RejectPurchaseDto": {
+        "properties": {
+          "reason": {
+            "maxLength": 2000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "type": "object"
+      },
+      "RejectRedemptionDto": {
+        "properties": {
+          "reason": {
+            "maxLength": 2000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "type": "object"
+      },
+      "ReviewKycCaseDto": {
+        "properties": {
+          "notes": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "riskLevel": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unrated"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "in_review",
+              "approved",
+              "rejected"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "SettlePurchaseDto": {
+        "properties": {
+          "txRef": {
+            "maxLength": 200,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SettleRedemptionDto": {
+        "properties": {
+          "txRef": {
+            "maxLength": 200,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TokenomicsAllocation": {
+        "properties": {
+          "bucket": {
+            "type": "string"
+          },
+          "pct": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "bucket",
+          "pct"
+        ],
+        "type": "object"
+      },
+      "TokenomicsResponse": {
+        "properties": {
+          "allocations": {
+            "items": {
+              "$ref": "#/components/schemas/TokenomicsAllocation"
+            },
+            "type": "array"
+          },
+          "capIllustrative": {
+            "description": "Illustrative. Not a committed supply.",
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "reserveRatio": {
+            "description": "Illustrative. Not a committed ratio.",
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "transferFee": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "symbol",
+          "capIllustrative",
+          "reserveRatio",
+          "transferFee",
+          "allocations",
+          "note"
+        ],
+        "type": "object"
+      },
+      "WaitlistCount": {
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "count"
+        ],
+        "type": "object"
+      },
+      "WaitlistCreated": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "ok": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "id"
+        ],
+        "type": "object"
+      },
+      "WaitlistEntryResponse": {
+        "properties": {
+          "consent": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "description": "PII.",
+            "type": "string"
+          },
+          "fullName": {
+            "description": "PII.",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "interest": {
+            "nullable": true,
+            "type": "string"
+          },
+          "investorType": {
+            "enum": [
+              "institution",
+              "investor",
+              "partner",
+              "other"
+            ],
+            "type": "string"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "es",
+              "it"
+            ],
+            "type": "string"
+          },
+          "organization": {
+            "description": "PII.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "fullName",
+          "email",
+          "investorType",
+          "consent",
+          "organization",
+          "interest",
+          "locale",
+          "createdAt"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "bearerFormat": "JWT",
+        "description": "Admin domain (typ=admin, JWT_SECRET) on admin routes; investor domain (typ=investor, INVESTOR_JWT_SECRET) on /investor/me and /investor/status. The two are disjoint and neither is accepted by the other.",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "contact": {},
+    "description": "ReserveChain API.\n\nIN DEVELOPMENT. No tokens are offered or sold.\n\nProof-of-Reserves, redemption, wallet linking and token purchase are\npublished as a contract only. Every operation tagged `inactive` returns\n501 and is marked deprecated so a generated client warns at the call site.\nThey require written authorization before they do anything.\n\nNo example values are supplied anywhere in this document. Every response\nfield is described by type and constraint only.",
+    "title": "ReserveChain API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/assets/programs": {
+      "get": {
+        "operationId": "Assets_programs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AssetProgramSummary"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/api/assets/programs/{code}": {
+      "get": {
+        "operationId": "Assets_program",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetProgramDetail"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/api/assets/registry": {
+      "get": {
+        "operationId": "Assets_registry",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AssetRecordWithProgram"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/api/audit": {
+      "get": {
+        "operationId": "Audit_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "skip",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "actorId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "resourceType",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fromDate",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "toDate",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditListResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/api/audit/verify": {
+      "get": {
+        "operationId": "Audit_verify",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChainVerificationResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "Auth_login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLoginResult"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthLoginResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "Auth_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMe"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/dashboard/stats": {
+      "get": {
+        "operationId": "Dashboard_stats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardStats"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "dashboard"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "Health_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/investor/login": {
+      "post": {
+        "operationId": "Investor_login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInvestorDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorAuthResult"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorAuthResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "investor"
+        ]
+      }
+    },
+    "/api/investor/me": {
+      "get": {
+        "operationId": "Investor_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorPublic"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "investor"
+        ]
+      }
+    },
+    "/api/investor/register": {
+      "post": {
+        "operationId": "Investor_register",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInvestorDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorAuthResult"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorAuthResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "investor"
+        ]
+      }
+    },
+    "/api/investor/status": {
+      "get": {
+        "operationId": "Investor_status",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestorStatus"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "investor"
+        ]
+      }
+    },
+    "/api/kyc/cases": {
+      "get": {
+        "operationId": "Kyc_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/KycCaseListItem"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      },
+      "post": {
+        "operationId": "Kyc_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKycCaseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycCaseDetail"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycCaseDetail"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      }
+    },
+    "/api/kyc/cases/{id}": {
+      "get": {
+        "operationId": "Kyc_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycCaseDetail"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      }
+    },
+    "/api/kyc/cases/{id}/review": {
+      "post": {
+        "operationId": "Kyc_review",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewKycCaseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycCaseDetail"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycCaseDetail"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      }
+    },
+    "/api/kyc/cases/{id}/screen": {
+      "post": {
+        "operationId": "Kyc_screen",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycScreenResult"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycScreenResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      }
+    },
+    "/api/kyc/stats": {
+      "get": {
+        "operationId": "Kyc_stats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KycStats"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "kyc"
+        ]
+      }
+    },
+    "/api/passports": {
+      "get": {
+        "operationId": "Passports_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PassportResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "passports"
+        ]
+      }
+    },
+    "/api/passports/{passportId}": {
+      "get": {
+        "operationId": "Passports_byId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "passportId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PassportResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "passports"
+        ]
+      }
+    },
+    "/api/por/attestations": {
+      "get": {
+        "deprecated": true,
+        "operationId": "ProofOfReserves_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11). Gated by PROOF_OF_RESERVES_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      },
+      "post": {
+        "deprecated": true,
+        "operationId": "ProofOfReserves_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttestationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11). Gated by PROOF_OF_RESERVES_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/por/attestations/{id}/publish": {
+      "post": {
+        "deprecated": true,
+        "operationId": "ProofOfReserves_publish",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11). Gated by PROOF_OF_RESERVES_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/por/status": {
+      "get": {
+        "deprecated": true,
+        "operationId": "ProofOfReserves_status",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11). Gated by PROOF_OF_RESERVES_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/proof-of-reserves": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Sensitive_reserves",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11/P12). Refuses unconditionally. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/disclosure": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Purchase_disclosure",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/intents": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Purchase_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      },
+      "post": {
+        "deprecated": true,
+        "operationId": "Purchase_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePurchaseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/intents/mine": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Purchase_mine",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/intents/{id}/approve": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Purchase_approve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/intents/{id}/reject": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Purchase_reject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectPurchaseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/purchase/intents/{id}/settle": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Purchase_settle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettlePurchaseDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P14). Gated by PURCHASE_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Sensitive_redemption",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P11/P12). Refuses unconditionally. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption/requests": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Redemption_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      },
+      "post": {
+        "deprecated": true,
+        "operationId": "Redemption_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRedemptionDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption/requests/mine": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Redemption_mine",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption/requests/{id}/approve": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Redemption_approve",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption/requests/{id}/reject": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Redemption_reject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectRedemptionDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/redemption/requests/{id}/settle": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Redemption_settle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettleRedemptionDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P12). Gated by REDEMPTION_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/tokenomics": {
+      "get": {
+        "operationId": "Tokenomics_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenomicsResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "tokenomics"
+        ]
+      }
+    },
+    "/api/waitlist": {
+      "get": {
+        "operationId": "Waitlist_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WaitlistEntryResponse"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "waitlist"
+        ]
+      },
+      "post": {
+        "operationId": "Waitlist_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWaitlistDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaitlistCreated"
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaitlistCreated"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "waitlist"
+        ]
+      }
+    },
+    "/api/waitlist/count": {
+      "get": {
+        "operationId": "Waitlist_count",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaitlistCount"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "waitlist"
+        ]
+      }
+    },
+    "/api/wallet": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Wallet_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "take",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P13). Gated by WALLET_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/wallet/link": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Wallet_link",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkWalletDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P13). Gated by WALLET_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/wallet/me": {
+      "get": {
+        "deprecated": true,
+        "operationId": "Wallet_me",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P13). Gated by WALLET_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    },
+    "/api/wallet/revoke": {
+      "post": {
+        "deprecated": true,
+        "operationId": "Wallet_revoke",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "INACTIVE (P13). Gated by WALLET_ENABLED; with the flag on the service still refuses. Requires written authorization before it does anything."
+          }
+        },
+        "tags": [
+          "inactive"
+        ]
+      }
+    }
+  },
+  "servers": [],
+  "tags": []
+}

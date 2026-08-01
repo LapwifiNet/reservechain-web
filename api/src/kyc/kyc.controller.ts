@@ -16,35 +16,49 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { Role, type AuthenticatedUser } from '../common/enums/role.enum';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  KycCaseDetail,
+  KycCaseListItem,
+  KycScreenResult,
+  KycStats,
+} from './dto/kyc.response.dto';
 
 // KYC/KYB case management is an internal compliance surface.
 // All routes require authentication AND an admin/compliance role.
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN, Role.COMPLIANCE)
+@ApiTags('kyc')
+@ApiBearerAuth()
 @Controller('kyc')
 export class KycController {
   constructor(private readonly service: KycService) {}
 
+  @ApiOkResponse({ type: KycStats })
   @Get('stats')
   stats() {
     return this.service.stats();
   }
 
+  @ApiOkResponse({ type: [KycCaseListItem] })
   @Get('cases')
   list(@Query('take') take?: string) {
     return this.service.list(take ? Number(take) : 100);
   }
 
+  @ApiOkResponse({ type: KycCaseDetail })
   @Get('cases/:id')
   get(@Param('id') id: string) {
     return this.service.get(id);
   }
 
+  @ApiOkResponse({ type: KycCaseDetail })
   @Post('cases')
   create(@Body() dto: CreateKycCaseDto) {
     return this.service.create(dto);
   }
 
+  @ApiOkResponse({ type: KycCaseDetail })
   @Post('cases/:id/review')
   review(
     @Param('id') id: string,
@@ -57,6 +71,7 @@ export class KycController {
     return this.service.review(id, dto, user.email);
   }
 
+  @ApiOkResponse({ type: KycScreenResult })
   @Post('cases/:id/screen')
   screen(@Param('id') id: string) {
     return this.service.screen(id);

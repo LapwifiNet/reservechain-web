@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { DashboardStats } from './dto/dashboard.response.dto';
 
 @Injectable()
 export class DashboardService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async stats() {
+  async stats(): Promise<DashboardStats> {
     const [waitlist, programs, records, passportsIssued] = await Promise.all([
       this.prisma.waitlistEntry.count(),
       this.prisma.assetProgram.count(),

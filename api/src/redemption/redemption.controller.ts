@@ -10,6 +10,7 @@ import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { RedemptionService } from './redemption.service';
 import { CreateRedemptionDto } from './dto/create-redemption.dto';
 import { RejectRedemptionDto, SettleRedemptionDto } from './dto/review-redemption.dto';
+import { ApiInactive } from '../common/decorators/api-inactive.decorator';
 
 /**
  * Redemption API (P12) — INACTIVE.
@@ -24,6 +25,7 @@ import { RejectRedemptionDto, SettleRedemptionDto } from './dto/review-redemptio
  * than to a staff principal. Without it they would be silently unaudited the
  * moment this module was implemented.
  */
+@ApiInactive('P12', 'REDEMPTION_ENABLED')
 @Controller('redemption')
 @AuditAs('investor')
 @RequireFlag('REDEMPTION_ENABLED')

@@ -9,6 +9,7 @@ import { InvestorJwtGuard } from '../investor/investor-jwt.guard';
 import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import { WalletService } from './wallet.service';
 import { LinkWalletDto } from './dto/link-wallet.dto';
+import { ApiInactive } from '../common/decorators/api-inactive.decorator';
 
 /**
  * Wallet API — INACTIVE.
@@ -22,6 +23,7 @@ import { LinkWalletDto } from './dto/link-wallet.dto';
  * durable public chain identifier to a named person, which is exactly the kind
  * of act an audit trail exists for.
  */
+@ApiInactive('P13', 'WALLET_ENABLED')
 @Controller('wallet')
 @AuditAs('investor')
 @RequireFlag('WALLET_ENABLED')

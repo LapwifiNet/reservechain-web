@@ -2,12 +2,18 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateKycCaseDto } from './dto/create-kyc-case.dto';
 import { ReviewKycCaseDto } from './dto/review-kyc-case.dto';
+import {
+  KycCaseDetail,
+  KycCaseListItem,
+  KycScreenResult,
+  KycStats,
+} from './dto/kyc.response.dto';
 
 @Injectable()
 export class KycService {
   constructor(private readonly prisma: PrismaService) {}
 
-  list(take = 100) {
+  list(take = 100): Promise<KycCaseListItem[]> {
     return this.prisma.kycCase.findMany({
       orderBy: { createdAt: 'desc' },
       take,
@@ -33,19 +39,23 @@ export class KycService {
     });
   }
 
-  async get(id: string) {
+  async get(id: string): Promise<KycCaseDetail> {
     const found = await this.prisma.kycCase.findUnique({ where: { id } });
     if (!found) throw new NotFoundException('kyc_case_not_found');
     return found;
   }
 
-  create(dto: CreateKycCaseDto) {
+  create(dto: CreateKycCaseDto): Promise<KycCaseDetail> {
     return this.prisma.kycCase.create({
       data: { ...dto, status: 'pending' },
     });
   }
 
-  async review(id: string, dto: ReviewKycCaseDto, reviewer: string) {
+  async review(
+    id: string,
+    dto: ReviewKycCaseDto,
+    reviewer: string,
+  ): Promise<KycCaseDetail> {
     await this.get(id);
     return this.prisma.kycCase.update({
       where: { id },
@@ -69,7 +79,7 @@ export class KycService {
    * returns a deterministic stub result. Real provider integration (sanctions /
    * PEP / adverse-media) is INACTIVE pending written authorization and contracts.
    */
-  async screen(id: string) {
+  async screen(id: string): Promise<KycScreenResult> {
     await this.get(id);
     // Persist the illustrative outcome so the case (and the investor portal's
     // read-only status card) reflects that the stub ran. 'clear_stub' is
@@ -87,7 +97,7 @@ export class KycService {
     };
   }
 
-  async stats() {
+  async stats(): Promise<KycStats> {
     const grouped = await this.prisma.kycCase.groupBy({
       by: ['status'],
       _count: { _all: true },

@@ -1,127 +1,55 @@
-export type AssetProgram = {
-  id: string;
-  code: string;
-  name: string;
-  metal: string;
-  purity: string;
-  description?: string | null;
-  status: string;
-  createdAt?: string;
-  updatedAt?: string;
-  records?: AssetRecord[];
-};
+import type { components } from "./generated/api";
 
-export type AssetRecord = {
-  id: string;
-  assetId: string;
-  programId: string;
-  program?: AssetProgram;
-  batch?: string | null;
-  weightKg?: number | null;
-  status: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
+/**
+ * API response types.
+ *
+ * Every type below is an alias into `./generated/api`, which is generated from
+ * `api/openapi.json`, which is generated from the API's own response classes.
+ * Nothing here is transcribed by hand any more.
+ *
+ * This file used to hold 15 hand-written definitions. Comparing them against
+ * the generated schema found 27 discrepancies — four fields the API returns
+ * that were never declared (`organization`, `interest`, `locale` on a waitlist
+ * row; `sanctions` on a KYC case), one declared field the list endpoint never
+ * returns (`AssetProgram.records`), one enum modelled as a bare `string`, and
+ * 21 fields declared optional that are always present. None of them produced a
+ * compile error, because nothing compared the two.
+ *
+ * The names are kept as they were so no call site changed. Where the API turned
+ * out to serve two different shapes behind one name, the alias points at the
+ * one that route actually returns and the other is named separately.
+ */
 
-export type Passport = {
-  id: string;
-  passportId: string;
-  assetRecordId: string;
-  assetRecord?: AssetRecord;
-  template: string;
-  purity?: string | null;
-  status: string;
-  issuedAt?: string | null;
-  createdAt?: string;
-};
+type Schemas = components["schemas"];
 
-export type WaitlistEntry = {
-  id: string;
-  fullName: string;
-  email: string;
-  investorType: string;
-  consent: boolean;
-  createdAt?: string;
-};
+/** `GET /assets/programs` — no `records` on this shape. */
+export type AssetProgram = Schemas["AssetProgramSummary"];
 
-export type Allocation = { bucket: string; pct: number };
+/** `GET /assets/programs/:code` — the only shape that carries `records`. */
+export type AssetProgramDetail = Schemas["AssetProgramDetail"];
 
-export type Tokenomics = {
-  symbol: string;
-  capIllustrative: string;
-  reserveRatio: string;
-  transferFee: string;
-  allocations: Allocation[];
-  note: string;
-};
+/** `GET /assets/registry` — `program` is always included, never optional. */
+export type AssetRecord = Schemas["AssetRecordWithProgram"];
 
-export type DashboardStats = {
-  totals: {
-    waitlist: number;
-    programs: number;
-    records: number;
-    passportsIssued: number;
-  };
-  registrationsByType: { type: string; count: number }[];
-  recentActivity: {
-    assetId: string;
-    program: string;
-    status: string;
-    updatedAt: string;
-  }[];
-};
+export type Passport = Schemas["PassportResponse"];
+export type WaitlistEntry = Schemas["WaitlistEntryResponse"];
+export type Allocation = Schemas["TokenomicsAllocation"];
+export type Tokenomics = Schemas["TokenomicsResponse"];
+export type DashboardStats = Schemas["DashboardStats"];
+export type AuditEvent = Schemas["AuditEventResponse"];
+export type AuditListResponse = Schemas["AuditListResponse"];
+export type ChainVerificationResult = Schemas["ChainVerificationResponse"];
 
-export type AuditEvent = {
-  id: string;
-  sequence: number;
-  actorId?: string | null;
-  actorEmail?: string | null;
-  actorRole?: string | null;
-  action: string;
-  resourceType?: string | null;
-  resourceId?: string | null;
-  metadata?: Record<string, unknown> | null;
-  ipAddress?: string | null;
-  userAgent?: string | null;
-  prevHash?: string | null;
-  hash?: string | null;
-  createdAt: string;
-};
+/**
+ * `GET /kyc/cases` omits `email`; `GET /kyc/cases/:id` includes it (invariant
+ * 23). One hand-written `KycCase` stood for both, which is how a field that
+ * exists on only one of them gets read on the other.
+ */
+export type KycCase = Schemas["KycCaseListItem"];
+export type KycCaseDetail = Schemas["KycCaseDetail"];
+export type KycStats = Schemas["KycStats"];
 
-export type AuditListResponse = {
-  events: AuditEvent[];
-  total: number;
-};
-
-// Mirrors the KycCase model in api/prisma/schema.prisma. The columns are plain
-// strings in the database; the unions below come from the class-validator
-// @IsIn rules on CreateKycCaseDto and ReviewKycCaseDto.
-export type KycSubjectType = "person" | "entity";
-export type KycCaseStatus = "pending" | "in_review" | "approved" | "rejected";
-export type KycRiskLevel = "low" | "medium" | "high" | "unrated";
-
-export type KycCase = {
-  id: string;
-  subjectType: KycSubjectType;
-  legalName: string;
-  country: string;
-  status: KycCaseStatus;
-  riskLevel?: KycRiskLevel | null;
-  notes?: string | null;
-  reviewedBy?: string | null;
-  reviewedAt?: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
-// Shape returned by KycService.stats().
-export type KycStats = {
-  total: number;
-  byStatus: { status: KycCaseStatus; count: number }[];
-};
-
-export type ChainVerificationResult = {
-  valid: boolean;
-  firstBrokenSequence?: number;
-  totalEvents: number;
-};
+/** Unions now come from the API's `@IsIn` rules, not a second copy of them. */
+export type KycSubjectType = KycCase["subjectType"];
+export type KycCaseStatus = KycCase["status"];
+export type KycRiskLevel = NonNullable<KycCase["riskLevel"]>;

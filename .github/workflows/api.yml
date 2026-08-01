@@ -30,3 +30,11 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      # The committed openapi.json is what admin/ and mobile/ generate their
+      # types from. If a route or a DTO changes and this is not regenerated,
+      # both clients go back to describing an API that no longer exists — the
+      # exact failure the generator was added to stop. Fails the job, it does
+      # not regenerate: a CI job that rewrites committed artefacts hides the
+      # change from review.
+      - name: OpenAPI document is current
+        run: npm run openapi:check

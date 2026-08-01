@@ -8,6 +8,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { ProofOfReservesService } from './proof-of-reserves.service';
 import { CreateAttestationDto } from './dto/create-attestation.dto';
+import { ApiInactive } from '../common/decorators/api-inactive.decorator';
 
 /**
  * Proof-of-Reserves API (P11) — INACTIVE.
@@ -19,6 +20,7 @@ import { CreateAttestationDto } from './dto/create-attestation.dto';
  *
  * The route table, roles and DTOs are real and are the published contract.
  */
+@ApiInactive('P11', 'PROOF_OF_RESERVES_ENABLED')
 @Controller('por')
 @RequireFlag('PROOF_OF_RESERVES_ENABLED')
 @UseGuards(FeatureFlagGuard)

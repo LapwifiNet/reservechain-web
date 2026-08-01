@@ -7,7 +7,14 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enums/role.enum';
 import { AuditAs } from '../common/decorators/audit-domain.decorator';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  WaitlistCount,
+  WaitlistCreated,
+  WaitlistEntryResponse,
+} from './dto/waitlist.response.dto';
 
+@ApiTags('waitlist')
 @Controller('waitlist')
 export class WaitlistController {
   constructor(private readonly service: WaitlistService) {}
@@ -29,11 +36,13 @@ export class WaitlistController {
   // rejected sign-in is.
   @AuditAs('public')
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @ApiOkResponse({ type: WaitlistCreated })
   @Post()
   create(@Body() dto: CreateWaitlistDto) {
     return this.service.create(dto);
   }
 
+  @ApiOkResponse({ type: WaitlistCount })
   @Get('count')
   async count() {
     return { count: await this.service.count() };
@@ -41,6 +50,8 @@ export class WaitlistController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN, Role.COMPLIANCE)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: [WaitlistEntryResponse] })
   @Get()
   list(@Query('take') take?: string) {
     return this.service.list(take ? Number(take) : 50);

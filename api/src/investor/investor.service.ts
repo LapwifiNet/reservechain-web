@@ -8,6 +8,11 @@ import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterInvestorDto } from './dto/register-investor.dto';
 import { LoginInvestorDto } from './dto/login-investor.dto';
+import {
+  InvestorAuthResult,
+  InvestorPublic,
+  InvestorStatus,
+} from './dto/investor.response.dto';
 
 type InvestorRow = {
   id: string;
@@ -25,7 +30,7 @@ export class InvestorService {
     private readonly jwt: JwtService,
   ) {}
 
-  private sign(investor: { id: string; email: string }) {
+  private sign(investor: { id: string; email: string }): Promise<string> {
     return this.jwt.signAsync({
       sub: investor.id,
       email: investor.email,
@@ -36,7 +41,7 @@ export class InvestorService {
     });
   }
 
-  private toPublic(i: InvestorRow) {
+  private toPublic(i: InvestorRow): InvestorPublic {
     return {
       id: i.id,
       email: i.email,
@@ -45,7 +50,7 @@ export class InvestorService {
     };
   }
 
-  async register(dto: RegisterInvestorDto) {
+  async register(dto: RegisterInvestorDto): Promise<InvestorAuthResult> {
     const email = dto.email.toLowerCase().trim();
     const existing = await this.prisma.investorUser.findUnique({
       where: { email },
@@ -61,7 +66,7 @@ export class InvestorService {
     };
   }
 
-  async login(dto: LoginInvestorDto) {
+  async login(dto: LoginInvestorDto): Promise<InvestorAuthResult> {
     const email = dto.email.toLowerCase().trim();
     const investor = await this.prisma.investorUser.findUnique({
       where: { email },
@@ -75,7 +80,7 @@ export class InvestorService {
     };
   }
 
-  async me(email: string) {
+  async me(email: string): Promise<InvestorPublic> {
     const investor = await this.prisma.investorUser.findUnique({
       where: { email },
     });
@@ -86,7 +91,7 @@ export class InvestorService {
   // Aggregated read-only status: profile + waitlist entry + latest KYC case +
   // the public program catalogue. Informational only — nothing here changes
   // state, and no sensitive/offer data is exposed.
-  async status(email: string) {
+  async status(email: string): Promise<InvestorStatus> {
     const [investor, waitlist, kyc, programs] = await Promise.all([
       this.prisma.investorUser.findUnique({ where: { email } }),
       this.prisma.waitlistEntry.findUnique({ where: { email } }),

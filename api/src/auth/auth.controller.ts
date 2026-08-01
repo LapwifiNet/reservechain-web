@@ -6,7 +6,10 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { AuditAs } from '../common/decorators/audit-domain.decorator';
 import type { AuthenticatedUser } from '../common/enums/role.enum';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { AuthLoginResult, AuthMe } from './dto/auth.response.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly service: AuthService) {}
@@ -25,12 +28,15 @@ export class AuthController {
   // recorded outcome discloses nothing beyond "an attempt was rejected".
   @AuditAs('staff', { outcomes: 'all' })
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @ApiOkResponse({ type: AuthLoginResult })
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.service.login(dto.email, dto.password);
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: AuthMe })
   @Get('me')
   me(@CurrentUser() user: AuthenticatedUser) {
     return user;

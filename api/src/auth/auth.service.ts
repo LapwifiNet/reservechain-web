@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service';
 import { Role } from '../common/enums/role.enum';
+import { AuthLoginResult } from './dto/auth.response.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     return user;
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<AuthLoginResult> {
     const user = await this.validate(email, password);
     const role = (user.role as Role) ?? Role.VIEWER;
     const accessToken = await this.jwt.signAsync({

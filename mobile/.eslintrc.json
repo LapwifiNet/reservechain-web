@@ -1,5 +1,13 @@
 {
   "root": true,
-  "extends": ["expo"],
-  "ignorePatterns": ["node_modules", ".expo", "dist", "web-build"]
+  "extends": [
+    "expo"
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    ".expo",
+    "dist",
+    "web-build",
+    "src/api/generated.ts"
+  ]
 }
