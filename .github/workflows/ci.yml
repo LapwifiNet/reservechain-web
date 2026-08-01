@@ -29,6 +29,11 @@ jobs:
             npm install
           fi
       - run: npm run lint --if-present
+      # Screen registry gate — mirrors the Notion Wireframe Spec (D6: 80 ids).
+      # Fails when a route has no screen id, a done screen is missing, a
+      # conflict references a closed decision, or a regions-declaring screen
+      # renders only InfoPage.
+      - run: npm run verify:screens
       # Locale parity. Must run: next build cannot detect a missing translation
       # key, because next-intl resolves messages per request.
       - run: npm test

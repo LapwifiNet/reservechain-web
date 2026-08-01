@@ -11,9 +11,16 @@ apply order and invariants 1–63, which must survive every apply.
 
 ReserveChain is an institutional RWA (real-world asset) tokenization platform for industrial
 metals (Copper Powder, Nickel Wire). It is **pre-launch**. Nothing is being offered or sold.
-The build follows a 22-phase plan (P1-P22). The authoritative **specification** lives in Notion
-and is still **not** mirrored into this repository. `docs/` now exists, but it holds operational
-and onboarding documentation only:
+The build follows a 22-phase plan (P1-P22). The authoritative **specification** lives in Notion;
+**only the screen registry + decision log are mirrored** into this repository (one-way sync from
+Notion, read-only — never edit the YAML to change the spec, edit Notion and re-sync):
+
+| File | What it is |
+| --- | --- |
+| `docs/spec/screens.yaml` | 80 screen ids (D6), status done/partial/missing/conflict, routes, regions, gaps — CI-gated by `verify:screens` |
+| `docs/spec/decisions.yaml` | D1–D6 spec↔guardrail conflict decisions; closing one forces conflict screens to update |
+
+`docs/` otherwise holds operational and onboarding documentation only:
 
 | File | What it is |
 | --- | --- |
@@ -23,7 +30,8 @@ and onboarding documentation only:
 | `docs/TRAINING.md` | Onboarding guide for new contributors |
 
 Do **not** assume a local copy of the brief, PRD, wireframes, design system or roadmap exists —
-none of those are in `docs/`, and Notion remains the only source for them. What is in-repo, and
+none of those are in `docs/`, and Notion remains the only source for them (the two YAML mirrors
+above are the sole exception). What is in-repo, and
 authoritative there, is `AGENTS.md` (these rules), `APPLY-ORDER.md` (the apply order and the
 invariants every change must preserve), `SECURITY.md` (known defects and security posture) and
 `TRADEMARKS.md` (what the Apache-2.0 licence does and does not cover).

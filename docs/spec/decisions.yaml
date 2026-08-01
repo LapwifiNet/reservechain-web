@@ -1,0 +1,33 @@
+# Decision log — spec ↔ guardrail conflicts (Screen Registry §2, mirrored).
+# status: open | closed. When a decision is closed, conflict screens blocking
+# on it must be updated (verify-screens check 3 fails otherwise).
+
+- id: D1
+  title: Per-unit passport (SC-WEB-LOT)
+  status: open
+  options: Allow per-unit only when data comes from published CMS asset-records; no fixtures
+
+- id: D2
+  title: Asset figures (IGAS CoA on Copper/Nickel pages)
+  status: open
+  options: Real CoA data via CMS + scan, or keep Pending; never hardcode
+
+- id: D3
+  title: Inactive module placeholders
+  status: open
+  options: Placeholder UI in frontend while backend keeps 501 contract
+
+- id: D4
+  title: Website modes
+  status: open
+  options: Mode as CMS data (SC-CMS-SETTINGS) separate from the 4 env kill-switch flags; flags stay env + 501. Interim: SITE_MODE env var (implemented 2026-08-02, src/lib/mode.ts)
+
+- id: D5
+  title: Status chips (publication / token / asset)
+  status: open
+  options: CMS state machine as data; website renders chips from it
+
+- id: D6
+  title: Screen count
+  status: closed
+  decision: 80 screen IDs; 8 legal pages share one artboard

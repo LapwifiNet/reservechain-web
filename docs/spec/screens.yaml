@@ -1,0 +1,372 @@
+# Screen registry — mirror of the Notion Wireframe Spec (read-only, one-way sync).
+# Source: https://app.notion.com/.../Screen-Registry-+-Decision-Log
+# Status values: done (đúng spec) | partial (có route nhưng thiếu regions/states)
+#                missing (không tồn tại) | conflict (bị guardrail chặn — xem decision log)
+# D6: 80 screen IDs chốt; 8 legal pages (PRIVACY..CHANNELS) vẽ chung 1 artboard.
+
+# ── A. Public website (34) ────────────────────────────────────────────────
+- id: SC-WEB-HOME
+  route: /[locale]
+  status: partial
+  regions: [header-nav-16, sections-22, trust-bar-4, footer]
+  gap: nav hiện là 4 dropdown nhóm, không phải 16-item flat theo brief §7; thứ tự 22 section và trust bar 4 item chưa đối chiếu
+
+- id: SC-WEB-HIW
+  route: /[locale]/how-it-works
+  status: partial
+  regions: [banner-proposed, diagram-7-step]
+  gap: chỉ InfoPage (heading + paragraph); không có diagram 7 bước
+
+- id: SC-WEB-ASSETS
+  route: /[locale]/industrial-metal-assets
+  status: partial
+  regions: [program-grid, filters, future-programs]
+  gap: InfoPage; không có grid, không có filter
+
+- id: SC-WEB-COPPER
+  route: /[locale]/copper-powder
+  status: conflict
+  blocked_by: D2
+  regions: [badge-h1, notice-provisional, spec-table, status-cards-3, cta]
+
+- id: SC-WEB-NICKEL
+  route: /[locale]/nickel-wire
+  status: conflict
+  blocked_by: D2
+  regions: [badge-h1, notice-provisional, spec-table, status-cards-3, cta]
+
+- id: SC-WEB-LOT
+  route: /[locale]/registry/[lotId]
+  status: conflict
+  blocked_by: D1
+  gap: route đã bị xoá, URL cũ 308-redirect, invariant #30 cấm tái tạo
+
+- id: SC-WEB-DAP
+  route: /[locale]/passports/[slug]
+  status: partial
+  regions: [header-chips, tab-overview, tab-custody-timeline, tab-documents, tab-reserve-token]
+  gap: trang phẳng ở mức program; không có 4 tab, không có custody timeline, không có tab tài liệu
+
+- id: SC-WEB-VERIF
+  route: /[locale]/verification
+  status: partial
+  regions: [banner-proposed, diagram, lab-card, coa-reference]
+  gap: InfoPage
+
+- id: SC-WEB-CUSTODY
+  route: /[locale]/custody
+  status: partial
+  regions: [banner-proposed, timeline, warehouse-card, insurance-panel]
+  gap: InfoPage
+
+- id: SC-WEB-POR
+  route: /[locale]/proof-of-reserves
+  status: partial
+  regions: [banner-proposed, placeholder-dashboard, attestation-feed]
+  gap: InfoPage; không có dashboard placeholder (reserve vs circulating)
+  note: liên quan D3
+
+- id: SC-WEB-LEGAL
+  route: /[locale]/legal-structure
+  status: partial
+  regions: [banner-proposed, spv-diagram]
+  gap: InfoPage; không có sơ đồ SPV
+
+- id: SC-WEB-TOKENIZE
+  route: /[locale]/tokenization
+  status: partial
+  regions: [banner-testnet, erc20-lifecycle, parameter-table]
+  gap: InfoPage; thiếu lifecycle diagram và bảng tham số illustrative
+
+- id: SC-WEB-REDEEM
+  route: /[locale]/redemption
+  status: partial
+  regions: [banner-inactive, process-diagram, eligibility-table]
+  gap: InfoPage
+  note: liên quan D3
+
+- id: SC-WEB-ENT
+  route: /[locale]/enterprise
+  status: partial
+  regions: [content, enquiry-form]
+  gap: không có form; API không có endpoint enquiries
+
+- id: SC-WEB-ASSETOWNER
+  route: /[locale]/asset-owner-enquiries
+  status: partial
+  regions: [content, enquiry-form]
+  gap: không có form
+
+- id: SC-WEB-BUYER
+  route: /[locale]/industrial-buyer-enquiries
+  status: partial
+  regions: [content, enquiry-form]
+  gap: không có form
+
+- id: SC-WEB-DOCS
+  route: /[locale]/documents
+  status: partial
+  regions: [category-list, pdf-viewer, draft-watermark, whitepaper-toc]
+  gap: có src/lib/documents.ts với state published|preparation|pending nhưng không có viewer nhúng, không có watermark, không có TOC whitepaper
+
+- id: SC-WEB-OVERVIEW
+  route: /[locale]/overview
+  status: missing
+  gap: không thấy route nào cho Project Overview
+
+- id: SC-WEB-STATUS
+  route: /[locale]/corporate-status
+  status: partial
+  gap: InfoPage; thiếu status chips theo D5
+
+- id: SC-WEB-ABOUT
+  route: /[locale]/about
+  status: done
+
+- id: SC-WEB-ROADMAP
+  route: /[locale]/roadmap
+  status: partial
+  gap: InfoPage; spec ngụ ý timeline có mốc + trạng thái
+
+- id: SC-WEB-GOV
+  route: /[locale]/governance
+  status: done
+
+- id: SC-WEB-FAQ
+  route: /[locale]/faq
+  status: partial
+  gap: InfoPage phẳng; không có accordion/nhóm câu hỏi
+
+- id: SC-WEB-CONTACT
+  route: /[locale]/contact
+  status: partial
+  regions: [content, enquiry-form]
+  gap: không có form lưu enquiry
+
+- id: SC-WEB-WL
+  route: /[locale]/waitlist
+  status: partial
+  regions: [step-1-info, step-2-consent, step-3-confirm]
+  gap: có 3 step + consent (enforce server-side @Equals(true)) nhưng: không có email verification; không có captcha; chống lạm dụng chỉ là throttle 5/60s per IP ở API; fullName rỗng thì tự lấy local-part của email; material of interest chỉ là textarea optional
+
+- id: SC-WEB-PRIVACY
+  route: /[locale]/privacy
+  status: done
+
+- id: SC-WEB-COOKIE
+  route: /[locale]/cookie-policy
+  status: done
+
+- id: SC-WEB-TERMS
+  route: /[locale]/terms
+  status: done
+
+- id: SC-WEB-RISK
+  route: /[locale]/risk-disclosure
+  status: done
+
+- id: SC-WEB-RESTRICTED
+  route: /[locale]/restricted-jurisdictions
+  status: done
+
+- id: SC-WEB-ANTIFRAUD
+  route: /[locale]/anti-fraud
+  status: done
+
+- id: SC-WEB-CHANNELS
+  route: /[locale]/official-channels
+  status: done
+
+- id: SC-WEB-404
+  route: not-found
+  status: partial
+  gap: cần xác nhận có link Home và copy ở cả 3 locale
+
+- id: SC-WEB-ERROR
+  route: error
+  status: missing
+  gap: chưa thấy error boundary theo locale
+
+# ── B. Investor portal (12) ──────────────────────────────────────────────
+- id: SC-INV-AUTH
+  route: /[locale]/portal/login
+  status: partial
+  gap: có register + login (JWT ~12h, InvestorJwtGuard) nhưng không có 2FA
+
+- id: SC-INV-DASH
+  status: missing
+  gap: portal chỉ có 1 trang Status read-only; không có dashboard
+
+- id: SC-INV-KYC
+  status: partial
+  gap: verification status hiện trong trang Status; không có progress/upload/remediation
+
+- id: SC-INV-WALLET
+  status: missing
+  blocked_by: D3
+
+- id: SC-INV-HOLD
+  status: missing
+  blocked_by: D3
+
+- id: SC-INV-BUY
+  status: missing
+  blocked_by: D3
+
+- id: SC-INV-RDM
+  status: missing
+  blocked_by: D3
+
+- id: SC-INV-POR
+  status: missing
+  blocked_by: D3
+
+- id: SC-INV-HISTORY
+  status: missing
+
+- id: SC-INV-DOCS
+  status: missing
+  gap: không có document library / signed archive cho investor
+
+- id: SC-INV-SUPPORT
+  status: missing
+  gap: không có ticket system ở bất kỳ workspace nào
+
+- id: SC-INV-SETTINGS
+  status: missing
+  gap: thiếu session mgmt, data export, account closure — đây là nghĩa vụ GDPR, không phải nice-to-have
+
+# ── C. Admin / Ops / Compliance (14) ─────────────────────────────────────
+- id: SC-CMS-LOGIN
+  route: admin /login
+  status: partial
+  gap: có httpOnly cookie rc_session 12h + RBAC backend; không có MFA
+
+- id: SC-CMS-DASH
+  route: admin /
+  status: partial
+  gap: có totals + registrationsByType + recentActivity; thiếu "content pending approval" và privileged alerts
+
+- id: SC-CMS-CONTENT
+  status: missing
+  blocked_by: D5
+  gap: không có collection content/pages; copy website nằm trong messages/*.json, sửa phải deploy
+
+- id: SC-CMS-MEDIA
+  status: partial
+  gap: Payload media ghi vào uploads/ local, KHÔNG phải S3; không có signed URL. Terraform có S3 bucket nhưng chưa apply và CMS chưa wire
+
+- id: SC-CMS-REGISTRY
+  status: partial
+  gap: CMS chỉ có asset-programs, asset-records, passports. Thiếu CRUD: containers, coils, labs, custody, valuation, insurance, reserve, token, redemption
+
+- id: SC-CMS-TOKEN
+  status: missing
+  gap: chỉ có tokenMapping group trên passport (activated/contractAddress/circulatingSupply); không có token state machine, không có pending-approval
+
+- id: SC-CMS-KYC
+  route: admin /kyc
+  status: partial
+  gap: backend live (cases/review/screen) nhưng UI còn placeholder; sanctions screening là stub, và invariant #27 yêu cầu wording stub ở cả 3 locale
+
+- id: SC-CMS-ACQ
+  status: missing
+
+- id: SC-CMS-RECON
+  status: missing
+  gap: không có reconciliation, không có exception queue
+
+- id: SC-CMS-WAITLIST
+  route: admin /waitlist
+  status: partial
+  gap: có list + mask email; KHÔNG có export, không có segmentation, không nhận enquiries (vì enquiries chưa tồn tại)
+
+- id: SC-CMS-USERS
+  status: partial
+  gap: role admin|editor|viewer ở Payload + ADMIN/COMPLIANCE/VIEWER ở API, nhưng không có UI quản trị user/RBAC trong admin console
+
+- id: SC-CMS-AUDIT
+  route: admin /audit
+  status: done
+  note: có /api/audit/verify cho hash chain; kiểm tra UI đã hiện broken-hash alert chưa
+
+- id: SC-CMS-REPORTS
+  status: missing
+
+- id: SC-CMS-SETTINGS
+  status: missing
+  blocked_by: D4
+  gap: không có UI nào; flags là env var. Đây là screen chặn D4 và D5
+
+# ── D. Asset-owner / Enterprise (4) ──────────────────────────────────────
+- id: SC-AO-ONBOARD
+  status: missing
+
+- id: SC-AO-ASSET
+  status: missing
+
+- id: SC-AO-STATUS
+  status: missing
+
+- id: SC-AO-DOCS
+  status: missing
+
+# ── E. Mobile (16) ───────────────────────────────────────────────────────
+- id: SC-MOB-SPLASH
+  status: missing
+  gap: không có splash/onboarding, nên verbatim disclosure ở onboarding cũng thiếu
+
+- id: SC-MOB-AUTH
+  status: partial
+  gap: có register/login; không có MFA, không có biometric, chưa kiểm tra secure storage
+
+- id: SC-MOB-HOME
+  status: partial
+  gap: dùng Stack router; KHÔNG có tab shell Home/Registry/Passport/Documents/Profile
+
+- id: SC-MOB-PROG
+  status: done
+
+- id: SC-MOB-DAP
+  status: done
+  note: qua GET /passports/public/:slug
+
+- id: SC-MOB-DOC
+  status: missing
+
+- id: SC-MOB-KYC
+  status: partial
+  gap: chỉ có GET /investor/status
+
+- id: SC-MOB-WALLET
+  status: missing
+  blocked_by: D3
+
+- id: SC-MOB-HOLD
+  status: missing
+  blocked_by: D3
+
+- id: SC-MOB-BUY
+  status: missing
+  blocked_by: D3
+
+- id: SC-MOB-POR
+  status: missing
+  blocked_by: D3
+
+- id: SC-MOB-RDM
+  status: missing
+  blocked_by: D3
+
+- id: SC-MOB-NOTIF
+  status: missing
+
+- id: SC-MOB-SUPPORT
+  status: missing
+
+- id: SC-MOB-PROFILE
+  status: partial
+
+- id: SC-MOB-SETTINGS
+  status: partial
+  gap: có EN/ES/IT + disclosure; thiếu theme, legal links, sign out đầy đủ
