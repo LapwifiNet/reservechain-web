@@ -10,6 +10,7 @@ import AssetPrograms from "./collections/AssetPrograms";
 import AssetRecords from "./collections/AssetRecords";
 import Passports from "./collections/Passports";
 import Settings from "./collections/Settings";
+import { resolveDatabaseUri } from "./databaseUri";
 
 const origins = (process.env.CORS_ORIGINS || "")
   .split(",")
@@ -22,7 +23,7 @@ export default buildConfig({
     user: Users.slug,
     bundler: webpackBundler(),
     meta: {
-      titleSuffix: "· ReserveChain CMS",
+      titleSuffix: "\u00b7 ReserveChain CMS",
       favicon: "/favicon.ico",
     },
   },
@@ -30,9 +31,9 @@ export default buildConfig({
   collections: [Users, Media, AssetPrograms, AssetRecords, Passports, Settings],
   db: postgresAdapter({
     pool: {
-      connectionString:
-        process.env.DATABASE_URI ||
-        "postgresql://reservechain:reservechain@localhost:5432/reservechain_cms",
+      // Required, no fallback - see cms/src/databaseUri.ts for why a default
+      // here once pointed the CMS at the API's database.
+      connectionString: resolveDatabaseUri(),
     },
   }),
   cors: origins,
