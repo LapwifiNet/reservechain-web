@@ -1306,5 +1306,31 @@
     "development": "Development deployment — content may change or be reset at any time. This is not the production site.",
     "waitlist": "Waiting list is open. Registrations express interest only and do not constitute an investment or reservation.",
     "other": "This deployment is in {mode} mode. Nothing on this site is an offer or sale of tokens."
+  },
+  "status": {
+    "heading": "Project status",
+    "note": "These states describe the stage of the project. Nothing on this site is an offer or sale of tokens.",
+    "asOf": "As of {date}.",
+    "axis": {
+      "publication": "Publication",
+      "token": "Token",
+      "asset": "Asset"
+    },
+    "publication": {
+      "pending": "Not yet published",
+      "in-preparation": "In preparation",
+      "published": "Published"
+    },
+    "token": {
+      "not-issued": "Not issued",
+      "proposed": "Proposed",
+      "in-development": "In development",
+      "testnet-deployed": "Deployed to a test network"
+    },
+    "asset": {
+      "pending": "Pending",
+      "documentation-in-preparation": "Documentation in preparation",
+      "independently-verified": "Independently verified"
+    }
   }
 }

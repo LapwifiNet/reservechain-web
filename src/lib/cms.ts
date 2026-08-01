@@ -115,27 +115,40 @@ export async function listPassports(): Promise<PassportSummary[]> {
   }
 }
 
-/**
- * Website settings (SC-CMS-SETTINGS) — the current site mode, read from the
- * CMS with an env fallback.
- *
- * Returns null on any failure so the caller falls back to the env default
- * (public pages degrade, they do not fail — invariant 29). The value is the
- * raw Payload doc; the website's src/lib/mode.ts validates it against
- * SITE_MODES and falls back to `development` for anything unknown.
- */
-export async function getWebsiteSettings(): Promise<{
+/** The settings fields the website reads. All optional: a CMS may predate a field. */
+export type WebsiteSettings = {
   siteMode?: string | null;
   waitlistOpen?: boolean | null;
-} | null> {
+  publicationStatus?: string | null;
+  tokenStatus?: string | null;
+  assetStatus?: string | null;
+};
+
+/**
+ * Website settings (SC-CMS-SETTINGS) — the current site mode and the three
+ * D5 status chips, read from the CMS with an env/static fallback.
+ *
+ * Returns null on any failure so the caller falls back to its own default
+ * (public pages degrade, they do not fail — invariant 29). The values are the
+ * raw Payload doc; src/lib/mode.ts validates the mode against SITE_MODES and
+ * src/lib/status.ts validates each status against its scale, both falling back
+ * to the reading that claims the least.
+ */
+export async function getWebsiteSettings(): Promise<WebsiteSettings | null> {
   const url = `${CMS_API_BASE}/settings?where[name][equals]=default&limit=1&depth=0`;
   try {
     const res = await fetch(url, cmsFetchInit());
     if (!res.ok) return null;
-    const data = (await res.json()) as { docs?: Array<{ siteMode?: string | null; waitlistOpen?: boolean | null }> };
+    const data = (await res.json()) as { docs?: WebsiteSettings[] };
     const doc = data.docs?.[0];
     if (!doc) return null;
-    return { siteMode: doc.siteMode ?? null, waitlistOpen: doc.waitlistOpen ?? null };
+    return {
+      siteMode: doc.siteMode ?? null,
+      waitlistOpen: doc.waitlistOpen ?? null,
+      publicationStatus: doc.publicationStatus ?? null,
+      tokenStatus: doc.tokenStatus ?? null,
+      assetStatus: doc.assetStatus ?? null,
+    };
   } catch {
     return null;
   }

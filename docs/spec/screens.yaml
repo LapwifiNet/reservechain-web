@@ -116,8 +116,8 @@
 
 - id: SC-WEB-STATUS
   route: /[locale]/corporate-status
-  status: partial
-  gap: InfoPage; thiếu status chips theo D5
+  status: done
+  regions: [status-chips]
 
 - id: SC-WEB-ABOUT
   route: /[locale]/about
@@ -125,9 +125,8 @@
 
 - id: SC-WEB-ROADMAP
   route: /[locale]/roadmap
-  status: partial
-  regions: [timeline-milestones]
-  gap: TimelineList slot đã có (5 stages); còn thiếu status chips theo D5
+  status: done
+  regions: [timeline-milestones, status-chips]
 
 - id: SC-WEB-GOV
   route: /[locale]/governance
@@ -251,8 +250,7 @@
 
 - id: SC-CMS-CONTENT
   status: missing
-  blocked_by: D5
-  gap: không có collection content/pages; copy website nằm trong messages/*.json, sửa phải deploy
+  gap: không có collection content/pages; copy website nằm trong messages/*.json, sửa phải deploy. D5 đã đóng và không còn block screen này — nhưng D5 chỉ quyết định status chips (state là enum trong CMS, chữ hiển thị ở messages đã review). Copy trang nói chung vẫn là câu hỏi mở, chưa có decision
 
 - id: SC-CMS-MEDIA
   status: partial
@@ -298,7 +296,7 @@
 
 - id: SC-CMS-SETTINGS
   status: partial
-  gap: Payload settings collection đã có (siteMode 10 modes, waitlistOpen, disclosureOverrides) + web đọc CMS với env fallback (D4 closed); còn thiếu admin UI điều khiển + status state machine (D5)
+  gap: settings collection có siteMode (10 modes) + waitlistOpen + disclosureOverrides (D4) và status state machine publication/token/asset với beforeChange chặn nhảy bậc (D5 closed); migration 20260801_210311 tạo bảng settings (D4 ship thiếu migration nên prod chưa từng có bảng này). Còn thiếu: seed row `default` (chưa có row thì web luôn rơi về fallback) và admin UI riêng ngoài form Payload mặc định
 
 # ── D. Asset-owner / Enterprise (4) ──────────────────────────────────────
 - id: SC-AO-ONBOARD
