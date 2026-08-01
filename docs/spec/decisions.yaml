@@ -24,8 +24,8 @@
 
 - id: D5
   title: Status chips (publication / token / asset)
-  status: open
-  options: CMS state machine as data; website renders chips from it
+  status: closed
+  decision: State is CMS data (settings.publicationStatus / tokenStatus / assetStatus), wording is not — the CMS stores an enum and the website renders an approved translated string per state, so no admin edit can write chip copy. Scales are ordered and beforeChange refuses a jump; the token scale stops at testnet-deployed and cannot express an offer (guardrails 1, 6). CMS unreachable falls back to the first state on each scale, not the last known one. Implemented 2026-08-02 (cms/src/lib/statusMachine.ts, src/lib/status.ts, src/components/StatusChips.tsx, migration 20260801_210311)
 
 - id: D6
   title: Screen count
