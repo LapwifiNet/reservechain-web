@@ -51,13 +51,13 @@
   route: /[locale]/verification
   status: partial
   regions: [banner-proposed, diagram, lab-card, coa-reference]
-  gap: InfoPage
+  gap: TimelineList slot đã có; còn thiếu lab-card + coa-reference
 
 - id: SC-WEB-CUSTODY
   route: /[locale]/custody
   status: partial
   regions: [banner-proposed, timeline, warehouse-card, insurance-panel]
-  gap: InfoPage
+  gap: TimelineList slot đã có; còn thiếu warehouse card + insurance panel
 
 - id: SC-WEB-POR
   route: /[locale]/proof-of-reserves

@@ -9,6 +9,11 @@ export function WaitlistForm() {
   const [form, setForm] = useState({ name: '', email: '', organization: '', interest: '', investorType: '' });
   const [consent, setConsent] = useState({ notInvestment: false, notRestricted: false, privacy: false });
   const [status, setStatus] = useState('idle');
+  // Honeypot + minimum-fill-time: cheap anti-spam that needs no captcha
+  // provider (Screen Registry step 2 — captcha stays a future option).
+  const [honey, setHoney] = useState('');
+  const [t0] = useState(() => Date.now());
+  const MIN_FILL_MS = 3500;
 
   const allConsent = consent.notInvestment && consent.notRestricted && consent.privacy;
   const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email);
@@ -17,6 +22,12 @@ export function WaitlistForm() {
   const step1Ok = emailOk && !!form.investorType;
 
   async function submit() {
+    // Bots fill the hidden field; humans never see it. Silently drop.
+    if (honey) return;
+    if (Date.now() - t0 < MIN_FILL_MS) {
+      setStatus('error');
+      return;
+    }
     setStatus('saving');
     try {
       const res = await fetch('/api/waitlist', {
@@ -45,6 +56,19 @@ export function WaitlistForm() {
 
       {step === 1 && (
         <div className="mt-8 space-y-4">
+          {/* Honeypot — visually hidden, bots fill it, humans never see it. */}
+          <div className="absolute -left-[9999px]" aria-hidden="true">
+            <label>
+              Company website
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honey}
+                onChange={(e) => setHoney(e.target.value)}
+              />
+            </label>
+          </div>
           <Field label={t('f.name')} value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
           <Field label={t('f.email')} value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" required />
           <label className="block">

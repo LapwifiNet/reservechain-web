@@ -33,6 +33,7 @@ export type AssetRecord = Schemas["AssetRecordWithProgram"];
 
 export type Passport = Schemas["PassportResponse"];
 export type WaitlistEntry = Schemas["WaitlistEntryResponse"];
+export type Enquiry = Schemas["EnquiryResponse"];
 export type Allocation = Schemas["TokenomicsAllocation"];
 export type Tokenomics = Schemas["TokenomicsResponse"];
 export type DashboardStats = Schemas["DashboardStats"];

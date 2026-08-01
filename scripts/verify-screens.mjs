@@ -25,8 +25,6 @@ const DECISIONS = join(SPEC_DIR, 'decisions.yaml');
 
 // 80 ids fixed by decision D6 (Screen Registry §2).
 const EXPECTED_COUNT = 80;
-// D1..D6 decisions that are still OPEN (not decided yet).
-const OPEN_DECISIONS = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
 
 const errors = [];
 const warn = (msg) => console.warn(`  ⚠ ${msg}`);
@@ -63,8 +61,6 @@ if (screens.length !== EXPECTED_COUNT) {
 } else {
   console.log(`✅ screen registry: ${screens.length} ids (D6 ok)`);
 }
-
-const byId = new Map(screens.map((s) => [s.id, s]));
 
 // ── routes on disk ──────────────────────────────────────────────────────────
 const LOCALE_DIR = join(ROOT, 'src', 'app', '[locale]');

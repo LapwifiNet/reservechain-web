@@ -14,6 +14,7 @@ const nav: { group: string; items: Item[] }[] = [
       { href: "/programs", label: "Programs", icon: "\u25c8" },
       { href: "/passports", label: "Digital Passports", icon: "\u2756" },
       { href: "/waitlist", label: "Waitlist", icon: "\u2630" },
+      { href: "/enquiries", label: "Enquiries", icon: "\u2709" },
       { href: "/tokenomics", label: "Tokenomics", icon: "\u25ce" },
     ],
   },

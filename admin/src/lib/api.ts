@@ -6,6 +6,7 @@ import type {
   Passport,
   Tokenomics,
   WaitlistEntry,
+  Enquiry,
   AuditListResponse,
   ChainVerificationResult,
   KycCase,
@@ -52,6 +53,7 @@ export const api = {
   registry: () => get<AssetRecord[]>("/assets/registry"),
   passports: () => get<Passport[]>("/passports"),
   waitlist: () => get<WaitlistEntry[]>("/waitlist"),
+  enquiries: () => get<Enquiry[]>("/enquiries"),
   tokenomics: () => get<Tokenomics>("/tokenomics"),
   audit: (params: {
     skip?: number;
