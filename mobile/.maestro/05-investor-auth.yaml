@@ -6,6 +6,10 @@ tags:
 # Requires a reachable backend (POST /investor/register, GET /investor/status).
 - launchApp:
     clearState: true
+# Debug build reloads the JS bundle from Metro after clearState — allow time.
+- extendedWaitUntil:
+    visible: ".*ReserveChain.*"
+    timeout: 90000
 - tapOn:
     id: "btn-investor"
 - assertVisible: "Log in"

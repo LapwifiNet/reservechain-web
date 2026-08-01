@@ -6,6 +6,10 @@ tags:
 # Requires a reachable backend (POST /waitlist). Set EXPO_PUBLIC_API_BASE.
 - launchApp:
     clearState: true
+# Debug build reloads the JS bundle from Metro after clearState — allow time.
+- extendedWaitUntil:
+    visible: ".*ReserveChain.*"
+    timeout: 90000
 - tapOn:
     id: "btn-waitlist"
 - tapOn:
@@ -21,5 +25,4 @@ tags:
     id: "btn-submit"
 # Success confirmation.
 - assertVisible:
-    text: ".*your interest has been registered.*"
-    ignoreCase: true
+    text: ".*(?i)your interest has been registered.*"

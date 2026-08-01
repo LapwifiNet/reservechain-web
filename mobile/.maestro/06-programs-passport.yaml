@@ -6,6 +6,10 @@ tags:
 # Requires the CMS public endpoints with at least one published program.
 - launchApp:
     clearState: true
+# Debug build reloads the JS bundle from Metro after clearState — allow time.
+- extendedWaitUntil:
+    visible: ".*ReserveChain.*"
+    timeout: 90000
 - tapOn:
     id: "btn-programs"
 - assertVisible: "Asset programs"

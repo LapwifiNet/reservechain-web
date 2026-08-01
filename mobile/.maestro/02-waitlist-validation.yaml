@@ -5,6 +5,10 @@ tags:
 ---
 - launchApp:
     clearState: true
+# Debug build reloads the JS bundle from Metro after clearState — allow time.
+- extendedWaitUntil:
+    visible: ".*ReserveChain.*"
+    timeout: 90000
 - tapOn:
     id: "btn-waitlist"
 - assertVisible: "Register interest"

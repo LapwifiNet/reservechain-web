@@ -46,7 +46,7 @@ invariants every change must preserve), `SECURITY.md` (known defects and securit
 | `contracts/` | Solidity, Foundry, OpenZeppelin v5 | ERC-20 token, deploy and role scripts, tests |
 | `infra/wallets/` | Docs + templates | Gnosis Safe setup, role matrix, wallet inventory |
 | `cms/` | Payload v2 CMS on Express, PostgreSQL | Asset registry + public Digital Asset Passports, port 3001, own database `reservechain_cms` |
-| `mobile/` | React Native (Expo SDK 51), Expo Router, TypeScript | iOS + Android app, investor domain only. Verified with lint + `tsc`; **never run on a device and never built** |
+| `mobile/` | React Native (Expo SDK 51), Expo Router, TypeScript | iOS + Android app, investor domain only. Verified with lint + `tsc`, **web export** (Playwright 11/11, 2026-08-02), and an **Android debug APK** on the `Linken_AdMachine` emulator (Maestro 01/02/03/04 pass; 05/06 blocked on CMS port conflict). Store builds still untested — needs Apple/Play accounts |
 | `infra/terraform/` | Terraform, AWS | VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR, Secrets Manager. Verified with `validate` / `fmt`, never applied from this repository |
 | `docs/` | Markdown | Runbook, user + admin manuals, training guide. **Not** the specification — that stays in Notion (P21) |
 

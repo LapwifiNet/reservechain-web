@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import * as SecureStore from "expo-secure-store";
+import { getToken as storageGet, setToken as storageSet, deleteToken as storageDelete } from "@/lib/storage";
 import { api } from "@/api/client";
 import type { Investor, InvestorStatus } from "@/api/types";
 
@@ -37,13 +37,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      const saved = await SecureStore.getItemAsync(TOKEN_KEY);
+      const saved = await storageGet(TOKEN_KEY);
       if (saved) {
         setToken(saved);
         try {
           setStatus(await api.status(saved));
         } catch {
-          await SecureStore.deleteItemAsync(TOKEN_KEY);
+          await storageDelete(TOKEN_KEY);
           setToken(null);
         }
       }
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   async function persist(next: { accessToken: string; investor: Investor }) {
-    await SecureStore.setItemAsync(TOKEN_KEY, next.accessToken);
+    await storageSet(TOKEN_KEY, next.accessToken);
     setToken(next.accessToken);
     setInvestor(next.investor);
     setStatus(await api.status(next.accessToken));
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (token) setStatus(await api.status(token));
       },
       logout: async () => {
-        await SecureStore.deleteItemAsync(TOKEN_KEY);
+        await storageDelete(TOKEN_KEY);
         setToken(null);
         setInvestor(null);
         setStatus(null);

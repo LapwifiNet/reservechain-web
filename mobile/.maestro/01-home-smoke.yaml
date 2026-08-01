@@ -6,6 +6,10 @@ tags:
 ---
 - launchApp:
     clearState: true
+# Debug build reloads the JS bundle from Metro after clearState — allow time.
+- extendedWaitUntil:
+    visible: ".*ReserveChain.*"
+    timeout: 90000
 - assertVisible: "Industrial-metals-backed RWA"
 - assertVisible: "Disclosure"
 # Verbatim prelaunch disclosure must be present on the home screen.

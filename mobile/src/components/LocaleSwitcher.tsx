@@ -10,6 +10,7 @@ export function LocaleSwitcher() {
       {SUPPORTED.map((l: Locale) => (
         <Pressable
           key={l}
+          testID={`btn-locale-${l}`}
           onPress={() => change(l)}
           style={[styles.chip, locale === l && styles.chipOn]}
         >
