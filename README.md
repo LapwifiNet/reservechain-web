@@ -137,8 +137,9 @@ infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront,
 The React Native app (`mobile/`, P13) exists — Expo SDK 51, iOS + Android, investor domain
 only — and has been verified with lint and `tsc --noEmit`; it has **never been run on a
 device or built into a binary**, and none of its six Maestro flows has been executed. `docs/` holds the operations
-runbook, the user and admin manuals and the training guide; the specification itself (brief,
-PRD, wireframes, roadmap) is **not** mirrored in-repo and stays in Notion (P21). Payload CMS (`cms/`, P10) exists — see the entry above and the
+runbook, the user and admin manuals and the training guide; the full specification (brief,
+PRD, wireframes, roadmap) stays in Notion (P21); only the screen registry + decision log
+(`docs/spec/`, one-way mirror from Notion, CI-gated by `npm run verify:screens`) are in-repo. Payload CMS (`cms/`, P10) exists — see the entry above and the
 Docker service table. The Terraform infrastructure (`infra/terraform/`, P19) exists and is
 verified with `terraform validate` and `fmt -check`; it has never been applied, and no AWS
 resource exists as a result of anything in this repository.
@@ -188,7 +189,7 @@ Three separate layers, with different holders and different terms:
 | --- | --- | --- |
 | The code in this repository | Tin Ly | Licensed under Apache License 2.0 ([LICENSE](LICENSE)). Licensed, never assigned. |
 | The "ReserveChain" name, logo, visual identity and the `reservechain.io` domain | The prospective client | **Not licensed by this repository.** Apache 2.0 section 6 grants no trademark rights. See [TRADEMARKS.md](TRADEMARKS.md). |
-| The specification and brief | The prospective client | Not in this repository. The specification lives in Notion and is not mirrored in-tree. |
+| The specification and brief | The prospective client | The authoritative specification lives in Notion. The repository carries only a read-only, one-way mirror of the screen registry + decision log (`docs/spec/`), which is CI-gated; it is not a substitute for the spec. |
 
 The code published here is licensed under Apache License 2.0. That grant is perpetual and
 irrevocable for anyone who has already obtained a copy, and a later transfer of repository
