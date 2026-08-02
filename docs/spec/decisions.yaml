@@ -14,8 +14,8 @@
 
 - id: D3
   title: Inactive module placeholders
-  status: open
-  options: Placeholder UI in frontend while backend keeps 501 contract
+  status: closed
+  decision: Placeholder UI in the frontend while the backend keeps the 501 contract — the two rules address different layers and do not conflict. The placeholder names the module, states it is not active, and gives the reason (pending legal, audit, pen-test and written authorisation). It must be rendered statically from the feature flag at build/render time and must NEVER be derived by calling the endpoint and catching a 501, otherwise a change of error code silently changes what the UI claims. Kill-switch flags and invariant #31 are unchanged. Closed 2026-08-02
 
 - id: D4
   title: Website modes
@@ -30,4 +30,4 @@
 - id: D6
   title: Screen count
   status: closed
-  decision: 80 screen IDs; 8 legal pages share one artboard
+  decision: 84 screen IDs; 8 legal pages share one artboard. Reopened and re-closed 2026-08-02 — the original 84 was counted as 80 because four live routes (/portal, /portal/register, /passports, /registry) were claimed by no screen id and check 1 of verify-screens never ran to say so. Added SC-WEB-DAPLIST, SC-WEB-REGISTRY, SC-INV-REG, SC-INV-STATUS
