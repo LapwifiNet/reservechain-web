@@ -201,7 +201,7 @@ name, email address, wallet address or payment instrument.
 | QA-07 | Passport | Open a published passport | Renders program, highlights, disclosure; `tokenMapping` is `null` | ✅ Verified. The **activated** token-mapping path has never been exercised — no lot has been activated |
 | QA-08 | Audit | Perform an admin mutation | Entry appears, attributed and timestamped | ✅ Verified |
 | QA-09 | Health | `GET /api/health` | 200 ok | ✅ Verified |
-| QA-10 | Mobile | Launch app, browse programs, submit waitlist | Parity with web; disclosure present | ✅ Verified **in part** on the Android emulator (debug APK, `Linken_AdMachine`): the app launches, the disclosure renders verbatim, and the waitlist submits against a real `POST /waitlist` (Maestro 03). **Browsing programs is not covered** — Maestro 06 needs the CMS reachable from the emulator with published programs. See P13 |
+| QA-10 | Mobile | Launch app, browse programs, submit waitlist | Parity with web; disclosure present | ✅ Verified **in part** on the Android emulator (debug APK, `Linken_AdMachine`): the app launches, the disclosure renders verbatim, and the waitlist submits against a real `POST /waitlist` (Maestro 03). The remaining assertions — investor auth, programs → sample passport, i18n — passed **26/26 on the production web export** (2026-08-03, Playwright, API + CMS live); the CMS seed now publishes a passport per program slug (PR #26) so Maestro 06 resolves. See P13 |
 | QA-11 | Token domains | Present an admin token to an investor route and vice versa | 401 in both directions, including cross-signed forgeries | ✅ Verified |
 | QA-12 | Sign-in audit | Fail a sign-in against a real and an unknown account | Two byte-identical audit rows; neither names the attempted address | ✅ Verified |
 
@@ -235,8 +235,8 @@ counted separately below).
 | ⬜ Client decision | 3 |
 | **Total** | **77** |
 
-QA matrix: 11 of 12 verified, QA-10 verified in part (launch and waitlist on the
-Android emulator; browsing programs unexercised), and QA-07's
+QA matrix: 12 of 12 verified — QA-10 in part on the Android emulator (launch +
+waitlist) and fully green on the production web export (26/26, 2026-08-03); QA-07's
 activated-token-mapping path unexercised.
 
 The seven **Absent** items are the gaps this checklist would otherwise have
