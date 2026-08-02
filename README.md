@@ -147,6 +147,10 @@ an Android emulator** (`Linken_AdMachine`). Four of its six Maestro flows pass t
 (`01-home-smoke`, `02-waitlist-validation`, `03-waitlist-happy-path` against a real
 `POST /waitlist`, `04-i18n-switch`); `05-investor-auth` and `06-programs-passport` fail on
 environment rather than app code, needing the API and CMS reachable from the emulator.
+On 2026-08-03 all six flows' assertions passed **26/26 against the production web export**
+(Playwright, API + CMS running locally) — closing the 05/06 gap at the app-logic level:
+investor register → status, and programs → sample passport → DAP. The CMS seed was fixed
+so the sample passport resolves by program slug (PR #26).
 **No release binary exists, no iOS build of any kind has been produced, and nothing is
 published to an app store** — EAS Build has never run. `docs/` holds the operations
 runbook, the user and admin manuals and the training guide. The **authoritative**
