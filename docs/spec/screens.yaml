@@ -346,8 +346,8 @@ gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã ren
   gap: có register/login; không có MFA, không có biometric, chưa kiểm tra secure storage
 
 - id: SC-MOB-HOME
-  status: partial
-  gap: dùng Stack router; KHÔNG có tab shell Home/Registry/Passport/Documents/Profile
+  status: done
+  note: tab shell Home/Registry/Passport/Documents/Profile đã có (03/08/2026, PR #30); verified 38/38 trên web export
 
 - id: SC-MOB-PROG
   status: done
@@ -357,7 +357,8 @@ gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã ren
   note: qua GET /passports/public/:slug
 
 - id: SC-MOB-DOC
-  status: missing
+  status: partial
+  gap: documents tab có danh sách (whitepaper/roadmap = In preparation, không fake download); legal links mở ngoài app. Không có PDF viewer trong app
 
 - id: SC-MOB-KYC
   status: partial
@@ -391,7 +392,8 @@ gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã ren
 
 - id: SC-MOB-PROFILE
   status: partial
+  gap: có investor summary (khi đăng nhập) + sign out + language switcher; còn thiếu theme, legal links trong tab này (legal đang ở documents tab)
 
 - id: SC-MOB-SETTINGS
   status: partial
-  gap: có EN/ES/IT + disclosure; thiếu theme, legal links, sign out đầy đủ
+  gap: có EN/ES/IT + disclosure + sign out (profile tab) + legal links (documents tab); còn thiếu theme + settings riêng

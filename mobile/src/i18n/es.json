@@ -3,7 +3,11 @@
     "home": "Inicio",
     "programs": "Programas",
     "waitlist": "Registrar interés",
-    "investor": "Inversor"
+    "investor": "Inversor",
+    "registry": "Registro",
+    "passport": "Pasaporte",
+    "documents": "Documentos",
+    "profile": "Perfil"
   },
   "home": {
     "title": "RWA respaldado por metales industriales",
@@ -67,5 +71,29 @@
     "retry": "Reintentar",
     "error": "Algo salió mal.",
     "disclosure": "Divulgación"
+  },
+  "passports": {
+    "title": "Pasaportes",
+    "empty": "No hay pasaportes publicados para mostrar."
+  },
+  "documents": {
+    "title": "Documentos",
+    "intro": "Documentos de referencia. Los elementos marcados como En preparación aún no se publican.",
+    "whitepaper": "Libro blanco",
+    "roadmap": "Hoja de ruta del proyecto",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "risk": "Divulgación de riesgos",
+    "inPreparation": "En preparación",
+    "pending": "Pendiente",
+    "available": "Disponible"
+  },
+  "profile": {
+    "title": "Perfil",
+    "investorSignedIn": "Sesión iniciada como",
+    "kycStatus": "Estado KYC",
+    "notSignedIn": "No has iniciado sesión",
+    "signOut": "Cerrar sesión",
+    "language": "Idioma"
   }
 }

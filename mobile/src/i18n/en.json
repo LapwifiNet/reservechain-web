@@ -3,7 +3,11 @@
     "home": "Home",
     "programs": "Programs",
     "waitlist": "Register interest",
-    "investor": "Investor"
+    "investor": "Investor",
+    "registry": "Registry",
+    "passport": "Passport",
+    "documents": "Documents",
+    "profile": "Profile"
   },
   "home": {
     "title": "Industrial-metals-backed RWA",
@@ -67,5 +71,29 @@
     "retry": "Retry",
     "error": "Something went wrong.",
     "disclosure": "Disclosure"
+  },
+  "passports": {
+    "title": "Passports",
+    "empty": "No published passports to display."
+  },
+  "documents": {
+    "title": "Documents",
+    "intro": "Reference documents. Items marked In preparation are not published yet.",
+    "whitepaper": "Whitepaper",
+    "roadmap": "Project roadmap",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "risk": "Risk disclosure",
+    "inPreparation": "In preparation",
+    "pending": "Pending",
+    "available": "Available"
+  },
+  "profile": {
+    "title": "Profile",
+    "investorSignedIn": "Signed in as",
+    "kycStatus": "KYC status",
+    "notSignedIn": "Not signed in",
+    "signOut": "Sign out",
+    "language": "Language"
   }
 }

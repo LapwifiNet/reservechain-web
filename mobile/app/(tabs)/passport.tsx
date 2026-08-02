@@ -4,7 +4,6 @@ import { Pressable } from "react-native";
 import {
   Screen,
   H1,
-  H2,
   Body,
   Card,
   Loading,
@@ -13,18 +12,25 @@ import {
 } from "@/components/ui";
 import { Disclosure } from "@/components/Disclosure";
 import { api } from "@/api/client";
-import type { AssetProgram } from "@/api/types";
 import { t } from "@/i18n";
+import { useLocale } from "@/context/LocaleContext";
 
-export default function ProgramsList() {
-  const [programs, setPrograms] = useState<AssetProgram[] | null>(null);
+/**
+ * SC-MOB-DAP — the passport tab: published passports from the CMS, each
+ * opening the Digital Asset Passport detail (/passport/[slug], root stack).
+ */
+export default function PassportList() {
+  const [passports, setPassports] = useState<
+    { id: string; slug: string; title: string }[] | null
+  >(null);
   const [error, setError] = useState(false);
+  useLocale();
 
   const load = useCallback(async () => {
     setError(false);
-    setPrograms(null);
+    setPassports(null);
     try {
-      setPrograms(await api.listPrograms());
+      setPassports(await api.listPassports());
     } catch {
       setError(true);
     }
@@ -36,26 +42,22 @@ export default function ProgramsList() {
 
   return (
     <Screen>
-      <H1>{t("programs.title")}</H1>
+      <H1>{t("passports.title")}</H1>
       {error && (
         <>
           <ErrorText>{t("common.error")}</ErrorText>
           <Button title={t("common.retry")} onPress={load} variant="ghost" />
         </>
       )}
-      {!programs && !error && <Loading />}
-      {programs?.length === 0 && <Body muted>{t("programs.empty")}</Body>}
-      {programs?.map((p) => (
-        <Link key={p.id} href={`/programs/${p.slug}`} asChild>
+      {!passports && !error && <Loading />}
+      {passports?.length === 0 && (
+        <Body muted>{t("passports.empty")}</Body>
+      )}
+      {passports?.map((p) => (
+        <Link key={p.id} href={`/passport/${p.slug}`} asChild>
           <Pressable>
             <Card>
-              <H2>{p.title}</H2>
-              <Body muted>{p.metal}</Body>
-              {p.purity ? (
-                <Body>
-                  {t("programs.purity")}: {p.purity}
-                </Body>
-              ) : null}
+              <Body style={{ fontWeight: "600" }}>{p.title}</Body>
             </Card>
           </Pressable>
         </Link>

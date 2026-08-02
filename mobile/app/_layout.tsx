@@ -19,11 +19,7 @@ export default function RootLayout() {
               contentStyle: { backgroundColor: colors.canvas },
             }}
           >
-            <Stack.Screen name="index" options={{ title: "ReserveChain" }} />
-            <Stack.Screen
-              name="programs/index"
-              options={{ title: "Programs" }}
-            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
               name="programs/[slug]"
               options={{ title: "Program" }}
