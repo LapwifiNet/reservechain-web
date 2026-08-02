@@ -565,7 +565,23 @@
           "h": "Current status",
           "p": "No asset program is verified, tokenized or offered. Ownership, laboratory, custody, insurance and valuation records remain pending until documentary evidence is supplied and approved."
         }
-      ]
+      ],
+      "grid": {
+        "heading": "Published programs",
+        "empty": "No published programs to display.",
+        "code": "Code",
+        "purity": "Purity",
+        "metals": {
+          "copper": "Copper",
+          "nickel": "Nickel",
+          "other": "Other"
+        },
+        "stage": {
+          "illustrative": "Illustrative",
+          "active": "In preparation",
+          "not_for_sale": "Not for sale"
+        }
+      }
     },
     "tokenization": {
       "kicker": "Planned Infrastructure",

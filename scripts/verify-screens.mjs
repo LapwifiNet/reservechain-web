@@ -69,6 +69,7 @@ const SLOT_COMPONENTS = [
   'EnquiryForm',
   'FaqAccordion',
   'StatusChips',
+  'ProgramGrid',
 ];
 
 const errors = [];

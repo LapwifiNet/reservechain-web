@@ -115,6 +115,62 @@ export async function listPassports(): Promise<PassportSummary[]> {
   }
 }
 
+/** A row of the `asset-programs` list response at depth=0. */
+type ProgramListDoc = {
+  slug: string;
+  title: string;
+  code: string;
+  metal: string;
+  purity?: string | null;
+  summary?: string | null;
+  stage: string;
+};
+
+export type ProgramSummary = {
+  slug: string;
+  title: string;
+  code: string;
+  metal: string;
+  purity: string | null;
+  summary: string | null;
+  stage: string;
+};
+
+/**
+ * List published asset programs for the programs grid (SC-WEB-ASSETS).
+ * Returns [] on any failure, like listPassports: a CMS outage degrades the
+ * page to its empty state rather than 500ing a public page (invariant 29).
+ *
+ * `depth=0` because the grid renders only the program's own fields — there is
+ * no relation to populate, unlike the passport list.
+ *
+ * `stage` and `metal` are carried through as the raw enum on purpose. They are
+ * state, not copy: ProgramGrid maps them to reviewed strings in three locales,
+ * and the CMS's own label for a stage ("Active") is not the website's
+ * ("In preparation").
+ */
+export async function listPrograms(): Promise<ProgramSummary[]> {
+  const url =
+    `${CMS_API_BASE}/asset-programs` +
+    `?where[status][equals]=published&depth=0&limit=100&sort=title`;
+  try {
+    const res = await fetch(url, cmsFetchInit());
+    if (!res.ok) return [];
+    const data = (await res.json()) as { docs?: ProgramListDoc[] };
+    return (data.docs || []).map((d) => ({
+      slug: d.slug,
+      title: d.title,
+      code: d.code,
+      metal: d.metal,
+      purity: d.purity ?? null,
+      summary: d.summary ?? null,
+      stage: d.stage,
+    }));
+  } catch {
+    return [];
+  }
+}
+
 /** The settings fields the website reads. All optional: a CMS may predate a field. */
 export type WebsiteSettings = {
   siteMode?: string | null;

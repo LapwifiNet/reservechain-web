@@ -565,7 +565,23 @@
           "h": "Estado actual",
           "p": "Ningún programa de activos está verificado, tokenizado ni ofertado. Los registros de propiedad, laboratorio, custodia, seguro y valoración permanecen pendientes hasta que se aporte y apruebe la evidencia documental."
         }
-      ]
+      ],
+      "grid": {
+        "heading": "Programas publicados",
+        "empty": "No hay programas publicados para mostrar.",
+        "code": "Código",
+        "purity": "Pureza",
+        "metals": {
+          "copper": "Cobre",
+          "nickel": "Níquel",
+          "other": "Otro"
+        },
+        "stage": {
+          "illustrative": "Ilustrativo",
+          "active": "En preparación",
+          "not_for_sale": "No está a la venta"
+        }
+      }
     },
     "tokenization": {
       "kicker": "Infraestructura prevista",

@@ -22,7 +22,7 @@
   route: /[locale]/industrial-metal-assets
   status: partial
   regions: [program-grid, filters, future-programs]
-  gap: InfoPage; không có grid, không có filter
+  gap: ProgramGrid slot đọc asset-programs đã published từ CMS (stage/metal là enum, chữ hiển thị từ messages 3 locale; CMS chết thì rơi về empty state). Còn thiếu filters và future-programs → giữ partial
 
 - id: SC-WEB-COPPER
   route: /[locale]/copper-powder
