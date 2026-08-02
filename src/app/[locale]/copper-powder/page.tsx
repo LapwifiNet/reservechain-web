@@ -21,10 +21,10 @@ export default function CopperPowder() {
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-text2">{t('specs')}</h2>
           <SpecTable rows={[
             { k: t('f.material'), v: 'Copper Powder' },
-            { k: t('f.purity'), v: <>99.9999% <StatusTag kind="illustrative">{t('tag.illustrative')}</StatusTag></> },
+            { k: t('f.purity'), v: t('v.pendingVerification') },
             { k: t('f.coa'), v: t('v.pending') },
             { k: t('f.weight'), v: t('v.pendingVerification') },
-            { k: t('f.packaging'), v: 'IGAS 0004512' },
+            { k: t('f.packaging'), v: t('v.pendingVerification') },
             { k: t('f.storage'), v: t('v.pendingCustody') },
           ]} />
         </div>

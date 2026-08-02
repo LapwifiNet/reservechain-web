@@ -223,9 +223,12 @@ so a blind `cp -R` can silently revert them.
 30. Exactly one passport surface exists, and it is the CMS-backed one at
     `/passports`. The hardcoded `/passport/:id` route was retired because it
     rendered invented per-unit content while holding the navigation link, which
-    AGENTS §3 forbids. Do not reintroduce a passport page backed by fixtures,
-    and keep the permanent redirect: the old URLs were linked from the nav, the
-    home page and the registry table.
+    AGENTS §3 forbids. A per-unit page may exist only when every displayed
+    value comes from a published CMS `asset-records` document; with no
+    published record the route must 404 (decision D1, 2026-08-03 — this is
+    "no fixtures", not "no per-unit"). Fixtures stay banned. Keep the
+    permanent redirect: the old URLs were linked from the nav, the home page
+    and the registry table.
 31. The gated-module contract is **501**, everywhere. `SensitiveController`,
     `FeatureFlagGuard` and the admin console's gated notices on `/reserves` and
     `/redemption` all state 501; the PoR/redemption overlay shipped 503, which
