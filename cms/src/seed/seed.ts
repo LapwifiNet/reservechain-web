@@ -1,6 +1,7 @@
 import "dotenv/config";
 import payload from "payload";
 import { resolvePayloadSecret } from "../secret";
+import { DEFAULT_STATE } from "../lib/statusMachine";
 
 /**
  * Generates a random password, matching api/prisma/seed.ts. Used when
@@ -132,6 +133,49 @@ const run = async (): Promise<void> => {
     });
 
     payload.logger.info(`Seeded program + record + passport for ${p.code}.`);
+  }
+
+  // SC-CMS-SETTINGS (D4/D5): the singleton settings row. Without it every
+  // fresh environment silently falls back to env defaults and the website
+  // never reads the mode / status chips from the CMS (Notion SC-CMS-SETTINGS
+  // traps: "seed script vẫn KHÔNG tạo row `default`").
+  const settingsDupe = await payload.find({
+    collection: "settings",
+    where: { name: { equals: "default" } },
+    limit: 1,
+  });
+  if (settingsDupe.docs.length > 0) {
+    payload.logger.info("Settings row `default` already exists — skipping.");
+  } else {
+    const SITE_MODES = [
+      "development",
+      "prelaunch",
+      "waitlist",
+      "documentation",
+      "asset-verification",
+      "eligibility",
+      "early-participation",
+      "live-offering",
+      "redemption",
+      "enterprise-onboarding",
+    ] as const;
+    const siteMode =
+      process.env.SITE_MODE &&
+      (SITE_MODES as readonly string[]).includes(process.env.SITE_MODE)
+        ? process.env.SITE_MODE
+        : "development";
+    await payload.create({
+      collection: "settings",
+      data: {
+        name: "default",
+        siteMode,
+        waitlistOpen: true,
+        publicationStatus: DEFAULT_STATE.publication,
+        tokenStatus: DEFAULT_STATE.token,
+        assetStatus: DEFAULT_STATE.asset,
+      },
+    });
+    payload.logger.info(`Seeded settings row \`default\` (siteMode=${siteMode}).`);
   }
 
   payload.logger.info("Seed complete.");
