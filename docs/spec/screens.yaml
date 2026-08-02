@@ -101,19 +101,19 @@
   route: /[locale]/enterprise
   status: partial
   regions: [content, enquiry-form]
-  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
+gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã render list (route /enquiries, mask email + CSV export)
 
 - id: SC-WEB-ASSETOWNER
   route: /[locale]/asset-owner-enquiries
   status: partial
   regions: [content, enquiry-form]
-  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
+gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã render list (route /enquiries, mask email + CSV export)
 
 - id: SC-WEB-BUYER
   route: /[locale]/industrial-buyer-enquiries
   status: partial
   regions: [content, enquiry-form]
-  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI
+gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã render list (route /enquiries, mask email + CSV export)
 
 - id: SC-WEB-DOCS
   route: /[locale]/documents
@@ -154,7 +154,7 @@
   route: /[locale]/contact
   status: partial
   regions: [content, enquiry-form]
-  gap: EnquiryForm slot + API POST /api/enquiries đã có; admin list chưa có UI lưu enquiry
+gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã render list (route /enquiries, mask email + CSV export)
 
 - id: SC-WEB-WL
   route: /[locale]/waitlist
@@ -305,7 +305,7 @@
 - id: SC-CMS-WAITLIST
   route: admin /waitlist
   status: partial
-  gap: có list + mask email; KHÔNG có export, không có segmentation, không nhận enquiries (vì enquiries chưa tồn tại)
+  gap: có list + mask email + CSV export (waitlist + enquiries route /enquiries); còn thiếu segmentation
 
 - id: SC-CMS-USERS
   status: partial
