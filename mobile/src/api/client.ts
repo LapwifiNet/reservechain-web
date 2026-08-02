@@ -89,6 +89,15 @@ export const api = {
     );
     return res.docs ?? [];
   },
+  listPassports: async () => {
+    const res = await request<
+      PayloadList<{ id: string; slug: string; title: string }>
+    >(
+      "/passports?where[status][equals]=published&depth=0&limit=100&sort=title",
+      { base: CMS_BASE },
+    );
+    return res.docs ?? [];
+  },
   getProgram: async (slug: string) => {
     const res = await request<PayloadList<AssetProgram>>(
       `/asset-programs?where[slug][equals]=${encodeURIComponent(slug)}&where[status][equals]=published&limit=1`,

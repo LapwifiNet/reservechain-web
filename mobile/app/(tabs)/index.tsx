@@ -17,7 +17,7 @@ export default function Home() {
       <Body muted>{t("home.subtitle")}</Body>
 
       <View style={{ gap: spacing.sm }}>
-        <Link href="/programs" asChild>
+        <Link href="/registry" asChild>
           <Button
             testID="btn-programs"
             title={t("home.explorePrograms")}

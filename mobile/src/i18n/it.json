@@ -3,7 +3,11 @@
     "home": "Home",
     "programs": "Programmi",
     "waitlist": "Registra interesse",
-    "investor": "Investitore"
+    "investor": "Investitore",
+    "registry": "Registro",
+    "passport": "Passaporto",
+    "documents": "Documenti",
+    "profile": "Profilo"
   },
   "home": {
     "title": "RWA garantito da metalli industriali",
@@ -67,5 +71,29 @@
     "retry": "Riprova",
     "error": "Qualcosa è andato storto.",
     "disclosure": "Informativa"
+  },
+  "passports": {
+    "title": "Passaporti",
+    "empty": "Nessun passaporto pubblicato da mostrare."
+  },
+  "documents": {
+    "title": "Documenti",
+    "intro": "Documenti di riferimento. Gli elementi contrassegnati In preparazione non sono ancora pubblicati.",
+    "whitepaper": "Libro bianco",
+    "roadmap": "Roadmap del progetto",
+    "privacy": "Informativa sulla privacy",
+    "terms": "Termini di utilizzo",
+    "risk": "Informativa sui rischi",
+    "inPreparation": "In preparazione",
+    "pending": "In attesa",
+    "available": "Disponibile"
+  },
+  "profile": {
+    "title": "Profilo",
+    "investorSignedIn": "Accesso effettuato come",
+    "kycStatus": "Stato KYC",
+    "notSignedIn": "Non hai effettuato l'accesso",
+    "signOut": "Esci",
+    "language": "Lingua"
   }
 }
