@@ -313,11 +313,11 @@
     "status": "Stato attuale",
     "copper": {
       "kicker": "Polvere di Rame",
-      "title": "Programma Polvere di Rame con purezza 99,9999%"
+      "title": "Programma Polvere di Rame"
     },
     "nickel": {
       "kicker": "Filo di Nichel",
-      "title": "Programma Filo di Nichel con purezza 99,9807%"
+      "title": "Programma Filo di Nichel"
     },
     "f": {
       "material": "Materiale",

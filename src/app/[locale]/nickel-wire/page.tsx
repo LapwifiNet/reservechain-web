@@ -21,8 +21,8 @@ export default function NickelWire() {
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-text2">{t('specs')}</h2>
           <SpecTable rows={[
             { k: t('f.material'), v: 'Nickel Wire (DKRNT NP1)' },
-            { k: t('f.purity'), v: <>99.9807% <StatusTag kind="illustrative">{t('tag.illustrative')}</StatusTag></> },
-            { k: t('f.diameter'), v: '0.025mm' },
+            { k: t('f.purity'), v: t('v.pendingVerification') },
+            { k: t('f.diameter'), v: t('v.pendingVerification') },
             { k: t('f.coa'), v: t('v.pendingVerification') },
             { k: t('f.weight'), v: t('v.pending') },
             { k: t('f.storage'), v: t('v.pendingCustody') },

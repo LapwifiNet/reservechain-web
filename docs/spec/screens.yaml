@@ -26,21 +26,20 @@
 
 - id: SC-WEB-COPPER
   route: /[locale]/copper-powder
-  status: conflict
-  blocked_by: D2
+  status: partial
   regions: [badge-h1, notice-provisional, spec-table, status-cards-3, cta]
+  gap: D2 đóng (03/08/2026) — bỏ mọi số liệu CoA bịa (99.9999%, IGAS 0004512); toàn bộ cột evidence = Pending, chưa hardcode. Còn thiếu cta
 
 - id: SC-WEB-NICKEL
   route: /[locale]/nickel-wire
-  status: conflict
-  blocked_by: D2
+  status: partial
   regions: [badge-h1, notice-provisional, spec-table, status-cards-3, cta]
+  gap: D2 đóng (03/08/2026) — bỏ mọi số liệu CoA bịa (99.9807%, 0.025mm); toàn bộ cột evidence = Pending, chưa hardcode. Còn thiếu cta
 
 - id: SC-WEB-LOT
   route: /[locale]/registry/[lotId]
-  status: conflict
-  blocked_by: D1
-  gap: route đã bị xoá, URL cũ 308-redirect, invariant #30 cấm tái tạo
+  status: missing
+  gap: route đã bị xoá, URL cũ 308-redirect. D1 đóng (03/08/2026): per-unit chỉ được tái tạo khi dữ liệu từ asset-records published qua CMS — không fixture, không record → 404. Hiện chưa có record nào → giữ missing
 
 - id: SC-WEB-DAP
   route: /[locale]/passports/[slug]
@@ -58,7 +57,7 @@
   route: /[locale]/registry
   status: partial
   added: 2026-08-02 (D6 mở lại — route có thật, trước đây không ID nào nhận)
-  gap: trang index của asset registry, khác SC-WEB-LOT (/registry/[lotId] đã retire, đang conflict D1). Chưa đối chiếu regions với spec
+  gap: trang index của asset registry, khác SC-WEB-LOT (/registry/[lotId] đã retire; D1 đóng 03/08/2026 — per-unit chỉ khi có asset-records published). Chưa đối chiếu regions với spec
 
 - id: SC-WEB-VERIF
   route: /[locale]/verification

@@ -4,13 +4,31 @@
 
 - id: D1
   title: Per-unit passport (SC-WEB-LOT)
-  status: open
-  options: Allow per-unit only when data comes from published CMS asset-records; no fixtures
+  status: closed
+  decision: >-
+    Per-unit pages are allowed only when their content comes from a published
+    CMS asset-record (the asset-records collection — staff-read today, no
+    publish flag yet); a route with no published record must 404, and fixtures
+    stay banned. Invariant #30 is amended from "no per-unit" to "no fixtures":
+    the retired /passport/:id route stays retired with its redirect, and
+    SC-WEB-LOT stays missing until real lot data exists — it is reintroduced
+    CMS-backed only when the owner supplies records. Closed 2026-08-03
 
 - id: D2
   title: Asset figures (IGAS CoA on Copper/Nickel pages)
-  status: open
-  options: Real CoA data via CMS + scan, or keep Pending; never hardcode
+  status: closed
+  decision: >-
+    No real CoA scans exist, so option (b): the Copper/Nickel pages keep every
+    evidence column Pending and the invented figures are scrubbed — purity
+    percentages, "IGAS 0004512", "0.025mm" and the purity-based page titles —
+    from the pages, the messages (en/es/it) and the Wireframe Spec. Figures may
+    be shown again only when the owner supplies a real Certificate of Analysis;
+    it is then entered in the CMS (asset-records.certificate upload +
+    certificateRef) and rendered from CMS, never hardcoded. Reference purity
+    values in the CMS asset-programs seed (99.9999% / 99.9807%) remain as
+    program-level reference data feeding the program grid (PR #23, reviewed) —
+    they are nominal program specs, not CoA claims about a specific lot.
+    Closed 2026-08-03
 
 - id: D3
   title: Inactive module placeholders

@@ -313,11 +313,11 @@
     "status": "Current Status",
     "copper": {
       "kicker": "Copper Powder",
-      "title": "99.9999% Purity Copper Powder Program"
+      "title": "Copper Powder Program"
     },
     "nickel": {
       "kicker": "Nickel Wire",
-      "title": "99.9807% Purity Nickel Wire Program"
+      "title": "Nickel Wire Program"
     },
     "f": {
       "material": "Material",
