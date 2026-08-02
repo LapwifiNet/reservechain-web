@@ -565,7 +565,23 @@
           "h": "Stato attuale",
           "p": "Nessun programma di attivi è verificato, tokenizzato o offerto. Le registrazioni di proprietà, laboratorio, custodia, assicurazione e valutazione restano in attesa finché non siano fornite e approvate le evidenze documentali."
         }
-      ]
+      ],
+      "grid": {
+        "heading": "Programmi pubblicati",
+        "empty": "Nessun programma pubblicato da mostrare.",
+        "code": "Codice",
+        "purity": "Purezza",
+        "metals": {
+          "copper": "Rame",
+          "nickel": "Nichel",
+          "other": "Altro"
+        },
+        "stage": {
+          "illustrative": "Illustrativo",
+          "active": "In preparazione",
+          "not_for_sale": "Non in vendita"
+        }
+      }
     },
     "tokenization": {
       "kicker": "Infrastruttura prevista",

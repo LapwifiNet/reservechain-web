@@ -1,10 +1,11 @@
 # Screen registry — mirror of the Notion Wireframe Spec (read-only, one-way sync).
-# Source: https://app.notion.com/.../Screen-Registry-+-Decision-Log
+# Source: Notion "Screen Registry + Decision Log — spec ↔ repo reconciliation"
 # Status values: done (đúng spec) | partial (có route nhưng thiếu regions/states)
 #                missing (không tồn tại) | conflict (bị guardrail chặn — xem decision log)
-# D6: 80 screen IDs chốt; 8 legal pages (PRIVACY..CHANNELS) vẽ chung 1 artboard.
+# D6: 84 screen IDs chốt; 8 legal pages (PRIVACY..CHANNELS) vẽ chung 1 artboard.
+#     (80 -> 84 ngày 02/08/2026: bốn route có thật chưa từng được ID nào nhận.)
 
-# ── A. Public website (34) ────────────────────────────────────────────────
+# ── A. Public website (36) ────────────────────────────────────────────────
 - id: SC-WEB-HOME
   route: /[locale]
   status: partial
@@ -21,7 +22,7 @@
   route: /[locale]/industrial-metal-assets
   status: partial
   regions: [program-grid, filters, future-programs]
-  gap: InfoPage; không có grid, không có filter
+  gap: ProgramGrid slot đọc asset-programs đã published từ CMS (stage/metal là enum, chữ hiển thị từ messages 3 locale; CMS chết thì rơi về empty state). Còn thiếu filters và future-programs → giữ partial
 
 - id: SC-WEB-COPPER
   route: /[locale]/copper-powder
@@ -47,6 +48,18 @@
   regions: [header-chips, tab-overview, tab-custody-timeline, tab-documents, tab-reserve-token]
   gap: trang phẳng ở mức program; không có 4 tab, không có custody timeline, không có tab tài liệu
 
+- id: SC-WEB-DAPLIST
+  route: /[locale]/passports
+  status: partial
+  added: 2026-08-02 (D6 mở lại — route có thật, trước đây không ID nào nhận)
+  gap: trang danh sách passport ở mức program, đọc từ CMS; rỗng nếu CMS không chạy hoặc chưa publish passport nào. Chưa đối chiếu regions với spec
+
+- id: SC-WEB-REGISTRY
+  route: /[locale]/registry
+  status: partial
+  added: 2026-08-02 (D6 mở lại — route có thật, trước đây không ID nào nhận)
+  gap: trang index của asset registry, khác SC-WEB-LOT (/registry/[lotId] đã retire, đang conflict D1). Chưa đối chiếu regions với spec
+
 - id: SC-WEB-VERIF
   route: /[locale]/verification
   status: partial
@@ -64,7 +77,7 @@
   status: partial
   regions: [banner-proposed, placeholder-dashboard, attestation-feed]
   gap: StatusPanel placeholder đã có (reserve/supply/coverage = Pending); còn thiếu attestation feed
-  note: liên quan D3
+  note: D3 đã đóng 02/08/2026 — placeholder dựng tĩnh từ feature flag, không gọi endpoint rồi bắt 501
 
 - id: SC-WEB-LEGAL
   route: /[locale]/legal-structure
@@ -83,7 +96,7 @@
   status: partial
   regions: [banner-inactive, process-diagram, eligibility-table]
   gap: Diagram slot đã có (process steps); còn thiếu eligibility-table
-  note: liên quan D3
+  note: D3 đã đóng 02/08/2026 — placeholder dựng tĩnh từ feature flag, không gọi endpoint rồi bắt 501
 
 - id: SC-WEB-ENT
   route: /[locale]/enterprise
@@ -148,15 +161,16 @@
   route: /[locale]/waitlist
   status: partial
   regions: [step-1-info, step-2-consent, step-3-confirm]
-  gap: có 3 step + consent (enforce server-side @Equals(true)) nhưng: không có email verification; không có captcha; chống lạm dụng chỉ là throttle 5/60s per IP ở API; fullName rỗng thì tự lấy local-part của email; material of interest chỉ là textarea optional
+  gap: có 3 step + consent (enforce server-side @Equals(true)) nhưng không có email verification, không có captcha, chống lạm dụng chỉ là throttle 5/60s per IP ở API, fullName rỗng thì tự lấy local-part của email, material of interest chỉ là textarea optional
 
 - id: SC-WEB-PRIVACY
   route: /[locale]/privacy
   status: done
 
 - id: SC-WEB-COOKIE
-  route: /[locale]/cookie-policy
+  route: /[locale]/cookie
   status: done
+  note: registry ghi sai /[locale]/cookie-policy cho tới 02/08/2026; check 2 lẽ ra phải chặn, nhưng gate khi đó chưa chạy thật
 
 - id: SC-WEB-TERMS
   route: /[locale]/terms
@@ -188,15 +202,27 @@
   status: missing
   gap: chưa thấy error boundary theo locale
 
-# ── B. Investor portal (12) ──────────────────────────────────────────────
+# ── B. Investor portal (14) ──────────────────────────────────────────────
 - id: SC-INV-AUTH
   route: /[locale]/portal/login
   status: partial
   gap: có register + login (JWT ~12h, InvestorJwtGuard) nhưng không có 2FA
 
+- id: SC-INV-REG
+  route: /[locale]/portal/register
+  status: partial
+  added: 2026-08-02 (D6 mở lại — route có thật, trước đây không ID nào nhận)
+  gap: form đăng ký investor; không có email verification, không có captcha
+
+- id: SC-INV-STATUS
+  route: /[locale]/portal
+  status: partial
+  added: 2026-08-02 (D6 mở lại — route có thật, trước đây không ID nào nhận)
+  gap: trang Status read-only, chính là "1 trang duy nhất" mà SC-INV-DASH mô tả. Tách ra vì SC-INV-STATUS là cái đang tồn tại, còn dashboard thật thì chưa có
+
 - id: SC-INV-DASH
   status: missing
-  gap: portal chỉ có 1 trang Status read-only; không có dashboard
+  gap: portal chỉ có 1 trang Status read-only (SC-INV-STATUS); không có dashboard
 
 - id: SC-INV-KYC
   status: partial
@@ -204,23 +230,23 @@
 
 - id: SC-INV-WALLET
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-INV-HOLD
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-INV-BUY
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-INV-RDM
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-INV-POR
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-INV-HISTORY
   status: missing
@@ -258,7 +284,7 @@
 
 - id: SC-CMS-REGISTRY
   status: partial
-  gap: CMS chỉ có asset-programs, asset-records, passports. Thiếu CRUD: containers, coils, labs, custody, valuation, insurance, reserve, token, redemption
+  gap: CMS chỉ có asset-programs, asset-records, passports. Thiếu CRUD containers, coils, labs, custody, valuation, insurance, reserve, token, redemption
 
 - id: SC-CMS-TOKEN
   status: missing
@@ -296,7 +322,7 @@
 
 - id: SC-CMS-SETTINGS
   status: partial
-  gap: settings collection có siteMode (10 modes) + waitlistOpen + disclosureOverrides (D4) và status state machine publication/token/asset với beforeChange chặn nhảy bậc (D5 closed); migration 20260801_210311 tạo bảng settings (D4 ship thiếu migration nên prod chưa từng có bảng này). Còn thiếu: seed row `default` (chưa có row thì web luôn rơi về fallback) và admin UI riêng ngoài form Payload mặc định
+  gap: settings collection có siteMode (10 modes) + waitlistOpen + disclosureOverrides (D4) và status state machine publication/token/asset với beforeChange chặn nhảy bậc (D5 closed); migration 20260801_210311 tạo bảng settings (D4 ship thiếu migration nên prod chưa từng có bảng này). Đã verify 02/08/2026 schema + row default + đường đọc CMS->render. Còn thiếu seed script tạo row `default` và admin UI riêng ngoài form Payload mặc định
 
 # ── D. Asset-owner / Enterprise (4) ──────────────────────────────────────
 - id: SC-AO-ONBOARD
@@ -340,23 +366,23 @@
 
 - id: SC-MOB-WALLET
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-MOB-HOLD
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-MOB-BUY
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-MOB-POR
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-MOB-RDM
   status: missing
-  blocked_by: D3
+  note: D3 đã đóng 02/08/2026 — dựng placeholder tĩnh, backend giữ 501
 
 - id: SC-MOB-NOTIF
   status: missing
