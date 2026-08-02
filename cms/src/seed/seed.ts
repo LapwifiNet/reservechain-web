@@ -68,8 +68,6 @@ const run = async (): Promise<void> => {
       metal: "copper",
       purity: "99.9999%",
       summary: "High-purity copper powder reference program.",
-      lot: "#03-K-07",
-      certificateRef: "IGAS 0004512",
     },
     {
       title: "Nickel Wire",
@@ -77,8 +75,6 @@ const run = async (): Promise<void> => {
       metal: "nickel",
       purity: "99.9807%",
       summary: "High-purity nickel wire (0.025mm DKRNT NP1) reference program.",
-      lot: "120/NP1",
-      certificateRef: "IGAS 0004368",
     },
   ] as const;
 
@@ -110,10 +106,9 @@ const run = async (): Promise<void> => {
       collection: "asset-records",
       data: {
         program: program.id,
-        lot: p.lot,
+        lot: `${p.code}-REF-1`,
         quantity: 1,
         unit: "kg",
-        certificateRef: p.certificateRef,
         custody: "Bonded warehouse (illustrative)",
       },
     });
@@ -122,13 +117,14 @@ const run = async (): Promise<void> => {
       collection: "passports",
       data: {
         title: `${p.title} Passport`,
+        // The mobile app links /passport/<program slug> from the program
+        // detail screen, so the sample passport must share the program's slug.
+        slug: program.slug,
         program: program.id,
         records: [record.id],
         highlights: [
           { label: "Metal", value: p.title },
           { label: "Purity", value: p.purity },
-          { label: "Lot", value: p.lot },
-          { label: "Certificate", value: p.certificateRef },
         ],
         stage: "illustrative",
         status: "published",
