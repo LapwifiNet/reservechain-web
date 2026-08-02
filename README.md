@@ -135,7 +135,7 @@ mobile/                    # Expo app (iOS + Android); standalone, not an npm wo
 docs/                      # RUNBOOK, USER-MANUAL, ADMIN-MANUAL, TRAINING
                            #   (operations + onboarding; not the specification)
   spec/                    # one-way read-only mirror of the Notion spec:
-                           #   screens.yaml (80 screen ids), decisions.yaml (D1-D6).
+                           #   screens.yaml (84 screen ids), decisions.yaml (D1-D6).
                            #   Gated by `npm run verify:screens`
 infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR,
                            #   Secrets Manager). Validated, never applied
