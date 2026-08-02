@@ -3,7 +3,8 @@ name: 06-programs-passport
 tags:
   - backend
 ---
-# Requires the CMS public endpoints with at least one published program.
+# Requires the CMS public endpoints with at least one published program
+# and a published passport whose slug matches the program slug (see cms seed).
 - launchApp:
     clearState: true
 # Debug build reloads the JS bundle from Metro after clearState — allow time.
@@ -13,7 +14,10 @@ tags:
 - tapOn:
     id: "btn-programs"
 - assertVisible: "Asset programs"
-# Open the first program card, then its sample passport.
+# Open the first program card (program detail screen), then its sample passport.
+- tapOn:
+    text: "Copper Powder"
+- assertVisible: "View sample passport"
 - tapOn:
     text: "View sample passport"
 - assertVisible: "Digital Asset Passport"

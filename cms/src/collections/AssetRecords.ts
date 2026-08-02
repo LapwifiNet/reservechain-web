@@ -54,7 +54,7 @@ const AssetRecords: CollectionConfig = {
     {
       name: "certificateRef",
       type: "text",
-      admin: { description: "Certificate identifier, e.g. IGAS 0004512." },
+      admin: { description: "Certificate identifier, e.g. IGAS-2026-0001." },
     },
     {
       name: "custody",
