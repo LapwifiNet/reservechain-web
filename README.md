@@ -150,7 +150,10 @@ environment rather than app code, needing the API and CMS reachable from the emu
 On 2026-08-03 all six flows' assertions passed **26/26 against the production web export**
 (Playwright, API + CMS running locally) — closing the 05/06 gap at the app-logic level:
 investor register → status, and programs → sample passport → DAP. The CMS seed was fixed
-so the sample passport resolves by program slug (PR #26).
+so the sample passport resolves by program slug (PR #26). A tab shell
+(Home / Registry / Passport / Documents / Profile) was added on 2026-08-03
+(PR #30) and the full suite re-verified: **38/38 assertions green** on the
+production web export, including the new tabs.
 **No release binary exists, no iOS build of any kind has been produced, and nothing is
 published to an app store** — EAS Build has never run. `docs/` holds the operations
 runbook, the user and admin manuals and the training guide. The **authoritative**
