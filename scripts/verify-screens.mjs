@@ -8,7 +8,7 @@
  *    already closed in docs/spec/decisions.yaml (forces an update).
  * 4. A screen declaring regions: renders only InfoPage (blocks the "20 screens
  *    merged into one component" regression — the worst failure mode of group A).
- * 5. screens.yaml deviates from the 80 ids fixed by decision D6.
+ * 5. screens.yaml deviates from the 84 ids fixed by decision D6.
  *
  * Run: node scripts/verify-screens.mjs  (or via `npm run verify:screens`)
  *
@@ -28,7 +28,10 @@
  * `/[locale]/cookie-policy` with `status: done` while the directory on disk is
  * `src/app/[locale]/cookie`. That is precisely the drift this file exists to
  * catch, it had been in the registry since the mirror landed, and the gate was
- * green the whole time.
+ * green the whole time. Repairing check 1 then turned up four more routes that
+ * were live in production and claimed by no screen id at all — /portal,
+ * /portal/register, /passports and /registry — which is why D6 moved from 80
+ * ids to 84.
  *
  * The fix is to strip the `/[locale]` prefix once, up front, and then compare
  * routes as exact strings against the directory tree. A dynamic segment then
@@ -51,8 +54,9 @@ const SPEC_DIR = join(ROOT, 'docs', 'spec');
 const YAML = join(SPEC_DIR, 'screens.yaml');
 const DECISIONS = join(SPEC_DIR, 'decisions.yaml');
 
-// 80 ids fixed by decision D6 (Screen Registry §2).
-const EXPECTED_COUNT = 80;
+// 84 ids fixed by decision D6 (Screen Registry §2), raised from 80 on
+// 2026-08-02 when check 1 started running and found four unclaimed routes.
+const EXPECTED_COUNT = 84;
 
 // Slot components that satisfy check 4. A page composed from any of these is
 // no longer "just an InfoPage". Keep in sync with the composition work in §5 of
@@ -94,14 +98,14 @@ function parseScreens(text) {
 
 const screens = parseScreens(readFileSync(YAML, 'utf8'));
 
-// ── check 5: exactly 80 ids (D6) ──────────────────────────────────
+// ── check 5: exactly 84 ids (D6) ────────────────────────────────
 if (screens.length !== EXPECTED_COUNT) {
   fail(`D6: expected ${EXPECTED_COUNT} screen ids, found ${screens.length}`);
 } else {
   console.log(`✅ check 5: screen registry has ${screens.length} ids (D6 ok)`);
 }
 
-// ── routes on disk ──────────────────────────────────────────────
+// ── routes on disk ─────────────────────────────────────────
 const LOCALE_DIR = join(ROOT, 'src', 'app', '[locale]');
 function listRoutes(dir, prefix = '') {
   const out = [];
@@ -156,7 +160,7 @@ if (!unmapped) {
   console.log(`✅ check 1: ${routes.length} routes on disk, all claimed by a screen id`);
 }
 
-// ── check 2: done screens have a route that exists ───────────────────────
+// ── check 2: done screens have a route that exists ──────────────────────
 let doneWebChecked = 0;
 let doneBroken = 0;
 for (const s of screens) {
