@@ -34,6 +34,22 @@ import { AuditInterceptor } from './audit/audit.interceptor';
       {
         ttl: 60000,
         limit: 100,
+        // Track the visitor, not the immediate peer. The public website proxies
+        // waitlist signups through its own server (src/app/api/waitlist/route.ts)
+        // and forwards the visitor's real address in the first X-Forwarded-For
+        // hop; without this, every web visitor would share one throttle bucket
+        // (the web container's IP) and the whole site would be limited to 5
+        // signups per minute. Mobile calls the API directly, so it has no
+        // X-Forwarded-For header and falls back to req.ip, the real client
+        // address. The header is only trusted because the web proxy overwrites
+        // it — a client-supplied value is never forwarded.
+        getTracker: (req) => {
+          const fwd = req.headers?.['x-forwarded-for'];
+          if (typeof fwd === 'string' && fwd.trim()) {
+            return fwd.split(',')[0].trim();
+          }
+          return req.ip ?? 'unknown';
+        },
       },
     ]),
     PrismaModule,

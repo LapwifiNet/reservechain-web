@@ -35,7 +35,10 @@ export function WaitlistForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, consent: allConsent, locale }),
       });
-      setStatus(res.ok ? 'done' : 'error');
+      // 429 is its own state: the form is fine, the visitor was too fast.
+      // Every other failure shows the generic error.
+      if (res.status === 429) setStatus('rate_limited');
+      else setStatus(res.ok ? 'done' : 'error');
       if (res.ok) setStep(3);
     } catch {
       setStatus('error');
@@ -105,6 +108,7 @@ export function WaitlistForm() {
               {status === 'saving' ? t('saving') : t('submit')}
             </button>
           </div>
+          {status === 'rate_limited' && <p className="text-xs text-danger">{t('rateLimited')}</p>}
           {status === 'error' && <p className="text-xs text-danger">{t('error')}</p>}
         </div>
       )}

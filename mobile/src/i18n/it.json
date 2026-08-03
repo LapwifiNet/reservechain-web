@@ -46,7 +46,8 @@
       "investor": "Investitore individuale",
       "partner": "Partner",
       "other": "Altro"
-    }
+    },
+    "rateLimited": "Troppe registrazioni da questo dispositivo. Riprova tra un minuto."
   },
   "investor": {
     "login": "Accedi",

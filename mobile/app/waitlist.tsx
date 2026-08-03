@@ -59,7 +59,16 @@ export default function Waitlist() {
       });
       setDone(true);
     } catch (e) {
-      setError(e instanceof ApiError ? e.message : t("common.error"));
+      // 429 = the per-visitor rate limit fired; the form is fine, the user
+      // was too fast. Show the friendly message instead of the raw
+      // "ThrottlerException" text the API returns.
+      setError(
+        e instanceof ApiError && e.status === 429
+          ? t("waitlist.rateLimited")
+          : e instanceof ApiError
+            ? e.message
+            : t("common.error"),
+      );
     } finally {
       setLoading(false);
     }

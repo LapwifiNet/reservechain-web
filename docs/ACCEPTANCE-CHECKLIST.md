@@ -73,6 +73,7 @@ status.
 - [ ] EN / ES / IT across all pages — ✅ Verified (key-path parity enforced by `npm test` at the root)
 - [ ] Verbatim prelaunch disclosure, byte-identical everywhere it appears — ✅ Verified (website, CMS and mobile all 498 chars, compared byte-for-byte)
 - [ ] Invalid email / missing consent blocked client **and** server side — ✅ Verified (`@Equals(true)` on the DTO; the API is the enforcement point)
+- [ ] Public signup rate-limited per visitor and idempotent on case-normalised email — ✅ Verified (e2e 180/180 + live smoke: same-IP 6th → 429, fresh IP → 200, case variants → one row, site-wide cap bounds spoofed headers)
 
 ### P3 — ERC-20 token & tokenomics
 - [ ] ERC-20 compiles; `forge test` green — ✅ Verified (13 tests pass)
