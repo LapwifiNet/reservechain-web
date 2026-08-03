@@ -160,7 +160,16 @@ gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã ren
   route: /[locale]/waitlist
   status: partial
   regions: [step-1-info, step-2-consent, step-3-confirm]
-  gap: có 3 step + consent (enforce server-side @Equals(true)) nhưng không có email verification, không có captcha, chống lạm dụng chỉ là throttle 5/60s per IP ở API, fullName rỗng thì tự lấy local-part của email, material of interest chỉ là textarea optional
+  gap: >
+    có 3 step + consent (enforce server-side @Equals(true)). Hardening 03/08/2026
+    (PR #31): rate limit per-visitor ở cả hai lớp — web proxy (5/min per visitor
+    + 60/min site-wide, in-memory) và API (tracker đọc first X-Forwarded-For hop,
+    proxy overwrite header bằng real client IP; mobile direct vẫn req.ip); email
+    normalize lowercase trước idempotency lookup (Postgres UNIQUE case-sensitive
+    từng cho 2 rows); body cap 16KB, upstream timeout 8s, map 429→429 (message
+    rate_limited riêng, 3 locale). Vẫn chưa có: email verification, captcha
+    (future option — Screen Registry step 2); fullName rỗng thì tự lấy local-part
+    của email; material of interest chỉ là textarea optional
 
 - id: SC-WEB-PRIVACY
   route: /[locale]/privacy
