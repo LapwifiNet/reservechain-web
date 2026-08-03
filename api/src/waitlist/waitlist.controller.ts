@@ -21,7 +21,14 @@ export class WaitlistController {
 
   // Public by design — this is the public website's signup form. That also makes
   // it an internet-reachable unauthenticated write, so it gets a tighter limit
-  // than the global 100/min baseline.
+  // than the global 100/min baseline. The limit is per visitor: the global
+  // tracker reads the first X-Forwarded-For hop (see app.module.ts), which the
+  // website proxy forwards from the visitor's real address.
+  //
+  // A spoofed X-Forwarded-For header can rotate buckets — the same way a
+  // botnet can rotate source IPs. Rate limiting is anti-noise, not
+  // anti-dedicated-attacker; CAPTCHA remains the future option (Screen
+  // Registry step 2).
   // Audited. A public unauthenticated signup still persists a PII row — name,
   // email, organisation — and the same reasoning that brought investor
   // self-registration into scope applies here: the actor is the registrant, and
@@ -42,6 +49,9 @@ export class WaitlistController {
     return this.service.create(dto);
   }
 
+  // Public counter (homepage "on the waitlist" figures). No auth, so it gets
+  // its own modest limit instead of the 100/min baseline.
+  @Throttle({ default: { limit: 60, ttl: 60000 } })
   @ApiOkResponse({ type: WaitlistCount })
   @Get('count')
   async count() {
@@ -54,6 +64,11 @@ export class WaitlistController {
   @ApiOkResponse({ type: [WaitlistEntryResponse] })
   @Get()
   list(@Query('take') take?: string) {
-    return this.service.list(take ? Number(take) : 50);
+    // Admin surface, but clamp anyway: NaN or a giant take must not reach
+    // Prisma (a negative/NaN take would throw, an unbounded one would dump the
+    // whole table in one response).
+    const n = Number(take);
+    const safe = Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 500) : 50;
+    return this.service.list(safe);
   }
 }

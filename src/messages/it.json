@@ -384,7 +384,8 @@
       "investor": "Investitore privato",
       "partner": "Partner",
       "other": "Altro"
-    }
+    },
+    "rateLimited": "Troppe registrazioni da questo dispositivo. Riprova tra un minuto."
   },
   "footer": {
     "tagline": "Infrastruttura istituzionale per metalli industriali tokenizzati (in sviluppo).",

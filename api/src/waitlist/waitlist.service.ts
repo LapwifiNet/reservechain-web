@@ -26,13 +26,22 @@ export class WaitlistService {
     // is ever called without the validation pipe.
     if (!dto.consent) throw new BadRequestException('consent_required');
 
+    // Normalise the address before the idempotency lookup. Postgres UNIQUE is
+    // case-sensitive, so without this Foo@Bar.com and foo@bar.com would be two
+    // rows — and two confirmation mails for one person. The DTO validates the
+    // shape; the service owns the canonical form, and every caller (public
+    // website proxy, mobile app) inherits it.
+    const email = dto.email.trim().toLowerCase();
+
     const existing = await this.prisma.waitlistEntry.findUnique({
-      where: { email: dto.email },
+      where: { email },
     });
     if (existing) return { ok: true, id: existing.id };
 
     try {
-      const entry = await this.prisma.waitlistEntry.create({ data: { ...dto } });
+      const entry = await this.prisma.waitlistEntry.create({
+        data: { ...dto, email },
+      });
       // Confirmation mail is fire-and-forget: it must never fail the
       // registration, and MailService already swallows its own errors.
       await this.mail.sendWaitlistConfirmation({
@@ -46,7 +55,7 @@ export class WaitlistService {
       // insert; the unique index wins and we return the row that landed.
       if (e?.code === 'P2002') {
         const row = await this.prisma.waitlistEntry.findUnique({
-          where: { email: dto.email },
+          where: { email },
         });
         if (row) return { ok: true, id: row.id };
       }

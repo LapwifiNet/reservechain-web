@@ -384,7 +384,8 @@
       "investor": "Individual investor",
       "partner": "Partner",
       "other": "Other"
-    }
+    },
+    "rateLimited": "Too many signups from this device. Please try again in a minute."
   },
   "footer": {
     "tagline": "Institutional infrastructure for tokenized industrial metals (in development).",
