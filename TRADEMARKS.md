@@ -1,50 +1,54 @@
-# Trademarks
+# Trademarks and naming
 
-## The licence covers code, not names
+## Short version
 
-This repository is licensed under Apache License 2.0. Section 6 of that licence grants **no
-trademark rights**:
+The **code** is Apache-2.0: fork it, ship it, sell it, no permission needed.
+The **name** is not part of that licence.
 
-> This License does not grant permission to use the trade names, trademarks, service marks,
-> or product names of the Licensor, except as required for reasonable and customary use in
-> describing the origin of the Work and reproducing the content of the NOTICE file.
+## What this covers
 
-The copyright licence over the code and the absence of any trademark licence are separate
-and independent. Receiving the code under Apache 2.0 gives you no right to the name it was
-built under.
+"OpenRWA", the token symbol "ORWA", and the project logo are the identity of
+this project. They are unregistered marks. The project claims common-law rights
+only, and asserts nothing beyond distinguishing this project from forks of it.
 
-## What is not licensed here
+## What you may do
 
-"ReserveChain", "ReserveChain.io", the `reservechain.io` domain, and any associated logos,
-wordmarks and visual identity are the property of the prospective client. They appear in
-this repository only to identify the work as having been built against that client's brief.
+- Fork the repository and keep the name in the git history, commit messages and
+  the `NOTICE` file. You must keep `NOTICE`; Apache-2.0 requires it.
+- Say your product is "built on OpenRWA", "a fork of OpenRWA" or "compatible
+  with OpenRWA". Accurate, factual references are always fine.
+- Use the name in articles, talks, comparisons and academic work.
+- Contribute back under the project name.
 
-**No trademark licence is granted by this repository, expressly or by implication.**
+## What you may not do
 
-## Obligations when redistributing or deploying
+- Name your product, company, token, domain or app "OpenRWA", or anything close
+  enough to be confused with it.
+- Use the logo as your own product's logo, or in any way that implies this
+  project endorses, certifies, audits or supports your deployment.
+- Present a modified deployment as the official OpenRWA project.
 
-If you redistribute this code or deploy it anywhere, you must not use the ReserveChain name
-or brand. Rename the project and remove the brand references before operating any public
-deployment.
+If a reasonable person could mistake your deployment for the upstream project,
+rename it.
 
-Brand strings are not confined to documentation. They appear in at least the following
-places, and all of them must be replaced when renaming:
+## Renaming a fork
 
-| Where | What appears |
+Everywhere the upstream name appears:
+
+| Location | What to change |
 | --- | --- |
-| Page titles and site metadata | The product name in user-facing titles |
-| Package names | `reservechain-web`, `reservechain-api`, `reservechain-admin`, `reservechain-cms` |
-| Solidity contract name | The token contract's declared name |
-| Contract revert strings | Error strings prefixed with the brand |
-| CMS admin title suffix | The Payload admin UI title suffix |
+| Site metadata | `src/lib/meta.ts`, `src/lib/seo.ts`, `src/app/[locale]/layout.tsx` |
+| Locale copy | `src/messages/en.json`, `es.json`, `it.json` |
+| Package names | root `package.json`, and `api/`, `admin/`, `cms/`, `mobile/` |
+| Contract | Solidity contract name, constructor name and symbol, revert string prefixes |
+| CMS | admin panel title suffix in `cms/src/payload.config.ts` |
+| Mobile | `mobile/app.json` name, slug and bundle identifier |
+| Containers | database and user names in `docker-compose*.yml` and `.env*.example` |
+| Docs | `README.md`, `docs/`, and this file |
 
-This list is a starting point for the rename, not a guarantee of completeness. Search the
-tree for the brand string before publishing anything.
+When you are done, `grep -ri openrwa .` should return nothing except licence
+headers and the `NOTICE` attribution.
 
-## Renaming does not affect the code licence
+## Contact
 
-Removing the brand is a trademark obligation, not a licence restriction. The Apache 2.0
-grant over the code stands on its own terms regardless of what the project is renamed to.
-
-See [README.md](README.md) for the ownership and licensing summary, and [LICENSE](LICENSE)
-for the full licence text.
+Questions about naming: t@lapwifi.net

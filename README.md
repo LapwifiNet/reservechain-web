@@ -1,229 +1,164 @@
-# ReserveChain
+# OpenRWA
 
-> **Contest submission — not a live product.** This repository is a contest entry. It was
-> submitted, it was **not selected**, there is no client engagement or contract behind it,
-> and nothing here runs in production or is operated as a service.
->
-> - **Testnet only.** The contract suite targets the **Sepolia** testnet. There is no
->   mainnet deployment and no mainnet contract address exists.
-> - **No tokens are being offered or sold.** Nothing in this repository is an offer, a
->   solicitation of an offer, investment advice, or a prospectus.
-> - **The data is illustrative.** Every quantity, purity, valuation, certificate,
->   custodian, insurer and tokenomics figure here is an illustrative placeholder. None of
->   it is real data about real metal, real reserves or real counterparties.
-> - **The wallet, purchase, proof-of-reserves and redemption modules are built but
->   disabled.** They publish route shapes only and return HTTP `501`. Enabling them
->   requires a finalized legal structure, an independent smart-contract audit, a
->   penetration test, and written authorization.
-> - **Not audited, not penetration-tested.** Do not deploy this to mainnet and do not use
->   it to custody real assets or real funds.
-> - Provided **as-is** under [LICENSE](LICENSE), without warranty of any kind. Known
->   issues and gaps are recorded in [SECURITY.md](SECURITY.md).
+**Open-source reference implementation for tokenizing real-world industrial assets.**
 
-![CI](https://github.com/LapwifiNet/reservechain-web/actions/workflows/ci.yml/badge.svg)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-What was built for the submission: a working draft of the ReserveChain platform, an
-institutional RWA tokenization project for industrial metals (Copper Powder, Nickel Wire).
-It is **pre-launch** — nothing is offered or sold. The repository is a monorepo of five
-workspaces: the public website, a REST API, an internal admin console, the ERC-20 contract
-suite and a Payload CMS. The website was built to carry the verbatim prelaunch disclosure,
-the Copper Powder / Nickel Wire program pages, a sample Digital Asset Passport and a
-multi-step waitlist; it was designed dark-first, institutional, responsive and
-internationalized (EN / ES / IT). It was built against a 22-phase plan (P1–P22), which was
-the plan for the submission rather than a delivery schedule now in progress.
+OpenRWA is a full-stack template for an asset-backed token platform: a public
+website, a headless CMS, an admin console, a REST API, an ERC-20 contract suite
+and a mobile app, wired together, containerised, and shipped with the compliance
+guardrails this class of product needs from day one.
 
-## Stack
-- **Website** (`/`, `src/`) — Next.js 14 (App Router) + TypeScript + Tailwind CSS, with
-  **next-intl** for EN/ES/IT routing and messages, and a waitlist API route backed by a JSON
-  file store in development or PostgreSQL when `DATABASE_URL` is set
-- **API** (`api/`) — NestJS 10 + Prisma + PostgreSQL; shared backend for the website, the
-  admin console and a future mobile client
-- **Admin console** (`admin/`) — Next.js 14, internal-only, reads the API server-side
-- **Contracts** (`contracts/`) — Solidity + Foundry + OpenZeppelin v5; **testnet only**
-  (Sepolia)
+It ships **inert**. No token exists, nothing is deployed, and every module that
+could resemble an offer is disabled in code. Enabling any of them is an explicit
+decision taken by whoever operates a deployment, under their own legal advice.
 
-## Run locally
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-# open http://localhost:3000  (redirects to /en)
-```
+## Why this exists
 
-## Run the whole stack in Docker
+Most "tokenize a real asset" projects rebuild the same scaffolding: a
+multi-locale marketing site, an evidence model for the underlying asset, KYC and
+audit trails, a token contract, an admin console, and some way to keep all of it
+switched off until the paperwork is real. OpenRWA is that scaffolding, extracted
+and de-branded so it can be forked.
 
-Brings up PostgreSQL, the API, the website and the admin console together. The API applies
-its Prisma migrations on start, so the database is ready without a manual step.
+## What is in the box
+
+| Component | Stack | Path | Port |
+| --- | --- | --- | --- |
+| Website | Next.js 14 App Router, TypeScript, Tailwind, next-intl (EN/ES/IT) | `src/` | 3000 |
+| API | NestJS, Prisma, PostgreSQL | `api/` | 4000 |
+| Admin console | Next.js 14 | `admin/` | 4100 |
+| CMS | Payload | `cms/` | 3001 |
+| Contracts | Solidity, Foundry, OpenZeppelin, Safe | `contracts/` | n/a |
+| Mobile | React Native / Expo, Maestro E2E | `mobile/` | n/a |
+| Infrastructure | Docker Compose, Terraform, GitHub Actions | `infra/`, `.github/` | n/a |
+
+## Quick start
 
 ```bash
-cp .env.docker.example .env          # set JWT_SECRET, SERVICE_API_TOKEN, INVESTOR_JWT_SECRET, PAYLOAD_SECRET
-openssl rand -hex 32                 # generate a value for each
+git clone https://github.com/LapwifiNet/openrwa.git
+cd openrwa
+cp .env.docker.example .env
+# then generate four DIFFERENT 32-character secrets, see Configuration below
 docker compose up --build
 ```
 
-| Service | URL | Notes |
-| --- | --- | --- |
-| Website | http://localhost:3000 | redirects to `/en` |
-| API | http://localhost:4000/api | `/api/health` reports database status |
-| Admin console | http://localhost:4100 | reads the API server-side |
-| CMS | http://localhost:3001/admin | Payload; asset registry + public passports |
-| PostgreSQL | `localhost:5432` | user/db `reservechain` |
-| PostgreSQL (CMS) | `localhost:5433` | user `reservechain`, db `reservechain_cms`. Check the port is free first — `lsof -iTCP:5433 -sTCP:LISTEN -n -P` — and override with `CMS_POSTGRES_PORT`. Pointing the CMS at the wrong Postgres does not error; it migrates it |
+| Service | URL |
+| --- | --- |
+| Website | http://localhost:3000 |
+| API health | http://localhost:4000/api/health |
+| Admin console | http://localhost:4100 |
+| CMS admin | http://localhost:3001/admin |
 
-`.env` is gitignored — `JWT_SECRET`, `SERVICE_API_TOKEN`, `INVESTOR_JWT_SECRET` and
-`PAYLOAD_SECRET` must each be at least 32 characters or the services refuse to start.
-The three signing keys must all differ from one another: staff, investor and CMS
-sessions are deliberately disjoint token domains, so a token from one is not merely
-unauthorised in another — it fails signature verification. The CMS also runs against
-its own database and never touches the API's. The admin console authenticates to the
-API with `SERVICE_API_TOKEN`, so
-both services read the same value.
+Postgres listens on 5432. The CMS gets its own database on 5433
+(`CMS_POSTGRES_PORT`). Default database and user names are `openrwa` and
+`openrwa_cms`.
 
-Running the CMS outside Docker needs `cms/.env` — `DATABASE_URI` is required and has no
-fallback, because a connection string that is wrong still connects and still migrates,
-against the wrong database.
+To load demo content, set `RUN_DB_SEED=true` on the first run. The seed creates
+placeholder accounts and illustrative asset programs. It is not intended for any
+public deployment.
 
-**Development with hot reload** — bind-mounts the working tree and runs `next dev` /
-`nest start --watch`, so edits on the host reload inside the containers:
+## Configuration
+
+Four secrets are mandatory. Each must be at least 32 characters, and all four
+must differ from each other:
+
+| Variable | Used by |
+| --- | --- |
+| `JWT_SECRET` | admin and staff sessions |
+| `INVESTOR_JWT_SECRET` | participant sessions |
+| `SERVICE_API_TOKEN` | service-to-service calls |
+| `PAYLOAD_SECRET` | CMS |
+
+The stack refuses to boot if any of them is missing, too short, or reused.
+`WAITLIST_API_BASE` is server-side only and must never reach the browser.
+
+## Safety model
+
+Five feature flags default to `false`:
+
+`PROOF_OF_RESERVES_ENABLED`, `REDEMPTION_ENABLED`, `WALLET_ENABLED`,
+`PURCHASE_ENABLED`, `CHAIN_SYNC_ENABLED`
+
+When a flag is off, `FeatureFlagGuard` returns HTTP `501` *before*
+authentication is evaluated, so a disabled module leaks nothing, not even
+whether a credential was valid. When a flag is on, the underlying service
+methods still refuse with `501` until they are deliberately implemented for a
+real deployment. Enabling a flag moves the refusal; it does not turn on a
+workflow.
+
+The token status scale stops at `testnet-deployed`. No admin edit, CMS field or
+API call can express a live offering.
+
+Every locale carries a default disclosure stating that the deployment offers
+nothing. Operators may extend it. Removing it is not supported.
+
+## Screen registry
+
+`docs/spec/screens.yaml` tracks 84 screen ids and their implementation state.
+`docs/spec/decisions.yaml` records design decisions D1 to D6. CI runs:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+npm run verify:screens
 ```
 
-**Seed admin users** (local only): set `RUN_DB_SEED=true` in `.env` before starting.
+which fails the build if a screen is implemented without a registry entry, or a
+registry entry contradicts the code.
 
-**Foundry toolchain** — a one-off container, not part of the running stack:
+## Testing
 
 ```bash
-docker compose run --rm contracts "forge build --sizes"
-docker compose run --rm contracts "forge test -vvv"
+npm test                                 # website unit tests
+npm run test:a11y                        # Playwright + axe, WCAG 2.1 AA
+cd api && npm test                       # NestJS e2e suite
+cd contracts && forge test               # Foundry
+cd mobile && npx maestro test .maestro   # mobile E2E
 ```
 
-## Structure
-```
-src/                       # public website (Next.js App Router)
-  app/[locale]/            # localized pages: home, copper-powder, nickel-wire, passport/[id], waitlist
-  app/api/waitlist/        # POST endpoint that stores registrations
-  components/              # Nav, Footer, Disclosure, Button, StatusTag, SpecTable
-  i18n/                    # next-intl routing + request config
-  messages/               # en.json, es.json, it.json
-  styles/globals.css       # design tokens
+The API suite runs with `maxWorkers: 1` on purpose: the e2e tests share one
+database and the audit hash chain is order-sensitive.
 
-api/                       # NestJS + Prisma REST API for web, admin and future mobile
-  src/                     # one folder per module (health, assets, passports, waitlist,
-                           #   tokenomics, dashboard, auth, kyc, audit, chain-sync, sensitive)
-  prisma/                  # schema.prisma, migrations and seed script
+## Documentation
 
-admin/                     # internal admin console (Next.js), reads the API server-side
-  src/app/                 # overview, registry, programs, passports, waitlist, tokenomics,
-                           #   kyc, audit, plus gated reserves and redemption pages
-  src/components/          # PageHeader, DataTable, Badge, StatCard, EmptyState, Sidebar
+| Document | Contents |
+| --- | --- |
+| `docs/USER-MANUAL.md` | End-user walkthrough |
+| `docs/ADMIN-MANUAL.md` | Admin console and CMS |
+| `docs/RUNBOOK.md` | Operations, backup, restore, incident response |
+| `docs/TRAINING.md` | Onboarding material for operators |
+| `docs/ACCEPTANCE-CHECKLIST.md` | Release acceptance criteria |
+| `SECURITY.md` | Reporting, supported versions, known issues |
+| `TRADEMARKS.md` | Name and brand policy for forks |
 
-contracts/                 # Solidity + Foundry ERC-20 suite (testnet only)
-  src/                     # token contract
-  script/                  # deploy and role-assignment scripts
-  test/                    # Foundry tests
+## Status
 
-cms/                       # Payload v2 CMS on Express; own database, port 3001
-  src/collections/         # AssetPrograms, AssetRecords, Passports, Media, Users, Settings
-  src/access/              # role-based access rules
-  src/migrations/          # Payload schema migrations
-  src/seed/                # seed script (random admin password unless SEED_ADMIN_PASSWORD)
+Pre-1.0. The website, CMS, admin console, API, auth and KYC, audit log,
+contracts on testnet, the mobile shell and CI are implemented. Mainnet
+deployment, an independent audit, and the gated modules are deliberately not
+done.
 
-infra/wallets/             # Gnosis Safe setup docs, role matrix, wallet inventory templates
-mobile/                    # Expo app (iOS + Android); standalone, not an npm workspace
-docs/                      # RUNBOOK, USER-MANUAL, ADMIN-MANUAL, TRAINING
-                           #   (operations + onboarding; not the specification)
-  spec/                    # one-way read-only mirror of the Notion spec:
-                           #   screens.yaml (84 screen ids), decisions.yaml (D1-D6).
-                           #   Gated by `npm run verify:screens`
-infra/terraform/           # AWS IaC (VPC, ALB, ECS Fargate, RDS, S3/CloudFront, ECR,
-                           #   Secrets Manager). Validated, never applied
-```
+Read `SECURITY.md` for the current known-issues list before running this
+anywhere that matters.
 
-The React Native app (`mobile/`, P13) exists — Expo SDK 51, iOS + Android, investor domain
-only — verified with lint and `tsc --noEmit`, and a **debug APK has been built and run on
-an Android emulator** (`Linken_AdMachine`). Four of its six Maestro flows pass there
-(`01-home-smoke`, `02-waitlist-validation`, `03-waitlist-happy-path` against a real
-`POST /waitlist`, `04-i18n-switch`); `05-investor-auth` and `06-programs-passport` fail on
-environment rather than app code, needing the API and CMS reachable from the emulator.
-On 2026-08-03 all six flows' assertions passed **26/26 against the production web export**
-(Playwright, API + CMS running locally) — closing the 05/06 gap at the app-logic level:
-investor register → status, and programs → sample passport → DAP. The CMS seed was fixed
-so the sample passport resolves by program slug (PR #26). A tab shell
-(Home / Registry / Passport / Documents / Profile) was added on 2026-08-03
-(PR #30) and the full suite re-verified: **38/38 assertions green** on the
-production web export, including the new tabs.
-**No release binary exists, no iOS build of any kind has been produced, and nothing is
-published to an app store** — EAS Build has never run. `docs/` holds the operations
-runbook, the user and admin manuals and the training guide. The **authoritative**
-specification (brief, PRD, wireframes, roadmap) stays in Notion (P21); only the screen
-registry and decision log are mirrored in-tree, as `docs/spec/screens.yaml` (84 screen ids)
-and `docs/spec/decisions.yaml` (D1–D6). That mirror is one-way and read-only — change
-Notion and re-sync; never edit the YAML to change the spec — and `npm run verify:screens`
-gates it in CI. Payload CMS (`cms/`, P10) exists — see the entry above and the
-Docker service table. The Terraform infrastructure (`infra/terraform/`, P19) exists and is
-verified with `terraform validate` and `fmt -check`; it has never been applied, and no AWS
-resource exists as a result of anything in this repository.
+## Contributing
 
-## Compliance (kept throughout)
-- Only clearly labeled **illustrative** data — never fabricated.
-- Verbatim prelaunch disclosure shown in the footer and on the waitlist.
-- Four modules are built as surfaces only — Proof-of-Reserves (P11), Redemption (P12),
-  wallet linking and token purchase: the API returns HTTP `501` for all four, and the admin
-  console renders a gated notice on its `/reserves` and `/redemption` pages (wallet and
-  purchase have no console page). Each is gated twice. `FeatureFlagGuard` refuses with `501`
-  before authentication is considered when the module's flag
-  (`PROOF_OF_RESERVES_ENABLED`, `REDEMPTION_ENABLED`, `WALLET_ENABLED`,
-  `PURCHASE_ENABLED`, all default `false`) is off, and with the flag on every service
-  method still refuses with `501` — so enabling a flag moves the refusal rather than
-  activating a workflow. They stay inactive pending written authorization. KYC / KYB (P6)
-  and the append-only Audit log (P9) are implemented and role-guarded, readable only by an
-  authenticated ADMIN or COMPLIANCE user.
+Read `CONTRIBUTING.md`. Issues and pull requests are welcome, including on the
+open design questions listed there.
 
-## Waitlist storage
+## License
 
-The API owns waitlist registrations. The website's `src/app/api/waitlist/route.ts`
-validates the submission and proxies it to `POST {WAITLIST_API_BASE}/waitlist`, so the
-site and the admin console read and write the same rows — a signup on the public site
-appears immediately on the admin **Waitlist** page.
+Apache License 2.0. See `LICENSE` and `NOTICE`.
 
-Set `WAITLIST_API_BASE` (server-side only; never `NEXT_PUBLIC_*`) to the API base URL:
-`http://127.0.0.1:4000/api` locally, `http://api:4000/api` under Docker Compose, and the
-deployed API host on Vercel — add it under Project → Settings → Environment Variables,
-then redeploy. No credential is sent with the request: `POST /waitlist` is public by
-design and the website holds no service token.
+Copyright 2026 Tin Ly.
 
-The website no longer uses `DATABASE_URL` or `PGSSL`; its own JSON/Postgres store has
-been removed. Re-submitting an address returns the existing registration id rather than
-an error, so the form stays idempotent.
+The name **OpenRWA** and the token symbol **ORWA** are covered by
+`TRADEMARKS.md`. The code is yours to fork; the name is not.
 
-## Intellectual property
+## Disclaimer
 
-Intellectual property in this submission is offered to the contest issuer under the terms
-of the contest brief.
-
-## Ownership, licensing & trademarks
-
-Three separate layers, with different holders and different terms:
-
-| Layer | Holder | Terms |
-| --- | --- | --- |
-| The code in this repository | Tin Ly | Licensed under Apache License 2.0 ([LICENSE](LICENSE)). Licensed, never assigned. |
-| The "ReserveChain" name, logo, visual identity and the `reservechain.io` domain | The prospective client | **Not licensed by this repository.** Apache 2.0 section 6 grants no trademark rights. See [TRADEMARKS.md](TRADEMARKS.md). |
-| The specification and brief | The prospective client | The authoritative specification lives in Notion. Only the screen registry and decision log are mirrored in-tree (`docs/spec/`), one-way and read-only. |
-The code published here is licensed under Apache License 2.0. That grant is perpetual and
-irrevocable for anyone who has already obtained a copy, and a later transfer of repository
-ownership does not revoke it.
-
-The Solidity sources under `contracts/` carry the same `Apache-2.0` SPDX identifier. Those
-four files were previously published with an `MIT` SPDX header, so anyone who obtained a
-copy before that change retains the MIT grant for those files.
-
-Two outcomes remain open. If the submission is selected, the work is handed over to the
-client under this licence. If it is not, the code continues as a de-branded, generic
-real-world-asset tokenization platform under a different name.
-
-Anyone redistributing or deploying this code must rename the project and remove the brand
-references first — see [TRADEMARKS.md](TRADEMARKS.md) for what that involves. Security
-status, known issues and how to report a vulnerability are in [SECURITY.md](SECURITY.md).
+OpenRWA is software, not financial, legal or tax advice. It does not offer,
+sell or solicit any token, security or financial product, and running it does
+not make anything compliant. Whoever deploys it is solely responsible for their
+own legal structure, offering documentation, asset verification, jurisdictional
+eligibility, KYC/KYB, sanctions screening and approvals. All asset data in this
+repository is illustrative placeholder content.
