@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/LapwifiNet/openrwa/blob/main/SECURITY.md
+    about: Do not open a public issue. Follow SECURITY.md and email t@lapwifi.net.
+  - name: Trademark and rebranding questions
+    url: https://github.com/LapwifiNet/openrwa/blob/main/TRADEMARKS.md
+    about: The code is Apache-2.0; the OpenRWA name is not. Read this before forking.
+  - name: Questions and ideas
+    url: https://github.com/LapwifiNet/openrwa/discussions
+    about: Ask usage questions and float ideas here rather than in the issue tracker.
