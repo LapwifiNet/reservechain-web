@@ -381,7 +381,7 @@
     },
     "types": {
       "institution": "Istituzione",
-      "investor": "Investitore privato",
+      "participant": "Investitore privato",
       "partner": "Partner",
       "other": "Altro"
     },
@@ -1269,7 +1269,7 @@
     },
     "waitlist": "Registrazione lista d'attesa",
     "waitlistNone": "Non sei ancora nella lista d'attesa.",
-    "investorType": "Tipo di investitore",
+    "participantType": "Tipo di investitore",
     "organization": "Organizzazione",
     "interest": "Area di interesse",
     "joined": "Iscritto",
