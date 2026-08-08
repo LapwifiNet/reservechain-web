@@ -44,54 +44,54 @@ cat >"$RULES" <<'RULESEOF'
 # --- order matters: most specific first, generic catch-all last ---
 
 # Mobile bundle identifier
-s/io\.openrwa\.app/io.openrwa.app/g
+s/io\.reservechain\.app/io.openrwa.app/g
 
 # Hosts. openrwa.example is RFC 2606 - swap in your own domain afterwards.
-s/staging-api\.openrwa\.example/staging-api.openrwa.example/g
-s/staging-cms\.openrwa\.example/staging-cms.openrwa.example/g
-s/staging\.openrwa\.example/staging.openrwa.example/g
-s/([A-Za-z0-9-]+\.)?openrwa\.(io|site)/\1openrwa.example/g
+s/staging-api\.reservechain\.example/staging-api.openrwa.example/g
+s/staging-cms\.reservechain\.example/staging-cms.openrwa.example/g
+s/staging\.reservechain\.example/staging.openrwa.example/g
+s/([A-Za-z0-9-]+\.)?reservechain\.(io|site)/\1openrwa.example/g
 
 # Solidity contract, its test and its deploy scripts
-s/OpenRWAToken/OpenRWAToken/g
+s/ReserveChainToken/OpenRWAToken/g
 
 # Token name and ticker
-s/OpenRWA Token/OpenRWA Token/g
+s/ReserveChain Metal/OpenRWA Token/g
 s/\bRCM\b/ORWA/g
 
 # Cookies, storage keys, CSS custom properties
-s/orwa_session/orwa_session/g
-s/orwa_participant/orwa_participant/g
-s/orwa_consent/orwa_consent/g
-s/--orwa-/--orwa-/g
+s/rc_session/orwa_session/g
+s/rc_investor/orwa_participant/g
+s/rc_consent/orwa_consent/g
+s/--rc-/--orwa-/g
 
 # AWS: ECR namespace, ECS cluster, Secrets path, log group, SNS topic,
 # CloudWatch dashboard, RDS identifier
-s|openrwa/([a-z0-9-]+)|openrwa/\1|g
-s/openrwa-(dev|staging|prod)/openrwa-\1/g
-s/openrwa-<env>/openrwa-<env>/g
+s|reservechain/([a-z0-9-]+)|openrwa/\1|g
+s/reservechain-(dev|staging|prod)/openrwa-\1/g
+s/reservechain-<env>/openrwa-<env>/g
 
 # Databases and roles
-s/openrwa_cms/openrwa_cms/g
-s/openrwa_dev/openrwa_dev/g
+s/reservechain_cms/openrwa_cms/g
+s/reservechain_dev/openrwa_dev/g
 
 # npm package names
-s/openrwa/openrwa/g
-s/openrwa-api/openrwa-api/g
-s/openrwa-admin/openrwa-admin/g
-s/openrwa-cms/openrwa-cms/g
+s/reservechain-web/openrwa/g
+s/reservechain-api/openrwa-api/g
+s/reservechain-admin/openrwa-admin/g
+s/reservechain-cms/openrwa-cms/g
 
 # Seed mailboxes
-s/@openrwa\.local/@openrwa.local/g
+s/@reservechain\.local/@openrwa.local/g
 
 # Catch-all
-s/OpenRWA/OpenRWA/g
-s/OPENRWA/OPENRWA/g
-s/openrwa/openrwa/g
+s/ReserveChain/OpenRWA/g
+s/RESERVECHAIN/OPENRWA/g
+s/reservechain/openrwa/g
 RULESEOF
 
 SKIP='(^|/)(node_modules|\.git)/|(^|/)package-lock\.json$|\.(png|jpe?g|gif|webp|ico|svgz|pdf|zip|gz|woff2?|ttf|otf|eot|mp4|keystore|jks)$'
-MATCH='openrwa|OpenRWA|OPENRWA|orwa_session|orwa_participant|orwa_consent|--orwa-|\bRCM\b'
+MATCH='reservechain|ReserveChain|RESERVECHAIN|rc_session|rc_investor|rc_consent|--rc-|\bRCM\b'
 
 changed=0
 while IFS= read -r f; do
@@ -106,19 +106,19 @@ echo "rewrote $changed file(s)"
 
 # Rename the files that carry the old name (contracts, their tests, docs).
 while IFS= read -r f; do
-  new=$(printf '%s' "$f" | "$SED" -E 's/OpenRWA/OpenRWA/g; s/openrwa/openrwa/g')
+  new=$(printf '%s' "$f" | "$SED" -E 's/ReserveChain/OpenRWA/g; s/reservechain/openrwa/g')
   [ "$f" = "$new" ] && continue
   mkdir -p "$(dirname "$new")"
   git mv "$f" "$new"
   echo "renamed $f -> $new"
-done < <(git ls-files | grep -Ei 'openrwa' || true)
+done < <(git ls-files | grep -Ei 'reservechain' || true)
 
 cat <<'CHECKEOF'
 
 Done. Now, in order:
 
   1. npm install, and again in api/, admin/ and cms/, to regenerate lockfiles.
-  2. grep -ri --exclude-dir=node_modules -e openrwa -e ORWA .
+  2. grep -ri --exclude-dir=node_modules -e reservechain -e RCM .
      Expect no hits outside git history.
   3. npm run lint && npm run typecheck && npm run test && npm run verify:screens
      cd contracts && forge test
