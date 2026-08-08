@@ -1,4 +1,4 @@
-# ReserveChain API (NestJS + Prisma + PostgreSQL).
+# OpenRWA API (NestJS + Prisma + PostgreSQL).
 # openssl is required by the Prisma query engine on Alpine.
 FROM node:20-alpine AS deps
 WORKDIR /app

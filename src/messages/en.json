@@ -55,13 +55,13 @@
   },
   "disclosure": {
     "label": "Important notice",
-    "full": "ReserveChain is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
+    "full": "OpenRWA is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
     "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website."
   },
   "home": {
     "kicker": "Swiss Industrial Metals · RWA Tokenization · In Development",
     "title": "Building the Infrastructure for Tokenized Industrial Metals",
-    "subtitle": "ReserveChain is developing an institutional platform intended to connect documented industrial-metal assets with digital tokenization, verification, custody and physical-redemption infrastructure. The corporate, legal, custody, asset-verification and technical arrangements are currently being finalized.",
+    "subtitle": "OpenRWA is developing an institutional platform intended to connect documented industrial-metal assets with digital tokenization, verification, custody and physical-redemption infrastructure. The corporate, legal, custody, asset-verification and technical arrangements are currently being finalized.",
     "note": "Swiss corporate and issuance structure in development.",
     "cta": {
       "primary": "Join the Project Waitlist",
@@ -81,7 +81,7 @@
       "model": {
         "kicker": "The Proposed Model",
         "title": "Institutional infrastructure, not a token launch",
-        "body": "ReserveChain is building the documentation, verification and reconciliation layer that would need to exist before an industrial-metal reserve could credibly be represented on-chain. Evidence first; tokens only if and when the structure supports them.",
+        "body": "OpenRWA is building the documentation, verification and reconciliation layer that would need to exist before an industrial-metal reserve could credibly be represented on-chain. Evidence first; tokens only if and when the structure supports them.",
         "items": [
           {
             "h": "What it is",
@@ -108,7 +108,7 @@
           },
           {
             "h": "Verify independently",
-            "p": "Laboratory analysis, inspection and documentary review by parties independent of ReserveChain."
+            "p": "Laboratory analysis, inspection and documentary review by parties independent of OpenRWA."
           },
           {
             "h": "Custody & insure",
@@ -157,7 +157,7 @@
           "Chemical composition and purity determined by an accredited laboratory",
           "Physical characteristics measured per program: particle size for powder, diameter and temper for wire",
           "Batch, container and coil identifiers reconciled against supporting documentation",
-          "Verification performed by parties independent of ReserveChain"
+          "Verification performed by parties independent of OpenRWA"
         ]
       },
       "custody": {
@@ -248,7 +248,7 @@
         "items": [
           {
             "h": "Can I buy a token now?",
-            "p": "No. No token has been issued and none is offered or sold through this website. Any offer of a ReserveChain token is fraudulent."
+            "p": "No. No token has been issued and none is offered or sold through this website. Any offer of a OpenRWA token is fraudulent."
           },
           {
             "h": "What does joining the waitlist give me?",
@@ -297,7 +297,7 @@
       "fraud": {
         "kicker": "Anti-Fraud",
         "title": "There is no token sale",
-        "body": "Projects at this stage are targeted by impersonation. ReserveChain will never ask you to do any of the following.",
+        "body": "Projects at this stage are targeted by impersonation. OpenRWA will never ask you to do any of the following.",
         "items": [
           "Send cryptocurrency or any payment",
           "Connect a wallet or approve a transaction",
@@ -389,7 +389,7 @@
   },
   "footer": {
     "tagline": "Institutional infrastructure for tokenized industrial metals (in development).",
-    "rights": "© 2026 ReserveChain. Swiss corporate structure in development.",
+    "rights": "© 2026 OpenRWA. Swiss corporate structure in development.",
     "company": "Company",
     "engage": "Engage",
     "legal": "Legal & Disclosure"
@@ -403,7 +403,7 @@
   "page": {
     "how-it-works": {
       "kicker": "Proposed Model",
-      "title": "How ReserveChain Is Intended to Work",
+      "title": "How OpenRWA Is Intended to Work",
       "intro": "An outline of the proposed end-to-end model, from documenting an industrial-metal lot through to a planned tokenized representation and physical redemption.",
       "s": [
         {
@@ -412,7 +412,7 @@
         },
         {
           "h": "2. Independent verification",
-          "p": "Laboratory analysis, physical inspection and documentary review are intended to be carried out by parties independent of ReserveChain before any asset record is published as verified. Until that evidence has been supplied and approved, records remain marked as pending verification."
+          "p": "Laboratory analysis, physical inspection and documentary review are intended to be carried out by parties independent of OpenRWA before any asset record is published as verified. Until that evidence has been supplied and approved, records remain marked as pending verification."
         },
         {
           "h": "3. Custody and insurance",
@@ -435,7 +435,7 @@
     "verification": {
       "kicker": "Proposed Framework",
       "title": "Asset Verification",
-      "intro": "The verification framework ReserveChain intends to apply to industrial-metal lots before any asset record is published as verified.",
+      "intro": "The verification framework OpenRWA intends to apply to industrial-metal lots before any asset record is published as verified.",
       "s": [
         {
           "h": "What verification is intended to cover",
@@ -450,7 +450,7 @@
         },
         {
           "h": "Independent parties",
-          "p": "Verification is intended to be performed by laboratories and inspection bodies independent of ReserveChain. ReserveChain does not perform laboratory analysis, does not issue certificates of analysis, and does not express an opinion on the results of any third-party assessment."
+          "p": "Verification is intended to be performed by laboratories and inspection bodies independent of OpenRWA. OpenRWA does not perform laboratory analysis, does not issue certificates of analysis, and does not express an opinion on the results of any third-party assessment."
         },
         {
           "h": "Publication control",
@@ -465,7 +465,7 @@
     "custody": {
       "kicker": "Proposed Framework",
       "title": "Custody Structure",
-      "intro": "The custody, storage and insurance arrangements ReserveChain intends to put in place for documented industrial-metal lots.",
+      "intro": "The custody, storage and insurance arrangements OpenRWA intends to put in place for documented industrial-metal lots.",
       "s": [
         {
           "h": "Intended custody model",
@@ -485,7 +485,7 @@
         },
         {
           "h": "Segregation",
-          "p": "Custodied lots are intended to be held separately from the operating assets of any ReserveChain entity, so that inventory recorded in the registry can be reconciled independently of the issuer's own balance sheet."
+          "p": "Custodied lots are intended to be held separately from the operating assets of any OpenRWA entity, so that inventory recorded in the registry can be reconciled independently of the issuer's own balance sheet."
         },
         {
           "h": "Current status",
@@ -516,7 +516,7 @@
         },
         {
           "h": "Attestation",
-          "p": "ReserveChain does not describe reserve data as independently verified in the absence of an attestation from a qualified third party. No attestor has been appointed and no attestation has been obtained."
+          "p": "OpenRWA does not describe reserve data as independently verified in the absence of an attestation from a qualified third party. No attestor has been appointed and no attestation has been obtained."
         },
         {
           "h": "Current status",
@@ -544,7 +544,7 @@
     "industrial-metal-assets": {
       "kicker": "Asset Programs",
       "title": "Industrial Metal Assets",
-      "intro": "ReserveChain's initial asset programs cover high-purity copper powder and nickel wire, documented and identified at individual unit level.",
+      "intro": "OpenRWA's initial asset programs cover high-purity copper powder and nickel wire, documented and identified at individual unit level.",
       "s": [
         {
           "h": "Copper Powder program",
@@ -670,7 +670,7 @@
         },
         {
           "h": "No regulatory authorization",
-          "p": "ReserveChain does not hold, and does not claim to hold, any regulatory authorization, licence or registration. This website is not directed at residents of the European Union or European Economic Area and does not constitute marketing of a crypto-asset under MiCA."
+          "p": "OpenRWA does not hold, and does not claim to hold, any regulatory authorization, licence or registration. This website is not directed at residents of the European Union or European Economic Area and does not constitute marketing of a crypto-asset under MiCA."
         },
         {
           "h": "Current status",
@@ -708,7 +708,7 @@
     "contact": {
       "kicker": "Contact",
       "title": "Contact",
-      "intro": "How to reach the project during development, and how to confirm that a communication genuinely comes from ReserveChain.",
+      "intro": "How to reach the project during development, and how to confirm that a communication genuinely comes from OpenRWA.",
       "s": [
         {
           "h": "General and project enquiries",
@@ -724,14 +724,14 @@
         },
         {
           "h": "Verify official channels first",
-          "p": "Before acting on any communication that appears to come from ReserveChain, check the Official Channels Directory. ReserveChain does not operate token sales, presales, payment channels or wallet-connection requests of any kind, and will never ask for a seed phrase or private key."
+          "p": "Before acting on any communication that appears to come from OpenRWA, check the Official Channels Directory. OpenRWA does not operate token sales, presales, payment channels or wallet-connection requests of any kind, and will never ask for a seed phrase or private key."
         }
       ]
     },
     "about": {
       "kicker": "About",
-      "title": "About ReserveChain",
-      "intro": "ReserveChain is developing institutional infrastructure intended to represent documented industrial-metal reserves as on-chain tokens, paired with transparent asset documentation.",
+      "title": "About OpenRWA",
+      "intro": "OpenRWA is developing institutional infrastructure intended to represent documented industrial-metal reserves as on-chain tokens, paired with transparent asset documentation.",
       "s": [
         {
           "h": "What the project is building",
@@ -843,7 +843,7 @@
       "s": [
         {
           "h": "Can I buy a token now?",
-          "p": "No. No token has been issued and none is offered or sold through this website. There is no presale, no allocation and no price. Any communication offering you a ReserveChain token should be treated as fraudulent."
+          "p": "No. No token has been issued and none is offered or sold through this website. There is no presale, no allocation and no price. Any communication offering you a OpenRWA token should be treated as fraudulent."
         },
         {
           "h": "What does joining the waitlist give me?",
@@ -855,7 +855,7 @@
         },
         {
           "h": "Is there a smart contract address?",
-          "p": "No contract address is published on this website. The contract suite is exercised on a public testnet only. Any address presented elsewhere as an official ReserveChain contract should not be trusted."
+          "p": "No contract address is published on this website. The contract suite is exercised on a public testnet only. Any address presented elsewhere as an official OpenRWA contract should not be trusted."
         },
         {
           "h": "Is the metal actually in custody?",
@@ -933,7 +933,7 @@
       "s": [
         {
           "h": "Who is responsible",
-          "p": "The controller will be the ReserveChain issuing entity once the corporate structure is finalized. Until then, personal data submitted through this website is processed by the project team responsible for the development of the platform. This section will be updated with the definitive entity details."
+          "p": "The controller will be the OpenRWA issuing entity once the corporate structure is finalized. Until then, personal data submitted through this website is processed by the project team responsible for the development of the platform. This section will be updated with the definitive entity details."
         },
         {
           "h": "What data is collected",
@@ -945,7 +945,7 @@
         },
         {
           "h": "Payment and wallet data",
-          "p": "No payment information, wallet address, private key or seed phrase is requested, collected or accepted through this website at this stage. Any request for such information purporting to come from ReserveChain should be treated as fraudulent."
+          "p": "No payment information, wallet address, private key or seed phrase is requested, collected or accepted through this website at this stage. Any request for such information purporting to come from OpenRWA should be treated as fraudulent."
         },
         {
           "h": "Sharing",
@@ -1015,7 +1015,7 @@
         },
         {
           "h": "Acceptable use",
-          "p": "You agree not to misuse this website, including by attempting unauthorised access, submitting false information through its forms, interfering with its operation, or impersonating ReserveChain or any of its representatives."
+          "p": "You agree not to misuse this website, including by attempting unauthorised access, submitting false information through its forms, interfering with its operation, or impersonating OpenRWA or any of its representatives."
         },
         {
           "h": "Intellectual property",
@@ -1108,14 +1108,14 @@
     "anti-fraud": {
       "kicker": "Legal",
       "title": "Anti-Fraud & Anti-Impersonation",
-      "intro": "How to recognise fraudulent communications that claim to represent ReserveChain, and what the project will never ask you to do.",
+      "intro": "How to recognise fraudulent communications that claim to represent OpenRWA, and what the project will never ask you to do.",
       "s": [
         {
           "h": "There is no token sale",
-          "p": "No token has been issued and no token, presale, allocation, whitelist place or discount is offered or sold by ReserveChain. Any offer of these things is fraudulent, regardless of how convincing it appears."
+          "p": "No token has been issued and no token, presale, allocation, whitelist place or discount is offered or sold by OpenRWA. Any offer of these things is fraudulent, regardless of how convincing it appears."
         },
         {
-          "h": "What ReserveChain will never do",
+          "h": "What OpenRWA will never do",
           "p": "Treat any of the following as conclusive evidence of fraud.",
           "li": [
             "Ask for your seed phrase, private key or wallet password",
@@ -1136,14 +1136,14 @@
         },
         {
           "h": "If you are targeted",
-          "p": "Do not send funds, do not connect a wallet, and do not share documents. Report the communication through the contact route on this website, and report it to the relevant authority in your jurisdiction. ReserveChain cannot recover funds sent to a fraudulent party."
+          "p": "Do not send funds, do not connect a wallet, and do not share documents. Report the communication through the contact route on this website, and report it to the relevant authority in your jurisdiction. OpenRWA cannot recover funds sent to a fraudulent party."
         }
       ]
     },
     "official-channels": {
       "kicker": "Legal",
       "title": "Official Channels Directory",
-      "intro": "The definitive list of channels operated by the project. Anything not listed here is not operated by ReserveChain.",
+      "intro": "The definitive list of channels operated by the project. Anything not listed here is not operated by OpenRWA.",
       "s": [
         {
           "h": "Website",
@@ -1151,7 +1151,7 @@
         },
         {
           "h": "Channels not yet established",
-          "p": "Official social media, messaging and community channels have not been established at this stage. Because none exist, any account, group or channel presenting itself as an official ReserveChain community is not genuine."
+          "p": "Official social media, messaging and community channels have not been established at this stage. Because none exist, any account, group or channel presenting itself as an official OpenRWA community is not genuine."
         },
         {
           "h": "Email",

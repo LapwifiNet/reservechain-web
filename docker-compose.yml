@@ -1,4 +1,4 @@
-# ReserveChain full stack.
+# OpenRWA full stack.
 #
 #   cp .env.docker.example .env && docker compose up --build
 #
@@ -9,23 +9,23 @@
 # TESTNET ONLY. Chain sync is disabled by default and the gated modules
 # (proof-of-reserves, redemption) stay inactive — see AGENTS.md.
 
-name: reservechain
+name: openrwa
 
 services:
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-reservechain}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reservechain}
-      POSTGRES_DB: ${POSTGRES_DB:-reservechain}
+      POSTGRES_USER: ${POSTGRES_USER:-openrwa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-openrwa}
+      POSTGRES_DB: ${POSTGRES_DB:-openrwa}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
-      - reservechain_pg:/var/lib/postgresql/data
+      - openrwa_pg:/var/lib/postgresql/data
     healthcheck:
       # Gates dependent services so the API never races the database on boot.
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-reservechain} -d ${POSTGRES_DB:-reservechain}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-openrwa} -d ${POSTGRES_DB:-openrwa}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -40,7 +40,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 4000
-      DATABASE_URL: postgresql://${POSTGRES_USER:-reservechain}:${POSTGRES_PASSWORD:-reservechain}@postgres:5432/${POSTGRES_DB:-reservechain}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-openrwa}:${POSTGRES_PASSWORD:-openrwa}@postgres:5432/${POSTGRES_DB:-openrwa}?schema=public
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:4100}
       # Required. Both must be >= 32 characters; main.ts and AuthModule refuse
       # to start otherwise. Never commit real values.
@@ -134,9 +134,9 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${CMS_POSTGRES_USER:-reservechain}
-      POSTGRES_PASSWORD: ${CMS_POSTGRES_PASSWORD:-reservechain}
-      POSTGRES_DB: ${CMS_POSTGRES_DB:-reservechain_cms}
+      POSTGRES_USER: ${CMS_POSTGRES_USER:-openrwa}
+      POSTGRES_PASSWORD: ${CMS_POSTGRES_PASSWORD:-openrwa}
+      POSTGRES_DB: ${CMS_POSTGRES_DB:-openrwa_cms}
     ports:
       # 5433 is a common second-Postgres port and collides with other local
       # stacks often enough to be worth checking before you migrate:
@@ -146,9 +146,9 @@ services:
       # connects, and Payload migrates a database that belongs to someone else.
       - "${CMS_POSTGRES_PORT:-5433}:5432"
     volumes:
-      - reservechain_cms_pg:/var/lib/postgresql/data
+      - openrwa_cms_pg:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${CMS_POSTGRES_USER:-reservechain} -d ${CMS_POSTGRES_DB:-reservechain_cms}"]
+      test: ["CMD-SHELL", "pg_isready -U ${CMS_POSTGRES_USER:-openrwa} -d ${CMS_POSTGRES_DB:-openrwa_cms}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -163,7 +163,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3001
-      DATABASE_URI: postgresql://${CMS_POSTGRES_USER:-reservechain}:${CMS_POSTGRES_PASSWORD:-reservechain}@postgres-cms:5432/${CMS_POSTGRES_DB:-reservechain_cms}?schema=public
+      DATABASE_URI: postgresql://${CMS_POSTGRES_USER:-openrwa}:${CMS_POSTGRES_PASSWORD:-openrwa}@postgres-cms:5432/${CMS_POSTGRES_DB:-openrwa_cms}?schema=public
       # Third token domain. Must be >= 32 chars and must differ from both
       # JWT_SECRET and INVESTOR_JWT_SECRET; the CMS refuses to start otherwise.
       PAYLOAD_SECRET: ${PAYLOAD_SECRET:?PAYLOAD_SECRET is required — copy .env.docker.example to .env}
@@ -197,5 +197,5 @@ services:
       - ./contracts:/contracts
 
 volumes:
-  reservechain_pg:
-  reservechain_cms_pg:
+  openrwa_pg:
+  openrwa_cms_pg:

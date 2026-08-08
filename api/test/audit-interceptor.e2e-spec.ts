@@ -56,7 +56,7 @@ describe('Audit interceptor over HTTP (e2e, mocked persistence)', () => {
       (e: { action: string }) => e.action === 'create.kyc',
     );
     expect(entry).toBeDefined();
-    expect(entry.actorEmail).toBe('admin@reservechain.local');
+    expect(entry.actorEmail).toBe('admin@openrwa.local');
     expect(entry.actorRole).toBe('ADMIN');
   });
 

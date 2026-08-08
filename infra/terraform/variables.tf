@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "reservechain"
+  default = "openrwa"
 }
 
 variable "environment" {
@@ -63,12 +63,12 @@ variable "db_allocated_storage" {
 
 variable "db_name" {
   type    = string
-  default = "reservechain"
+  default = "openrwa"
 }
 
 variable "db_username" {
   type    = string
-  default = "reservechain"
+  default = "openrwa"
 }
 
 variable "db_password" {

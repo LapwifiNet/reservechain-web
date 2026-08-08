@@ -1,4 +1,4 @@
-# ReserveChain CMS (Payload v2 + Express + PostgreSQL).
+# OpenRWA CMS (Payload v2 + Express + PostgreSQL).
 # Owns the asset registry and public Digital Asset Passports. Runs against its
 # OWN database (postgres-cms), never the API's, and signs its sessions with its
 # own PAYLOAD_SECRET — a third token domain, disjoint from admin and investor.

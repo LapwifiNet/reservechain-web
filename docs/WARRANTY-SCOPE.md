@@ -1,7 +1,7 @@
 # P22 — Warranty, Post-Launch Support & Exit Assistance (Scope)
 
 > Status: **backlog — scope proposal, not agreed terms.** There is no
-> engagement, retainer or contract for ReserveChain (contest entry only).
+> engagement, retainer or contract for OpenRWA (contest entry only).
 > This document defines the *shape* of a P22 warranty/support offer so the
 > owner can review it before any agreement is drafted. Nothing here binds
 > either party.

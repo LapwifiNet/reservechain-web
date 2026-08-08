@@ -1,4 +1,4 @@
-# ReserveChain — Admin Manual
+# OpenRWA — Admin Manual
 
 Audience: staff with **Admin** or **Compliance** roles. Covers the Admin
 Console, the CMS, and the inactive sensitive modules.

@@ -1,4 +1,4 @@
-appId: io.reservechain.app
+appId: io.openrwa.app
 name: 05-investor-auth
 tags:
   - backend
@@ -8,7 +8,7 @@ tags:
     clearState: true
 # Debug build reloads the JS bundle from Metro after clearState — allow time.
 - extendedWaitUntil:
-    visible: ".*ReserveChain.*"
+    visible: ".*OpenRWA.*"
     timeout: 90000
 - tapOn:
     id: "btn-investor"

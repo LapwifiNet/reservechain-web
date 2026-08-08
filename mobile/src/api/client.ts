@@ -13,7 +13,7 @@ import type {
 // callers anyway. Never put a token, key or secret in an EXPO_PUBLIC_ variable.
 //
 // No default host. The overlay fell back to a real domain
-// (https://api.reservechain.io), which is not a domain this project controls or
+// (https://api.openrwa.example), which is not a domain this project controls or
 // has deployed, and committing it would have shipped a live-looking endpoint in
 // an app-store binary. An unset base fails loudly at the first request instead.
 const API_BASE = process.env.EXPO_PUBLIC_API_BASE ?? "";

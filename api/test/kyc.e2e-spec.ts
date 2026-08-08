@@ -86,7 +86,7 @@ describe('KYC/KYB compliance (e2e, mocked persistence)', () => {
 
     expect(res.body.status).toBe('approved');
     expect(res.body.riskLevel).toBe('low');
-    expect(res.body.reviewedBy).toBe('compliance@reservechain.local');
+    expect(res.body.reviewedBy).toBe('compliance@openrwa.local');
 
     // reviewedAt is set together with reviewedBy, never separately. It was
     // previously never written at all, so every reviewed case carried an

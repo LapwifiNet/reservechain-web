@@ -14,7 +14,7 @@
 
 services:
   api:
-    image: reservechain-api-dev
+    image: openrwa-api-dev
     build:
       context: ./api
       target: deps
@@ -32,7 +32,7 @@ services:
       start_period: 90s
 
   web:
-    image: reservechain-web-dev
+    image: openrwa-dev
     build:
       context: .
       target: deps
@@ -47,7 +47,7 @@ services:
       - /app/.next
 
   admin:
-    image: reservechain-admin-dev
+    image: openrwa-admin-dev
     build:
       context: ./admin
       target: deps
@@ -61,7 +61,7 @@ services:
       - /app/.next
 
   cms:
-    image: reservechain-cms-dev
+    image: openrwa-cms-dev
     build:
       context: ./cms
       target: deps

@@ -1,7 +1,7 @@
-# ReserveChain — Pending Overlay Bundle
+# OpenRWA — Pending Overlay Bundle
 
 Every overlay package in this bundle exists in the Notion Build Plan but has **not**
-yet been applied to `LapwifiNet/reservechain-web`. Verified against `main` on
+yet been applied to `LapwifiNet/openrwa`. Verified against `main` on
 2026-07-26.
 
 ## Do not re-apply these
@@ -9,11 +9,11 @@ yet been applied to `LapwifiNet/reservechain-web`. Verified against `main` on
 The following overlays are ALREADY in the repository and are deliberately excluded
 from this bundle. Re-applying any of them would overwrite later hardening work:
 
-`reservechain-web` · `reservechain-contracts` · `reservechain-api` ·
-`reservechain-admin` · `reservechain-p4-wallets` · `reservechain-p6-auth-kyc` ·
-`reservechain-audit-log` · `reservechain-demo-seed` · `reservechain-ci`
+`openrwa` · `openrwa-contracts` · `openrwa-api` ·
+`openrwa-admin` · `openrwa-p4-wallets` · `openrwa-p6-auth-kyc` ·
+`openrwa-audit-log` · `openrwa-demo-seed` · `openrwa-ci`
 
-Specifically, `reservechain-p6-auth-kyc.zip` contains an `app.module.ts` that has no
+Specifically, `openrwa-p6-auth-kyc.zip` contains an `app.module.ts` that has no
 `APP_GUARD` / `ThrottlerGuard` registration, and a `seed.ts` with the default
 passwords `ReserveAdmin!23` / `ReserveCMS!23`. Both were fixed on `main`. Applying
 that overlay again silently reintroduces an unauthenticated brute-force surface on
@@ -26,23 +26,23 @@ Apply one overlay per commit. Run `git diff` before every commit.
 
 | # | Archive | Extract root | Copy to | Notes |
 |---|---|---|---|---|
-| 1 | ~~reservechain-admin-login.zip~~ | `admin/` (+ LOGIN-README.md) | `admin/` | Per-user JWT, httpOnly cookie, middleware. Unblocks attributable KYC reviews **Applied** · `dbce350` |
-| 2 | ~~reservechain-waitlist-wire.zip~~ | `waitlistwire/` | `web -> root`, `api -> api/` | Migration `waitlist_website_fields` **Applied** · `a5d4e66` |
-| 3 | ~~reservechain-kyc-admin.zip~~ | `kycadmin/` | `admin/` | Full KycConsole with review + screen. Supersedes the read-only `/kyc` page currently on main **Applied** · `823bb90` |
-| 4 | ~~reservechain-investor-portal.zip~~ | `p8/` | `api -> api/`, `web -> root` | Migration `investor_portal` **Applied** · `c1c09d9` |
-| 5 | ~~reservechain-backend-tests.zip~~ | `p8tests/` | `api/` | Reconcile with the existing `api/jest.config.js` **Applied** · `428f354` |
-| 6 | ~~reservechain-cms.zip~~ | `cms/` | `cms/` | **Applied.** Payload, own DB `reservechain_cms` on 5433, port 3001. Seed credential stripped; `PAYLOAD_SECRET` is a third disjoint token domain |
-| 7 | ~~reservechain-webdap.zip~~ | `webdap/` | root (`src/` + `messages/`) | Merge locale JSON, do not overwrite **Applied** · `b97508b` |
-| 8 | ~~reservechain-por-redemption.zip~~ | `porredemption/` | `api/` | Migration `por_redemption`. Ships flags OFF **Applied** · `8440a14` |
-| 9 | ~~reservechain-wallet-purchase.zip~~ | `walletpurchase/` | `api/` | Migration `wallet_purchase`. Ships flags OFF **Applied** · `5347731` |
-| 10 | ~~reservechain-infra-terraform.zip~~ | `infra/` | `infra/terraform/` | `plan` only until AWS account exists **Applied** · `77ca002` |
-| 11 | ~~reservechain-ci-deploy.zip~~ | `cideploy/` | `.github/` | Needs `AWS_DEPLOY_ROLE_ARN` + OIDC **Applied** · `40f0e7d` |
-| 12 | ~~reservechain-ops-runbook.zip~~ | `runbook/` | `docs/` | **Applied** · `e1248a3` |
-| 13 | ~~reservechain-manuals.zip~~ | `manuals/` | `docs/` | **Applied** · `c0ebe13` |
-| 14 | ~~reservechain-training.zip~~ | `training/` | `docs/` | **Applied** · `7b44a81` |
-| 15 | ~~reservechain-mobile-e2e.zip~~ | `mobile/` | `mobile/` | Expo app WITH testIDs + `.maestro/`. Supersedes `reservechain-mobile.zip` — do not use the older one |
-| 16 | ~~reservechain-acceptance-qa.zip~~ | `qa/` | `docs/` | **Applied.** Rewritten to actual status; 7 items describe features that do not exist |
-| 17 | ~~reservechain-mobile-e2e-ci.zip~~ | `mobilee2eci/` | `.github/workflows/` | **Applied.** Dispatch-only; backend flows gated behind a disposable-target confirmation |
+| 1 | ~~openrwa-admin-login.zip~~ | `admin/` (+ LOGIN-README.md) | `admin/` | Per-user JWT, httpOnly cookie, middleware. Unblocks attributable KYC reviews **Applied** · `dbce350` |
+| 2 | ~~openrwa-waitlist-wire.zip~~ | `waitlistwire/` | `web -> root`, `api -> api/` | Migration `waitlist_website_fields` **Applied** · `a5d4e66` |
+| 3 | ~~openrwa-kyc-admin.zip~~ | `kycadmin/` | `admin/` | Full KycConsole with review + screen. Supersedes the read-only `/kyc` page currently on main **Applied** · `823bb90` |
+| 4 | ~~openrwa-investor-portal.zip~~ | `p8/` | `api -> api/`, `web -> root` | Migration `investor_portal` **Applied** · `c1c09d9` |
+| 5 | ~~openrwa-backend-tests.zip~~ | `p8tests/` | `api/` | Reconcile with the existing `api/jest.config.js` **Applied** · `428f354` |
+| 6 | ~~openrwa-cms.zip~~ | `cms/` | `cms/` | **Applied.** Payload, own DB `openrwa_cms` on 5433, port 3001. Seed credential stripped; `PAYLOAD_SECRET` is a third disjoint token domain |
+| 7 | ~~openrwadap.zip~~ | `webdap/` | root (`src/` + `messages/`) | Merge locale JSON, do not overwrite **Applied** · `b97508b` |
+| 8 | ~~openrwa-por-redemption.zip~~ | `porredemption/` | `api/` | Migration `por_redemption`. Ships flags OFF **Applied** · `8440a14` |
+| 9 | ~~openrwa-wallet-purchase.zip~~ | `walletpurchase/` | `api/` | Migration `wallet_purchase`. Ships flags OFF **Applied** · `5347731` |
+| 10 | ~~openrwa-infra-terraform.zip~~ | `infra/` | `infra/terraform/` | `plan` only until AWS account exists **Applied** · `77ca002` |
+| 11 | ~~openrwa-ci-deploy.zip~~ | `cideploy/` | `.github/` | Needs `AWS_DEPLOY_ROLE_ARN` + OIDC **Applied** · `40f0e7d` |
+| 12 | ~~openrwa-ops-runbook.zip~~ | `runbook/` | `docs/` | **Applied** · `e1248a3` |
+| 13 | ~~openrwa-manuals.zip~~ | `manuals/` | `docs/` | **Applied** · `c0ebe13` |
+| 14 | ~~openrwa-training.zip~~ | `training/` | `docs/` | **Applied** · `7b44a81` |
+| 15 | ~~openrwa-mobile-e2e.zip~~ | `mobile/` | `mobile/` | Expo app WITH testIDs + `.maestro/`. Supersedes `openrwa-mobile.zip` — do not use the older one |
+| 16 | ~~openrwa-acceptance-qa.zip~~ | `qa/` | `docs/` | **Applied.** Rewritten to actual status; 7 items describe features that do not exist |
+| 17 | ~~openrwa-mobile-e2e-ci.zip~~ | `mobilee2eci/` | `.github/workflows/` | **Applied.** Dispatch-only; backend flows gated behind a disposable-target confirmation |
 
 ### Ordered chain: COMPLETE
 
@@ -54,16 +54,16 @@ chain remains.
 
 | # | Archive | Status |
 |---|---|---|
-| 18 | ~~reservechain-a11y.zip~~ | **Applied.** axe over 34 routes x 3 locales; four real defects fixed, one of them critical |
-| 19 | ~~reservechain-seo-analytics.zip~~ | **Applied in part.** Sitemap, robots and canonicals applied; the analytics and consent-banner half deleted unapplied |
-| 20 | ~~reservechain-i18n-qa.zip~~ | **Reconciled, catalogues not applied.** One check adopted into the existing parity test; four of the other five redundant or contradictory |
+| 18 | ~~openrwa-a11y.zip~~ | **Applied.** axe over 34 routes x 3 locales; four real defects fixed, one of them critical |
+| 19 | ~~openrwa-seo-analytics.zip~~ | **Applied in part.** Sitemap, robots and canonicals applied; the analytics and consent-banner half deleted unapplied |
+| 20 | ~~openrwa-i18n-qa.zip~~ | **Reconciled, catalogues not applied.** One check adopted into the existing parity test; four of the other five redundant or contradictory |
 
 Two remain, neither applied:
 
 | Archive | Would touch | Anything depend on it? |
 |---|---|---|
-| reservechain-monitoring.zip | `infra/terraform/` (alarms, dashboards, SNS) + an error-tracking SDK in each app | **Yes, by absence.** `docs/RUNBOOK.md` and the acceptance checklist both record "no alerting, no dashboards, no on-call" as gaps. This overlay is what would close them. Note it would introduce the project's FIRST telemetry SDK — an AGENTS §8 decision to make deliberately, not inherit (invariant 53) |
-| reservechain-loadtest-k6.zip | a new `perf/` directory | No. Nothing references it. Load-testing an unapplied stack has little meaning until something is deployed |
+| openrwa-monitoring.zip | `infra/terraform/` (alarms, dashboards, SNS) + an error-tracking SDK in each app | **Yes, by absence.** `docs/RUNBOOK.md` and the acceptance checklist both record "no alerting, no dashboards, no on-call" as gaps. This overlay is what would close them. Note it would introduce the project's FIRST telemetry SDK — an AGENTS §8 decision to make deliberately, not inherit (invariant 53) |
+| openrwa-loadtest-k6.zip | a new `perf/` directory | No. Nothing references it. Load-testing an unapplied stack has little meaning until something is deployed |
 
 **What has to be true before monitoring can be applied.** An alarm names a
 resource, so the Terraform stack has to have been applied at least once —
@@ -432,7 +432,7 @@ so a blind `cp -R` can silently revert them.
     `robots.txt` allows anything or `sitemap.xml` lists anything; unset means
     `Disallow: /` and `noindex, nofollow` on every page. `NEXT_PUBLIC_SITE_URL`
     has no fallback in code — the SEO overlay defaulted it to
-    `https://reservechain.io`, a domain this project neither controls nor has
+    `https://openrwa.example`, a domain this project neither controls nor has
     deployed, which would have pointed every canonical tag, hreflang alternate
     and sitemap `<loc>` at it. A wrong canonical is worse than a missing one.
     The three `/portal` routes stay out of the index and out of the sitemap

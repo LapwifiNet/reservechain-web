@@ -36,7 +36,7 @@ list (`dashboardStats`, `programs`, `registry`, `passports`, `waitlist`,
 
 1. Unauthenticated page request → middleware redirects to `/login?from=…`.
 2. Login form → `POST /api/auth/login` (route handler) → backend
-   `POST /api/auth/login` → sets the `rc_session` httpOnly cookie (12h).
+   `POST /api/auth/login` → sets the `orwa_session` httpOnly cookie (12h).
 3. Server components read the backend with `Authorization: Bearer <cookie JWT>`.
 4. Backend RBAC enforces admin/compliance on protected endpoints.
 5. Sign out → `POST /api/auth/logout` clears the cookie.
@@ -95,8 +95,8 @@ Environment (`admin/.env`, see `.env.example`):
 - `API_BASE_URL` — backend base URL, e.g. `http://127.0.0.1:4000/api`.
 - `API_TOKEN` — optional, reads only. Leave unset for normal console use.
 
-Sign in with a seeded user. The seed creates `admin@reservechain.local`,
-`compliance@reservechain.local` and `viewer@reservechain.local`; it takes their
+Sign in with a seeded user. The seed creates `admin@openrwa.local`,
+`compliance@openrwa.local` and `viewer@openrwa.local`; it takes their
 passwords from `SEED_ADMIN_PASSWORD`, `SEED_COMPLIANCE_PASSWORD` and
 `SEED_VIEWER_PASSWORD`, and generates a random one (printed once by the seed
 script) for any that are unset. There are no default passwords, and the seed

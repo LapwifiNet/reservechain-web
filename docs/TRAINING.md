@@ -1,6 +1,6 @@
-# ReserveChain — Team Training & Onboarding Guide
+# OpenRWA — Team Training & Onboarding Guide
 
-Audience: anyone joining the team that builds or operates ReserveChain — developers, DevOps/ops, admin/compliance staff, and content editors. Read the role track that applies to you after the shared sections (§1–§3).
+Audience: anyone joining the team that builds or operates OpenRWA — developers, DevOps/ops, admin/compliance staff, and content editors. Read the role track that applies to you after the shared sections (§1–§3).
 
 > **Status.** This repository is an unselected contest submission. Nothing is
 > deployed, no AWS resource exists, and GitHub Actions has never run on it —
@@ -19,13 +19,13 @@ Audience: anyone joining the team that builds or operates ReserveChain — devel
 
 ---
 
-## 1. What ReserveChain is
+## 1. What OpenRWA is
 
 A prelaunch platform demonstrating industrial-metals-backed RWA tokenization: a public website + waitlist, an investor portal, an admin console, a CMS-managed asset registry with Digital Asset Passports, an ERC-20 token suite, and four sensitive modules that ship inactive. Everything is prelaunch and testnet.
 
 ## 2. First-day onboarding checklist
 
-- [ ] Access to the GitHub repo (`reservechain-web`) and read the README.
+- [ ] Access to the GitHub repo (`openrwa`) and read the README.
 - [ ] Access to the Notion **Build Plan** and its child deliverable pages.
 - [ ] Accounts for your role (see your track): admin console and CMS, both run
       locally. **There is no AWS account, no error-tracking account and no
@@ -66,7 +66,7 @@ syntactically valid (`actionlint`), and have never executed.
 
 ### 4.1 Toolchain
 - Node.js 20 LTS + npm, Git, Docker.
-- PostgreSQL 16 locally (or Docker) — two databases: `reservechain` (app) and `reservechain_cms` (CMS).
+- PostgreSQL 16 locally (or Docker) — two databases: `openrwa` (app) and `openrwa_cms` (CMS).
 - Foundry (`forge`, `cast`) for contracts.
 
 ### 4.2 Repo layout
@@ -83,7 +83,7 @@ syntactically valid (`actionlint`), and have never executed.
 
 ### 4.3 Local setup
 ```bash
-git clone https://github.com/LapwifiNet/reservechain-web && cd reservechain-web
+git clone https://github.com/LapwifiNet/openrwa && cd openrwa
 cp .env.example .env            # fill DATABASE_URL, JWT_SECRET, etc.
 
 # API
@@ -154,7 +154,7 @@ Key env: `DATABASE_URL`, `JWT_SECRET`, `SERVICE_API_TOKEN`, `WAITLIST_API_BASE`,
 - Read the **Ops Runbook**, noting that every procedure in it is untested and
   refers to resources that do not exist. A restore drill is not possible: there
   is no staging environment and no RDS instance to restore.
-- Know where secrets live (Secrets Manager `reservechain-<env>/app`) and how rotation works.
+- Know where secrets live (Secrets Manager `openrwa-<env>/app`) and how rotation works.
 - **There is nothing to set up yet.** No CloudWatch alarm, dashboard, SNS topic
   or error-tracking integration exists anywhere in the repository, and there is
   no on-call rotation. `infra/terraform/` creates log groups only.
@@ -190,7 +190,7 @@ Key env: `DATABASE_URL`, `JWT_SECRET`, `SERVICE_API_TOKEN`, `WAITLIST_API_BASE`,
 | How the product works | `docs/USER-MANUAL.md`, `docs/ADMIN-MANUAL.md` |
 | Rules every change must preserve | `APPLY-ORDER.md` (invariants), `AGENTS.md` |
 | Known defects and security posture | `SECURITY.md` |
-| Code | GitHub `reservechain-web` |
+| Code | GitHub `openrwa` |
 | Infra | `infra/terraform/` + its README |
 
 ## 9. Glossary
@@ -198,7 +198,7 @@ Key env: `DATABASE_URL`, `JWT_SECRET`, `SERVICE_API_TOKEN`, `WAITLIST_API_BASE`,
   record published from the CMS.
 - **PoR** — Proof-of-Reserves (attestation that reserves back circulating supply). Inactive.
 - **KYC / KYB** — identity verification for individuals / entities.
-- **RCM** — the illustrative token symbol.
+- **ORWA** — the illustrative token symbol.
 - **Gated module** — a module that refuses every request with `501`, both at
   its flag guard and in its service. The flag does not enable it.
 - **Expand/contract** — backward-compatible migration pattern.

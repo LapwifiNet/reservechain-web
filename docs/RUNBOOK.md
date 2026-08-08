@@ -1,4 +1,4 @@
-# ReserveChain — Operations Runbook
+# OpenRWA — Operations Runbook
 
 > ## Status: INTENDED PROCEDURE, NEVER EXERCISED
 >
@@ -53,13 +53,13 @@ ECR, Secrets Manager) and the GitHub Actions **Deploy** workflow.
 | admin | 4100 | `admin.` | 1 | `/` |
 | cms (Payload) | 3001 | `cms.` | 1 | `/admin` |
 
-- Cluster: `reservechain-<env>` (`staging` / `prod`).
-- Images: ECR `reservechain/<service>`.
-- Secrets: Secrets Manager `reservechain-<env>/app` (JSON: `DATABASE_URL`,
+- Cluster: `openrwa-<env>` (`staging` / `prod`).
+- Images: ECR `openrwa/<service>`.
+- Secrets: Secrets Manager `openrwa-<env>/app` (JSON: `DATABASE_URL`,
   `JWT_SECRET`, `INVESTOR_JWT_SECRET`, `PAYLOAD_SECRET`, `SERVICE_API_TOKEN`).
   `INVESTOR_JWT_SECRET` must differ from `JWT_SECRET`, and `PAYLOAD_SECRET` from
   both — the API and the CMS refuse to start otherwise.
-- Logs: CloudWatch `/ecs/reservechain-<env>/<service>`.
+- Logs: CloudWatch `/ecs/openrwa-<env>/<service>`.
 
 ---
 
@@ -97,10 +97,10 @@ ECR, Secrets Manager) and the GitHub Actions **Deploy** workflow.
 ### Manual deploy (CI unavailable)
 ```bash
 aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
-docker build -t "$ECR_REGISTRY/reservechain/api:$TAG" -f api/Dockerfile api
-docker push "$ECR_REGISTRY/reservechain/api:$TAG"
-aws ecs update-service --cluster "reservechain-$ENV" --service api --force-new-deployment
-aws ecs wait services-stable --cluster "reservechain-$ENV" --services api
+docker build -t "$ECR_REGISTRY/openrwa/api:$TAG" -f api/Dockerfile api
+docker push "$ECR_REGISTRY/openrwa/api:$TAG"
+aws ecs update-service --cluster "openrwa-$ENV" --service api --force-new-deployment
+aws ecs wait services-stable --cluster "openrwa-$ENV" --services api
 ```
 
 ### Deploy checklist
@@ -120,17 +120,17 @@ aws ecs wait services-stable --cluster "reservechain-$ENV" --services api
 ECS keeps prior task definition revisions. Roll a service back to the last-known-good revision:
 ```bash
 # list revisions, pick the previous good one
-aws ecs list-task-definitions --family-prefix reservechain-<env>-api --sort DESC
-aws ecs update-service --cluster reservechain-<env> --service api \
-  --task-definition reservechain-<env>-api:<PREV_REVISION>
-aws ecs wait services-stable --cluster reservechain-<env> --services api
+aws ecs list-task-definitions --family-prefix openrwa-<env>-api --sort DESC
+aws ecs update-service --cluster openrwa-<env> --service api \
+  --task-definition openrwa-<env>-api:<PREV_REVISION>
+aws ecs wait services-stable --cluster openrwa-<env> --services api
 ```
 If you deploy with the mutable `:latest` tag, instead re-point `latest` to the previous image and force a new deployment:
 ```bash
-docker pull  "$ECR_REGISTRY/reservechain/api:<PREV_SHA>"
-docker tag   "$ECR_REGISTRY/reservechain/api:<PREV_SHA>" "$ECR_REGISTRY/reservechain/api:latest"
-docker push  "$ECR_REGISTRY/reservechain/api:latest"
-aws ecs update-service --cluster reservechain-<env> --service api --force-new-deployment
+docker pull  "$ECR_REGISTRY/openrwa/api:<PREV_SHA>"
+docker tag   "$ECR_REGISTRY/openrwa/api:<PREV_SHA>" "$ECR_REGISTRY/openrwa/api:latest"
+docker push  "$ECR_REGISTRY/openrwa/api:latest"
+aws ecs update-service --cluster openrwa-<env> --service api --force-new-deployment
 ```
 
 ### Migration rollback
@@ -151,25 +151,25 @@ aws ecs update-service --cluster reservechain-<env> --service api --force-new-de
 - **Automated backups**: enabled via Terraform (`backup_retention_period` — 14 days in prod). Point-in-time recovery (PITR) is available within the window.
 - **Manual snapshot** before risky changes:
   ```bash
-  aws rds create-db-snapshot --db-instance-identifier reservechain-<env> \
-    --db-snapshot-identifier reservechain-<env>-pre-<change>-$(date +%Y%m%d%H%M)
+  aws rds create-db-snapshot --db-instance-identifier openrwa-<env> \
+    --db-snapshot-identifier openrwa-<env>-pre-<change>-$(date +%Y%m%d%H%M)
   ```
 - **Restore** (always to a NEW instance, then cut over):
   ```bash
   aws rds restore-db-instance-from-db-snapshot \
-    --db-instance-identifier reservechain-<env>-restore \
+    --db-instance-identifier openrwa-<env>-restore \
     --db-snapshot-identifier <snapshot-id>
   # or PITR:
   aws rds restore-db-instance-to-point-in-time \
-    --source-db-instance-identifier reservechain-<env> \
-    --target-db-instance-identifier reservechain-<env>-restore \
+    --source-db-instance-identifier openrwa-<env> \
+    --target-db-instance-identifier openrwa-<env>-restore \
     --restore-time 2026-01-01T12:00:00Z
   ```
   Then update `DATABASE_URL` in Secrets Manager to the restored endpoint and force a new API deployment.
 - **Logical dump** (portable / offsite):
   ```bash
-  pg_dump "$DATABASE_URL" -Fc -f reservechain-$(date +%F).dump
-  pg_restore --clean --if-exists -d "$TARGET_DATABASE_URL" reservechain-*.dump
+  pg_dump "$DATABASE_URL" -Fc -f openrwa-$(date +%F).dump
+  pg_restore --clean --if-exists -d "$TARGET_DATABASE_URL" openrwa-*.dump
   ```
 
 ### S3 media
@@ -190,18 +190,18 @@ aws ecs update-service --cluster reservechain-<env> --service api --force-new-de
 ### Scaling
 ```bash
 # horizontal
-aws ecs update-service --cluster reservechain-<env> --service web --desired-count 4
+aws ecs update-service --cluster openrwa-<env> --service web --desired-count 4
 ```
 For vertical changes (CPU/memory) or RDS instance class, edit `locals.tf` / `rds.tf` and `terraform apply` (RDS class change causes a brief failover on Multi-AZ).
 
 ### Secret rotation
-1. `aws secretsmanager put-secret-value --secret-id reservechain-<env>/app --secret-string '<json>'`
+1. `aws secretsmanager put-secret-value --secret-id openrwa-<env>/app --secret-string '<json>'`
 2. Force new deployment so tasks pick up the new value (secrets are injected at task start).
 3. For `JWT_SECRET` rotation, expect existing sessions to invalidate.
 
 ### Logs & metrics
 ```bash
-aws logs tail /ecs/reservechain-<env>/api --follow --since 15m
+aws logs tail /ecs/openrwa-<env>/api --follow --since 15m
 ```
 - **No dashboards, alarms or error tracking exist.** `infra/terraform/` creates
   CloudWatch **log groups only** — no `aws_cloudwatch_metric_alarm`, no

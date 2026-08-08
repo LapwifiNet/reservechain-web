@@ -15,7 +15,7 @@ import { INACTIVE_TAG } from '../common/decorators/api-inactive.decorator';
  */
 
 const DESCRIPTION = [
-  'ReserveChain API.',
+  'OpenRWA API.',
   '',
   'IN DEVELOPMENT. No tokens are offered or sold.',
   '',
@@ -30,7 +30,7 @@ const DESCRIPTION = [
 
 export function buildOpenApiDocument(app: INestApplication): OpenAPIObject {
   const config = new DocumentBuilder()
-    .setTitle('ReserveChain API')
+    .setTitle('OpenRWA API')
     .setDescription(DESCRIPTION)
     .setVersion(process.env.npm_package_version ?? '0.1.0')
     .addBearerAuth(

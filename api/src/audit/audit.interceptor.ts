@@ -77,7 +77,7 @@ export class AuditInterceptor implements NestInterceptor {
     //
     // actorRole is a plain String column, so 'investor' is recorded without
     // touching the Role enum (invariant 20). An investor is never attributed
-    // as an admin principal, and never as `service@reservechain`.
+    // as an admin principal, and never as `service@openrwa`.
     const investor: { sub?: string; email?: string } | undefined =
       request.investor;
     const isStaffPrincipal = !auditDomain || auditDomain === 'staff';

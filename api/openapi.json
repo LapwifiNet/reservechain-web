@@ -1579,8 +1579,8 @@
   },
   "info": {
     "contact": {},
-    "description": "ReserveChain API.\n\nIN DEVELOPMENT. No tokens are offered or sold.\n\nProof-of-Reserves, redemption, wallet linking and token purchase are\npublished as a contract only. Every operation tagged `inactive` returns\n501 and is marked deprecated so a generated client warns at the call site.\nThey require written authorization before they do anything.\n\nNo example values are supplied anywhere in this document. Every response\nfield is described by type and constraint only.",
-    "title": "ReserveChain API",
+    "description": "OpenRWA API.\n\nIN DEVELOPMENT. No tokens are offered or sold.\n\nProof-of-Reserves, redemption, wallet linking and token purchase are\npublished as a contract only. Every operation tagged `inactive` returns\n501 and is marked deprecated so a generated client warns at the call site.\nThey require written authorization before they do anything.\n\nNo example values are supplied anywhere in this document. Every response\nfield is described by type and constraint only.",
+    "title": "OpenRWA API",
     "version": "0.1.0"
   },
   "openapi": "3.0.0",

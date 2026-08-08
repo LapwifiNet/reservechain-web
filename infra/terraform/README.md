@@ -1,4 +1,4 @@
-# ReserveChain — AWS Infrastructure (Terraform)
+# OpenRWA — AWS Infrastructure (Terraform)
 
 Infrastructure-as-Code for the full stack on AWS: **VPC → ALB → ECS Fargate → RDS Postgres**, with **S3 + CloudFront** for media, **ECR** for images, **Secrets Manager** for credentials, IAM roles, and CloudWatch logs. One workspace per environment (`dev` / `staging` / `prod`).
 
@@ -108,7 +108,7 @@ the ECS task role, both trusted by `ecs-tasks.amazonaws.com` — neither is
 assumable by GitHub. The deploy role has to be created out of band, trusted by
 `token.actions.githubusercontent.com` and scoped to this repository, with only:
 
-- `ecr:GetAuthorizationToken`, and push/pull on the four `reservechain/*` repos;
+- `ecr:GetAuthorizationToken`, and push/pull on the four `openrwa/*` repos;
 - `ecs:UpdateService` and `ecs:DescribeServices` on the four services.
 
 Scope it to the specific cluster and repositories. It should not be able to

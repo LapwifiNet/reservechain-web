@@ -1,4 +1,4 @@
-# ReserveChain CMS — Registry + Digital Asset Passports (Payload v2)
+# OpenRWA CMS — Registry + Digital Asset Passports (Payload v2)
 
 A headless CMS that owns the **asset registry** (programs, physical records,
 certificates) and publishes **Digital Asset Passports (DAP)** for the public
@@ -46,7 +46,7 @@ passport pages.
 ```bash
 cd cms
 cp .env.example .env          # set DATABASE_URI + PAYLOAD_SECRET
-createdb reservechain_cms     # separate DB from the NestJS API
+createdb openrwa_cms     # separate DB from the NestJS API
 npm install
 npm run seed                  # admin user + Copper/Nickel programs & passports
 npm run dev                   # admin at http://localhost:3001/admin
@@ -118,7 +118,7 @@ to the published `0.23.2`. Removing either makes `npm install` fail outright.
 
 ## Notes
 
-- The CMS uses its **own** database/schema (`reservechain_cms`) so Payload-managed
+- The CMS uses its **own** database/schema (`openrwa_cms`) so Payload-managed
   tables never collide with the NestJS API's Prisma tables.
 - `npm run generate:types` regenerates `src/payload-types.ts` from the config.
 - CORS/CSRF origins are read from `CORS_ORIGINS` (website + admin console).

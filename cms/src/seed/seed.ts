@@ -24,7 +24,7 @@ function generateRandomPassword(): string {
  *
  * Follows the api/prisma/seed.ts rules: no hard-coded password, a random one
  * printed once when SEED_ADMIN_PASSWORD is unset, and no user seeding at all
- * in production. The overlay shipped `cms-admin@reservechain.local /
+ * in production. The overlay shipped `cms-admin@openrwa.local /
  * ReserveCMS!23` as defaults, which would have committed a known admin
  * credential for a service that owns the public registry.
  */

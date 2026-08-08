@@ -5,7 +5,7 @@
  * one: the Postgres adapter was configured as
  *
  *   process.env.DATABASE_URI ||
- *     "postgresql://reservechain:reservechain@localhost:5432/reservechain_cms"
+ *     "postgresql://openrwa:openrwa@localhost:5432/openrwa_cms"
  *
  * and `localhost:5432` is the API's Postgres service in docker-compose.yml. A
  * missing `cms/.env` therefore did not fail. It silently connected the CMS to

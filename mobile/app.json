@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ReserveChain",
-    "slug": "reservechain-mobile",
-    "scheme": "reservechain",
+    "name": "OpenRWA",
+    "slug": "openrwa-mobile",
+    "scheme": "openrwa",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
@@ -14,10 +14,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.reservechain.app"
+      "bundleIdentifier": "io.openrwa.app"
     },
     "android": {
-      "package": "io.reservechain.app",
+      "package": "io.openrwa.app",
       "adaptiveIcon": {
         "backgroundColor": "#0E1116"
       }

@@ -42,7 +42,7 @@ export function Sidebar() {
       <div className="flex h-16 items-center gap-2 border-b border-border px-5">
         <span className="h-7 w-7 rounded-md bg-gradient-to-br from-copper to-nickel" />
         <div>
-          <div className="text-sm font-semibold leading-none">ReserveChain</div>
+          <div className="text-sm font-semibold leading-none">OpenRWA</div>
           <div className="mt-0.5 text-[11px] text-text-2">Admin Console</div>
         </div>
       </div>

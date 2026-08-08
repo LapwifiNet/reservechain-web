@@ -6,9 +6,9 @@ import { Topbar } from "@/components/Topbar";
 import { ConditionalShell } from "@/components/ConditionalShell";
 
 export const metadata: Metadata = {
-  title: "ReserveChain \u2014 Admin Console",
+  title: "OpenRWA \u2014 Admin Console",
   description:
-    "Operational admin console for the ReserveChain industrial-metals RWA platform (testnet demo).",
+    "Operational admin console for the OpenRWA industrial-metals RWA platform (testnet demo).",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

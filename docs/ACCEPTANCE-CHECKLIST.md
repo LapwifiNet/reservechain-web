@@ -1,4 +1,4 @@
-# ReserveChain — Acceptance & QA Checklist
+# OpenRWA — Acceptance & QA Checklist
 
 > ## Status: NOT A RECORD OF TESTING PERFORMED
 >
@@ -103,7 +103,7 @@ status.
 - [ ] ~~Sensitive-module toggles reflect flag state (read-only when off)~~ — ❌ Absent. **There is no toggle UI.** `/reserves` and `/redemption` render a static gated notice showing the code `501`. Flags are environment variables, not console controls, and deliberately so
 
 ### P8 — Investor Portal
-- [ ] Investor register / login; token issued — ✅ Verified. The API returns a bearer token; the **website** stores it in the httpOnly `rc_investor` cookie
+- [ ] Investor register / login; token issued — ✅ Verified. The API returns a bearer token; the **website** stores it in the httpOnly `orwa_participant` cookie
 - [ ] `GET /api/investor/status` returns KYC state — ✅ Verified
 - [ ] Investor cannot access admin scope, and an admin token cannot access investor routes — ✅ Verified in both directions, including cross-signed forgeries
 - [ ] ~~Investor submits identity documents for KYC~~ — ❌ Absent. There is **no investor-facing KYC submission surface**; the portal only displays a status
@@ -214,7 +214,7 @@ name, email address, wallet address or payment instrument.
       `init_db` → `p6_auth_kyc` → `p9_audit_log` → `waitlist_website_fields` →
       `investor_portal` → `drop_legacy_waitlist_table` → `por_redemption` →
       `wallet_purchase`
-- [ ] CMS on its own database (`reservechain_cms`) and its own Postgres instance
+- [ ] CMS on its own database (`openrwa_cms`) and its own Postgres instance
 - [ ] CMS `settings` row created — `npm run seed` does **not** create it, and until it exists the website silently falls back to the `SITE_MODE` env value and the first state on each status scale
 - [ ] All `*_ENABLED` flags = `false`
 - [ ] Seed accounts created locally (random password, printed once)

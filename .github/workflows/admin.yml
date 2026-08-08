@@ -1,4 +1,4 @@
-# ReserveChain Admin Console CI
+# OpenRWA Admin Console CI
 # IMPORTANT: GitHub Actions only runs workflows located at the REPOSITORY ROOT
 # under .github/workflows/. Move this file to .github/workflows/admin.yml
 # (do NOT leave it under admin/ci/).

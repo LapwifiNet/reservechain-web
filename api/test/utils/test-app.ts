@@ -85,13 +85,13 @@ export async function createTestApp(): Promise<TestContext> {
 
   const adminToken = await adminJwt.signAsync({
     sub: 'admin-1',
-    email: 'admin@reservechain.local',
+    email: 'admin@openrwa.local',
     role: 'ADMIN',
     typ: 'admin',
   });
   const complianceToken = await adminJwt.signAsync({
     sub: 'comp-1',
-    email: 'compliance@reservechain.local',
+    email: 'compliance@openrwa.local',
     role: 'COMPLIANCE',
     typ: 'admin',
   });

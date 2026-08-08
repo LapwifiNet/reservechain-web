@@ -89,7 +89,7 @@ async function main() {
     create: {
       key: 'default',
       data: {
-        symbol: 'RCM',
+        symbol: 'ORWA',
         capIllustrative: '100000000',
         reserveRatio: '1:1',
         transferFee: '0',
@@ -133,30 +133,30 @@ async function main() {
     const viewerPasswordHash = await bcryptjs.hash(viewerPassword, 10);
 
     await prisma.adminUser.upsert({
-      where: { email: 'admin@reservechain.local' },
+      where: { email: 'admin@openrwa.local' },
       update: {},
       create: {
-        email: 'admin@reservechain.local',
+        email: 'admin@openrwa.local',
         passwordHash: adminPasswordHash,
         role: 'ADMIN',
       },
     });
 
     await prisma.adminUser.upsert({
-      where: { email: 'compliance@reservechain.local' },
+      where: { email: 'compliance@openrwa.local' },
       update: {},
       create: {
-        email: 'compliance@reservechain.local',
+        email: 'compliance@openrwa.local',
         passwordHash: compliancePasswordHash,
         role: 'COMPLIANCE',
       },
     });
 
     await prisma.adminUser.upsert({
-      where: { email: 'viewer@reservechain.local' },
+      where: { email: 'viewer@openrwa.local' },
       update: {},
       create: {
-        email: 'viewer@reservechain.local',
+        email: 'viewer@openrwa.local',
         passwordHash: viewerPasswordHash,
         role: 'VIEWER',
       },

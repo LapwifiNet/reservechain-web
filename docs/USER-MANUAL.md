@@ -1,4 +1,4 @@
-# ReserveChain — User Manual
+# OpenRWA — User Manual
 
 Audience: website visitors and registered investors. Version: prelaunch
 (testnet only).
@@ -8,7 +8,7 @@ Audience: website visitors and registered investors. Version: prelaunch
 > future deployment. Sections describing features as unavailable are describing
 > a permanent property of this build, not a temporary state.
 
-> **Important:** ReserveChain is in development. Nothing on the site is an offer or sale. All figures are **illustrative**. Registering interest does not constitute an investment, token purchase, asset reservation, allocation, or entitlement to any future offering. Any future availability is subject to final legal structure, definitive documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.
+> **Important:** OpenRWA is in development. Nothing on the site is an offer or sale. All figures are **illustrative**. Registering interest does not constitute an investment, token purchase, asset reservation, allocation, or entitlement to any future offering. Any future availability is subject to final legal structure, definitive documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.
 
 ---
 

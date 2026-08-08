@@ -67,7 +67,7 @@ export function LoginForm() {
         onChange={(e) => setEmail(e.target.value)}
         autoComplete="username"
         className="mt-1 w-full rounded-md border border-border bg-canvas px-3 py-2 text-sm outline-none focus:border-brand"
-        placeholder="admin@reservechain.local"
+        placeholder="admin@openrwa.local"
       />
 
       <label className="mt-4 block text-xs text-text-2" htmlFor="password">

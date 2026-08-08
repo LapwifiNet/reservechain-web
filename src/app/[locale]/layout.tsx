@@ -15,7 +15,7 @@ import '@/styles/globals.css';
 // own `robots` field would otherwise replace this one silently; the default
 // here is what covers /_not-found and anything added without metadata.
 export const metadata: Metadata = {
-  title: 'ReserveChain.io — Tokenized Industrial Metals (In Development)',
+  title: 'OpenRWA.io — Tokenized Industrial Metals (In Development)',
   description: 'Institutional infrastructure for tokenized industrial-metal reserves. In development — no tokens are offered or sold.',
   ...(siteUrl() ? { metadataBase: new URL(siteUrl()!) } : {}),
   robots: robotsFor(''),

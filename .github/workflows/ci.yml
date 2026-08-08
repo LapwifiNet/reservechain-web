@@ -91,7 +91,7 @@ jobs:
       # Build-time only: `payload build` loads the config, which reads these.
       # Deliberately three distinct values — the CMS refuses to start when
       # PAYLOAD_SECRET matches either API secret.
-      DATABASE_URI: postgresql://user:password@localhost:5432/reservechain_cms
+      DATABASE_URI: postgresql://user:password@localhost:5432/openrwa_cms
       PAYLOAD_SECRET: ci-cms-secret-at-least-32-characters-long
     steps:
       - uses: actions/checkout@v4
