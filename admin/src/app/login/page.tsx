@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { LoginForm } from "@/components/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Sign in \u2014 ReserveChain Admin",
+  title: "Sign in \u2014 OpenRWA Admin",
 };
 
 export default function LoginPage() {
@@ -14,7 +14,7 @@ export default function LoginPage() {
           <span className="h-9 w-9 rounded-md bg-gradient-to-br from-copper to-nickel" />
           <div>
             <div className="text-base font-semibold leading-none">
-              ReserveChain
+              OpenRWA
             </div>
             <div className="mt-1 text-xs text-text-2">Admin Console</div>
           </div>

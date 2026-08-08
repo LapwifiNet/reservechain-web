@@ -1,4 +1,4 @@
-# ReserveChain public website (Next.js 14 App Router).
+# OpenRWA public website (Next.js 14 App Router).
 # Multi-stage: deps -> builder -> runner. The runner ships only the standalone
 # server bundle, so it does not carry the full node_modules tree.
 FROM node:20-alpine AS deps

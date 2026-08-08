@@ -39,7 +39,7 @@ permissions:
 
 env:
   AWS_REGION: eu-central-1
-  ECR_NAMESPACE: reservechain
+  ECR_NAMESPACE: openrwa
 
 jobs:
   build:

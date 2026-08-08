@@ -12,7 +12,7 @@ app.get("/", (_req, res) => {
 
 // Lightweight liveness probe for infra health checks.
 app.get("/health", (_req, res) => {
-  res.status(200).json({ status: "ok", service: "reservechain-cms" });
+  res.status(200).json({ status: "ok", service: "openrwa-cms" });
 });
 
 const start = async (): Promise<void> => {
@@ -20,14 +20,14 @@ const start = async (): Promise<void> => {
     secret: resolvePayloadSecret(),
     express: app,
     onInit: (cms) => {
-      cms.logger.info(`ReserveChain CMS admin: ${cms.getAdminURL()}`);
+      cms.logger.info(`OpenRWA CMS admin: ${cms.getAdminURL()}`);
     },
   });
 
   const port = Number(process.env.PORT) || 3001;
   app.listen(port, () => {
     payload.logger.info(
-      `ReserveChain CMS listening on http://localhost:${port}`,
+      `OpenRWA CMS listening on http://localhost:${port}`,
     );
   });
 };

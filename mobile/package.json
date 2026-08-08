@@ -1,5 +1,5 @@
 {
-  "name": "reservechain-mobile",
+  "name": "openrwa-mobile",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "private": true,
@@ -35,5 +35,5 @@
     "typescript": "~5.3.3"
   },
   "license": "Apache-2.0",
-  "description": "ReserveChain mobile app (Expo SDK 51, iOS + Android). Testnet only; nothing is offered or sold."
+  "description": "OpenRWA mobile app (Expo SDK 51, iOS + Android). Testnet only; nothing is offered or sold."
 }

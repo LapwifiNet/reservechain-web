@@ -1,6 +1,6 @@
-# ReserveChain P4 wallet and key-management artifacts
+# OpenRWA P4 wallet and key-management artifacts
 
-This directory contains documentation and configuration templates for the ReserveChain P4 wallet,
+This directory contains documentation and configuration templates for the OpenRWA P4 wallet,
 treasury, multisig, and key-management workflow.
 
 ## Contents

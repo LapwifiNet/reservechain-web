@@ -1,6 +1,6 @@
-# ReserveChain — ERC-20 Smart Contract Suite (P3)
+# OpenRWA — ERC-20 Smart Contract Suite (P3)
 
-Configurable ERC-20 for the ReserveChain industrial-metals RWA platform, built with
+Configurable ERC-20 for the OpenRWA industrial-metals RWA platform, built with
 **Solidity + Foundry + OpenZeppelin v5**. **Testnet only** until written authorization
 (Build Plan P20). All token parameters are illustrative and configured at deploy time.
 
@@ -23,10 +23,10 @@ Configurable ERC-20 for the ReserveChain industrial-metals RWA platform, built w
 
 ```
 contracts/
-  src/ReserveChainToken.sol      # the token
+  src/OpenRWAToken.sol      # the token
   script/Deploy.s.sol            # testnet deploy (mainnet blocked)
   script/GrantRoles.s.sol        # dev/testnet role grants
-  test/ReserveChainToken.t.sol   # Foundry test suite
+  test/OpenRWAToken.t.sol   # Foundry test suite
   config/tokenomics.example.json # illustrative tokenomics config
   foundry.toml / remappings.txt / .env.example
 ```

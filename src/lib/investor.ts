@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-export const INVESTOR_COOKIE = "rc_investor";
+export const INVESTOR_COOKIE = "orwa_participant";
 
 // Backend base URL. Reuses the same env the waitlist wiring uses.
 export const API_BASE =

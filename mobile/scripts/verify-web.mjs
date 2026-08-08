@@ -29,7 +29,7 @@ try {
 
   // 01 home smoke
   const bodyText = () => page.evaluate(() => document.body.innerText);
-  ok('01 renders', await page.locator('text=ReserveChain').first().isVisible().catch(() => false));
+  ok('01 renders', await page.locator('text=OpenRWA').first().isVisible().catch(() => false));
   ok('01 verbatim disclosure', (await bodyText()).includes('No tokens are being offered or sold'));
   for (const id of ['btn-programs', 'btn-waitlist', 'btn-investor']) {
     ok(`01 ${id}`, await page.locator(`[data-testid="${id}"]`).isVisible().catch(() => false));

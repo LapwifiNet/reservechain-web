@@ -23,7 +23,7 @@ export default buildConfig({
     user: Users.slug,
     bundler: webpackBundler(),
     meta: {
-      titleSuffix: "\u00b7 ReserveChain CMS",
+      titleSuffix: "\u00b7 OpenRWA CMS",
       favicon: "/favicon.ico",
     },
   },

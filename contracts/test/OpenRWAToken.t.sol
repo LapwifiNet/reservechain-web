@@ -2,10 +2,10 @@
 pragma solidity ^0.8.24;
 
 import { Test } from "forge-std/Test.sol";
-import { ReserveChainToken } from "../src/ReserveChainToken.sol";
+import { OpenRWAToken } from "../src/OpenRWAToken.sol";
 
-contract ReserveChainTokenTest is Test {
-    ReserveChainToken internal token;
+contract OpenRWATokenTest is Test {
+    OpenRWAToken internal token;
 
     address internal admin;
     address internal treasury;
@@ -26,7 +26,7 @@ contract ReserveChainTokenTest is Test {
         alice = makeAddr("alice");
         bob = makeAddr("bob");
 
-        token = new ReserveChainToken("ReserveChain Metals Token", "RCM", CAP, admin, treasury, 0);
+        token = new OpenRWAToken("OpenRWA Tokens Token", "ORWA", CAP, admin, treasury, 0);
 
         vm.startPrank(admin);
         token.grantRole(token.MINTER_ROLE(), minter);
@@ -36,8 +36,8 @@ contract ReserveChainTokenTest is Test {
     }
 
     function test_Metadata() public {
-        assertEq(token.name(), "ReserveChain Metals Token");
-        assertEq(token.symbol(), "RCM");
+        assertEq(token.name(), "OpenRWA Tokens Token");
+        assertEq(token.symbol(), "ORWA");
         assertEq(token.decimals(), 18);
         assertEq(token.cap(), CAP);
         assertEq(token.treasury(), treasury);
@@ -109,7 +109,7 @@ contract ReserveChainTokenTest is Test {
         token.approve(redeemer, 100 ether);
 
         vm.prank(redeemer);
-        vm.expectRevert(bytes("ReserveChain: redemption inactive"));
+        vm.expectRevert(bytes("OpenRWA: redemption inactive"));
         token.redemptionBurn(alice, 50 ether, keccak256("REF-1"));
     }
 

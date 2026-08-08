@@ -38,7 +38,7 @@ export default function Documents() {
         <Card key={key}>
           <Pressable
             onPress={() =>
-              Linking.openURL(`https://reservechain.io/${locale}/${slug}`)
+              Linking.openURL(`https://openrwa.example/${locale}/${slug}`)
             }
             accessibilityRole="link"
           >

@@ -275,7 +275,7 @@ gap: EnquiryForm slot + API POST /api/enquiries đã có; admin console đã ren
 - id: SC-CMS-LOGIN
   route: admin /login
   status: partial
-  gap: có httpOnly cookie rc_session 12h + RBAC backend; không có MFA
+  gap: có httpOnly cookie orwa_session 12h + RBAC backend; không có MFA
 
 - id: SC-CMS-DASH
   route: admin /

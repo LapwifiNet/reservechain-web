@@ -5,7 +5,7 @@ import { NON_INDEXABLE_ROUTES } from '@/lib/routes';
  * Canonical origin of the site, or null when it is not configured.
  *
  * There is deliberately no default. The overlay this replaces fell back to
- * `https://reservechain.io` — a domain this project has not deployed and does
+ * `https://openrwa.example` — a domain this project has not deployed and does
  * not control — which would have emitted canonical tags, hreflang alternates,
  * Open Graph URLs and a sitemap host all pointing at it. A wrong canonical is
  * worse than a missing one: it tells a crawler the real page lives elsewhere.

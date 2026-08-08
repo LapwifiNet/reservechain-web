@@ -1,4 +1,4 @@
-# ReserveChain — Mobile (iOS + Android, React Native / Expo)
+# OpenRWA — Mobile (iOS + Android, React Native / Expo)
 
 > ## Status: RUNS ON AN ANDROID EMULATOR — NO RELEASE BINARY
 >
@@ -110,7 +110,7 @@ eas build --platform ios
 eas build --platform android
 ```
 
-iOS bundle id / Android package: `io.reservechain.app`.
+iOS bundle id / Android package: `io.openrwa.app`.
 
 `eas.json` defines development, preview and production profiles and contains no
 project id, no Apple team id and no Google service-account reference. Those are

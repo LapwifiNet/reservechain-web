@@ -4,7 +4,7 @@
 #
 # One workspace per environment; `environment` must match the selected
 # workspace. See README.md.
-project     = "reservechain"
+project     = "openrwa"
 environment = "staging"
 region      = "eu-central-1"
 

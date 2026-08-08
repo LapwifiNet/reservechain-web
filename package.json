@@ -1,9 +1,9 @@
 {
-  "name": "reservechain-web",
+  "name": "openrwa",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "ReserveChain.io — public website + waitlist (contest working draft, P1–P2)",
+  "description": "OpenRWA.io — public website + waitlist (contest working draft, P1–P2)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

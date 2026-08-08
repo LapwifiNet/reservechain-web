@@ -1,6 +1,6 @@
-# ReserveChain \u2014 Admin Console
+# OpenRWA \u2014 Admin Console
 
-Operational admin/CMS console for the ReserveChain industrial-metals RWA platform.
+Operational admin/CMS console for the OpenRWA industrial-metals RWA platform.
 Built with **Next.js 14 (App Router) + TypeScript + Tailwind**, dark-first institutional theme.
 
 It reads **live data** from the backend API (`/api/*`) \u2014 no mock data. Point it at a running

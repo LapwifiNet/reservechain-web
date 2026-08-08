@@ -10,7 +10,7 @@ import { getToken as storageGet, setToken as storageSet, deleteToken as storageD
 import { api } from "@/api/client";
 import type { Investor, InvestorStatus } from "@/api/types";
 
-const TOKEN_KEY = "rc_investor_token";
+const TOKEN_KEY = "orwa_participant_token";
 
 type AuthContextValue = {
   ready: boolean;

@@ -7,7 +7,7 @@ export function Topbar() {
   return (
     <header className="flex h-16 shrink-0 items-center justify-between border-b border-border bg-canvas/80 px-6 backdrop-blur">
       <div className="flex items-center gap-3">
-        <span className="font-semibold md:hidden">ReserveChain Admin</span>
+        <span className="font-semibold md:hidden">OpenRWA Admin</span>
         <span className="rounded-full bg-brand/15 px-2.5 py-1 text-xs text-brand">
           Environment: Sepolia Testnet
         </span>

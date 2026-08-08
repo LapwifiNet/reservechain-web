@@ -1,5 +1,5 @@
 /**
- * Thin client for the ReserveChain CMS (Payload) public API. Reads published
+ * Thin client for the OpenRWA CMS (Payload) public API. Reads published
  * Digital Asset Passports. Server-side only — do not import into client
  * components. Base URL defaults to the local CMS; override with CMS_API_BASE.
  *

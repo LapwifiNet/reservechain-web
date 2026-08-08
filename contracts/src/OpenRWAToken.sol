@@ -7,12 +7,12 @@ import { ERC20Pausable } from "@openzeppelin/contracts/token/ERC20/extensions/ER
 import { ERC20Capped } from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import { AccessControl } from "@openzeppelin/contracts/access/AccessControl.sol";
 
-/// @title ReserveChainToken
-/// @notice Configurable ERC-20 for the ReserveChain industrial-metals RWA platform.
+/// @title OpenRWAToken
+/// @notice Configurable ERC-20 for the OpenRWA industrial-metals RWA platform.
 /// @dev TESTNET ONLY until written authorization (P20). Name/symbol/cap/supply are
 ///      configured at deploy time and are ILLUSTRATIVE until the issuer confirms.
 ///      Admin roles are designed to be held by a Gnosis Safe multisig.
-contract ReserveChainToken is ERC20, ERC20Burnable, ERC20Pausable, ERC20Capped, AccessControl {
+contract OpenRWAToken is ERC20, ERC20Burnable, ERC20Pausable, ERC20Capped, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant REDEEMER_ROLE = keccak256("REDEEMER_ROLE");
@@ -36,8 +36,8 @@ contract ReserveChainToken is ERC20, ERC20Burnable, ERC20Pausable, ERC20Capped, 
         address treasury_,
         uint256 initialMint_
     ) ERC20(name_, symbol_) ERC20Capped(cap_) {
-        require(admin_ != address(0), "ReserveChain: admin is zero");
-        require(treasury_ != address(0), "ReserveChain: treasury is zero");
+        require(admin_ != address(0), "OpenRWA: admin is zero");
+        require(treasury_ != address(0), "OpenRWA: treasury is zero");
 
         treasury = treasury_;
         _grantRole(DEFAULT_ADMIN_ROLE, admin_);
@@ -68,7 +68,7 @@ contract ReserveChainToken is ERC20, ERC20Burnable, ERC20Pausable, ERC20Capped, 
 
     /// @notice Update the treasury address.
     function setTreasury(address newTreasury) external onlyRole(CONFIG_ROLE) {
-        require(newTreasury != address(0), "ReserveChain: treasury is zero");
+        require(newTreasury != address(0), "OpenRWA: treasury is zero");
         emit TreasuryUpdated(treasury, newTreasury);
         treasury = newTreasury;
     }
@@ -86,7 +86,7 @@ contract ReserveChainToken is ERC20, ERC20Burnable, ERC20Pausable, ERC20Capped, 
         external
         onlyRole(REDEEMER_ROLE)
     {
-        require(redemptionActive, "ReserveChain: redemption inactive");
+        require(redemptionActive, "OpenRWA: redemption inactive");
         _spendAllowance(from, _msgSender(), amount);
         _burn(from, amount);
         emit RedemptionBurn(from, amount, redemptionRef);

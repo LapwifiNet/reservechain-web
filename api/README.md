@@ -1,6 +1,6 @@
-# ReserveChain API (P9 — Auth + RBAC + KYC + Audit Log)
+# OpenRWA API (P9 — Auth + RBAC + KYC + Audit Log)
 
-NestJS + Prisma + PostgreSQL backend for ReserveChain. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, tamper-evident audit logging, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Four modules — Proof-of-Reserves, redemption, wallet linking and token purchase — are present but **inactive**: every route returns `501`.
+NestJS + Prisma + PostgreSQL backend for OpenRWA. Provides asset registry, Digital Asset Passport, waitlist, tokenomics, KYC case management, tamper-evident audit logging, and an admin dashboard aggregate — plus a **testnet-only** chain-sync worker. Four modules — Proof-of-Reserves, redemption, wallet linking and token purchase — are present but **inactive**: every route returns `501`.
 
 ## Requirements
 - Node 20+, Docker (for Postgres), and network access for `npm install`.
@@ -35,7 +35,7 @@ reads it from `SEED_ADMIN_PASSWORD`, or generates a random one and prints it onc
 # Login to get a token
 curl -X POST http://localhost:4000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"admin@reservechain.local","password":"<SEED_ADMIN_PASSWORD>"}'
+  -d '{"email":"admin@openrwa.local","password":"<SEED_ADMIN_PASSWORD>"}'
 
 # Use the token in subsequent requests
 curl http://localhost:4000/api/dashboard/stats \
@@ -47,9 +47,9 @@ The admin console uses a service token for authentication. Set `SERVICE_API_TOKE
 
 **Seeded admin users:**
 The seed script creates three admin users with emails:
-- `admin@reservechain.local` (role: admin)
-- `compliance@reservechain.local` (role: compliance)
-- `viewer@reservechain.local` (role: viewer)
+- `admin@openrwa.local` (role: admin)
+- `compliance@openrwa.local` (role: compliance)
+- `viewer@openrwa.local` (role: viewer)
 
 Passwords are read from environment variables or generated randomly:
 - `SEED_ADMIN_PASSWORD`: Password for admin user (optional, will generate if unset)

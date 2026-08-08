@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import { Script, console2 } from "forge-std/Script.sol";
-import { ReserveChainToken } from "../src/ReserveChainToken.sol";
+import { OpenRWAToken } from "../src/OpenRWAToken.sol";
 
 /// @notice Dev/testnet helper: grant operational roles to operator addresses.
 /// @dev On mainnet these grants are executed by the Gnosis Safe multisig
@@ -12,7 +12,7 @@ contract GrantRoles is Script {
         address tokenAddr = vm.envAddress("TOKEN_ADDRESS");
         address minter = vm.envAddress("MINTER_ADDRESS");
         address pauser = vm.envAddress("PAUSER_ADDRESS");
-        ReserveChainToken token = ReserveChainToken(tokenAddr);
+        OpenRWAToken token = OpenRWAToken(tokenAddr);
 
         uint256 pk = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(pk);

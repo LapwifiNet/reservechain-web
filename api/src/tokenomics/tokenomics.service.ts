@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { TokenomicsResponse } from './dto/tokenomics.response.dto';
 
 const FALLBACK = {
-  symbol: 'RCM',
+  symbol: 'ORWA',
   capIllustrative: '100000000',
   reserveRatio: '1:1',
   transferFee: '0',

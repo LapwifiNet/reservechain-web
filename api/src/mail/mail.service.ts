@@ -64,9 +64,9 @@ export class MailService {
           // Neutral, pre-launch-safe copy: no allocation, no investment,
           // no price, no reservation — mirrors CR-3 so the mail cannot
           // accidentally read as an offer.
-          subject: 'ReserveChain — registration received',
+          subject: 'OpenRWA — registration received',
           prelude:
-            'Thank you for registering your interest in ReserveChain. This confirms your registration; it does not constitute an investment, a token purchase, an asset reservation, a price reservation, an allocation of tokens or any entitlement to participate in a future offering.',
+            'Thank you for registering your interest in OpenRWA. This confirms your registration; it does not constitute an investment, a token purchase, an asset reservation, a price reservation, an allocation of tokens or any entitlement to participate in a future offering.',
         }),
         signal: AbortSignal.timeout(10_000),
       });

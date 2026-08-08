@@ -162,7 +162,7 @@ describe('The service token must not be able to write (KYC surface)', () => {
         .expect(201);
 
       expect(res.body.reviewedBy).toBe(REVIEWER_EMAIL);
-      expect(res.body.reviewedBy).not.toBe('service@reservechain');
+      expect(res.body.reviewedBy).not.toBe('service@openrwa');
 
       const stored = await prisma.kycCase.findUnique({ where: { id: caseId } });
       expect(stored?.reviewedBy).toBe(REVIEWER_EMAIL);

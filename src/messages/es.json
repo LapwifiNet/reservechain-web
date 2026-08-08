@@ -54,14 +54,14 @@
     "proposed": "El marco descrito en esta página es propuesto y se encuentra en desarrollo. Está sujeto a la confirmación final legal, corporativa, de custodia, de verificación de activos y técnica, y nada de lo aquí expuesto se presenta como operativo."
   },
   "disclosure": {
-    "label": "Aviso importante",
-    "full": "ReserveChain is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
+    "label": "Acerca de esta instancia",
+    "full": "OpenRWA es software de código abierto para documentar y tokenizar activos del mundo real. Esta instancia es un entorno de referencia: todos los activos, certificados, cifras y cuentas que se muestran son datos de ejemplo. Nada de lo aquí expuesto constituye una oferta, solicitud o invitación para adquirir nada, y el envío de un formulario no crea cuenta, derecho, prioridad, precio ni titularidad alguna. Quien ejecute este software en producción lo hace bajo su propia responsabilidad y su propia estructura legal: el proyecto aporta código, no custodia, verificación ni condición regulatoria.",
     "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website."
   },
   "home": {
     "kicker": "Metales Industriales Suizos · Tokenización RWA · En Desarrollo",
     "title": "Construyendo la Infraestructura para Metales Industriales Tokenizados",
-    "subtitle": "ReserveChain está desarrollando una plataforma institucional destinada a conectar activos de metales industriales documentados con infraestructura de tokenización digital, verificación, custodia y redención física. Los acuerdos corporativos, legales, de custodia, de verificación de activos y técnicos se están finalizando actualmente.",
+    "subtitle": "OpenRWA está desarrollando una plataforma institucional destinada a conectar activos de metales industriales documentados con infraestructura de tokenización digital, verificación, custodia y redención física. Los acuerdos corporativos, legales, de custodia, de verificación de activos y técnicos se están finalizando actualmente.",
     "note": "Estructura corporativa y de emisión suiza en desarrollo.",
     "cta": {
       "primary": "Unirse a la lista del proyecto",
@@ -81,7 +81,7 @@
       "model": {
         "kicker": "El Modelo Propuesto",
         "title": "Infraestructura institucional, no un lanzamiento de token",
-        "body": "ReserveChain está construyendo la capa de documentación, verificación y conciliación que debería existir antes de que una reserva de metal industrial pudiera representarse de forma creíble en cadena. Primero la evidencia; los tokens solo si la estructura los sostiene y cuando lo haga.",
+        "body": "OpenRWA está construyendo la capa de documentación, verificación y conciliación que debería existir antes de que una reserva de metal industrial pudiera representarse de forma creíble en cadena. Primero la evidencia; los tokens solo si la estructura los sostiene y cuando lo haga.",
         "items": [
           {
             "h": "Qué es",
@@ -108,7 +108,7 @@
           },
           {
             "h": "Verificar de forma independiente",
-            "p": "Análisis de laboratorio, inspección y revisión documental por partes independientes de ReserveChain."
+            "p": "Análisis de laboratorio, inspección y revisión documental por partes independientes de OpenRWA."
           },
           {
             "h": "Custodiar y asegurar",
@@ -157,7 +157,7 @@
           "Composición química y pureza determinadas por un laboratorio acreditado",
           "Características físicas medidas por programa: tamaño de partícula para el polvo, diámetro y temple para el alambre",
           "Identificadores de lote, contenedor y bobina conciliados con la documentación de respaldo",
-          "Verificación realizada por partes independientes de ReserveChain"
+          "Verificación realizada por partes independientes de OpenRWA"
         ]
       },
       "custody": {
@@ -248,7 +248,7 @@
         "items": [
           {
             "h": "¿Puedo comprar un token ahora?",
-            "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. Cualquier oferta de un token de ReserveChain es fraudulenta."
+            "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. Cualquier oferta de un token de OpenRWA es fraudulenta."
           },
           {
             "h": "¿Qué me aporta unirme a la lista de espera?",
@@ -297,7 +297,7 @@
       "fraud": {
         "kicker": "Antifraude",
         "title": "No existe ninguna venta de tokens",
-        "body": "Los proyectos en esta fase son objetivo de suplantación. ReserveChain nunca le pedirá nada de lo siguiente.",
+        "body": "Los proyectos en esta fase son objetivo de suplantación. OpenRWA nunca le pedirá nada de lo siguiente.",
         "items": [
           "Enviar criptomonedas o cualquier pago",
           "Conectar un monedero o aprobar una transacción",
@@ -381,7 +381,7 @@
     },
     "types": {
       "institution": "Institución",
-      "investor": "Inversor particular",
+      "participant": "Inversor particular",
       "partner": "Socio",
       "other": "Otro"
     },
@@ -389,7 +389,7 @@
   },
   "footer": {
     "tagline": "Infraestructura institucional para metales industriales tokenizados (en desarrollo).",
-    "rights": "© 2026 ReserveChain. Estructura corporativa suiza en desarrollo.",
+    "rights": "© 2026 OpenRWA. Estructura corporativa suiza en desarrollo.",
     "company": "Compañía",
     "engage": "Contacto",
     "legal": "Legal y divulgación"
@@ -403,7 +403,7 @@
   "page": {
     "how-it-works": {
       "kicker": "Modelo propuesto",
-      "title": "Cómo está previsto que funcione ReserveChain",
+      "title": "Cómo está previsto que funcione OpenRWA",
       "intro": "Esquema del modelo integral propuesto, desde la documentación de un lote de metal industrial hasta una representación tokenizada prevista y la redención física.",
       "s": [
         {
@@ -412,7 +412,7 @@
         },
         {
           "h": "2. Verificación independiente",
-          "p": "Está previsto que el análisis de laboratorio, la inspección física y la revisión documental sean realizados por partes independientes de ReserveChain antes de que cualquier registro se publique como verificado. Hasta que esa evidencia se aporte y apruebe, los registros permanecen marcados como pendientes de verificación."
+          "p": "Está previsto que el análisis de laboratorio, la inspección física y la revisión documental sean realizados por partes independientes de OpenRWA antes de que cualquier registro se publique como verificado. Hasta que esa evidencia se aporte y apruebe, los registros permanecen marcados como pendientes de verificación."
         },
         {
           "h": "3. Custodia y seguro",
@@ -435,7 +435,7 @@
     "verification": {
       "kicker": "Marco propuesto",
       "title": "Verificación de activos",
-      "intro": "El marco de verificación que ReserveChain pretende aplicar a los lotes de metales industriales antes de que cualquier registro se publique como verificado.",
+      "intro": "El marco de verificación que OpenRWA pretende aplicar a los lotes de metales industriales antes de que cualquier registro se publique como verificado.",
       "s": [
         {
           "h": "Qué está previsto que cubra la verificación",
@@ -450,7 +450,7 @@
         },
         {
           "h": "Partes independientes",
-          "p": "Está previsto que la verificación la realicen laboratorios y organismos de inspección independientes de ReserveChain. ReserveChain no realiza análisis de laboratorio, no emite certificados de análisis y no expresa opinión sobre los resultados de ninguna evaluación de terceros."
+          "p": "Está previsto que la verificación la realicen laboratorios y organismos de inspección independientes de OpenRWA. OpenRWA no realiza análisis de laboratorio, no emite certificados de análisis y no expresa opinión sobre los resultados de ninguna evaluación de terceros."
         },
         {
           "h": "Control de publicación",
@@ -465,7 +465,7 @@
     "custody": {
       "kicker": "Marco propuesto",
       "title": "Estructura de custodia",
-      "intro": "Los acuerdos de custodia, almacenamiento y seguro que ReserveChain pretende establecer para los lotes de metales industriales documentados.",
+      "intro": "Los acuerdos de custodia, almacenamiento y seguro que OpenRWA pretende establecer para los lotes de metales industriales documentados.",
       "s": [
         {
           "h": "Modelo de custodia previsto",
@@ -485,7 +485,7 @@
         },
         {
           "h": "Segregación",
-          "p": "Está previsto que los lotes custodiados se mantengan separados de los activos operativos de cualquier entidad de ReserveChain, de modo que el inventario registrado pueda conciliarse con independencia del balance del emisor."
+          "p": "Está previsto que los lotes custodiados se mantengan separados de los activos operativos de cualquier entidad de OpenRWA, de modo que el inventario registrado pueda conciliarse con independencia del balance del emisor."
         },
         {
           "h": "Estado actual",
@@ -516,7 +516,7 @@
         },
         {
           "h": "Certificación",
-          "p": "ReserveChain no describe los datos de reserva como verificados de forma independiente en ausencia de una certificación emitida por un tercero cualificado. No se ha designado ningún certificador ni se ha obtenido certificación alguna."
+          "p": "OpenRWA no describe los datos de reserva como verificados de forma independiente en ausencia de una certificación emitida por un tercero cualificado. No se ha designado ningún certificador ni se ha obtenido certificación alguna."
         },
         {
           "h": "Estado actual",
@@ -544,7 +544,7 @@
     "industrial-metal-assets": {
       "kicker": "Programas de activos",
       "title": "Activos de metales industriales",
-      "intro": "Los programas iniciales de ReserveChain cubren polvo de cobre y alambre de níquel de alta pureza, documentados e identificados a nivel de unidad individual.",
+      "intro": "Los programas iniciales de OpenRWA cubren polvo de cobre y alambre de níquel de alta pureza, documentados e identificados a nivel de unidad individual.",
       "s": [
         {
           "h": "Programa de Polvo de Cobre",
@@ -670,7 +670,7 @@
         },
         {
           "h": "Sin autorización regulatoria",
-          "p": "ReserveChain no posee, ni afirma poseer, autorización, licencia o registro regulatorio alguno. Este sitio web no está dirigido a residentes de la Unión Europea o del Espacio Económico Europeo y no constituye comercialización de un criptoactivo conforme a MiCA."
+          "p": "OpenRWA no posee, ni afirma poseer, autorización, licencia o registro regulatorio alguno. Este sitio web no está dirigido a residentes de la Unión Europea o del Espacio Económico Europeo y no constituye comercialización de un criptoactivo conforme a MiCA."
         },
         {
           "h": "Estado actual",
@@ -708,7 +708,7 @@
     "contact": {
       "kicker": "Contacto",
       "title": "Contacto",
-      "intro": "Cómo contactar con el proyecto durante el desarrollo y cómo confirmar que una comunicación procede realmente de ReserveChain.",
+      "intro": "Cómo contactar con el proyecto durante el desarrollo y cómo confirmar que una comunicación procede realmente de OpenRWA.",
       "s": [
         {
           "h": "Consultas generales y del proyecto",
@@ -724,14 +724,14 @@
         },
         {
           "h": "Verifica primero los canales oficiales",
-          "p": "Antes de actuar ante cualquier comunicación que aparente proceder de ReserveChain, consulta el Directorio de Canales Oficiales. ReserveChain no opera ventas de tokens, preventas, canales de pago ni solicitudes de conexión de monedero de ningún tipo, y nunca pedirá una frase semilla ni una clave privada."
+          "p": "Antes de actuar ante cualquier comunicación que aparente proceder de OpenRWA, consulta el Directorio de Canales Oficiales. OpenRWA no opera ventas de tokens, preventas, canales de pago ni solicitudes de conexión de monedero de ningún tipo, y nunca pedirá una frase semilla ni una clave privada."
         }
       ]
     },
     "about": {
       "kicker": "Acerca de",
-      "title": "Acerca de ReserveChain",
-      "intro": "ReserveChain está desarrollando infraestructura institucional destinada a representar reservas documentadas de metales industriales como tokens en cadena, acompañadas de documentación transparente del activo.",
+      "title": "Acerca de OpenRWA",
+      "intro": "OpenRWA está desarrollando infraestructura institucional destinada a representar reservas documentadas de metales industriales como tokens en cadena, acompañadas de documentación transparente del activo.",
       "s": [
         {
           "h": "Qué se está construyendo",
@@ -843,7 +843,7 @@
       "s": [
         {
           "h": "¿Puedo comprar un token ahora?",
-          "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. No hay preventa, ni asignación, ni precio. Cualquier comunicación que le ofrezca un token de ReserveChain debe considerarse fraudulenta."
+          "p": "No. No se ha emitido ningún token y no se ofrece ni se vende ninguno a través de este sitio web. No hay preventa, ni asignación, ni precio. Cualquier comunicación que le ofrezca un token de OpenRWA debe considerarse fraudulenta."
         },
         {
           "h": "¿Qué me aporta unirme a la lista de espera?",
@@ -855,7 +855,7 @@
         },
         {
           "h": "¿Existe una dirección de contrato inteligente?",
-          "p": "No se publica ninguna dirección de contrato en este sitio web. La suite de contratos se ejercita únicamente en una testnet pública. No debe confiarse en ninguna dirección presentada en otro lugar como contrato oficial de ReserveChain."
+          "p": "No se publica ninguna dirección de contrato en este sitio web. La suite de contratos se ejercita únicamente en una testnet pública. No debe confiarse en ninguna dirección presentada en otro lugar como contrato oficial de OpenRWA."
         },
         {
           "h": "¿Está el metal realmente bajo custodia?",
@@ -933,7 +933,7 @@
       "s": [
         {
           "h": "Quién es responsable",
-          "p": "El responsable será la entidad emisora de ReserveChain una vez finalizada la estructura corporativa. Hasta entonces, los datos personales facilitados a través de este sitio web son tratados por el equipo responsable del desarrollo de la plataforma. Esta sección se actualizará con los datos definitivos de la entidad."
+          "p": "El responsable será la entidad emisora de OpenRWA una vez finalizada la estructura corporativa. Hasta entonces, los datos personales facilitados a través de este sitio web son tratados por el equipo responsable del desarrollo de la plataforma. Esta sección se actualizará con los datos definitivos de la entidad."
         },
         {
           "h": "Qué datos se recogen",
@@ -945,7 +945,7 @@
         },
         {
           "h": "Datos de pago y monedero",
-          "p": "En esta fase no se solicita, recoge ni acepta información de pago, dirección de monedero, clave privada ni frase semilla a través de este sitio web. Cualquier solicitud de esa información que aparente proceder de ReserveChain debe considerarse fraudulenta."
+          "p": "En esta fase no se solicita, recoge ni acepta información de pago, dirección de monedero, clave privada ni frase semilla a través de este sitio web. Cualquier solicitud de esa información que aparente proceder de OpenRWA debe considerarse fraudulenta."
         },
         {
           "h": "Comunicación de datos",
@@ -1015,7 +1015,7 @@
         },
         {
           "h": "Uso aceptable",
-          "p": "Se compromete a no hacer un uso indebido de este sitio web, incluyendo el intento de acceso no autorizado, el envío de información falsa por sus formularios, la interferencia en su funcionamiento o la suplantación de ReserveChain o de cualquiera de sus representantes."
+          "p": "Se compromete a no hacer un uso indebido de este sitio web, incluyendo el intento de acceso no autorizado, el envío de información falsa por sus formularios, la interferencia en su funcionamiento o la suplantación de OpenRWA o de cualquiera de sus representantes."
         },
         {
           "h": "Propiedad intelectual",
@@ -1108,14 +1108,14 @@
     "anti-fraud": {
       "kicker": "Legal",
       "title": "Antifraude y antisuplantación",
-      "intro": "Cómo reconocer comunicaciones fraudulentas que dicen representar a ReserveChain y qué es lo que el proyecto nunca le pedirá.",
+      "intro": "Cómo reconocer comunicaciones fraudulentas que dicen representar a OpenRWA y qué es lo que el proyecto nunca le pedirá.",
       "s": [
         {
           "h": "No existe venta de tokens",
-          "p": "No se ha emitido ningún token y ReserveChain no ofrece ni vende token, preventa, asignación, plaza en lista blanca ni descuento alguno. Cualquier oferta de estos elementos es fraudulenta, por convincente que parezca."
+          "p": "No se ha emitido ningún token y OpenRWA no ofrece ni vende token, preventa, asignación, plaza en lista blanca ni descuento alguno. Cualquier oferta de estos elementos es fraudulenta, por convincente que parezca."
         },
         {
-          "h": "Lo que ReserveChain nunca hará",
+          "h": "Lo que OpenRWA nunca hará",
           "p": "Considere cualquiera de los siguientes hechos como prueba concluyente de fraude.",
           "li": [
             "Pedirle su frase semilla, clave privada o contraseña de monedero",
@@ -1136,14 +1136,14 @@
         },
         {
           "h": "Si le contactan",
-          "p": "No envíe fondos, no conecte un monedero y no comparta documentos. Comunique la comunicación por la vía de contacto de este sitio web e infórmelo a la autoridad competente de su jurisdicción. ReserveChain no puede recuperar fondos enviados a un tercero fraudulento."
+          "p": "No envíe fondos, no conecte un monedero y no comparta documentos. Comunique la comunicación por la vía de contacto de este sitio web e infórmelo a la autoridad competente de su jurisdicción. OpenRWA no puede recuperar fondos enviados a un tercero fraudulento."
         }
       ]
     },
     "official-channels": {
       "kicker": "Legal",
       "title": "Directorio de canales oficiales",
-      "intro": "La lista definitiva de canales operados por el proyecto. Todo lo que no figure aquí no está operado por ReserveChain.",
+      "intro": "La lista definitiva de canales operados por el proyecto. Todo lo que no figure aquí no está operado por OpenRWA.",
       "s": [
         {
           "h": "Sitio web",
@@ -1151,7 +1151,7 @@
         },
         {
           "h": "Canales aún no establecidos",
-          "p": "En esta fase no se han establecido canales oficiales de redes sociales, mensajería ni comunidad. Dado que no existe ninguno, cualquier cuenta, grupo o canal que se presente como comunidad oficial de ReserveChain no es auténtico."
+          "p": "En esta fase no se han establecido canales oficiales de redes sociales, mensajería ni comunidad. Dado que no existe ninguno, cualquier cuenta, grupo o canal que se presente como comunidad oficial de OpenRWA no es auténtico."
         },
         {
           "h": "Correo electrónico",
@@ -1269,7 +1269,7 @@
     },
     "waitlist": "Registro en lista de espera",
     "waitlistNone": "Aún no estás en la lista de espera.",
-    "investorType": "Tipo de inversor",
+    "participantType": "Tipo de inversor",
     "organization": "Organización",
     "interest": "Área de interés",
     "joined": "Registrado",

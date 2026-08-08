@@ -22,7 +22,7 @@ async function bootstrap() {
   const port = Number(process.env.PORT ?? 4000);
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`ReserveChain API listening on :${port}/api`);
+  console.log(`OpenRWA API listening on :${port}/api`);
 }
 
 bootstrap();

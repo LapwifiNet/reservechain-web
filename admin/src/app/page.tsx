@@ -40,7 +40,7 @@ export default async function OverviewPage() {
     <div className="space-y-6">
       <PageHeader
         title="Overview"
-        subtitle="Live operational metrics from the ReserveChain backend (testnet)."
+        subtitle="Live operational metrics from the OpenRWA backend (testnet)."
       />
       {error && <ApiErrorBanner error={error} />}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

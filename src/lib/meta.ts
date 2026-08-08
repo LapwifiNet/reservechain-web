@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { alternatesFor, robotsFor, siteUrl } from '@/lib/seo';
 
-const SITE_NAME = 'ReserveChain.io';
+const SITE_NAME = 'OpenRWA.io';
 
 /**
  * Per-page SEO metadata sourced from the same message namespace the page
@@ -22,7 +22,7 @@ export function pageMetadata(ns: string, routeFor?: string) {
     const { locale } = props.params;
     const t = await getTranslations({ locale, namespace: `page.${ns}` });
     return {
-      title: `${t('title')} | ReserveChain.io`,
+      title: `${t('title')} | OpenRWA.io`,
       description: t('intro'),
       ...routeMetadata(route, locale),
     };

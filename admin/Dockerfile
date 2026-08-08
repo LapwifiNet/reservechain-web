@@ -1,4 +1,4 @@
-# ReserveChain admin console (Next.js 14 App Router).
+# OpenRWA admin console (Next.js 14 App Router).
 # Reads the API server-side only; no API credentials reach the browser.
 FROM node:20-alpine AS deps
 WORKDIR /app

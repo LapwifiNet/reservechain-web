@@ -35,7 +35,7 @@ const STATE_CHANGING_METHODS = new Set(['POST', 'PATCH', 'PUT', 'DELETE']);
  * RolesGuard compares only `role`, and the service principal carries
  * Role.ADMIN — without it, the shared token would satisfy every `@Roles(...)`
  * check in the codebase and every write would be attributed to
- * `service@reservechain` instead of a named operator.
+ * `service@openrwa` instead of a named operator.
  *
  * The admin signing key is read from ConfigService and passed explicitly to
  * verifyAsync, never inherited from the injected JwtService's configuration.
@@ -80,7 +80,7 @@ export class JwtAuthGuard implements CanActivate {
         if (match) {
           this.assertServicePrincipalMayProceed(ctx, req);
           req.user = {
-            email: 'service@reservechain',
+            email: 'service@openrwa',
             role: Role.ADMIN,
             service: true,
           };

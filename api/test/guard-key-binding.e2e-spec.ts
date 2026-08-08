@@ -94,7 +94,7 @@ describe('Guards bind their own signing key at every mount point', () => {
       async (_module, method, path) => {
         const forged = await sign(investorSecret, {
           sub: 'forged',
-          email: 'admin@reservechain.local',
+          email: 'admin@openrwa.local',
           role: 'ADMIN',
           typ: 'admin',
         });
