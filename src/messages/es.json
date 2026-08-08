@@ -54,8 +54,8 @@
     "proposed": "El marco descrito en esta página es propuesto y se encuentra en desarrollo. Está sujeto a la confirmación final legal, corporativa, de custodia, de verificación de activos y técnica, y nada de lo aquí expuesto se presenta como operativo."
   },
   "disclosure": {
-    "label": "Aviso importante",
-    "full": "OpenRWA is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
+    "label": "Acerca de esta instancia",
+    "full": "OpenRWA es software de código abierto para documentar y tokenizar activos del mundo real. Esta instancia es un entorno de referencia: todos los activos, certificados, cifras y cuentas que se muestran son datos de ejemplo. Nada de lo aquí expuesto constituye una oferta, solicitud o invitación para adquirir nada, y el envío de un formulario no crea cuenta, derecho, prioridad, precio ni titularidad alguna. Quien ejecute este software en producción lo hace bajo su propia responsabilidad y su propia estructura legal: el proyecto aporta código, no custodia, verificación ni condición regulatoria.",
     "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website."
   },
   "home": {

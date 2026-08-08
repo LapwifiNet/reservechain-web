@@ -47,16 +47,16 @@
   },
   "notice": {
     "provisionalLabel": "Provisional information",
-    "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website.",
+    "provisional": "All data shown on this website is sample data for reference purposes. Nothing on this site is an offer, solicitation or invitation to acquire any token, asset or financial instrument. Any production deployment is the operator's own responsibility.",
     "draftLabel": "Draft document",
-    "draft": "This document is a working draft prepared during development. It has not yet been reviewed or approved by legal counsel and does not constitute legal advice. It will be replaced by a definitive version once the corporate and legal structure is finalized.",
+    "draft": "This document is a working draft prepared during development of the reference software. It has not been reviewed by legal counsel and does not constitute legal advice. An operator deploying in production should conduct their own independent review.",
     "proposedLabel": "Proposed framework",
-    "proposed": "The framework described on this page is proposed and in development. It is subject to final legal, corporate, custody, asset-verification and technical confirmation, and nothing on this page is presented as operational."
+    "proposed": "The framework described on this page is proposed and in development as part of the reference software. It is subject to legal, corporate, custody, asset-verification and technical confirmation by any operator deploying it, and nothing on this page is presented as operational."
   },
   "disclosure": {
-    "label": "Important notice",
-    "full": "OpenRWA is currently in development. No tokens are being offered or sold through this website. Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. Any future availability will be subject to the final legal and corporate structure, definitive offering documentation, asset verification, jurisdictional eligibility, KYC/KYB, sanctions screening and approval.",
-    "provisional": "Preliminary illustrative information only — subject to documentary verification, independent assessment and final approval. No asset or token is currently offered for sale through this website."
+    "label": "About this deployment",
+    "full": "OpenRWA is open-source software for documenting and tokenizing real-world assets. This deployment is a reference environment: every asset, certificate, figure and account shown is sample data. Nothing here is an offer, solicitation or invitation to acquire anything, and submitting a form creates no account, claim, priority, price or entitlement of any kind. Anyone running this software in production does so on their own responsibility and under their own legal structure — the project supplies code, not custody, verification or regulatory standing.",
+    "provisional": "This deployment shows sample data only. Nothing on this site constitutes an offer or solicitation. Operators deploying in production are responsible for their own disclosures."
   },
   "home": {
     "kicker": "Industrial Metals · RWA Tokenization · In Development",
@@ -364,7 +364,7 @@
       "type": "Participant type",
       "typePlaceholder": "Select one…"
     },
-    "eligibilityNotice": "Eligibility Notice: Registration of interest does not constitute an investment, token purchase, asset reservation, price reservation, allocation of tokens or entitlement to participate in any future offering. No wallet connection or payment is required or permitted at this stage.",
+    "eligibilityNotice": "Eligibility Notice: This form registers interest only. It is not an investment, purchase, reservation, allocation or entitlement of any kind. No wallet connection or payment is required or permitted at this stage. Any operator running this software in production sets their own eligibility criteria.",
     "c": {
       "notInvestment": "I understand that registration does not constitute an investment or reservation.",
       "notRestricted": "I am not located in a restricted jurisdiction.",
